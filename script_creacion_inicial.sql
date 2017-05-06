@@ -104,10 +104,9 @@ go
 
 INSERT INTO [GARBAGE].RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 (
-	SELECT R.rol_id , U.usu_id
+	SELECT R.rol_id , S.usu_id
 	FROM [GARBAGE].Usuario S 
 	JOIN [GARBAGE].Rol R ON S.usu_username = 'admin' AND R.rol_nombre = 'Administrador'
 )
 GO
 
--- NOTA: Probar que ande 
