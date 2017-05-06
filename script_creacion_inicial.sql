@@ -15,8 +15,8 @@ GO
 
 create table [GARBAGE].Rol(
 	rol_id numeric(18,0) primary key identity(0,1),
-	rol_nombre nvarchar(255) unique NOT NULL,
-	rol_activo bit default 1 NOT NULL
+	rol_nombre nvarchar(255) unique not null,
+	rol_activo bit default 1 not null
 )
 go
 
@@ -55,8 +55,8 @@ go
 **************************************/
 
 create table [GARBAGE].FuncionalidadxRol(
-	func_rol_rol_id numeric(18,0) foreign key references [GARBAGE].Rol(rol_id) NOT NULL,
-	func_rol_func_id numeric(18,0) foreign key references [GARBAGE].Funcionalidad(func_id) NOT NULL
+	func_rol_rol_id numeric(18,0) foreign key references [GARBAGE].Rol(rol_id) not null,
+	func_rol_func_id numeric(18,0) foreign key references [GARBAGE].Funcionalidad(func_id) not null
 	primary key(func_rol_rol_id, func_rol_func_id)
 )
 go
@@ -69,27 +69,27 @@ go
 -- Agregar el usuario "admin" y pass "w23e"
 -- perfil Administrador
 
-CREATE TABLE [GARBAGE].Usuario(
+create table [GARBAGE].Usuario(
 	usu_id numeric(18,0) primary key identity (0,1),
-	usu_username nvarchar(255) unique NOT NULL,
-	usu_password nvarchar(255) NOT NULL,
-	usu_activo bit default 1 NOT NULL,
-	usu_intentos numeric(1,0) default 0 NOT NULL)
-GO
+	usu_username nvarchar(255) unique not null,
+	usu_password nvarchar(255) not null,
+	usu_activo bit default 1 not null,
+	usu_intentos numeric(1,0) default 0 not null)
+go
 
 -- Buscar cual seria la contrasela w23e en este hash
 
-DECLARE @hash binary(32)
-SET @hash =  CONVERT(binary(32),'0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1)
+declare @hash binary(32)
+set @hash = convert(binary(32),'0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1)
 
-INSERT INTO [GARBAGE].Usuario(usu_username,usu_password)
-VALUES
+insert into [GARBAGE].Usuario(usu_username,usu_password)
+values
 	('admin', @hash),
 	('david', @hash),
 	('fede', @hash),
 	('nico', @hash),
 	('fer', @hash)
-GO
+go
 
 /**************************************
 			ROL POR USUARIO
@@ -102,11 +102,11 @@ create table [GARBAGE].RolxUsuario(
 )
 go
 
-INSERT INTO [GARBAGE].RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
+insert into [GARBAGE].RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 (
-	SELECT R.rol_id , S.usu_id
-	FROM [GARBAGE].Usuario S 
-	JOIN [GARBAGE].Rol R ON S.usu_username = 'admin' AND R.rol_nombre = 'Administrador'
+	select R.rol_id , S.usu_id
+	from [GARBAGE].Usuario S 
+	join [GARBAGE].Rol R on S.usu_username = 'admin' and R.rol_nombre = 'Administrador'
 )
-GO
+go
 
