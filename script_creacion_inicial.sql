@@ -14,7 +14,7 @@ GO
 **************************************/
 
 create table [GARBAGE].Rol(
-	rol_id numeric(18,0) primary key identity(0,1),
+	rol_id numeric(18,0) primary key identity(1,1),
 	rol_nombre nvarchar(255) unique not null,
 	rol_activo bit default 1 not null
 )
@@ -32,7 +32,7 @@ go
 **************************************/
 
 create table [GARBAGE].Funcionalidad(
-	func_id numeric(18,0) primary key identity(0,1),
+	func_id numeric(18,0) primary key identity(1,1),
 	func_descripcion nvarchar(255) unique not null
 )
 GO
@@ -70,7 +70,7 @@ go
 -- perfil Administrador
 
 create table [GARBAGE].Usuario(
-	usu_id numeric(18,0) primary key identity (0,1),
+	usu_id numeric(18,0) primary key identity (1,1),
 	usu_username nvarchar(255) unique not null,
 	usu_password nvarchar(255) not null,
 	usu_activo bit default 1 not null,
@@ -106,7 +106,7 @@ insert into [GARBAGE].RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 (
 	select R.rol_id , S.usu_id
 	from [GARBAGE].Usuario S 
-	join [GARBAGE].Rol R on S.usu_username = 'admin' and R.rol_nombre = 'Administrador'
+	join [GARBAGE].Rol R on R.rol_nombre = 'Administrador'
 )
 go
 
