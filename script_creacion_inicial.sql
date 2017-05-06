@@ -96,8 +96,8 @@ go
 **************************************/
 
 create table [GARBAGE].RolxUsuario(
-	rol_usu_rol_id numeric(18,0) foreign key references [GARBAGE].Rol(rol_id) NOT NULL,
-	rol_usu_usu_id numeric(18,0) foreign key references [GARBAGE].Usuario(usu_id) NOT NULL
+	rol_usu_rol_id numeric(18,0) foreign key references [GARBAGE].Rol(rol_id) not null,
+	rol_usu_usu_id numeric(18,0) foreign key references [GARBAGE].Usuario(usu_id) not null
 	primary key(rol_usu_rol_id, rol_usu_usu_id)
 )
 go
@@ -109,4 +109,40 @@ insert into [GARBAGE].RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 	join [GARBAGE].Rol R on R.rol_nombre = 'Administrador'
 )
 go
+
+create table [GARBAGE].Cliente(
+	cli_id numeric(18,0) primary key identity (1,1),
+	cli_nombre varchar(255) not null,
+	cli_apellido varchar(255) not null,
+	cli_dni numeric(18,0) not null,
+	cli_telefono numeric(18,0) unique not null,
+	cli_direccion varchar(255) not null,
+	cli_fecha_nacimiento varchar(255) not null,
+	cli_cp numeric(18,0) default 1 not null,
+	cli_mail varchar(255), 
+	cli_activo bit default 1 not null,
+	cli_usu_id numeric(18,0) foreign key references [GARBAGE].Usuario(usu_id))
+go
+
+insert into [GARBAGE].Cliente (
+	cli_nombre, 
+	cli_apellido, 
+	cli_dni, 
+	cli_telefono, 
+	cli_direccion, 
+	cli_fecha_nacimiento, 
+	cli_mail, 
+	cli_cp)
+(
+	select distinct Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Telefono, 
+					Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
+	from [gd_esquema].[Maestra]
+)
+go
+
+
+
+
+
+
 
