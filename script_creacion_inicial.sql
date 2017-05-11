@@ -42,12 +42,12 @@ go
 create table GARBAGE.RolxUsuario(
 	rol_usu_rol_id int not null, --foreign key references [GARBAGE].Rol(rol_id) not null,
 	rol_usu_usu_id int not null, --foreign key references [GARBAGE].Usuario(usu_id) not null
-	primary key(rol_usu_rol_id, rol_usu_usu_id))
+	constraint PK_rol_x_usu primary key(rol_usu_rol_id, rol_usu_usu_id))
 go
 
 
 create table GARBAGE.Cliente(
-	cli_id numeric(18,0) primary key identity (1,1),
+	cli_id int constraint PK_cli_id primary key identity (1,1),
 	cli_nombre varchar(255) not null,
 	cli_apellido varchar(255) not null,
 	cli_dni numeric(18,0) not null,
@@ -57,7 +57,7 @@ create table GARBAGE.Cliente(
 	cli_cp numeric(18,0) default 1 not null,
 	cli_mail varchar(255), 
 	cli_activo bit default 1 not null,
-	cli_usu_id int foreign key references [GARBAGE].Usuario(usu_id))
+	cli_usu_id int )
 go
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
@@ -67,24 +67,50 @@ go
 alter table GARBAGE.FuncionalidadxRol
 add constraint FK_func_ron_rol_id foreign key (func_rol_rol_id) references GARBAGE.Rol(rol_id),
 	constraint FK_func_ron_func_id foreign key (func_rol_func_id) references GARBAGE.Funcionalidad(func_id);
-
-GO
+go
 
 alter table GARBAGE.RolxUsuario
 add constraint FK_rol_usu_rol_id foreign key (rol_usu_rol_id) references GARBAGE.Rol(rol_id),
-	constraint FK_rol_usu_usu_id foreign key (rol_usu_usu_id) references GARBAGE.Usuario(usu_id);
-	
+	constraint FK_rol_usu_usu_id foreign key (rol_usu_usu_id) references GARBAGE.Usuario(usu_id);	
 go
 
-insert into GARBAGE.Rol(rol_nombre)
-	values
-	('Administrador'),
-	('Cliente'),
-	('Chofer')
+alter table GARBAGE.Cliente
+add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
 go
 
-print('Insertando Roles.')
+/******************************************** FIN - FOREING KEY ****************************************************/
+
+create function GARBAGE.RemoverTildes(@cadena varchar(25))
+returns varchar(25)
+as begin
+    return replace(replace(replace(replace(replace(replace(@cadena, ' ', ''), 'á', 'a'), 'é','e'), 'í', 'i'), 'ó', 'o'), 'ú','u')
+end
 go
+
+create function GARBAGE.GenerarUsuario(@nombre varchar(255), @apellido varchar(255))
+returns varchar(25)
+as begin	
+	return GARBAGE.RemoverTildes(lower(substring(@nombre, 1,19) + '.' + substring(@apellido, 1,19)))
+end
+go
+
+create procedure GARBAGE.SPMigracion
+as
+begin
+
+declare @ROL_ADMIN char(13);
+set @ROL_ADMIN = 'Administrador';
+
+declare @ROL_CLIENTE char(7);
+set @ROL_CLIENTE = 'Cliente';
+
+declare @ROL_CHOFER char(6)
+set @ROL_CHOFER = 'Chofer';
+
+insert into GARBAGE.Rol(rol_nombre) values (@ROL_ADMIN), (@ROL_CLIENTE), (@ROL_CHOFER);
+
+print('Insertando Roles.');
+
 
 insert into GARBAGE.Funcionalidad(func_descripcion)
 	values
@@ -97,16 +123,15 @@ insert into GARBAGE.Funcionalidad(func_descripcion)
 	('Rendicion de cuenta del Chofer'),
 	('Facturacion a Cliente'),
 	('Listado Estadístico')
-go
 
-print('Insertando Funcionalidades.')
-go
+
+print('Insertando Funcionalidades.');
 
 --El Rol Administrador posee todas las funcionalidades
 insert into GARBAGE.FuncionalidadxRol 
 	select rol_id, func_id 
-	from GARBAGE.Rol, GARBAGE.Funcionalidad where rol_id = 1
-go
+	from GARBAGE.Rol, GARBAGE.Funcionalidad 
+	where rol_id = 1;
 
 --TODO que funcionalidades tiene el cliente y el chofer???
 --insert into GARBAGE.FuncionalidadxRol values (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12);
@@ -114,11 +139,11 @@ go
 
 -- Buscar cual seria la contrasela w23e en este hash
 
-print('Insertando Funcionalidades x Rol.')
-go
+print('Insertando Funcionalidades x Rol.');
+
 
 declare @hash binary(32)
-set @hash = convert(binary(32),'0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1)
+set @hash = convert(binary(32),'0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1);
 
 insert into GARBAGE.Usuario(usu_username,usu_password)
 values
@@ -126,38 +151,50 @@ values
 	('david', @hash),
 	('fede', @hash),
 	('nico', @hash),
-	('fer', @hash)
-go
+	('fer', @hash);
 
-print('Insertando Usuarios base.')
-go
+print('Insertando Usuarios base.');
 
 insert into GARBAGE.RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 (
-	select R.rol_id , S.usu_id
+	select R.rol_id, S.usu_id
 	from GARBAGE.Usuario S 
-	join GARBAGE.Rol R on R.rol_nombre = 'Administrador'
-)
-go
+	join GARBAGE.Rol R on R.rol_nombre = @ROL_ADMIN
+);
 
-print('Insertando Usuarios admin.')
-go
+print('Insertando Usuarios admin.');
 
-insert into GARBAGE.Cliente (
-	cli_nombre, 
-	cli_apellido, 
-	cli_dni, 
-	cli_telefono, 
-	cli_direccion, 
-	cli_fecha_nacimiento, 
-	cli_mail, 
-	cli_cp)
-(
+insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono, 
+		cli_direccion, cli_fecha_nacimiento, cli_mail, cli_cp)
+(	
 	select distinct Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Telefono, 
-					Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
+		Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
 	from gd_esquema.Maestra
-)
+);
+
+print('Insertando Clientes.');
+
+insert into GARBAGE.Usuario(usu_username, usu_password) (
+	select GARBAGE.GenerarUsuario(cli_nombre, cli_apellido), '0'
+	from GARBAGE.Cliente);
+
+print('Creando los Usuarios de los clientes.');
+
+insert into GARBAGE.RolxUsuario(rol_usu_rol_id, rol_usu_usu_id)(
+	select rol_id, usu_id
+	from GARBAGE.Rol, GARBAGE.Usuario
+	where rol_nombre = @ROL_CLIENTE and usu_id not in (select rol_usu_usu_id from GARBAGE.RolxUsuario));
+
+print('Seteando el Rol Cliente de los Usuarios clientes.');
+
+update GARBAGE.Cliente set cli_usu_id = usu_id
+from GARBAGE.Usuario, GARBAGE.Cliente
+where usu_username = GARBAGE.GenerarUsuario(cli_nombre, cli_apellido)
+
+print('Actualizando los clientes con los Usuarios que les corresponden.');
+
+
+end
 go
 
-print('Insertando Clientes.')
-go
+exec GARBAGE.SPMigracion;
