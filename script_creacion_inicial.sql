@@ -184,8 +184,8 @@ print('Insertando Usuarios admin.');
 insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono, 
 		cli_direccion, cli_fecha_nacimiento, cli_mail, cli_cp)
 (	
-	select distinct Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Telefono, 
-		Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
+	select distinct left(Cliente_Nombre,1) + lower(substring(Cliente_Nombre,2,len(Cliente_Nombre))), 
+		Cliente_Apellido, Cliente_Dni, Cliente_Telefono, Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
 	from gd_esquema.Maestra
 );
 
