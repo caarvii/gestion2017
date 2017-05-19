@@ -223,6 +223,28 @@ insert into GARBAGE.Chofer(chof_nombre, chof_apellido, chof_dni, chof_telefono,
 
 print('Insertando Choferes.');
 
+insert into GARBAGE.Usuario(usu_username, usu_password) (
+	select GARBAGE.GenerarUsuario(chof_nombre, chof_apellido), 
+		   HASHBYTES(@hash_algorithm, GARBAGE.GenerarUsuario(chof_nombre, chof_apellido))
+	from GARBAGE.Chofer);
+
+print('Creando los Usuarios de los choferes.');
+
+insert into GARBAGE.RolxUsuario(rol_usu_rol_id, rol_usu_usu_id)(
+	select rol_id, usu_id
+	from GARBAGE.Rol, GARBAGE.Usuario
+	where rol_nombre = @ROL_CHOFER and usu_id not in (select rol_usu_usu_id from GARBAGE.RolxUsuario));
+
+print('Seteando el Rol Chofer de los Usuarios choferes.');
+
+update GARBAGE.Chofer set chof_usu_id = usu_id
+from GARBAGE.Usuario, GARBAGE.Chofer
+where usu_username = GARBAGE.GenerarUsuario(chof_nombre, chof_apellido)
+
+print('Actualizando los choferes con los Usuarios que les corresponden.');
+
+alter table GARBAGE.Chofer alter column chof_usu_id int not null
+
 end
 go
 
