@@ -60,6 +60,19 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
+create table GARBAGE.Chofer(
+	chof_id int constraint PK_chof_id primary key identity (1,1),
+	chof_nombre varchar(255) not null,
+	chof_apellido varchar(255) not null,
+	chof_dni numeric(18,0) not null,
+	chof_telefono numeric(18,0) not null,
+	chof_direccion varchar(255) not null,
+	chof_fecha_nacimiento varchar(255) not null,
+	chof_mail varchar(255) not null,
+	chof_activo bit default 1 not null,
+	chof_usu_id int)
+go
+
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
 /******************************************** INICIO - FOREING KEY *************************************************/
@@ -76,6 +89,10 @@ go
 
 alter table GARBAGE.Cliente
 add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
+go
+
+alter table GARBAGE.Chofer
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references [GARBAGE].Usuario(usu_id);
 go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
@@ -195,6 +212,16 @@ where usu_username = GARBAGE.GenerarUsuario(cli_nombre, cli_apellido)
 print('Actualizando los clientes con los Usuarios que les corresponden.');
 
 alter table GARBAGE.Cliente alter column cli_usu_id int not null
+
+insert into GARBAGE.Chofer(chof_nombre, chof_apellido, chof_dni, chof_telefono, 
+		chof_direccion, chof_fecha_nacimiento, chof_mail)
+(	
+	select distinct left(Chofer_Nombre,1) + lower(substring(Chofer_Nombre,2,len(Chofer_Nombre))),
+				Chofer_Apellido, Chofer_Dni, Chofer_Telefono, Chofer_Direccion, Chofer_Fecha_Nac, Chofer_Mail
+	from gd_esquema.Maestra
+);
+
+print('Insertando Choferes.');
 
 end
 go
