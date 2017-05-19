@@ -60,6 +60,19 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
+create table GARBAGE.Chofer(
+	chof_id int constraint PK_chof_id primary key identity (1,1),
+	chof_nombre varchar(255) not null,
+	chof_apellido varchar(255) not null,
+	chof_dni numeric(18,0) not null,
+	chof_telefono numeric(18,0) not null,
+	chof_direccion varchar(255) not null,
+	chof_fecha_nacimiento varchar(255) not null,
+	chof_mail varchar(255) not null,
+	chof_activo bit default 1 not null,
+	chof_usu_id int)
+go
+
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
 /******************************************** INICIO - FOREING KEY *************************************************/
@@ -76,6 +89,10 @@ go
 
 alter table GARBAGE.Cliente
 add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
+go
+
+alter table GARBAGE.Chofer
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references [GARBAGE].Usuario(usu_id);
 go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
@@ -167,8 +184,8 @@ print('Insertando Usuarios admin.');
 insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono, 
 		cli_direccion, cli_fecha_nacimiento, cli_mail, cli_cp)
 (	
-	select distinct Cliente_Nombre, Cliente_Apellido, Cliente_Dni, Cliente_Telefono, 
-		Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
+	select distinct left(Cliente_Nombre,1) + lower(substring(Cliente_Nombre,2,len(Cliente_Nombre))), 
+		Cliente_Apellido, Cliente_Dni, Cliente_Telefono, Cliente_Direccion, Cliente_Fecha_Nac, Cliente_Mail, 0
 	from gd_esquema.Maestra
 );
 
@@ -195,6 +212,38 @@ where usu_username = GARBAGE.GenerarUsuario(cli_nombre, cli_apellido)
 print('Actualizando los clientes con los Usuarios que les corresponden.');
 
 alter table GARBAGE.Cliente alter column cli_usu_id int not null
+
+insert into GARBAGE.Chofer(chof_nombre, chof_apellido, chof_dni, chof_telefono, 
+		chof_direccion, chof_fecha_nacimiento, chof_mail)
+(	
+	select distinct left(Chofer_Nombre,1) + lower(substring(Chofer_Nombre,2,len(Chofer_Nombre))),
+				Chofer_Apellido, Chofer_Dni, Chofer_Telefono, Chofer_Direccion, Chofer_Fecha_Nac, Chofer_Mail
+	from gd_esquema.Maestra
+);
+
+print('Insertando Choferes.');
+
+insert into GARBAGE.Usuario(usu_username, usu_password) (
+	select GARBAGE.GenerarUsuario(chof_nombre, chof_apellido), 
+		   HASHBYTES(@hash_algorithm, GARBAGE.GenerarUsuario(chof_nombre, chof_apellido))
+	from GARBAGE.Chofer);
+
+print('Creando los Usuarios de los choferes.');
+
+insert into GARBAGE.RolxUsuario(rol_usu_rol_id, rol_usu_usu_id)(
+	select rol_id, usu_id
+	from GARBAGE.Rol, GARBAGE.Usuario
+	where rol_nombre = @ROL_CHOFER and usu_id not in (select rol_usu_usu_id from GARBAGE.RolxUsuario));
+
+print('Seteando el Rol Chofer de los Usuarios choferes.');
+
+update GARBAGE.Chofer set chof_usu_id = usu_id
+from GARBAGE.Usuario, GARBAGE.Chofer
+where usu_username = GARBAGE.GenerarUsuario(chof_nombre, chof_apellido)
+
+print('Actualizando los choferes con los Usuarios que les corresponden.');
+
+alter table GARBAGE.Chofer alter column chof_usu_id int not null
 
 end
 go
