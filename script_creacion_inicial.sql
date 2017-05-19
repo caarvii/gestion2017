@@ -104,6 +104,8 @@ alter table GARBAGE.Factura
 add constraint FK_fact_cli_id foreign key (fact_cli_id) references GARBAGE.Cliente(cli_id);
 go
 
+/* Falta FK de ItemxFactura de id_viaje.  - TODO -*/
+
 
 /******************************************** FIN - FOREING KEY ****************************************************/
 
@@ -164,7 +166,7 @@ insert into GARBAGE.FuncionalidadxRol
 --insert into GARBAGE.FuncionalidadxRol values (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12);
 --go
 
--- Buscar cual seria la contrasela w23e en este hash
+
 
 print('Insertando Funcionalidades x Rol.');
 
@@ -225,5 +227,24 @@ alter table GARBAGE.Cliente alter column cli_usu_id int not null
 
 end
 go
+
+-- FACTURAS
+
+insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
+	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
+	from gd_esquema.Maestra
+);
+
+insert into GARBAGE.Factura(fact_cli_id)(
+	select cli_id
+	from GARBAGE.Cliente
+);
+
+print ('Agregando facturas');
+
+-- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
+-- una vez que este bien armada la tabla VIAJE.
+
+
 
 exec GARBAGE.SPMigracion;
