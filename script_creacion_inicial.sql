@@ -142,16 +142,16 @@ insert into GARBAGE.FuncionalidadxRol
 print('Insertando Funcionalidades x Rol.');
 
 
-declare @hash binary(32)
-set @hash = convert(binary(32),'0xe6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',1);
+declare @hash_algorithm char(8)
+set @hash_algorithm = 'SHA2_256';
 
 insert into GARBAGE.Usuario(usu_username,usu_password)
 values
-	('admin', @hash),
-	('david', @hash),
-	('fede', @hash),
-	('nico', @hash),
-	('fer', @hash);
+	('admin', HASHBYTES(@hash_algorithm,'w23e')),
+	('david', HASHBYTES(@hash_algorithm,'david')),
+	('fede', HASHBYTES(@hash_algorithm,'fede')),
+	('nico', HASHBYTES(@hash_algorithm,'nico')),
+	('fer', HASHBYTES(@hash_algorithm,'fer'));
 
 print('Insertando Usuarios base.');
 
@@ -175,7 +175,8 @@ insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono,
 print('Insertando Clientes.');
 
 insert into GARBAGE.Usuario(usu_username, usu_password) (
-	select GARBAGE.GenerarUsuario(cli_nombre, cli_apellido), '0'
+	select GARBAGE.GenerarUsuario(cli_nombre, cli_apellido), 
+		   HASHBYTES(@hash_algorithm, GARBAGE.GenerarUsuario(cli_nombre, cli_apellido))
 	from GARBAGE.Cliente);
 
 print('Creando los Usuarios de los clientes.');
@@ -193,6 +194,7 @@ where usu_username = GARBAGE.GenerarUsuario(cli_nombre, cli_apellido)
 
 print('Actualizando los clientes con los Usuarios que les corresponden.');
 
+alter table GARBAGE.Cliente alter column cli_usu_id int not null
 
 end
 go
