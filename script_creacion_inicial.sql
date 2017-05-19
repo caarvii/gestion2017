@@ -60,6 +60,28 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
+
+create table GARBAGE.Factura(
+	fact_id int constraint PK_fact_id primary key identity (1,1),
+	fact_fecha_ini datetime not null,
+	fact_fecha_fin datetime not null,
+	fact_cli_id int,
+	fact_total decimal (12,2) not null,
+	fact_cant_viajes int not null
+)
+go
+
+create table GARBAGE.ItemxFactura(
+	item_fac_id int not null ,
+	item_fac_fac_id int not null ,--foreign key references [GARBAGE].Factura(fact_id) not null,
+	item_fac_viaje_id int not null,--foreign key references [GARBAGE].Viaje(viaje_id) not null,
+	item_fac_costo decimal(12,2),
+	item_fac_descripcion varchar(255) not null ,
+	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
+)
+go
+
+
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
 /******************************************** INICIO - FOREING KEY *************************************************/
@@ -77,6 +99,11 @@ go
 alter table GARBAGE.Cliente
 add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
 go
+
+alter table GARBAGE.Factura
+add constraint FK_fact_cli_id foreign key (fact_cli_id) references GARBAGE.Cliente(cli_id);
+go
+
 
 /******************************************** FIN - FOREING KEY ****************************************************/
 
