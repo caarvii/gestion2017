@@ -9,10 +9,16 @@ alter table GARBAGE.Automovil drop constraint FK_auto_mod_id;
 alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_chof_id;
 alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_auto_id;
 
+alter table GARBAGE.Factura drop constraint FK_fact_cli_id;
+
 drop table GARBAGE.FuncionalidadxRol
 drop table GARBAGE.Funcionalidad
 drop table GARBAGE.RolxUsuario
 drop table GARBAGE.Rol
+
+drop table GARBAGE.ItemxFactura
+drop table GARBAGE.Factura
+
 drop table GARBAGE.Cliente
 drop table GARBAGE.Usuario
 drop table GARBAGE.Chofer
