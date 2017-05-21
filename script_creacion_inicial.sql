@@ -60,6 +60,30 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
+create table GARBAGE.Factura(
+	fact_id int constraint PK_fact_id primary key identity (1,1),
+	fact_fecha_ini datetime not null,
+	fact_fecha_fin datetime not null,
+	fact_cli_id int,
+	fact_total decimal (12,2) ,
+	fact_cant_viajes int
+)
+go
+
+-- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
+
+create table GARBAGE.ItemxFactura(
+	item_fac_id int not null ,
+	item_fac_fac_id int not null ,--foreign key references [GARBAGE].Factura(fact_id) not null,
+	item_fac_viaje_id int not null,--foreign key references [GARBAGE].Viaje(viaje_id) not null,
+	item_fac_costo decimal(12,2),
+	item_fac_descripcion varchar(255) not null ,
+	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
+)
+go
+
+
+
 create table GARBAGE.Chofer(
 	chof_id int constraint PK_chof_id primary key identity (1,1),
 	chof_nombre varchar(255) not null,
@@ -72,6 +96,7 @@ create table GARBAGE.Chofer(
 	chof_activo bit default 1 not null,
 	chof_usu_id int)
 go
+
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
@@ -91,6 +116,12 @@ alter table GARBAGE.Cliente
 add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
 go
 
+alter table GARBAGE.Factura
+add constraint FK_fact_cli_id foreign key (fact_cli_id) references GARBAGE.Cliente(cli_id);
+go
+
+/* Falta FK de ItemxFactura de id_viaje.  - TODO -*/
+
 alter table GARBAGE.Chofer
 add constraint FK_chof_usu_id foreign key (chof_usu_id) references [GARBAGE].Usuario(usu_id);
 go
@@ -100,7 +131,7 @@ go
 create function GARBAGE.RemoverTildes(@cadena varchar(25))
 returns varchar(25)
 as begin
-    return replace(replace(replace(replace(replace(replace(@cadena, ' ', ''), 'á', 'a'), 'é','e'), 'í', 'i'), 'ó', 'o'), 'ú','u')
+    return replace(replace(replace(replace(replace(replace(@cadena, ' ', ''), 'Ã¡', 'a'), 'Ã©','e'), 'Ã­', 'i'), 'Ã³', 'o'), 'Ãº','u')
 end
 go
 
@@ -133,13 +164,13 @@ insert into GARBAGE.Funcionalidad(func_descripcion)
 	values
 	('ABM de Rol'),
 	('ABM de Clientes'),
-	('ABM de Automóvil'),
+	('ABM de AutomÃ³vil'),
 	('ABM de Chofer'),
 	('ABM de Turno'),
 	('Registrar Viaje'),
 	('Rendicion de cuenta del Chofer'),
 	('Facturacion a Cliente'),
-	('Listado Estadístico')
+	('Listado EstadÃ­stico')
 
 
 print('Insertando Funcionalidades.');
@@ -154,7 +185,7 @@ insert into GARBAGE.FuncionalidadxRol
 --insert into GARBAGE.FuncionalidadxRol values (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12);
 --go
 
--- Buscar cual seria la contrasela w23e en este hash
+
 
 print('Insertando Funcionalidades x Rol.');
 
@@ -247,5 +278,29 @@ alter table GARBAGE.Chofer alter column chof_usu_id int not null
 
 end
 go
+
+-- FACTURAS
+
+insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
+	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
+	from gd_esquema.Maestra
+	WHERE Factura_Nro IS NOT NULL
+);
+
+update GARBAGE.Factura set fact_cli_id = cli_id
+	from GARBAGE.Factura, GARBAGE.Cliente , gd_esquema.Maestra M
+	where fact_id = M.Factura_Nro AND cli_dni = M.Cliente_Dni
+
+-- TODO - Calcular la cantidad de viajes.
+-- TODO - Calcular el monto total en base a los viajes.
+-- alter table GARBAGE.Factura alter column fact_cant_viajes int not null
+-- alter table GARBAGE.Factura alter column fact_total int not null
+
+print ('Agregando facturas');
+
+-- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
+-- una vez que este bien armada la tabla VIAJE.
+
+
 
 exec GARBAGE.SPMigracion;
