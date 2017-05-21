@@ -70,6 +70,8 @@ create table GARBAGE.Factura(
 )
 go
 
+SET IDENTITY_INSERT GARBAGE.Factura ON
+
 -- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
 
 create table GARBAGE.ItemxFactura(
@@ -345,31 +347,33 @@ insert into GARBAGE.ChoferxAutomovil(chof_auto_chof_id,chof_auto_auto_id)
 
 print('Insertando los choferes con sus autos correspondientes.');
 
-end
-go
-
--- FACTURAS
 
 insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
 	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
 	from gd_esquema.Maestra
 	WHERE Factura_Nro IS NOT NULL
 );
+print ('Agregando facturas');
+
+SET IDENTITY_INSERT GARBAGE.Factura OFF
 
 update GARBAGE.Factura set fact_cli_id = cli_id
 	from GARBAGE.Factura, GARBAGE.Cliente , gd_esquema.Maestra M
 	where fact_id = M.Factura_Nro AND cli_dni = M.Cliente_Dni
+print ('Agregando clientes a facturas.');
+
+
+end
+go
+
+-- FACTURAS:
 
 -- TODO - Calcular la cantidad de viajes.
 -- TODO - Calcular el monto total en base a los viajes.
 -- alter table GARBAGE.Factura alter column fact_cant_viajes int not null
 -- alter table GARBAGE.Factura alter column fact_total int not null
 
-print ('Agregando facturas');
-
 -- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
 -- una vez que este bien armada la tabla VIAJE.
-
-
 
 exec GARBAGE.SPMigracion;
