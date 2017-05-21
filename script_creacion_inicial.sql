@@ -73,6 +73,35 @@ create table GARBAGE.Chofer(
 	chof_usu_id int)
 go
 
+create table GARBAGE.Marca(
+	marca_id int constraint PK_marca_id primary key identity (1,1),
+	marca_nombre varchar(255) not null
+	)
+go
+
+create table GARBAGE.Modelo(
+	mod_id int constraint PK_mod_id primary key identity (1,1),
+	mod_nombre varchar(255) not null
+	)
+go
+
+create table GARBAGE.Automovil(
+	auto_id int constraint PK_auto_id primary key identity (1,1),
+	auto_marca_id int not null,
+	auto_mod_id int not null,
+	auto_patente varchar(10) unique not null,
+	auto_licencia varchar(26) not null,
+	auto_rodado varchar(10) not null,
+	auto_activo bit default 1 not null)
+go
+
+create table GARBAGE.ChoferxAutomovil(
+	chof_auto_chof_id int not null,
+	chof_auto_auto_id int not null,
+	chof_auto_habilitado bit default 1 not null,
+	constraint PK_chof_auto_id primary key(chof_auto_auto_id, chof_auto_chof_id))
+go
+
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
 /******************************************** INICIO - FOREING KEY *************************************************/
@@ -88,11 +117,21 @@ add constraint FK_rol_usu_rol_id foreign key (rol_usu_rol_id) references GARBAGE
 go
 
 alter table GARBAGE.Cliente
-add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
+add constraint FK_cli_usu_id foreign key (cli_usu_id) references GARBAGE.Usuario(usu_id);
 go
 
 alter table GARBAGE.Chofer
-add constraint FK_chof_usu_id foreign key (chof_usu_id) references [GARBAGE].Usuario(usu_id);
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
+go
+
+alter table GARBAGE.Automovil
+add constraint FK_auto_marca_id foreign key (auto_marca_id) references GARBAGE.Marca(marca_id),
+	constraint FK_auto_mod_id foreign key (auto_mod_id) references GARBAGE.Modelo(mod_id);
+go
+
+alter table GARBAGE.ChoferxAutomovil
+add constraint FK_chof_auto_chof_id foreign key (chof_auto_chof_id) references GARBAGE.Chofer(chof_id),
+	constraint FK_chof_auto_auto_id foreign key (chof_auto_auto_id) references GARBAGE.Automovil(auto_id);	
 go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
@@ -109,6 +148,12 @@ returns varchar(25)
 as begin	
 	return GARBAGE.RemoverTildes(lower(substring(@nombre, 1,19) + '.' + substring(@apellido, 1,19)))
 end
+go
+
+create view GARBAGE.AutosView (patente, marca, modelo, licencia, rodado, chofer_dni) 
+as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_Rodado, Chofer_Dni
+	from gd_esquema.Maestra
+	where Auto_Patente is not null);
 go
 
 create procedure GARBAGE.SPMigracion
@@ -245,7 +290,36 @@ print('Actualizando los choferes con los Usuarios que les corresponden.');
 
 alter table GARBAGE.Chofer alter column chof_usu_id int not null
 
+/************************************************************************/
+
+insert into GARBAGE.Marca(marca_nombre)(select distinct Auto_Marca from gd_esquema.Maestra)
+
+print('Insertando Marcas.');
+
+insert into GARBAGE.Modelo(mod_nombre)(select distinct Auto_Modelo from gd_esquema.Maestra)
+
+print('Insertando Modelos.');
+
+insert into GARBAGE.Automovil(auto_patente, auto_licencia, auto_rodado, auto_marca_id, auto_mod_id)
+	(select distinct patente, 
+					 licencia, 
+					 rodado, 
+					 (select marca_id from GARBAGE.Marca where marca_nombre = marca),
+					 (select mod_id from GARBAGE.Modelo where mod_nombre = modelo)
+	from GARBAGE.AutosView)
+
+print('Insertando Autos.');
+
+insert into GARBAGE.ChoferxAutomovil(chof_auto_chof_id,chof_auto_auto_id)
+	(select chof_id, auto_id
+	 from GARBAGE.AutosView, GARBAGE.Automovil, GARBAGE.Chofer
+	 where patente = auto_patente and chofer_dni = chof_dni);
+
+print('Insertando los choferes con sus autos correspondientes.');
+
 end
 go
+
+
 
 exec GARBAGE.SPMigracion;
