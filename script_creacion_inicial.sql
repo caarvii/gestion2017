@@ -98,14 +98,12 @@ go
 
 create table GARBAGE.Marca(
 	marca_id int constraint PK_marca_id primary key identity (1,1),
-	marca_nombre varchar(255) not null
-	)
+	marca_nombre varchar(255) not null)
 go
 
 create table GARBAGE.Modelo(
 	mod_id int constraint PK_mod_id primary key identity (1,1),
-	mod_nombre varchar(255) not null
-	)
+	mod_nombre varchar(255) not null)
 go
 
 create table GARBAGE.Automovil(
@@ -123,6 +121,22 @@ create table GARBAGE.ChoferxAutomovil(
 	chof_auto_auto_id int not null,
 	chof_auto_habilitado bit default 1 not null,
 	constraint PK_chof_auto_id primary key(chof_auto_auto_id, chof_auto_chof_id))
+go
+
+create table GARBAGE.Turno(
+	turno_id int constraint PK_turno_id primary key identity (1,1),
+	turno_hora_inicio numeric(18,0) not null,
+	turno_hora_fin numeric(18,0) not null,
+	turno_descripcion varchar(255) not null,
+	turno_valor_km numeric(18,2) not null,
+	turno_precio_base numeric(18,2) not null,
+	turno_habilitado bit default 1 not null)
+go
+
+create table GARBAGE.TurnoxAutomovil(
+	turno_auto_turno_id int not null,
+	turno_auto_auto_id int not null,
+	constraint PK_turno_auto_id primary key(turno_auto_turno_id, turno_auto_auto_id))
 go
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
@@ -163,6 +177,11 @@ add constraint FK_chof_auto_chof_id foreign key (chof_auto_chof_id) references G
 	constraint FK_chof_auto_auto_id foreign key (chof_auto_auto_id) references GARBAGE.Automovil(auto_id);	
 go
 
+alter table GARBAGE.TurnoxAutomovil
+add constraint FK_turno_auto_turno_id foreign key (turno_auto_turno_id) references GARBAGE.Turno(turno_id),
+	constraint FK_turno_auto_auto_id foreign key (turno_auto_auto_id) references GARBAGE.Automovil(auto_id);	
+go 
+
 /******************************************** FIN - FOREING KEY ****************************************************/
 
 create function GARBAGE.RemoverTildes(@cadena varchar(25))
@@ -179,8 +198,8 @@ as begin
 end
 go
 
-create view GARBAGE.AutosView (patente, marca, modelo, licencia, rodado, chofer_dni) 
-as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_Rodado, Chofer_Dni
+create view GARBAGE.AutosChoferTurnoView (patente, marca, modelo, licencia, rodado, chofer_dni, turno_desc) 
+as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_Rodado, Chofer_Dni, Turno_Descripcion
 	from gd_esquema.Maestra
 	where Auto_Patente is not null);
 go
@@ -335,13 +354,13 @@ insert into GARBAGE.Automovil(auto_patente, auto_licencia, auto_rodado, auto_mar
 					 rodado, 
 					 (select marca_id from GARBAGE.Marca where marca_nombre = marca),
 					 (select mod_id from GARBAGE.Modelo where mod_nombre = modelo)
-	from GARBAGE.AutosView)
+	from GARBAGE.AutosChoferTurnoView)
 
 print('Insertando Autos.');
 
 insert into GARBAGE.ChoferxAutomovil(chof_auto_chof_id,chof_auto_auto_id)
-	(select chof_id, auto_id
-	 from GARBAGE.AutosView, GARBAGE.Automovil, GARBAGE.Chofer
+	(select distinct chof_id, auto_id
+	 from GARBAGE.AutosChoferTurnoView, GARBAGE.Automovil, GARBAGE.Chofer
 	 where patente = auto_patente and chofer_dni = chof_dni);
 
 print('Insertando los choferes con sus autos correspondientes.');
@@ -365,6 +384,25 @@ update GARBAGE.Factura set fact_cli_id = cli_id
 print ('Agregando clientes a facturas.');
 
 alter table GARBAGE.Factura alter column fact_cli_id int not null
+
+insert into GARBAGE.Turno (turno_descripcion, turno_hora_inicio, turno_hora_fin, 
+						   turno_valor_km, turno_precio_base)
+(	
+	select distinct Turno_Descripcion, Turno_Hora_Inicio, Turno_Hora_Fin, 
+					Turno_Valor_Kilometro, Turno_Valor_Kilometro
+	from gd_esquema.Maestra
+)
+
+print ('Agregando Turnos.');
+
+insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
+(	
+	select A.auto_id, turno_id
+	from GARBAGE.AutosChoferTurnoView V, GARBAGE.Automovil A, GARBAGE.Turno
+	where V.patente = A.auto_patente and V.turno_desc = turno_descripcion
+)
+
+print ('Agregando los autos con sus turnos correspondientes.');
 
 end
 go
