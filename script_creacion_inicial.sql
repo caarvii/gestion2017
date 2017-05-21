@@ -65,10 +65,12 @@ create table GARBAGE.Factura(
 	fact_fecha_ini datetime not null,
 	fact_fecha_fin datetime not null,
 	fact_cli_id int,
-	fact_total decimal (12,2) not null,
-	fact_cant_viajes int not null
+	fact_total decimal (12,2) ,
+	fact_cant_viajes int
 )
 go
+
+-- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
 
 create table GARBAGE.ItemxFactura(
 	item_fac_id int not null ,
@@ -282,12 +284,17 @@ go
 insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
 	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
 	from gd_esquema.Maestra
+	WHERE Factura_Nro IS NOT NULL
 );
 
-insert into GARBAGE.Factura(fact_cli_id)(
-	select cli_id
-	from GARBAGE.Cliente
-);
+update GARBAGE.Factura set fact_cli_id = cli_id
+	from GARBAGE.Factura, GARBAGE.Cliente , gd_esquema.Maestra M
+	where fact_id = M.Factura_Nro AND cli_dni = M.Cliente_Dni
+
+-- TODO - Calcular la cantidad de viajes.
+-- TODO - Calcular el monto total en base a los viajes.
+-- alter table GARBAGE.Factura alter column fact_cant_viajes int not null
+-- alter table GARBAGE.Factura alter column fact_total int not null
 
 print ('Agregando facturas');
 
