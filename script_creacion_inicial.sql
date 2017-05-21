@@ -70,7 +70,6 @@ create table GARBAGE.Factura(
 )
 go
 
-SET IDENTITY_INSERT GARBAGE.Factura ON
 
 -- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
 
@@ -347,12 +346,14 @@ insert into GARBAGE.ChoferxAutomovil(chof_auto_chof_id,chof_auto_auto_id)
 
 print('Insertando los choferes con sus autos correspondientes.');
 
+SET IDENTITY_INSERT GARBAGE.Factura ON
 
 insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
 	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
 	from gd_esquema.Maestra
 	WHERE Factura_Nro IS NOT NULL
 );
+
 print ('Agregando facturas');
 
 SET IDENTITY_INSERT GARBAGE.Factura OFF
@@ -360,8 +361,10 @@ SET IDENTITY_INSERT GARBAGE.Factura OFF
 update GARBAGE.Factura set fact_cli_id = cli_id
 	from GARBAGE.Factura, GARBAGE.Cliente , gd_esquema.Maestra M
 	where fact_id = M.Factura_Nro AND cli_dni = M.Cliente_Dni
+
 print ('Agregando clientes a facturas.');
 
+alter table GARBAGE.Factura alter column fact_cli_id int not null
 
 end
 go
