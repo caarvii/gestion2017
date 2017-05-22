@@ -70,6 +70,7 @@ create table GARBAGE.Factura(
 )
 go
 
+
 -- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
 
 create table GARBAGE.ItemxFactura(
@@ -81,8 +82,6 @@ create table GARBAGE.ItemxFactura(
 	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
 )
 go
-
-
 
 create table GARBAGE.Chofer(
 	chof_id int constraint PK_chof_id primary key identity (1,1),
@@ -97,6 +96,34 @@ create table GARBAGE.Chofer(
 	chof_usu_id int)
 go
 
+create table GARBAGE.Marca(
+	marca_id int constraint PK_marca_id primary key identity (1,1),
+	marca_nombre varchar(255) not null
+	)
+go
+
+create table GARBAGE.Modelo(
+	mod_id int constraint PK_mod_id primary key identity (1,1),
+	mod_nombre varchar(255) not null
+	)
+go
+
+create table GARBAGE.Automovil(
+	auto_id int constraint PK_auto_id primary key identity (1,1),
+	auto_marca_id int not null,
+	auto_mod_id int not null,
+	auto_patente varchar(10) unique not null,
+	auto_licencia varchar(26) not null,
+	auto_rodado varchar(10) not null,
+	auto_activo bit default 1 not null)
+go
+
+create table GARBAGE.ChoferxAutomovil(
+	chof_auto_chof_id int not null,
+	chof_auto_auto_id int not null,
+	chof_auto_habilitado bit default 1 not null,
+	constraint PK_chof_auto_id primary key(chof_auto_auto_id, chof_auto_chof_id))
+go
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
@@ -113,7 +140,7 @@ add constraint FK_rol_usu_rol_id foreign key (rol_usu_rol_id) references GARBAGE
 go
 
 alter table GARBAGE.Cliente
-add constraint FK_cli_usu_id foreign key (cli_usu_id) references [GARBAGE].Usuario(usu_id);
+add constraint FK_cli_usu_id foreign key (cli_usu_id) references GARBAGE.Usuario(usu_id);
 go
 
 alter table GARBAGE.Factura
@@ -123,7 +150,17 @@ go
 /* Falta FK de ItemxFactura de id_viaje.  - TODO -*/
 
 alter table GARBAGE.Chofer
-add constraint FK_chof_usu_id foreign key (chof_usu_id) references [GARBAGE].Usuario(usu_id);
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
+go
+
+alter table GARBAGE.Automovil
+add constraint FK_auto_marca_id foreign key (auto_marca_id) references GARBAGE.Marca(marca_id),
+	constraint FK_auto_mod_id foreign key (auto_mod_id) references GARBAGE.Modelo(mod_id);
+go
+
+alter table GARBAGE.ChoferxAutomovil
+add constraint FK_chof_auto_chof_id foreign key (chof_auto_chof_id) references GARBAGE.Chofer(chof_id),
+	constraint FK_chof_auto_auto_id foreign key (chof_auto_auto_id) references GARBAGE.Automovil(auto_id);	
 go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
@@ -131,7 +168,7 @@ go
 create function GARBAGE.RemoverTildes(@cadena varchar(25))
 returns varchar(25)
 as begin
-    return replace(replace(replace(replace(replace(replace(@cadena, ' ', ''), 'Ã¡', 'a'), 'Ã©','e'), 'Ã­', 'i'), 'Ã³', 'o'), 'Ãº','u')
+    return replace(replace(replace(replace(replace(replace(@cadena, ' ', ''), 'á', 'a'), 'é','e'), 'í', 'i'), 'ó', 'o'), 'ú','u')
 end
 go
 
@@ -140,6 +177,12 @@ returns varchar(25)
 as begin	
 	return GARBAGE.RemoverTildes(lower(substring(@nombre, 1,19) + '.' + substring(@apellido, 1,19)))
 end
+go
+
+create view GARBAGE.AutosView (patente, marca, modelo, licencia, rodado, chofer_dni) 
+as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_Rodado, Chofer_Dni
+	from gd_esquema.Maestra
+	where Auto_Patente is not null);
 go
 
 create procedure GARBAGE.SPMigracion
@@ -164,13 +207,13 @@ insert into GARBAGE.Funcionalidad(func_descripcion)
 	values
 	('ABM de Rol'),
 	('ABM de Clientes'),
-	('ABM de AutomÃ³vil'),
+	('ABM de Automóvil'),
 	('ABM de Chofer'),
 	('ABM de Turno'),
 	('Registrar Viaje'),
 	('Rendicion de cuenta del Chofer'),
 	('Facturacion a Cliente'),
-	('Listado EstadÃ­stico')
+	('Listado Estadístico')
 
 
 print('Insertando Funcionalidades.');
@@ -276,10 +319,34 @@ print('Actualizando los choferes con los Usuarios que les corresponden.');
 
 alter table GARBAGE.Chofer alter column chof_usu_id int not null
 
-end
-go
+/************************************************************************/
 
--- FACTURAS
+insert into GARBAGE.Marca(marca_nombre)(select distinct Auto_Marca from gd_esquema.Maestra)
+
+print('Insertando Marcas.');
+
+insert into GARBAGE.Modelo(mod_nombre)(select distinct Auto_Modelo from gd_esquema.Maestra)
+
+print('Insertando Modelos.');
+
+insert into GARBAGE.Automovil(auto_patente, auto_licencia, auto_rodado, auto_marca_id, auto_mod_id)
+	(select distinct patente, 
+					 licencia, 
+					 rodado, 
+					 (select marca_id from GARBAGE.Marca where marca_nombre = marca),
+					 (select mod_id from GARBAGE.Modelo where mod_nombre = modelo)
+	from GARBAGE.AutosView)
+
+print('Insertando Autos.');
+
+insert into GARBAGE.ChoferxAutomovil(chof_auto_chof_id,chof_auto_auto_id)
+	(select chof_id, auto_id
+	 from GARBAGE.AutosView, GARBAGE.Automovil, GARBAGE.Chofer
+	 where patente = auto_patente and chofer_dni = chof_dni);
+
+print('Insertando los choferes con sus autos correspondientes.');
+
+SET IDENTITY_INSERT GARBAGE.Factura ON
 
 insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
 	select DISTINCT  Factura_Nro,Factura_Fecha_Inicio , Factura_Fecha_Fin
@@ -287,20 +354,29 @@ insert into GARBAGE.Factura(fact_id,fact_fecha_ini,fact_fecha_fin)(
 	WHERE Factura_Nro IS NOT NULL
 );
 
+print ('Agregando facturas');
+
+SET IDENTITY_INSERT GARBAGE.Factura OFF
+
 update GARBAGE.Factura set fact_cli_id = cli_id
 	from GARBAGE.Factura, GARBAGE.Cliente , gd_esquema.Maestra M
 	where fact_id = M.Factura_Nro AND cli_dni = M.Cliente_Dni
+
+print ('Agregando clientes a facturas.');
+
+alter table GARBAGE.Factura alter column fact_cli_id int not null
+
+end
+go
+
+-- FACTURAS:
 
 -- TODO - Calcular la cantidad de viajes.
 -- TODO - Calcular el monto total en base a los viajes.
 -- alter table GARBAGE.Factura alter column fact_cant_viajes int not null
 -- alter table GARBAGE.Factura alter column fact_total int not null
 
-print ('Agregando facturas');
-
 -- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
 -- una vez que este bien armada la tabla VIAJE.
-
-
 
 exec GARBAGE.SPMigracion;
