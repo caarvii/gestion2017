@@ -417,19 +417,13 @@ go
 -- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
 -- una vez que este bien armada la tabla VIAJE.
 
-exec GARBAGE.SPMigracion;
-
-
-
-
-
 
 /******************************************** MIGRACION DE VIAJES  ******************************************/
 
 -----------------Creo tabla viaje-----------------
 
 CREATE TABLE [GARBAGE].[Viaje](
-	[viaje_id] [int] IDENTITY(1,1) NOT NULL,
+	[viaje_id] [int] CONSTRAINT [PK_viaje_id] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[viaje_auto_id] [int] NOT NULL,
 	[viaje_turno_id] [int] NOT NULL,
 	[viaje_chof_id] [int] NOT NULL,
@@ -440,7 +434,6 @@ CREATE TABLE [GARBAGE].[Viaje](
 	[viaje_rendido] [bit] default 0 NOT NULL) --Hay que actualizarlo cuando se hace la tabla de rendiciones
 
 GO
-
 -----------------FK------------------
 
 
@@ -519,7 +512,10 @@ CLOSE cursor_migracion_viajes
 DEALLOCATE cursor_migracion_viajes;
 
 
+
 /******************************************** FIN DE MIGRACION DE VIAJES  ******************************************/
 
 
+
+exec GARBAGE.SPMigracion;
 
