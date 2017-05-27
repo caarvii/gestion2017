@@ -13,6 +13,13 @@ alter table GARBAGE.TurnoxAutomovil drop constraint FK_turno_auto_auto_id;
 
 alter table GARBAGE.Factura drop constraint FK_fact_cli_id;
 
+alter table GARBAGE.Viaje drop constraint FK_viaje_auto_id;
+alter table GARBAGE.Viaje drop constraint FK_viaje_turno_id;
+alter table GARBAGE.Viaje drop constraint FK_viaje_chof_id;
+alter table GARBAGE.Viaje drop constraint FK_viaje_cli_id;
+go 
+
+
 drop table GARBAGE.FuncionalidadxRol
 drop table GARBAGE.Funcionalidad
 drop table GARBAGE.RolxUsuario
@@ -20,6 +27,9 @@ drop table GARBAGE.Rol
 
 drop table GARBAGE.ItemxFactura
 drop table GARBAGE.Factura
+drop table GARBAGE.Viaje
+
+
 
 drop table GARBAGE.Cliente
 drop table GARBAGE.Usuario
