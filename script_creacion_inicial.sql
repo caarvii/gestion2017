@@ -143,7 +143,8 @@ create table GARBAGE.Rendicion(
 	rend_id int constraint PK_rend_id primary key identity (1,1),
 	rend_fecha_pago datetime not null,
 	rend_chofer int,
-	rend_turno int)
+	rend_turno int,
+	rend_importe int)
 	
 go
 
