@@ -417,4 +417,105 @@ go
 -- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
 -- una vez que este bien armada la tabla VIAJE.
 
+
+/******************************************** MIGRACION DE VIAJES  ******************************************/
+
+-----------------Creo tabla viaje-----------------
+
+CREATE TABLE [GARBAGE].[Viaje](
+	[viaje_id] [int] CONSTRAINT [PK_viaje_id] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	[viaje_auto_id] [int] NOT NULL,
+	[viaje_turno_id] [int] NOT NULL,
+	[viaje_chof_id] [int] NOT NULL,
+	[viaje_cant_km] [numeric](18, 2) NOT NULL,
+	[fecha_hora_ini] datetime NOT NULL,
+	[fecha_hora_fin] datetime NOT NULL,
+	[viaje_cli_id] [int] NOT NULL,
+	[viaje_rendido] [bit] default 0 NOT NULL) --Hay que actualizarlo cuando se hace la tabla de rendiciones
+
+GO
+-----------------FK------------------
+
+
+ALTER TABLE [GARBAGE].[Viaje]  
+ADD  CONSTRAINT [FK_viaje_auto_id] FOREIGN KEY([viaje_auto_id]) REFERENCES [GARBAGE].[Automovil] ([auto_id]),
+	 CONSTRAINT [FK_viaje_chof_id] FOREIGN KEY([viaje_chof_id]) REFERENCES [GARBAGE].[Chofer] ([chof_id]),
+	 CONSTRAINT [FK_viaje_cli_id] FOREIGN KEY([viaje_cli_id]) REFERENCES [GARBAGE].[Cliente] ([cli_id]),
+	 CONSTRAINT [FK_viaje_turno_id] FOREIGN KEY([viaje_turno_id]) REFERENCES [GARBAGE].[Turno] ([turno_id]);
+GO
+
+
+---------------- CREO VARIABLES AUXILIARES --------------
+
+
+	DECLARE @viaje_auto_id [int], 
+			@viaje_turno_id [int],
+			@viaje_chof_id [int],
+			@viaje_cli_id [int]
+
+
+---------------CREO VARIABLES PARA VOLCAR DATOS DEL CURSOR-------
+
+
+	DECLARE @Auto_Patente [varchar] (10),
+			@chofer_dni [numeric](18,0),
+			@Viaje_Cant_Kilometros [numeric](18,0),
+			@Viaje_Fecha datetime,
+			@Turno_Descripcion [varchar] (255),
+			@Cliente_dni [numeric](18,0)
+
+
+
+---------------- CREO CURSOR --------------
+
+DECLARE cursor_migracion_viajes CURSOR FOR 
+		(SELECT DISTINCT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni 
+		FROM gd_esquema.Maestra 
+		WHERE Rendicion_Nro is null AND Factura_Nro is null)
+
+
+OPEN cursor_migracion_viajes;
+
+FETCH NEXT FROM cursor_migracion_viajes
+INTO  @Auto_Patente,
+	  @chofer_dni,
+	  @Viaje_Cant_Kilometros,
+	  @Viaje_Fecha,
+      @Turno_Descripcion,
+	  @Cliente_dni
+
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+SET @viaje_auto_id = (SELECT A.auto_id	FROM GARBAGE.Automovil A WHERE @Auto_Patente = A.auto_patente)
+SET @viaje_turno_id = (SELECT T.turno_id FROM GARBAGE.Turno T WHERE @Turno_Descripcion = T.turno_descripcion)
+SET @viaje_chof_id = (SELECT C.chof_id FROM GARBAGE.Chofer C WHERE @chofer_dni = C.chof_dni)
+SET @viaje_cli_id = (SELECT	c.cli_id  FROM GARBAGE.Cliente C WHERE @Cliente_dni = c.cli_dni)
+
+
+INSERT INTO GARBAGE.Viaje ([viaje_auto_id],[viaje_turno_id], [viaje_chof_id],[viaje_cant_km],[fecha_hora_ini],[fecha_hora_fin],[viaje_cli_id]) 
+						  VALUES (@viaje_auto_id,@viaje_turno_id,@viaje_chof_id, @Viaje_Cant_Kilometros, @Viaje_Fecha, @Viaje_Fecha, @viaje_cli_id);
+
+
+FETCH NEXT FROM cursor_migracion_viajes
+INTO  @Auto_Patente,
+	  @chofer_dni,
+	  @Viaje_Cant_Kilometros,
+	  @Viaje_Fecha,
+      @Turno_Descripcion,
+	  @Cliente_dni
+END
+
+
+CLOSE cursor_migracion_viajes
+DEALLOCATE cursor_migracion_viajes;
+
+
+
+/******************************************** FIN DE MIGRACION DE VIAJES  ******************************************/
+
+
+
 exec GARBAGE.SPMigracion;
+
