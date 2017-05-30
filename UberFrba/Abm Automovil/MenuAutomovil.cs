@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class Form1 : Form
+    public partial class MenuAutomovil : Form
     {
-        public Form1()
+        public MenuAutomovil()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            AltaAutomovil formAlta = new AltaAutomovil();
+            formAlta.ShowDialog(); 
         }
     }
 }
