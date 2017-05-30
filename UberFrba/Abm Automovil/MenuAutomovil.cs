@@ -19,8 +19,17 @@ namespace UberFrba.Abm_Automovil
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
+           ActiveForm.Visible = false;
             AltaAutomovil formAlta = new AltaAutomovil();
-            formAlta.ShowDialog(); 
+            formAlta.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ActiveForm.Visible = false;
+            ListadoAutomil listadoForm = new ListadoAutomil();
+            listadoForm.ShowDialog();
         }
     }
 }
