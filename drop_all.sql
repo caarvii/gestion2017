@@ -17,6 +17,9 @@ alter table GARBAGE.Viaje drop constraint FK_viaje_auto_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_turno_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_chof_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_cli_id;
+
+alter table GARBAGE.ItemxFactura drop constraint FK_fact_fact_id;
+alter table GARBAGE.ItemxFactura drop constraint FK_fact_viaje_id;
 go 
 
 
@@ -44,6 +47,6 @@ drop table GARBAGE.TurnoxAutomovil
 drop function GARBAGE.GenerarUsuario;
 drop function GARBAGE.RemoverTildes;
 
-drop view GARBAGE.AutosView;
+drop view GARBAGE.AutosChoferTurnoView;
 
 drop procedure GARBAGE.SPMigracion;
