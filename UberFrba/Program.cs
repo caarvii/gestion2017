@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// Importo los NameSpaces definidos.
+using ABMAuto = UberFrba.Abm_Automovil;
+
+
 namespace UberFrba
 {
     static class Program
@@ -16,7 +20,7 @@ namespace UberFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ABMAuto.MenuAutomovil());
         }
     }
 }

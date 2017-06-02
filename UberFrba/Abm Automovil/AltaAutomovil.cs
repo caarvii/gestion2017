@@ -8,13 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace UberFrba.Abm_Automovil
 {
-    public partial class Form1 : Form
+    public partial class AltaAutomovil : Form
     {
-        public Form1()
+        public AltaAutomovil()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Nota: No se si deberia volver a crearlo o poder usarlo.
+
+            MenuAutomovil form = new MenuAutomovil();
+            form.ShowDialog(); 
         }
     }
 }
