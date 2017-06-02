@@ -10,6 +10,8 @@ alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_chof_id;
 alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_auto_id;
 alter table GARBAGE.TurnoxAutomovil drop constraint FK_turno_auto_turno_id;
 alter table GARBAGE.TurnoxAutomovil drop constraint FK_turno_auto_auto_id;
+alter table GARBAGE.Rendicion drop constraint FK_rend_chofer_id;
+alter table GARBAGE.Rendicion drop constraint FK_rend_turno_id;
 
 alter table GARBAGE.Factura drop constraint FK_fact_cli_id;
 
@@ -40,6 +42,7 @@ drop table GARBAGE.Automovil
 drop table GARBAGE.ChoferxAutomovil
 drop table GARBAGE.Turno
 drop table GARBAGE.TurnoxAutomovil
+drop table GARBAGE.Rendicion
 
 drop function GARBAGE.GenerarUsuario;
 drop function GARBAGE.RemoverTildes;

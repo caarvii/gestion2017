@@ -139,6 +139,15 @@ create table GARBAGE.TurnoxAutomovil(
 	constraint PK_turno_auto_id primary key(turno_auto_turno_id, turno_auto_auto_id))
 go
 
+create table GARBAGE.Rendicion(
+	rend_id int constraint PK_rend_id primary key identity (1,1),
+	rend_fecha_pago datetime not null,
+	rend_chofer int,
+	rend_turno int,
+	rend_importe int)
+	
+go
+
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
 /******************************************** INICIO - FOREING KEY *************************************************/
@@ -181,6 +190,11 @@ alter table GARBAGE.TurnoxAutomovil
 add constraint FK_turno_auto_turno_id foreign key (turno_auto_turno_id) references GARBAGE.Turno(turno_id),
 	constraint FK_turno_auto_auto_id foreign key (turno_auto_auto_id) references GARBAGE.Automovil(auto_id);	
 go 
+
+alter table GARBAGE.Rendicion
+add constraint FK_rend_chofer_id foreign key (rend_chofer) references GARBAGE.Chofer(chof_id),
+	constraint FK_rend_turno_id foreign key (rend_turno) references GARBAGE.Turno(turno_id);
+go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
 
