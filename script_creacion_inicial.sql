@@ -74,11 +74,11 @@ go
 -- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
 
 create table GARBAGE.ItemxFactura(
-	item_fac_id int not null ,
+	item_fac_id int not null identity (1,1),
 	item_fac_fac_id int not null ,
 	item_fac_viaje_id int not null,
 	item_fac_costo decimal(12,2),
-	item_fac_descripcion varchar(255) not null ,
+	item_fac_descripcion varchar(255),
 	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
 )
 go
@@ -226,6 +226,13 @@ create view GARBAGE.AutosChoferTurnoView (patente, marca, modelo, licencia, roda
 as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_Rodado, Chofer_Dni, Turno_Descripcion
 	from gd_esquema.Maestra
 	where Auto_Patente is not null);
+go
+
+
+create view GARBAGE.FacturaViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni , fact_nro) 
+as (SELECT DISTINCT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro 
+			FROM gd_esquema.Maestra 
+			WHERE Rendicion_Nro is null AND Factura_Nro is not null);
 go
 
 create procedure GARBAGE.SPMigracion
@@ -411,7 +418,16 @@ alter table GARBAGE.Factura alter column fact_cli_id int not null
 
 -- MIGRO COSAS FACTURA
 
-
+insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id)
+	(
+		select F.fact_id , V.viaje_id
+		from GARBAGE.FacturaViajeView VI, GARBAGE.Viaje V, GARBAGE.Factura F
+		where VI.fact_nro = F.fact_id AND 
+			  VI.viaje_km = V.viaje_cant_km AND
+			  VI.viaje_fecha = V.fecha_hora_fin AND
+			  (SELECT cli_id FROM GARBAGE.Cliente WHERE cli_dni = VI.cli_dni) = f.fact_cli_id
+			   and fact_id = 10091
+	);
 
 
 

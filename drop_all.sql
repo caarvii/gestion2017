@@ -48,5 +48,6 @@ drop function GARBAGE.GenerarUsuario;
 drop function GARBAGE.RemoverTildes;
 
 drop view GARBAGE.AutosChoferTurnoView;
+drop view GARBAGE.FacturaViajeView;
 
 drop procedure GARBAGE.SPMigracion;
