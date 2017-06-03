@@ -79,6 +79,7 @@ create table GARBAGE.ItemxFactura(
 	item_fac_viaje_id int not null,
 	item_fac_costo decimal(12,2),
 	item_fac_descripcion varchar(255),
+	item_fac_duplicado int not null,
 	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
 )
 go
@@ -228,12 +229,15 @@ as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_R
 	where Auto_Patente is not null);
 go
 
-
-create view GARBAGE.FacturaViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni , fact_nro) 
-as (SELECT DISTINCT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro 
-			FROM gd_esquema.Maestra 
-			WHERE Rendicion_Nro is null AND Factura_Nro is not null);
+create view GARBAGE.FacturaViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni , fact_nro, repetido) 
+as 
+	(SELECT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro ,Count(*) as repetido
+	FROM gd_esquema.Maestra
+	WHERE Rendicion_Nro is null AND Factura_Nro is not null
+	GROUP BY Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro)
 go
+
+
 
 create procedure GARBAGE.SPMigracion
 as
@@ -414,28 +418,7 @@ update GARBAGE.Factura set fact_cli_id = cli_id
 
 print ('Agregando clientes a facturas.');
 
-alter table GARBAGE.Factura alter column fact_cli_id int not null
-
--- MIGRO COSAS FACTURA
-
-insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id)
-	(
-		select F.fact_id , V.viaje_id
-		from GARBAGE.FacturaViajeView VI, GARBAGE.Viaje V, GARBAGE.Factura F
-		where VI.fact_nro = F.fact_id AND 
-			  VI.viaje_km = V.viaje_cant_km AND
-			  VI.viaje_fecha = V.fecha_hora_fin AND
-			  (SELECT cli_id FROM GARBAGE.Cliente WHERE cli_dni = VI.cli_dni) = f.fact_cli_id
-			   and fact_id = 10091
-	);
-
-
-
-
-
-
-
-
+alter table GARBAGE.Factura alter column fact_cli_id int not null;
 
 
 
@@ -459,9 +442,6 @@ insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
 
 print ('Agregando los autos con sus turnos correspondientes.');
 
-
-
--- ACA TERMINA EL PROCEDIMIENTO.
 
 
 ---------------- CREO VARIABLES AUXILIARES --------------
@@ -522,6 +502,24 @@ print ('Agregando los autos con sus turnos correspondientes.');
 
 
 	print ('Agregando los viajes');
+
+
+insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado)
+	(
+		
+	SELECT F.fact_id , V.viaje_id , FVV.repetido
+	FROM GARBAGE.FacturaViajeView FVV , GARBAGE.Viaje V , GARBAGE.Factura F
+	WHERE (SELECT auto_id FROM GARBAGE.Automovil WHERE FVV.patente = auto_patente) = v.viaje_auto_id AND
+		   FVV.viaje_km = V.viaje_cant_km AND
+		   FVV.viaje_fecha = V.fecha_hora_fin AND
+		   (SELECT cli_id FROM GARBAGE.Cliente WHERE FVV.cli_dni = cli_dni) = V.viaje_cli_id AND
+		   (SELECT chof_id FROM GARBAGE.Chofer WHERE FVV.chofer_dni = chof_dni) = V.viaje_chof_id AND
+		   FVV.fact_nro = F.fact_id
+
+	)
+
+
+print ('Agregando item por cada factura');
 
 end
 go
