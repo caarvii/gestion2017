@@ -144,7 +144,7 @@ create table GARBAGE.Rendicion(
 	rend_fecha_pago datetime not null,
 	rend_chofer int,
 	rend_turno int,
-	rend_importe int)
+	rend_importe numeric(12,2))
 	
 go
 
@@ -417,6 +417,41 @@ insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
 )
 
 print ('Agregando los autos con sus turnos correspondientes.');
+
+SET IDENTITY_INSERT GARBAGE.Rendicion ON
+
+/* Solo se migra 1 rendicion por cada Rendicion_Nro
+   Se migran 40198 filas de 114091 (Hay rendiciones con mismo Rend_Nro y distinto 
+   importe que no se migran) */
+
+insert into GARBAGE.Rendicion(rend_id, rend_fecha_pago, rend_importe)
+	select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe
+	from (select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe, 
+			ROW_NUMBER() OVER(PARTITION BY Rendicion_Nro ORDER BY Rendicion_Nro DESC) rn
+			FROM gd_esquema.Maestra) a
+	where Rendicion_Nro IS NOT NULL and rn = 1
+	order by Rendicion_Nro;
+
+print ('Agregando Rendiciones');
+
+SET IDENTITY_INSERT GARBAGE.Rendicion OFF
+
+	update GARBAGE.Rendicion set rend_chofer = chof_id
+	from GARBAGE.Rendicion, GARBAGE.Chofer , gd_esquema.Maestra M
+	where rend_id = M.Rendicion_Nro AND chof_dni = M.Chofer_Dni
+
+print('Agregando choferes a rendiciones');
+
+alter table GARBAGE.Rendicion alter column rend_chofer int not null
+
+	update GARBAGE.Rendicion set rend_turno = turno_id
+	from GARBAGE.Rendicion, GARBAGE.Turno, gd_esquema.Maestra M
+	where rend_id = M.Rendicion_Nro and Turno.turno_hora_inicio = m.Turno_Hora_Inicio
+		and Turno.turno_hora_fin = M.Turno_Hora_Fin;
+
+print('Agregando turnos a rendiciones');
+
+	alter table GARBAGE.Rendicion alter column rend_turno int not null
 
 end
 go
