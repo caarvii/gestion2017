@@ -247,6 +247,13 @@ as
 	GROUP BY Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro)
 go
 
+create view GARBAGE.RendicionViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni ,rend_nro , rend_fecha, rend_importe , repetido) 
+as 
+	(SELECT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Rendicion_Nro,Rendicion_Fecha, Rendicion_Importe, Count(*) as repetido
+	FROM gd_esquema.Maestra
+	WHERE Rendicion_Nro is not null AND Factura_Nro is null
+	GROUP BY Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Rendicion_Nro,Rendicion_Fecha, Rendicion_Importe )
+go
 
 
 create procedure GARBAGE.SPMigracion
