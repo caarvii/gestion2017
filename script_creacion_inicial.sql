@@ -60,29 +60,6 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
-create table GARBAGE.Factura(
-	fact_id int constraint PK_fact_id primary key identity (1,1),
-	fact_fecha_ini datetime not null,
-	fact_fecha_fin datetime not null,
-	fact_cli_id int,
-	fact_total decimal (12,2) ,
-	fact_cant_viajes int
-)
-go
-
-
--- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
-
-create table GARBAGE.ItemxFactura(
-	item_fac_id int not null ,
-	item_fac_fac_id int not null ,--foreign key references [GARBAGE].Factura(fact_id) not null,
-	item_fac_viaje_id int not null,--foreign key references [GARBAGE].Viaje(viaje_id) not null,
-	item_fac_costo decimal(12,2),
-	item_fac_descripcion varchar(255) not null ,
-	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
-)
-go
-
 create table GARBAGE.Chofer(
 	chof_id int constraint PK_chof_id primary key identity (1,1),
 	chof_nombre varchar(255) not null,
@@ -139,14 +116,51 @@ create table GARBAGE.TurnoxAutomovil(
 	constraint PK_turno_auto_id primary key(turno_auto_turno_id, turno_auto_auto_id))
 go
 
+
+create table GARBAGE.Viaje(
+	viaje_id int constraint PK_viaje_id primary key identity(1,1) NOT NULL,
+	viaje_auto_id int NOT NULL,
+	viaje_turno_id int NOT NULL,
+	viaje_chof_id int NOT NULL,
+	viaje_cant_km numeric(18, 2) NOT NULL,
+	fecha_hora_ini datetime NOT NULL,
+	fecha_hora_fin datetime NOT NULL,
+	viaje_cli_id int NOT NULL,
+	viaje_rendido bit default 0 NOT NULL, --Hay que actualizarlo cuando se hace la tabla de rendiciones
+	viaje_duplicado int  default 0 not null)
+go
+
 create table GARBAGE.Rendicion(
 	rend_id int constraint PK_rend_id primary key identity (1,1),
 	rend_fecha_pago datetime not null,
 	rend_chofer int,
 	rend_turno int,
-	rend_importe numeric(12,2))
-	
+	rend_importe_total numeric(12,2),
+	rend_importe_duplicado numeric(12,2) default 0 )
 go
+
+create table GARBAGE.ItemxFactura(
+	item_fac_id int not null identity (1,1),
+	item_fac_fac_id int not null ,
+	item_fac_viaje_id int not null,
+	item_fac_costo decimal(12,2),
+	item_fac_descripcion varchar(255),
+	item_fac_duplicado int  default 0 not null,
+	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
+)
+go
+
+create table GARBAGE.Factura(
+	fact_id int constraint PK_fact_id primary key identity (1,1),
+	fact_fecha_ini datetime not null,
+	fact_fecha_fin datetime not null,
+	fact_cli_id int,
+	fact_total decimal (12,2) ,
+	fact_cant_viajes int
+)
+go
+
+
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
@@ -170,12 +184,6 @@ alter table GARBAGE.Factura
 add constraint FK_fact_cli_id foreign key (fact_cli_id) references GARBAGE.Cliente(cli_id);
 go
 
-/* Falta FK de ItemxFactura de id_viaje.  - TODO -*/
-
-alter table GARBAGE.Chofer
-add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
-go
-
 alter table GARBAGE.Automovil
 add constraint FK_auto_marca_id foreign key (auto_marca_id) references GARBAGE.Marca(marca_id),
 	constraint FK_auto_mod_id foreign key (auto_mod_id) references GARBAGE.Modelo(mod_id);
@@ -191,9 +199,25 @@ add constraint FK_turno_auto_turno_id foreign key (turno_auto_turno_id) referenc
 	constraint FK_turno_auto_auto_id foreign key (turno_auto_auto_id) references GARBAGE.Automovil(auto_id);	
 go 
 
+alter table GARBAGE.Viaje  
+add  constraint [FK_viaje_auto_id] foreign key (viaje_auto_id) references GARBAGE.Automovil (auto_id),
+	 constraint [FK_viaje_chof_id] foreign key (viaje_chof_id) references GARBAGE.Chofer (chof_id),
+	 constraint [FK_viaje_cli_id] foreign key (viaje_cli_id) references GARBAGE.Cliente (cli_id),
+	 constraint [FK_viaje_turno_id] foreign key (viaje_turno_id) references GARBAGE.Turno (turno_id);
+go
+
+alter table GARBAGE.ItemxFactura
+add constraint FK_fact_fact_id foreign key (item_fac_fac_id) references GARBAGE.Factura(fact_id),
+	constraint FK_fact_viaje_id foreign key (item_fac_viaje_id) references GARBAGE.Viaje(viaje_id);
+go
+
+alter table GARBAGE.Chofer
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
+go
+
 alter table GARBAGE.Rendicion
 add constraint FK_rend_chofer_id foreign key (rend_chofer) references GARBAGE.Chofer(chof_id),
-	constraint FK_rend_turno_id foreign key (rend_turno) references GARBAGE.Turno(turno_id);
+ constraint FK_rend_turno_id foreign key (rend_turno) references GARBAGE.Turno(turno_id);
 go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
@@ -217,6 +241,23 @@ as (select distinct Auto_Patente, Auto_Marca, Auto_Modelo, Auto_Licencia, Auto_R
 	from gd_esquema.Maestra
 	where Auto_Patente is not null);
 go
+
+create view GARBAGE.FacturaViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni , fact_nro, repetido) 
+as 
+	(SELECT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro ,Count(*) as repetido
+	FROM gd_esquema.Maestra
+	WHERE Rendicion_Nro is null AND Factura_Nro is not null
+	GROUP BY Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Factura_Nro)
+go
+
+create view GARBAGE.RendicionViajeView (patente , chofer_dni , viaje_km , viaje_fecha , turno_desc,cli_dni ,rend_nro , rend_fecha, rend_importe , repetido) 
+as 
+	(SELECT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Rendicion_Nro,Rendicion_Fecha, Rendicion_Importe, Count(*) as repetido
+	FROM gd_esquema.Maestra
+	WHERE Rendicion_Nro is not null AND Factura_Nro is null
+	GROUP BY Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni, Rendicion_Nro,Rendicion_Fecha, Rendicion_Importe )
+go
+
 
 create procedure GARBAGE.SPMigracion
 as
@@ -397,7 +438,10 @@ update GARBAGE.Factura set fact_cli_id = cli_id
 
 print ('Agregando clientes a facturas.');
 
-alter table GARBAGE.Factura alter column fact_cli_id int not null
+alter table GARBAGE.Factura alter column fact_cli_id int not null;
+
+
+
 
 insert into GARBAGE.Turno (turno_descripcion, turno_hora_inicio, turno_hora_fin, 
 						   turno_valor_km, turno_precio_base)
@@ -418,40 +462,52 @@ insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
 
 print ('Agregando los autos con sus turnos correspondientes.');
 
+
+INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km], 
+       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id] , viaje_duplicado) 
+       
+(SELECT  A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id , COUNT(*)
+  FROM gd_esquema.Maestra W, GARBAGE.Automovil A, GARBAGE.Chofer, GARBAGE.Turno T, GARBAGE.Cliente C
+  WHERE Rendicion_Nro is null AND Factura_Nro is null
+  and W.Auto_Patente = A.auto_patente and W.Chofer_Dni = chof_dni and W.Turno_Descripcion = T.turno_descripcion 
+  and W.Cliente_Dni = C.cli_dni
+  GROUP BY A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id)
+
+print ('Agregando viajes');
+
 SET IDENTITY_INSERT GARBAGE.Rendicion ON
 
-/* Solo se migra 1 rendicion por cada Rendicion_Nro
-   Se migran 40198 filas de 114091 (Hay rendiciones con mismo Rend_Nro y distinto 
-   importe que no se migran) */
+insert into GARBAGE.Rendicion (rend_id ,rend_fecha_pago, rend_importe_total , rend_chofer , rend_turno ,rend_importe_duplicado)
 
-insert into GARBAGE.Rendicion(rend_id, rend_fecha_pago, rend_importe)
-	select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe
-	from (select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe, 
-			ROW_NUMBER() OVER(PARTITION BY Rendicion_Nro ORDER BY Rendicion_Nro DESC) rn
-			FROM gd_esquema.Maestra) a
-	where Rendicion_Nro IS NOT NULL and rn = 1
-	order by Rendicion_Nro;
-
-print ('Agregando Rendiciones');
+(
+	select rend_nro , rend_fecha , SUM(rend_importe), CH.chof_id , T.turno_id , SUM(((RVV.repetido - 1)* RVV.rend_importe)) as rend_importe_duplicado
+	from GARBAGE.RENDICIONVIAJEVIEW RVV, GARBAGE.Chofer CH , GARBAGE.Turno T 
+	where RVV.chofer_dni = ch.chof_dni AND RVV.turno_desc = T.turno_descripcion
+	GROUP BY rend_nro , rend_fecha ,  CH.chof_id , T.turno_id 
+)
 
 SET IDENTITY_INSERT GARBAGE.Rendicion OFF
 
-	update GARBAGE.Rendicion set rend_chofer = chof_id
-	from GARBAGE.Rendicion, GARBAGE.Chofer , gd_esquema.Maestra M
-	where rend_id = M.Rendicion_Nro AND chof_dni = M.Chofer_Dni
+print ('Agregando rendiciones');
 
-print('Agregando choferes a rendiciones');
 
-alter table GARBAGE.Rendicion alter column rend_chofer int not null
+insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado , item_fac_costo)
+	(
+		
+	SELECT F.fact_id , V.viaje_id , FVV.repetido , (T.turno_precio_base + (V.viaje_cant_km*T.turno_valor_km))
+	FROM GARBAGE.FacturaViajeView FVV , GARBAGE.Viaje V , GARBAGE.Factura F , GARBAGE.TURNO T
+	WHERE (SELECT auto_id FROM GARBAGE.Automovil WHERE FVV.patente = auto_patente) = v.viaje_auto_id AND
+		   FVV.viaje_km = V.viaje_cant_km AND
+		   FVV.viaje_fecha = V.fecha_hora_fin AND
+		   (SELECT cli_id FROM GARBAGE.Cliente WHERE FVV.cli_dni = cli_dni) = V.viaje_cli_id AND
+		   (SELECT chof_id FROM GARBAGE.Chofer WHERE FVV.chofer_dni = chof_dni) = V.viaje_chof_id AND
+		   FVV.fact_nro = F.fact_id AND
+		   V.viaje_turno_id = T.turno_id
 
-	update GARBAGE.Rendicion set rend_turno = turno_id
-	from GARBAGE.Rendicion, GARBAGE.Turno, gd_esquema.Maestra M
-	where rend_id = M.Rendicion_Nro and Turno.turno_hora_inicio = m.Turno_Hora_Inicio
-		and Turno.turno_hora_fin = M.Turno_Hora_Fin;
+	)
 
-print('Agregando turnos a rendiciones');
 
-	alter table GARBAGE.Rendicion alter column rend_turno int not null
+print ('Agregando item por cada factura');
 
 end
 go
@@ -465,104 +521,6 @@ go
 
 -- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
 -- una vez que este bien armada la tabla VIAJE.
-
-
-/******************************************** MIGRACION DE VIAJES  ******************************************/
-
------------------Creo tabla viaje-----------------
-
-CREATE TABLE [GARBAGE].[Viaje](
-	[viaje_id] [int] CONSTRAINT [PK_viaje_id] PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	[viaje_auto_id] [int] NOT NULL,
-	[viaje_turno_id] [int] NOT NULL,
-	[viaje_chof_id] [int] NOT NULL,
-	[viaje_cant_km] [numeric](18, 2) NOT NULL,
-	[fecha_hora_ini] datetime NOT NULL,
-	[fecha_hora_fin] datetime NOT NULL,
-	[viaje_cli_id] [int] NOT NULL,
-	[viaje_rendido] [bit] default 0 NOT NULL) --Hay que actualizarlo cuando se hace la tabla de rendiciones
-
-GO
------------------FK------------------
-
-
-ALTER TABLE [GARBAGE].[Viaje]  
-ADD  CONSTRAINT [FK_viaje_auto_id] FOREIGN KEY([viaje_auto_id]) REFERENCES [GARBAGE].[Automovil] ([auto_id]),
-	 CONSTRAINT [FK_viaje_chof_id] FOREIGN KEY([viaje_chof_id]) REFERENCES [GARBAGE].[Chofer] ([chof_id]),
-	 CONSTRAINT [FK_viaje_cli_id] FOREIGN KEY([viaje_cli_id]) REFERENCES [GARBAGE].[Cliente] ([cli_id]),
-	 CONSTRAINT [FK_viaje_turno_id] FOREIGN KEY([viaje_turno_id]) REFERENCES [GARBAGE].[Turno] ([turno_id]);
-GO
-
-
----------------- CREO VARIABLES AUXILIARES --------------
-
-
-	DECLARE @viaje_auto_id [int], 
-			@viaje_turno_id [int],
-			@viaje_chof_id [int],
-			@viaje_cli_id [int]
-
-
----------------CREO VARIABLES PARA VOLCAR DATOS DEL CURSOR-------
-
-
-	DECLARE @Auto_Patente [varchar] (10),
-			@chofer_dni [numeric](18,0),
-			@Viaje_Cant_Kilometros [numeric](18,0),
-			@Viaje_Fecha datetime,
-			@Turno_Descripcion [varchar] (255),
-			@Cliente_dni [numeric](18,0)
-
-
-
----------------- CREO CURSOR --------------
-
-DECLARE cursor_migracion_viajes CURSOR FOR 
-		(SELECT DISTINCT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni 
-		FROM gd_esquema.Maestra 
-		WHERE Rendicion_Nro is null AND Factura_Nro is null)
-
-
-OPEN cursor_migracion_viajes;
-
-FETCH NEXT FROM cursor_migracion_viajes
-INTO  @Auto_Patente,
-	  @chofer_dni,
-	  @Viaje_Cant_Kilometros,
-	  @Viaje_Fecha,
-      @Turno_Descripcion,
-	  @Cliente_dni
-
-
-WHILE @@FETCH_STATUS = 0
-BEGIN
-
-SET @viaje_auto_id = (SELECT A.auto_id	FROM GARBAGE.Automovil A WHERE @Auto_Patente = A.auto_patente)
-SET @viaje_turno_id = (SELECT T.turno_id FROM GARBAGE.Turno T WHERE @Turno_Descripcion = T.turno_descripcion)
-SET @viaje_chof_id = (SELECT C.chof_id FROM GARBAGE.Chofer C WHERE @chofer_dni = C.chof_dni)
-SET @viaje_cli_id = (SELECT	c.cli_id  FROM GARBAGE.Cliente C WHERE @Cliente_dni = c.cli_dni)
-
-
-INSERT INTO GARBAGE.Viaje ([viaje_auto_id],[viaje_turno_id], [viaje_chof_id],[viaje_cant_km],[fecha_hora_ini],[fecha_hora_fin],[viaje_cli_id]) 
-						  VALUES (@viaje_auto_id,@viaje_turno_id,@viaje_chof_id, @Viaje_Cant_Kilometros, @Viaje_Fecha, @Viaje_Fecha, @viaje_cli_id);
-
-
-FETCH NEXT FROM cursor_migracion_viajes
-INTO  @Auto_Patente,
-	  @chofer_dni,
-	  @Viaje_Cant_Kilometros,
-	  @Viaje_Fecha,
-      @Turno_Descripcion,
-	  @Cliente_dni
-END
-
-
-CLOSE cursor_migracion_viajes
-DEALLOCATE cursor_migracion_viajes;
-
-
-
-/******************************************** FIN DE MIGRACION DE VIAJES  ******************************************/
 
 
 

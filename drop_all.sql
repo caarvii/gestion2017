@@ -10,8 +10,6 @@ alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_chof_id;
 alter table GARBAGE.ChoferxAutomovil drop constraint FK_chof_auto_auto_id;
 alter table GARBAGE.TurnoxAutomovil drop constraint FK_turno_auto_turno_id;
 alter table GARBAGE.TurnoxAutomovil drop constraint FK_turno_auto_auto_id;
-alter table GARBAGE.Rendicion drop constraint FK_rend_chofer_id;
-alter table GARBAGE.Rendicion drop constraint FK_rend_turno_id;
 
 alter table GARBAGE.Factura drop constraint FK_fact_cli_id;
 
@@ -19,8 +17,13 @@ alter table GARBAGE.Viaje drop constraint FK_viaje_auto_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_turno_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_chof_id;
 alter table GARBAGE.Viaje drop constraint FK_viaje_cli_id;
-go 
 
+alter table GARBAGE.ItemxFactura drop constraint FK_fact_fact_id;
+alter table GARBAGE.ItemxFactura drop constraint FK_fact_viaje_id;
+
+alter table GARBAGE.Rendicion drop constraint FK_rend_chofer_id;
+alter table GARBAGE.Rendicion drop constraint FK_rend_turno_id;
+go
 
 drop table GARBAGE.FuncionalidadxRol
 drop table GARBAGE.Funcionalidad
@@ -44,9 +47,13 @@ drop table GARBAGE.Turno
 drop table GARBAGE.TurnoxAutomovil
 drop table GARBAGE.Rendicion
 
+
 drop function GARBAGE.GenerarUsuario;
 drop function GARBAGE.RemoverTildes;
 
-drop view GARBAGE.AutosView;
+drop view GARBAGE.AutosChoferTurnoView;
+drop view GARBAGE.FacturaViajeView;
+drop view GARBAGE.RendicionViajeView;
 
 drop procedure GARBAGE.SPMigracion;
+
