@@ -491,67 +491,16 @@ print('Agregando turnos a rendiciones');
 end
 go*/
 
-/******************************************** MIGRACION DE VIAJES  ******************************************/
+INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km], 
+       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id]) 
+       
+(SELECT DISTINCT A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id 
+  FROM gd_esquema.Maestra W, GARBAGE.Automovil A, GARBAGE.Chofer, GARBAGE.Turno T, GARBAGE.Cliente C
+  WHERE Rendicion_Nro is null AND Factura_Nro is null
+  and W.Auto_Patente = A.auto_patente and W.Chofer_Dni = chof_dni and W.Turno_Descripcion = T.turno_descripcion 
+  and W.Cliente_Dni = C.cli_dni)
 
----------------- CREO VARIABLES AUXILIARES --------------
-/*
-	DECLARE @viaje_auto_id [int], 
-			@viaje_turno_id [int],
-			@viaje_chof_id [int],
-			@viaje_cli_id [int]
-
----------------CREO VARIABLES PARA VOLCAR DATOS DEL CURSOR-------
-
-	DECLARE @Auto_Patente [varchar] (10),
-			@chofer_dni [numeric](18,0),
-			@Viaje_Cant_Kilometros [numeric](18,0),
-			@Viaje_Fecha datetime,
-			@Turno_Descripcion [varchar] (255),
-			@Cliente_dni [numeric](18,0)
-
----------------- CREO CURSOR --------------
-
-	DECLARE cursor_migracion_viajes CURSOR FOR 
-			(SELECT DISTINCT Auto_Patente,Chofer_Dni,Viaje_Cant_Kilometros,Viaje_Fecha,Turno_Descripcion,Cliente_Dni 
-			FROM gd_esquema.Maestra 
-			WHERE Rendicion_Nro is null AND Factura_Nro is null)
-			
-	OPEN cursor_migracion_viajes;
-
-	FETCH NEXT FROM cursor_migracion_viajes
-	INTO  @Auto_Patente,
-		  @chofer_dni,
-		  @Viaje_Cant_Kilometros,
-		  @Viaje_Fecha,
-		  @Turno_Descripcion,
-		  @Cliente_dni
-
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-
-	SET @viaje_auto_id = (SELECT A.auto_id	FROM GARBAGE.Automovil A WHERE @Auto_Patente = A.auto_patente)
-	SET @viaje_turno_id = (SELECT T.turno_id FROM GARBAGE.Turno T WHERE @Turno_Descripcion = T.turno_descripcion)
-	SET @viaje_chof_id = (SELECT C.chof_id FROM GARBAGE.Chofer C WHERE @chofer_dni = C.chof_dni)
-	SET @viaje_cli_id = (SELECT	c.cli_id  FROM GARBAGE.Cliente C WHERE @Cliente_dni = c.cli_dni)
-	
-	INSERT INTO GARBAGE.Viaje ([viaje_auto_id],[viaje_turno_id], [viaje_chof_id],[viaje_cant_km],[fecha_hora_ini],[fecha_hora_fin],[viaje_cli_id]) 
-							  VALUES (@viaje_auto_id,@viaje_turno_id,@viaje_chof_id, @Viaje_Cant_Kilometros, @Viaje_Fecha, @Viaje_Fecha, @viaje_cli_id);
-
-	FETCH NEXT FROM cursor_migracion_viajes
-	INTO  @Auto_Patente,
-		  @chofer_dni,
-		  @Viaje_Cant_Kilometros,
-		  @Viaje_Fecha,
-		  @Turno_Descripcion,
-		  @Cliente_dni
-	END
-
-	CLOSE cursor_migracion_viajes
-	DEALLOCATE cursor_migracion_viajes;
-
-
-	print ('Agregando los viajes');
-	*/
+print ('Agregando viajes');
 
 insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado)
 	(
