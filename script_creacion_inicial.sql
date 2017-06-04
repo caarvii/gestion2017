@@ -491,17 +491,18 @@ SET IDENTITY_INSERT GARBAGE.Rendicion OFF
 print ('Agregando rendiciones');
 
 
-insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado)
+insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado , item_fac_costo)
 	(
 		
-	SELECT F.fact_id , V.viaje_id , FVV.repetido
-	FROM GARBAGE.FacturaViajeView FVV , GARBAGE.Viaje V , GARBAGE.Factura F
+	SELECT F.fact_id , V.viaje_id , FVV.repetido , (T.turno_precio_base + (V.viaje_cant_km*T.turno_valor_km))
+	FROM GARBAGE.FacturaViajeView FVV , GARBAGE.Viaje V , GARBAGE.Factura F , GARBAGE.TURNO T
 	WHERE (SELECT auto_id FROM GARBAGE.Automovil WHERE FVV.patente = auto_patente) = v.viaje_auto_id AND
 		   FVV.viaje_km = V.viaje_cant_km AND
 		   FVV.viaje_fecha = V.fecha_hora_fin AND
 		   (SELECT cli_id FROM GARBAGE.Cliente WHERE FVV.cli_dni = cli_dni) = V.viaje_cli_id AND
 		   (SELECT chof_id FROM GARBAGE.Chofer WHERE FVV.chofer_dni = chof_dni) = V.viaje_chof_id AND
-		   FVV.fact_nro = F.fact_id
+		   FVV.fact_nro = F.fact_id AND
+		   V.viaje_turno_id = T.turno_id
 
 	)
 
