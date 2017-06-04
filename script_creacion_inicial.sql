@@ -60,30 +60,6 @@ create table GARBAGE.Cliente(
 	cli_usu_id int )
 go
 
-create table GARBAGE.Factura(
-	fact_id int constraint PK_fact_id primary key identity (1,1),
-	fact_fecha_ini datetime not null,
-	fact_fecha_fin datetime not null,
-	fact_cli_id int,
-	fact_total decimal (12,2) ,
-	fact_cant_viajes int
-)
-go
-
-
--- TODO - fact_total y fact_cant_viajes NULL por el momento . Se calculara despues
-
-create table GARBAGE.ItemxFactura(
-	item_fac_id int not null identity (1,1),
-	item_fac_fac_id int not null ,
-	item_fac_viaje_id int not null,
-	item_fac_costo decimal(12,2),
-	item_fac_descripcion varchar(255),
-	item_fac_duplicado int not null,
-	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
-)
-go
-
 create table GARBAGE.Chofer(
 	chof_id int constraint PK_chof_id primary key identity (1,1),
 	chof_nombre varchar(255) not null,
@@ -151,7 +127,7 @@ create table GARBAGE.Viaje(
 	fecha_hora_fin datetime NOT NULL,
 	viaje_cli_id int NOT NULL,
 	viaje_rendido bit default 0 NOT NULL, --Hay que actualizarlo cuando se hace la tabla de rendiciones
-	viaje_duplicado int not null)
+	viaje_duplicado int  default 0 not null)
 go
 
 create table GARBAGE.Rendicion(
@@ -159,9 +135,31 @@ create table GARBAGE.Rendicion(
 	rend_fecha_pago datetime not null,
 	rend_chofer int,
 	rend_turno int,
-	rend_importe numeric(12,2))
-	
+	rend_importe_total numeric(12,2),
+	rend_importe_duplicado numeric(12,2) default 0 )
 go
+
+create table GARBAGE.ItemxFactura(
+	item_fac_id int not null identity (1,1),
+	item_fac_fac_id int not null ,
+	item_fac_viaje_id int not null,
+	item_fac_costo decimal(12,2),
+	item_fac_descripcion varchar(255),
+	item_fac_duplicado int  default 0 not null,
+	constraint PK_item_x_factura primary key(item_fac_id, item_fac_fac_id, item_fac_viaje_id)
+)
+go
+
+create table GARBAGE.Factura(
+	fact_id int constraint PK_fact_id primary key identity (1,1),
+	fact_fecha_ini datetime not null,
+	fact_fecha_fin datetime not null,
+	fact_cli_id int,
+	fact_total decimal (12,2) ,
+	fact_cant_viajes int
+)
+go
+
 
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
@@ -465,44 +463,6 @@ insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
 print ('Agregando los autos con sus turnos correspondientes.');
 
 
-/*SET IDENTITY_INSERT GARBAGE.Rendicion ON
-
-/* Solo se migra 1 rendicion por cada Rendicion_Nro
-   Se migran 40198 filas de 114091 (Hay rendiciones con mismo Rend_Nro y distinto 
-   importe que no se migran) */
-
-insert into GARBAGE.Rendicion(rend_id, rend_fecha_pago, rend_importe)
-	select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe
-	from (select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe, 
-			ROW_NUMBER() OVER(PARTITION BY Rendicion_Nro ORDER BY Rendicion_Nro DESC) rn
-			FROM gd_esquema.Maestra) a
-	where Rendicion_Nro IS NOT NULL and rn = 1
-	order by Rendicion_Nro;
-
-print ('Agregando Rendiciones');
-
-SET IDENTITY_INSERT GARBAGE.Rendicion OFF
-
-	update GARBAGE.Rendicion set rend_chofer = chof_id
-	from GARBAGE.Rendicion, GARBAGE.Chofer , gd_esquema.Maestra M
-	where rend_id = M.Rendicion_Nro AND chof_dni = M.Chofer_Dni
-
-print('Agregando choferes a rendiciones');
-
-alter table GARBAGE.Rendicion alter column rend_chofer int not null
-
-	update GARBAGE.Rendicion set rend_turno = turno_id
-	from GARBAGE.Rendicion, GARBAGE.Turno, gd_esquema.Maestra M
-	where rend_id = M.Rendicion_Nro and Turno.turno_hora_inicio = m.Turno_Hora_Inicio
-		and Turno.turno_hora_fin = M.Turno_Hora_Fin;
-
-print('Agregando turnos a rendiciones');
-
-	alter table GARBAGE.Rendicion alter column rend_turno int not null
-
-end
-go*/
-
 INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km], 
        [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id] , viaje_duplicado) 
        
@@ -514,6 +474,22 @@ INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km],
   GROUP BY A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id)
 
 print ('Agregando viajes');
+
+SET IDENTITY_INSERT GARBAGE.Rendicion ON
+
+insert into GARBAGE.Rendicion (rend_id ,rend_fecha_pago, rend_importe_total , rend_chofer , rend_turno ,rend_importe_duplicado)
+
+(
+	select rend_nro , rend_fecha , SUM(rend_importe), CH.chof_id , T.turno_id , SUM(((RVV.repetido - 1)* RVV.rend_importe)) as rend_importe_duplicado
+	from GARBAGE.RENDICIONVIAJEVIEW RVV, GARBAGE.Chofer CH , GARBAGE.Turno T 
+	where RVV.chofer_dni = ch.chof_dni AND RVV.turno_desc = T.turno_descripcion
+	GROUP BY rend_nro , rend_fecha ,  CH.chof_id , T.turno_id 
+)
+
+SET IDENTITY_INSERT GARBAGE.Rendicion OFF
+
+print ('Agregando rendiciones');
+
 
 insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado)
 	(
