@@ -140,6 +140,7 @@ create table GARBAGE.TurnoxAutomovil(
 	constraint PK_turno_auto_id primary key(turno_auto_turno_id, turno_auto_auto_id))
 go
 
+
 create table GARBAGE.Viaje(
 	viaje_id int constraint PK_viaje_id primary key identity(1,1) NOT NULL,
 	viaje_auto_id int NOT NULL,
@@ -150,8 +151,17 @@ create table GARBAGE.Viaje(
 	fecha_hora_fin datetime NOT NULL,
 	viaje_cli_id int NOT NULL,
 	viaje_rendido bit default 0 NOT NULL) --Hay que actualizarlo cuando se hace la tabla de rendiciones
+go
 
-GO
+create table GARBAGE.Rendicion(
+	rend_id int constraint PK_rend_id primary key identity (1,1),
+	rend_fecha_pago datetime not null,
+	rend_chofer int,
+	rend_turno int,
+	rend_importe numeric(12,2))
+	
+go
+
 
 /******************************************** FIN - CREACION DE TABLAS *********************************************/
 
@@ -175,15 +185,6 @@ alter table GARBAGE.Factura
 add constraint FK_fact_cli_id foreign key (fact_cli_id) references GARBAGE.Cliente(cli_id);
 go
 
-alter table GARBAGE.ItemxFactura
-add constraint FK_fact_fact_id foreign key (item_fac_fac_id) references GARBAGE.Factura(fact_id),
-	constraint FK_fact_viaje_id foreign key (item_fac_viaje_id) references GARBAGE.Viaje(viaje_id);
-go
-
-alter table GARBAGE.Chofer
-add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
-go
-
 alter table GARBAGE.Automovil
 add constraint FK_auto_marca_id foreign key (auto_marca_id) references GARBAGE.Marca(marca_id),
 	constraint FK_auto_mod_id foreign key (auto_mod_id) references GARBAGE.Modelo(mod_id);
@@ -204,6 +205,15 @@ add  constraint [FK_viaje_auto_id] foreign key (viaje_auto_id) references GARBAG
 	 constraint [FK_viaje_chof_id] foreign key (viaje_chof_id) references GARBAGE.Chofer (chof_id),
 	 constraint [FK_viaje_cli_id] foreign key (viaje_cli_id) references GARBAGE.Cliente (cli_id),
 	 constraint [FK_viaje_turno_id] foreign key (viaje_turno_id) references GARBAGE.Turno (turno_id);
+go
+
+alter table GARBAGE.ItemxFactura
+add constraint FK_fact_fact_id foreign key (item_fac_fac_id) references GARBAGE.Factura(fact_id),
+	constraint FK_fact_viaje_id foreign key (item_fac_viaje_id) references GARBAGE.Viaje(viaje_id);
+go
+
+alter table GARBAGE.Chofer
+add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
 go
 
 
@@ -443,9 +453,48 @@ insert into GARBAGE.TurnoxAutomovil (turno_auto_auto_id, turno_auto_turno_id)
 print ('Agregando los autos con sus turnos correspondientes.');
 
 
+/*SET IDENTITY_INSERT GARBAGE.Rendicion ON
+
+/* Solo se migra 1 rendicion por cada Rendicion_Nro
+   Se migran 40198 filas de 114091 (Hay rendiciones con mismo Rend_Nro y distinto 
+   importe que no se migran) */
+
+insert into GARBAGE.Rendicion(rend_id, rend_fecha_pago, rend_importe)
+	select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe
+	from (select Rendicion_Nro, Rendicion_Fecha, Rendicion_Importe, 
+			ROW_NUMBER() OVER(PARTITION BY Rendicion_Nro ORDER BY Rendicion_Nro DESC) rn
+			FROM gd_esquema.Maestra) a
+	where Rendicion_Nro IS NOT NULL and rn = 1
+	order by Rendicion_Nro;
+
+print ('Agregando Rendiciones');
+
+SET IDENTITY_INSERT GARBAGE.Rendicion OFF
+
+	update GARBAGE.Rendicion set rend_chofer = chof_id
+	from GARBAGE.Rendicion, GARBAGE.Chofer , gd_esquema.Maestra M
+	where rend_id = M.Rendicion_Nro AND chof_dni = M.Chofer_Dni
+
+print('Agregando choferes a rendiciones');
+
+alter table GARBAGE.Rendicion alter column rend_chofer int not null
+
+	update GARBAGE.Rendicion set rend_turno = turno_id
+	from GARBAGE.Rendicion, GARBAGE.Turno, gd_esquema.Maestra M
+	where rend_id = M.Rendicion_Nro and Turno.turno_hora_inicio = m.Turno_Hora_Inicio
+		and Turno.turno_hora_fin = M.Turno_Hora_Fin;
+
+print('Agregando turnos a rendiciones');
+
+	alter table GARBAGE.Rendicion alter column rend_turno int not null
+
+end
+go*/
+
+/******************************************** MIGRACION DE VIAJES  ******************************************/
 
 ---------------- CREO VARIABLES AUXILIARES --------------
-
+/*
 	DECLARE @viaje_auto_id [int], 
 			@viaje_turno_id [int],
 			@viaje_chof_id [int],
@@ -502,7 +551,7 @@ print ('Agregando los autos con sus turnos correspondientes.');
 
 
 	print ('Agregando los viajes');
-
+	*/
 
 insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_duplicado)
 	(
