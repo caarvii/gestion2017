@@ -150,7 +150,8 @@ create table GARBAGE.Viaje(
 	fecha_hora_ini datetime NOT NULL,
 	fecha_hora_fin datetime NOT NULL,
 	viaje_cli_id int NOT NULL,
-	viaje_rendido bit default 0 NOT NULL) --Hay que actualizarlo cuando se hace la tabla de rendiciones
+	viaje_rendido bit default 0 NOT NULL, --Hay que actualizarlo cuando se hace la tabla de rendiciones
+	viaje_duplicado int not null)
 go
 
 create table GARBAGE.Rendicion(
@@ -216,6 +217,10 @@ alter table GARBAGE.Chofer
 add constraint FK_chof_usu_id foreign key (chof_usu_id) references GARBAGE.Usuario(usu_id);
 go
 
+alter table GARBAGE.Rendicion
+add constraint FK_rend_chofer_id foreign key (rend_chofer) references GARBAGE.Chofer(chof_id),
+ constraint FK_rend_turno_id foreign key (rend_turno) references GARBAGE.Turno(turno_id);
+go
 
 /******************************************** FIN - FOREING KEY ****************************************************/
 
@@ -499,13 +504,14 @@ end
 go*/
 
 INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km], 
-       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id]) 
+       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id] , viaje_duplicado) 
        
-(SELECT DISTINCT A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id 
+(SELECT  A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id , COUNT(*)
   FROM gd_esquema.Maestra W, GARBAGE.Automovil A, GARBAGE.Chofer, GARBAGE.Turno T, GARBAGE.Cliente C
   WHERE Rendicion_Nro is null AND Factura_Nro is null
   and W.Auto_Patente = A.auto_patente and W.Chofer_Dni = chof_dni and W.Turno_Descripcion = T.turno_descripcion 
-  and W.Cliente_Dni = C.cli_dni)
+  and W.Cliente_Dni = C.cli_dni
+  GROUP BY A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id)
 
 print ('Agregando viajes');
 

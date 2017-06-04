@@ -20,8 +20,10 @@ alter table GARBAGE.Viaje drop constraint FK_viaje_cli_id;
 
 alter table GARBAGE.ItemxFactura drop constraint FK_fact_fact_id;
 alter table GARBAGE.ItemxFactura drop constraint FK_fact_viaje_id;
-go 
 
+alter table GARBAGE.Rendicion drop constraint FK_rend_chofer_id;
+alter table GARBAGE.Rendicion drop constraint FK_rend_turno_id;
+go
 
 drop table GARBAGE.FuncionalidadxRol
 drop table GARBAGE.Funcionalidad
@@ -43,6 +45,8 @@ drop table GARBAGE.Automovil
 drop table GARBAGE.ChoferxAutomovil
 drop table GARBAGE.Turno
 drop table GARBAGE.TurnoxAutomovil
+drop table GARBAGE.Rendicion
+
 
 drop function GARBAGE.GenerarUsuario;
 drop function GARBAGE.RemoverTildes;
@@ -52,3 +56,13 @@ drop view GARBAGE.FacturaViajeView;
 drop view GARBAGE.RendicionViajeView;
 
 drop procedure GARBAGE.SPMigracion;
+
+
+create table GARBAGE.Rendicion(
+	rend_id int constraint PK_rend_id primary key identity (1,1),
+	rend_fecha_pago datetime not null,
+	rend_chofer int,
+	rend_turno int,
+	rend_importe numeric(12,2))
+	
+go
