@@ -126,8 +126,8 @@ create table GARBAGE.Viaje(
 	fecha_hora_ini datetime NOT NULL,
 	fecha_hora_fin datetime NOT NULL,
 	viaje_cli_id int NOT NULL,
-	viaje_rendido bit default 0 NOT NULL, --Hay que actualizarlo cuando se hace la tabla de rendiciones
-	viaje_duplicado int  default 0 not null)
+	viaje_rendido bit NOT NULL, 
+	viaje_duplicado int default 0 not null)
 go
 
 create table GARBAGE.Rendicion(
@@ -155,7 +155,7 @@ create table GARBAGE.Factura(
 	fact_fecha_ini datetime not null,
 	fact_fecha_fin datetime not null,
 	fact_cli_id int,
-	fact_total decimal (12,2) ,
+	fact_total decimal (12,2),
 	fact_cant_viajes int
 )
 go
@@ -464,9 +464,9 @@ print ('Agregando los autos con sus turnos correspondientes.');
 
 
 INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km], 
-       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id] , viaje_duplicado) 
+       [fecha_hora_ini], [fecha_hora_fin], [viaje_turno_id], [viaje_cli_id] , viaje_duplicado, viaje_rendido) 
        
-(SELECT  A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id , COUNT(*)
+(SELECT  A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id , COUNT(*), 1
   FROM gd_esquema.Maestra W, GARBAGE.Automovil A, GARBAGE.Chofer, GARBAGE.Turno T, GARBAGE.Cliente C
   WHERE Rendicion_Nro is null AND Factura_Nro is null
   and W.Auto_Patente = A.auto_patente and W.Chofer_Dni = chof_dni and W.Turno_Descripcion = T.turno_descripcion 
@@ -474,6 +474,8 @@ INSERT INTO GARBAGE.Viaje ([viaje_auto_id], [viaje_chof_id], [viaje_cant_km],
   GROUP BY A.auto_id, chof_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha, turno_id, cli_id)
 
 print ('Agregando viajes');
+
+alter table GARBAGE.Viaje add default 0 for viaje_rendido;
 
 SET IDENTITY_INSERT GARBAGE.Rendicion ON
 
@@ -506,23 +508,19 @@ insert into GARBAGE.ItemxFactura (item_fac_fac_id,item_fac_viaje_id,item_fac_dup
 
 	)
 
-
 print ('Agregando item por cada factura');
+
+update GARBAGE.Factura set  fact_total = (select sum(item_fac_costo) from GARBAGE.ItemxFactura where item_fac_fac_id = fact_id),
+							fact_cant_viajes  = (select count(*) from GARBAGE.ItemxFactura where item_fac_fac_id = fact_id) 
+from GARBAGE.Factura
+
+print ('Actualizando los totales y cant. viajes las facturas');
+
+alter table GARBAGE.Factura alter column fact_cant_viajes int not null
+alter table GARBAGE.Factura alter column fact_total decimal (12,2) not null
 
 end
 go
-
--- FACTURAS:
-
--- TODO - Calcular la cantidad de viajes.
--- TODO - Calcular el monto total en base a los viajes.
--- alter table GARBAGE.Factura alter column fact_cant_viajes int not null
--- alter table GARBAGE.Factura alter column fact_total int not null
-
--- TODO - Generar funciones para calcular fact_total en base a ItemxFactura
--- una vez que este bien armada la tabla VIAJE.
-
-
 
 exec GARBAGE.SPMigracion;
 
