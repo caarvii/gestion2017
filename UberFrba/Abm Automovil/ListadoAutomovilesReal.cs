@@ -30,7 +30,7 @@ namespace UberFrba.Abm_Automovil
             CONN.connection.Open();
 
             // Deberia pegarle a la base.
-            string consultaSQL = "SELECT TOP 10 * FROM GARBAGE.Automovil";
+            string consultaSQL = "SELECT * FROM GARBAGE.Automovil";
 
 
             tablaListado.DataSource = CONN.devolverDatosConConsulta(consultaSQL);
