@@ -19,7 +19,7 @@ namespace UberFrba.Abm_Automovil
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+           
            ActiveForm.Visible = false;
             AltaAutomovil formAlta = new AltaAutomovil();
             formAlta.ShowDialog();
@@ -30,6 +30,22 @@ namespace UberFrba.Abm_Automovil
             ActiveForm.Visible = false;
             ListadoAutomil listadoForm = new ListadoAutomil();
             listadoForm.ShowDialog();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = "Cambio";
+        }
+
+        private void MenuAutomovil_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            label1.Text = textBox1.Text;
+            MessageBox.Show("Hola");
         }
     }
 }

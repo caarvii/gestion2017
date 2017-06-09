@@ -47,14 +47,14 @@
             this.tabla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tabla.Location = new System.Drawing.Point(16, 55);
             this.tabla.Name = "tabla";
-            this.tabla.Size = new System.Drawing.Size(751, 233);
+            this.tabla.Size = new System.Drawing.Size(772, 156);
             this.tabla.TabIndex = 2;
             // 
             // ListadoAutomil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 312);
+            this.ClientSize = new System.Drawing.Size(800, 356);
             this.Controls.Add(this.tabla);
             this.Controls.Add(this.label2);
             this.Name = "ListadoAutomil";
