@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tablaListado = new System.Windows.Forms.DataGridView();
+            tablaListado = new System.Windows.Forms.DataGridView();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonBuscar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaListado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(tablaListado)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -49,14 +49,14 @@
             // 
             // tablaListado
             // 
-            this.tablaListado.AllowUserToAddRows = false;
-            this.tablaListado.AllowUserToDeleteRows = false;
-            this.tablaListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaListado.Location = new System.Drawing.Point(20, 221);
-            this.tablaListado.Name = "tablaListado";
-            this.tablaListado.ReadOnly = true;
-            this.tablaListado.Size = new System.Drawing.Size(610, 264);
-            this.tablaListado.TabIndex = 1;
+            tablaListado.AllowUserToAddRows = false;
+            tablaListado.AllowUserToDeleteRows = false;
+            tablaListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tablaListado.Location = new System.Drawing.Point(20, 221);
+            tablaListado.Name = "tablaListado";
+            tablaListado.ReadOnly = true;
+            tablaListado.Size = new System.Drawing.Size(610, 264);
+            tablaListado.TabIndex = 1;
             // 
             // botonLimpiar
             // 
@@ -92,13 +92,13 @@
             this.ClientSize = new System.Drawing.Size(642, 497);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
-            this.Controls.Add(this.tablaListado);
+            this.Controls.Add(tablaListado);
             this.Controls.Add(this.groupBox1);
             this.Name = "listadoGenerico";
             this.Text = "listadoGenerico";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tablaListado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(tablaListado)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -106,7 +106,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView tablaListado;
+        public static System.Windows.Forms.DataGridView tablaListado;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button botonBuscar;

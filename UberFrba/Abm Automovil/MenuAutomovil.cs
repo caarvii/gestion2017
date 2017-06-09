@@ -28,7 +28,7 @@ namespace UberFrba.Abm_Automovil
         private void button4_Click(object sender, EventArgs e)
         {
             ActiveForm.Visible = false;
-            ListadoAutomil listadoForm = new ListadoAutomil();
+            ListadoAutomovilesReal listadoForm = new ListadoAutomovilesReal();
             listadoForm.ShowDialog();
         }
 
