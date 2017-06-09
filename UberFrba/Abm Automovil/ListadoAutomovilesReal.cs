@@ -18,6 +18,7 @@ namespace UberFrba.Abm_Automovil
         public ListadoAutomovilesReal()
         {
             InitializeComponent();
+            this.Text = this.Text + " de Automoviles";
 
             // Agregar o no los criterios de busqueda.
             llenarTablaSinCriterios(tablaListado);

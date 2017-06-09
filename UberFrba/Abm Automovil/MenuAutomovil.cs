@@ -15,6 +15,7 @@ namespace UberFrba.Abm_Automovil
         public MenuAutomovil()
         {
             InitializeComponent();
+            this.Text = this.Text + " de Automoviles";
         }
 
         

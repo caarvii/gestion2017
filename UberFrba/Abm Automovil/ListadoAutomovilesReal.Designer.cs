@@ -40,7 +40,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 497);
             this.Name = "ListadoAutomovilesReal";
-            this.Text = "ListadoAutomovilesReal";
+            //this.Text = "ListadoAutomovilesReal";
             this.ResumeLayout(false);
 
         }

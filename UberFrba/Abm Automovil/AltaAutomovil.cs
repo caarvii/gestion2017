@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class AltaAutomovil : Form
+    public partial class AltaAutomovil : UberFrba.altaGenerica
     {
         public AltaAutomovil()
         {
