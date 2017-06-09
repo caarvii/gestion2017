@@ -75,6 +75,7 @@
             this.botonLimpiar.TabIndex = 2;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonBuscar
             // 
@@ -108,8 +109,8 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button botonLimpiar;
-        private System.Windows.Forms.Button botonBuscar;
+        public System.Windows.Forms.Button botonLimpiar;
+        public System.Windows.Forms.Button botonBuscar;
         public System.Windows.Forms.DataGridView tablaListado;
     }
 }

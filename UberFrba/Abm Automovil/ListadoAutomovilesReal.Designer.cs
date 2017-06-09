@@ -28,9 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // botonLimpiar
+            // 
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
+            // 
+            // ListadoAutomovilesReal
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(642, 497);
+            this.Name = "ListadoAutomovilesReal";
             this.Text = "ListadoAutomovilesReal";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

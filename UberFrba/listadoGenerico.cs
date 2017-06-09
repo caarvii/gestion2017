@@ -16,5 +16,10 @@ namespace UberFrba
         {
             InitializeComponent();
         }
+
+        protected virtual void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            tablaListado.DataSource = null;
+        }
     }
 }

@@ -127,6 +127,9 @@
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\ListadoAutomovilesReal.resx">
+      <DependentUpon>ListadoAutomovilesReal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\MenuAutomovil.resx">
       <DependentUpon>MenuAutomovil.cs</DependentUpon>
     </EmbeddedResource>

@@ -40,5 +40,16 @@ namespace UberFrba.Abm_Automovil
             // Cierro consulta
         }
 
+        protected override void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            // Limpiar generico
+            base.botonLimpiar_Click(this, null);
+
+            // Limpiar especifico de los criterios.
+
+            // TODO
+
+        }
+
     }
 }
