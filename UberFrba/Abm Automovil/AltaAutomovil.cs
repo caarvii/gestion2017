@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class AltaAutomovil : Form
+    public partial class AltaAutomovil : UberFrba.altaGenerica
     {
         public AltaAutomovil()
         {
@@ -22,8 +22,15 @@ namespace UberFrba.Abm_Automovil
         {
             // Nota: No se si deberia volver a crearlo o poder usarlo.
 
-            MenuAutomovil form = new MenuAutomovil();
-            form.ShowDialog(); 
+            //MenuAutomovil form = new MenuAutomovil();
+            //this.padre.Visible = true;
         }
+
+        public void setPadre(Form form)
+        {
+            this.padre = form;
+        }
+
+        private Form padre = new Form();
     }
 }

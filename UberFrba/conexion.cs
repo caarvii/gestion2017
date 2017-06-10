@@ -17,7 +17,6 @@ namespace UberFrba
         public conexion()
         {
             InitializeComponent();
-            connection.Open();
         }
 
         // Prueba de variables heredables.
@@ -28,9 +27,21 @@ namespace UberFrba
         // CONEXION
 
         public static string connectionString = "Server=SA-PC\\SQLSERVER2012;Database=GD1C2017;User Id=gd;Password=gd2017";
-        public static SqlConnection connection = new SqlConnection(connectionString);  
+        public static SqlConnection connection = new SqlConnection(connectionString);
 
-      
+        // Metodos 
+
+        public static DataTable devolverDatosConConsulta(String consulta)
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter(consulta, connection);
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(adapter);
+
+            DataTable table = new DataTable();
+            table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            adapter.Fill(table);
+
+            return table;
+        }
 
     }
 }

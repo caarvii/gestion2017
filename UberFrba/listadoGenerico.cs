@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace UberFrba
 {
-    public partial class Form1 : Form
+    public partial class listadoGenerico : Form
     {
-        public Form1()
+        public listadoGenerico()
         {
             InitializeComponent();
+        }
+
+        protected virtual void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            tablaListado.DataSource = null;
         }
     }
 }

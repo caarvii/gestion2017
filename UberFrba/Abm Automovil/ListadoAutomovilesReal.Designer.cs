@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Automovil
 {
-    partial class AltaAutomovil
+    partial class ListadoAutomovilesReal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // botonLimpiar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Incluir info adicional aqui.";
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
-            // AltaAutomovil
+            // ListadoAutomovilesReal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 202);
-            this.Controls.Add(this.label1);
-            this.Name = "AltaAutomovil";
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.limpiarBoton, 0);
-            this.Controls.SetChildIndex(this.aceptarBoton, 0);
+            this.ClientSize = new System.Drawing.Size(642, 497);
+            this.Name = "ListadoAutomovilesReal";
+            //this.Text = "ListadoAutomovilesReal";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
     }
 }

@@ -10,26 +10,34 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class MenuAutomovil : Form
+    public partial class MenuAutomovil : UberFrba.menuGenerico
     {
         public MenuAutomovil()
         {
             InitializeComponent();
+            this.Text = this.Text + " de Automoviles";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        
+        protected override void altaBoton_Click(object sender, EventArgs e) 
         {
-            
-           ActiveForm.Visible = false;
+            //ActiveForm.Visible = false;
             AltaAutomovil formAlta = new AltaAutomovil();
+            formAlta.setPadre(Form.ActiveForm); // No me funca bien
             formAlta.ShowDialog();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        protected override void listadoBoton_Click(object sender, EventArgs e)
         {
-            ActiveForm.Visible = false;
-            ListadoAutomil listadoForm = new ListadoAutomil();
+            // ActiveForm.Visible = false;
+            ListadoAutomovilesReal listadoForm = new ListadoAutomovilesReal();
             listadoForm.ShowDialog();
         }
+
+        // TODO
+        // Falta baja y modificacion
+
+
+
     }
 }
