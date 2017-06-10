@@ -20,7 +20,7 @@ namespace UberFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ABMAuto.MenuAutomovil());
+            Application.Run(new UberFrba.Abm_Turno.AltaTurno());
         }
     }
 }

@@ -80,6 +80,24 @@
     <Compile Include="Abm Rol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Turno\AltaTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\AltaTurno.Designer.cs">
+      <DependentUpon>AltaTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\BajaTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\BajaTurno.Designer.cs">
+      <DependentUpon>BajaTurno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\ListadoTurno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\ListadoTurno.Designer.cs">
+      <DependentUpon>ListadoTurno.cs</DependentUpon>
+    </Compile>
     <Compile Include="altaGenerica.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +156,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\MenuAutomovil.resx">
       <DependentUpon>MenuAutomovil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\AltaTurno.resx">
+      <DependentUpon>AltaTurno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\ListadoTurno.resx">
+      <DependentUpon>ListadoTurno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="altaGenerica.resx">
       <DependentUpon>altaGenerica.cs</DependentUpon>

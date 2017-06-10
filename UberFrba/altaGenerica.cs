@@ -19,9 +19,7 @@ namespace UberFrba
 
         protected virtual void limpiarBoton_Click(object sender, EventArgs e)
         {
-            this.campo1 = null;
-            this.campo2 = null;
-            this.campo3 = null;
+            // HACER
         }
 
         protected virtual void aceptarBoton_Click(object sender, EventArgs e)
@@ -31,10 +29,10 @@ namespace UberFrba
             // Mejorar claramente la forma de validar.
             // Validar por numeros ,etc.
 
-            if (this.campo1.Text == "" | this.campo2.Text == "" | this.campo3.Text == "")
-            {
-                MessageBox.Show("Usted no ha completado todos los campos requeridos");
-            }
+            //if (this.campo1.Text == "" | this.campo2.Text == "" | this.campo3.Text == "")
+            //{
+             //   MessageBox.Show("Usted no ha completado todos los campos requeridos");
+            //}
 
         }
     }
