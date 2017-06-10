@@ -27,7 +27,10 @@ namespace UberFrba
 
         }
 
-        
+        public TurnoDTO()
+        {
+
+        }
 
 
     }
