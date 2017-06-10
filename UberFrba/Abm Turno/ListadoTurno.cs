@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Turno
 {
-    public partial class ListadoTurno : Form
+    public partial class ListadoTurno : UberFrba.listadoGenerico
     {
         public ListadoTurno()
         {

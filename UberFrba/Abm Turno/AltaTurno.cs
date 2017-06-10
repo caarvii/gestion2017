@@ -12,12 +12,10 @@ namespace UberFrba.Abm_Turno
 {
     public partial class AltaTurno : Form
     {
-        private DateTime horaInicial;
-        private DateTime horaFinal;
-        private string descripcion;
+        TurnoDTO turno;
+
         private double valor;
         private double precio;
-        private bool estado;
         
         public AltaTurno()
         {
@@ -117,10 +115,7 @@ namespace UberFrba.Abm_Turno
         
         private bool setearVariables()
         {
-            horaInicial = horaInicio.Value;
-            horaFinal = horaFin.Value;
-            descripcion = (string) comboDescripcion.SelectedValue;
-                        
+            
             try
             {
                 valor = Convert.ToDouble(valorKM.Text);
@@ -133,8 +128,9 @@ namespace UberFrba.Abm_Turno
             }
             catch { MessageBox.Show("Escriba correctamente el precio base", "Validacion"); return false; }
 
-            estado = checkHabilitado.Checked;
-            
+
+            turno = new TurnoDTO(horaInicio.Value, horaFin.Value, (string)comboDescripcion.SelectedValue, valor , precio , checkHabilitado.Checked);
+
             return true;
         }
 
