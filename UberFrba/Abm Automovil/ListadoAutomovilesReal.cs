@@ -8,9 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Uso la conexion
-using CONN = UberFrba.conexion;
-
 namespace UberFrba.Abm_Automovil
 {
     public partial class ListadoAutomovilesReal : UberFrba.listadoGenerico
@@ -28,16 +25,16 @@ namespace UberFrba.Abm_Automovil
         private static void llenarTablaSinCriterios(DataGridView tablaListado)
         {
             // Abro consulta
-            CONN.connection.Open();
+           // CONN.connection.Open();
 
             // Deberia pegarle a la base.
-            string consultaSQL = "SELECT * FROM GARBAGE.Automovil";
+           // string consultaSQL = "SELECT * FROM GARBAGE.Automovil";
 
 
-            tablaListado.DataSource = CONN.devolverDatosConConsulta(consultaSQL);
+            //tablaListado.DataSource = CONN.devolverDatosConConsulta(consultaSQL);
 
 
-            CONN.connection.Close();
+           // CONN.connection.Close();
             // Cierro consulta
         }
 

@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -86,17 +87,18 @@
     <Compile Include="altaGenerica.Designer.cs">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </Compile>
+    <Compile Include="Conexion.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Dao\FuncionalidadDAO.cs" />
+    <Compile Include="Dao\RolDAO.cs" />
+    <Compile Include="Dto\FuncionalidadDTO.cs" />
+    <Compile Include="Dto\RolDTO.cs" />
+    <Compile Include="Dto\UsuarioDTO.cs" />
     <Compile Include="Facturacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="conexion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="conexion.Designer.cs">
-      <DependentUpon>conexion.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -110,6 +112,13 @@
     <Compile Include="listadoGenerico.Designer.cs">
       <DependentUpon>listadoGenerico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\Sesion.cs" />
     <Compile Include="menuGenerico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +139,7 @@
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\Utility.cs" />
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </EmbeddedResource>
@@ -142,11 +152,11 @@
     <EmbeddedResource Include="altaGenerica.resx">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="conexion.resx">
-      <DependentUpon>conexion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="listadoGenerico.resx">
       <DependentUpon>listadoGenerico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuGenerico.resx">
       <DependentUpon>menuGenerico.cs</DependentUpon>
