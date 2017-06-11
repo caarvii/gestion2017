@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,18 +63,21 @@
     <Compile Include="Abm Automovil\MenuAutomovil.Designer.cs">
       <DependentUpon>MenuAutomovil.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Chofer\Form1.cs">
+    <Compile Include="Abm Chofer\AltaChofer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Chofer\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
+      <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\Form1.cs">
+    <Compile Include="ClienteDTO.cs" />
+    <Compile Include="Abm Cliente\crearCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Cliente\crearCliente.Designer.cs">
+      <DependentUpon>crearCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsuarioDAO.cs" />
+    <Compile Include="UsuarioDTO.cs" />
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,17 +102,18 @@
     <Compile Include="altaGenerica.Designer.cs">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </Compile>
+    <Compile Include="Conexion.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Dao\FuncionalidadDAO.cs" />
+    <Compile Include="Dao\RolDAO.cs" />
+    <Compile Include="Dto\FuncionalidadDTO.cs" />
+    <Compile Include="Dto\RolDTO.cs" />
+    <Compile Include="Dto\UsuarioDTO.cs" />
     <Compile Include="Facturacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="conexion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="conexion.Designer.cs">
-      <DependentUpon>conexion.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -122,6 +127,13 @@
     <Compile Include="listadoGenerico.Designer.cs">
       <DependentUpon>listadoGenerico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\Sesion.cs" />
     <Compile Include="menuGenerico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +154,8 @@
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Validaciones.cs" />
+    <Compile Include="Util\Utility.cs" />
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,15 +170,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\ListadoTurno.resx">
       <DependentUpon>ListadoTurno.cs</DependentUpon>
+	  </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\crearCliente.resx">
+      <DependentUpon>crearCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="altaGenerica.resx">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="conexion.resx">
-      <DependentUpon>conexion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="listadoGenerico.resx">
       <DependentUpon>listadoGenerico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuGenerico.resx">
       <DependentUpon>menuGenerico.cs</DependentUpon>
