@@ -102,8 +102,11 @@
     <Compile Include="altaGenerica.Designer.cs">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Conexion.cs" />
+    <Compile Include="Conexion.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Config.cs" />
+    <Compile Include="ChoferDTO.cs" />
     <Compile Include="Dao\FuncionalidadDAO.cs" />
     <Compile Include="Dao\RolDAO.cs" />
     <Compile Include="Dto\FuncionalidadDTO.cs" />
@@ -170,7 +173,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\ListadoTurno.resx">
       <DependentUpon>ListadoTurno.cs</DependentUpon>
-	  </EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\crearCliente.resx">
       <DependentUpon>crearCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,7 +209,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
