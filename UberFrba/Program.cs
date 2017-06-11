@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // Importo los NameSpaces definidos.
-using ABMAuto = UberFrba.Abm_Automovil;
+
 
 
 namespace UberFrba
