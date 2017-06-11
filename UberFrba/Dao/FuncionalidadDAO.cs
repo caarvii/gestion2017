@@ -33,7 +33,7 @@ namespace UberFrba.Dao
         {
             SqlConnection conn = Conexion.obtenerConexion();
             SqlCommand com = new SqlCommand("SELECT F.Id,F.Descripcion FROM [NORMALIZADOS].Funcionalidad F" +
-                "JOIN [NORMALIZADOS].RolxFuncionalidad RxF ON RxF.Funcionalidad=F.Id AND RxF.Rol=" + rol.IdRol, conn);
+                "JOIN [NORMALIZADOS].RolxFuncionalidad RxF ON RxF.Funcionalidad=F.Id AND RxF.Rol=" + rol.id, conn);
             SqlDataReader reader = com.ExecuteReader();
             List<FuncionalidadDTO> funcionalidades = readerToListFunc(reader);
             return funcionalidades; 

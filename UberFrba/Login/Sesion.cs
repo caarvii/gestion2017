@@ -13,21 +13,21 @@ namespace UberFrba.Login
 {
     public class Sesion
     {
-        private static RolDTO RolActual { get; set; }
-        private static UsuarioDTO UsuarioActual;
+        private static RolDTO rolActual { get; set; }
+        private static UsuarioDTO usuarioActual;
         private static bool logued;
 
-        private static UsuarioDTO DefaultUser()
+        private static UsuarioDTO defaultUser()
         {
             return new UsuarioDTO()
             {
-                Roles = new List<RolDTO>() { RolDAO.SelectById(1) }
+                rolesList = new List<RolDTO>() { RolDAO.selectRolById(1) }
             };
         }
 
         public static List<RolDTO> Roles
         {
-            get { return Usuario.Roles; }
+            get { return Usuario.rolesList; }
         }
 
         /// <summary>
@@ -35,11 +35,11 @@ namespace UberFrba.Login
         /// </summary>
         public static RolDTO Rol
         {
-            get { if (RolActual == null) RolActual = Usuario.Roles[0]; return RolActual; }
+            get { if (rolActual == null) rolActual = Usuario.rolesList[0]; return rolActual; }
             set
             {
                 if (Roles.Contains(value))
-                    RolActual = value;
+                    rolActual = value;
                 else
                     throw new ApplicationException("Intento de asignacion de rol no autorizado para el usuario.");
             }
@@ -50,7 +50,7 @@ namespace UberFrba.Login
         {
             get
             {
-                if (UsuarioActual == null) UsuarioActual = DefaultUser(); return UsuarioActual;
+                if (usuarioActual == null) usuarioActual = defaultUser(); return usuarioActual;
             }
         }
 
@@ -85,11 +85,11 @@ namespace UberFrba.Login
 
                     int id = Convert.ToInt32(returnValue.Value);
 
-                    UsuarioDTO usuario = new UsuarioDTO() { userId = id, Username = username };
+                    UsuarioDTO usuario = new UsuarioDTO() { id = id, username = username };
 
-                    usuario.Roles = RolDAO.SelectByUser(usuario);
+                    usuario.rolesList = RolDAO.SelectByUser(usuario);
 
-                    UsuarioActual = usuario;
+                    usuarioActual = usuario;
 
                     logued = true;
 
@@ -107,7 +107,7 @@ namespace UberFrba.Login
         public static void Logout()
         {
             logued = false;
-            UsuarioActual = DefaultUser();
+            usuarioActual = defaultUser();
         }
         /*
         public static bool FuncionalidadHabilitada(ClaseFuncionalidad funcionalidad)
@@ -125,13 +125,13 @@ namespace UberFrba.Login
 
         public static void StartAsClient()
         {
-            UsuarioActual = DefaultUser();
-            RolActual = Roles[0];
+            usuarioActual = defaultUser();
+            rolActual = Roles[0];
         }
 
         public static void StartAsUser(RolDTO rol)
         {
-            RolActual = rol;
+            rolActual = rol;
         }
 
         public static void Reset_estado()

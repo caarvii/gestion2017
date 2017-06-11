@@ -8,12 +8,12 @@ namespace UberFrba.Dto
 {
     public class UsuarioDTO
     {
-        public int userId { get; set; }
-        public string Username { get; set; }
-        public bool Habilitado { get; set; }
-        public int Intentos { get; set; }
-        public string Password { get; set; }
-        public string Mail { get; set; }
-        public List<RolDTO> Roles { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public bool activo { get; set; }
+        public int intentos { get; set; }
+        public string password { get; set; }
+        public string mail { get; set; }
+        public List<RolDTO> rolesList { get; set; }
     }
 }

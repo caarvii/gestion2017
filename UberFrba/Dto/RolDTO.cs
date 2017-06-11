@@ -8,19 +8,19 @@ namespace UberFrba.Dto
 {
     public class RolDTO
     {
-        public int IdRol{ get;set;}
-        public string NombreRol{get;set;}
-        public List<FuncionalidadDTO> ListaFunc{get;set;}
-        public bool Estado{get;set;}
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public List<FuncionalidadDTO> funcionalidadesList { get; set; }
+        public bool activo { get; set; }
 
         public RolDTO(){
-            this.ListaFunc = new List<FuncionalidadDTO>();
-            this.Estado = true;
+            this.funcionalidadesList = new List<FuncionalidadDTO>();
+            this.activo = true;
         }
 
         public override string ToString()
         {
-            return this.NombreRol;
+            return this.nombre;
         }
 
         public override bool Equals(object obj)
@@ -31,7 +31,7 @@ namespace UberFrba.Dto
             if (item == null)
                 return false;
 
-            if (this.Estado == item.Estado && this.NombreRol == item.NombreRol)
+            if (this.activo == item.activo && this.nombre == item.nombre)
             {
                 return true;
             }
