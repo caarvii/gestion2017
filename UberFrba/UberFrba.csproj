@@ -69,14 +69,14 @@
     <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClienteDTO.cs" />
+    <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\crearCliente.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Cliente\crearCliente.Designer.cs">
       <DependentUpon>crearCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="UsuarioDAO.cs" />
+    <Compile Include="Dao\UsuarioDAO.cs" />
     <Compile Include="UsuarioDTO.cs" />
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
@@ -102,10 +102,10 @@
     <Compile Include="altaGenerica.Designer.cs">
       <DependentUpon>altaGenerica.cs</DependentUpon>
     </Compile>
-    <Compile Include="Conexion.cs" />
+    <Compile Include="Repository\Conexion.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="ChoferDTO.cs" />
-	<Compile Include="TurnoDTO.cs" />
+    <Compile Include="Dto\ChoferDTO.cs" />
+    <Compile Include="Dto\TurnoDTO.cs" />
     <Compile Include="Dao\FuncionalidadDAO.cs" />
     <Compile Include="Dao\RolDAO.cs" />
     <Compile Include="Dto\FuncionalidadDTO.cs" />

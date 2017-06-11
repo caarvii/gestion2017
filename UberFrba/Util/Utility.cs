@@ -20,7 +20,7 @@ namespace UberFrba.Helpers
 
             public void log(Exception e)
             {
-                using (StreamWriter streamWriter = new StreamWriter("../../../NORMALIZADOS.log", true, Encoding.Default))
+                using (StreamWriter streamWriter = new StreamWriter("../../../GARBAGE.log", true, Encoding.Default))
                 {
                     string line = String.Format("{0}\n\n{1}", DateTime.Now, e.ToString());
                     streamWriter.Write(line);
