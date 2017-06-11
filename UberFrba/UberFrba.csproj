@@ -170,6 +170,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\ListadoTurno.resx">
       <DependentUpon>ListadoTurno.cs</DependentUpon>
+	  </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\crearCliente.resx">
       <DependentUpon>crearCliente.cs</DependentUpon>
     </EmbeddedResource>
