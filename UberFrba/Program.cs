@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // Importo los NameSpaces definidos.
-using ABMAuto = UberFrba.Abm_Automovil;
+using ABMCliente = UberFrba.Abm_Cliente;
 
 
 namespace UberFrba
@@ -20,7 +20,7 @@ namespace UberFrba
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ABMAuto.MenuAutomovil());
+            Application.Run(new ABMCliente.crearCliente());
         }
     }
 }

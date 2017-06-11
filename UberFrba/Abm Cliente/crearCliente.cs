@@ -50,7 +50,7 @@ namespace UberFrba.Abm_Cliente
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {
             ClienteDTO nuevoCliente = this.cargarCliente();
-            //Aca le tengo que pegar a la base de datos e insertar el cliente
+            //Aca le tengo que conectarme a la bd e insertar el cliente
             //vamos a necesitar un trigger que c/vez que inserte un cliente inserte el usuario
 
 
@@ -60,15 +60,68 @@ namespace UberFrba.Abm_Cliente
         {
 
         }
-/*
+
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowAlphaOnlyYEspacio(e);
             if (e.KeyChar != 8) 
                 this.allowMaxLenght(txtNombre, 254, e);
         }
+
+        private void txtApellido_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphaOnlyYEspacio(e);
+            if (e.KeyChar != 8)
+                this.allowMaxLenght(txtNombre, 255, e);
+        }
+
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtDni, 18, e);
+        }
+
+        private void txtMail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != 8) this.allowMaxLenght(txtMail, 255, e);
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtTelefono, 18, e);
+        }
+
+        private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericYEspacio(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtTelefono, 18, e);
+        }
+
+        private void txtCodigoPostal_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtCodigoPostal, 18, e);
+        }
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
      
-        */
+        
 
 
 

@@ -30,6 +30,21 @@ namespace UberFrba
             e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back);
         }
 
+        public static void allowAlphanumericYEspacio(this Form aForm, KeyPressEventArgs e)
+        {
+            e.Handled = !(char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back || e.KeyChar == ' ');
+        }
+
+        public static void allowMaxLenght(this Form aForm,TextBox txt, int tamMax, KeyPressEventArgs e)
+        {
+            if (txt.Text.Length == tamMax)
+            {
+                e.Handled = e.KeyChar != (char)Keys.Back;
+            }
+        }
+
+
+
 
 
 
