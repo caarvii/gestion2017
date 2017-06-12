@@ -50,7 +50,6 @@ begin
 	
 end
 go
-drop procedure GARBAGE.Login
 
 create procedure GARBAGE.getRolListByUserId(@user_id int)
 as 
