@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Repository;
 
 namespace UberFrba.Dao
 {
@@ -19,10 +20,10 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     RolDTO rol = new RolDTO();
-                    rol.id = Convert.ToInt32(dataReader["Id"]);
-                    rol.nombre = Convert.ToString(dataReader["Nombre"]);
-                    rol.activo = Convert.ToBoolean(dataReader["Activo"]);
-                    rol.funcionalidadesList = FuncionalidadDAO.selectByRol(rol);
+                    rol.id = Convert.ToInt32(dataReader["rol_id"]);
+                    rol.nombre = Convert.ToString(dataReader["rol_nombre"]);
+                    rol.activo = Convert.ToBoolean(dataReader["rol_activo"]);
+                    rol.funcionalidadesList = FuncionalidadDAO.getFuncionalidadListByRol(rol.id);
 
                     listaRoles.Add(rol);
                 }
@@ -44,14 +45,12 @@ namespace UberFrba.Dao
            
         }
 
-        public static List<RolDTO> SelectByUser(UsuarioDTO usuario)
+        public static List<RolDTO> getRolListByUserId(int userId)
         {
-            using (SqlConnection conn = Conexion.obtenerConexion())
-            {
-                SqlCommand com = new SqlCommand("SELECT R.rol_id, R.rol_nombre, R.rol_activo FROM GARBAGE.Usuario U JOIN GARBAGE.Rol R ON U.Rol = R.Id WHERE U.Id=" + usuario.id, conn);
-                SqlDataReader dataReader = com.ExecuteReader();
-                return ReaderToListClaseRol(dataReader);
-            }
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getRolListByUserId",
+                SQLManager.getSingleParams("user_id", userId));
+              
+            return ReaderToListClaseRol(dataReader); 
         }
     }
 }

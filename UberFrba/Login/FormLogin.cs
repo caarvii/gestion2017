@@ -29,7 +29,7 @@ namespace UberFrba.Login
             try
             {
                 Sesion.Login(txtUsername.Text, txtPassword.Text);
-                Utility.ShowInfo("Login", "Logueado exitosamente");
+                Utility.ShowInfo("Login", "Logueado exitosamente, bienvenido " + Sesion.Usuario.username);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
 

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Data;
 using UberFrba.Dto;
 using UberFrba.Dao;
+using UberFrba.Repository;
 
 namespace UberFrba.Login
 {
@@ -56,42 +57,37 @@ namespace UberFrba.Login
 
         public static bool Logued { get { return logued; } }
 
+        private static byte[] getSHA256(string value)
+        {
+            SHA256Managed crypt = new SHA256Managed();
+            return crypt.ComputeHash(Encoding.UTF8.GetBytes(value), 0, Encoding.UTF8.GetByteCount(value));
+        }
+
+        public static byte[] encodear(string input)
+        {
+            SHA256Managed crypt = new SHA256Managed();
+            string hash = String.Empty;
+            return crypt.ComputeHash(Encoding.UTF8.GetBytes(input), 0, Encoding.UTF8.GetByteCount(input));
+        }
 
         public static void Login(string username, string password)
         {
             try
             {
-                SHA256Managed crypt = new SHA256Managed();
-                //string hash = String.Empty;
-                byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(password), 0, Encoding.UTF8.GetByteCount(password));
-                /*
-                foreach (byte bit in crypto)
-                {
-                    hash += bit.ToString("x2");
-                }
-                */
+               
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                parameters.Add("@username", username);
+                parameters.Add("@password", getSHA256(password));
 
-                    SqlConnection conn = Conexion.obtenerConexion();
-                    SqlParameter returnValue = new SqlParameter() { Direction = ParameterDirection.ReturnValue };
+                int id = SQLManager.executePorcedure("Login", parameters);
 
-                    SqlCommand com = new SqlCommand("GARBAGE.Login", conn);
+                UsuarioDTO usuario = new UsuarioDTO() { id = id, username = username };
 
-                    com.CommandType = CommandType.StoredProcedure;
-                    com.Parameters.AddWithValue("@username", username);
-                    com.Parameters.AddWithValue("@password", crypto);
-                    com.Parameters.Add(returnValue);
+                usuario.rolesList = RolDAO.getRolListByUserId(id);
 
-                    com.ExecuteScalar();
+                usuarioActual = usuario;
 
-                    int id = Convert.ToInt32(returnValue.Value);
-
-                    UsuarioDTO usuario = new UsuarioDTO() { id = id, username = username };
-
-                    usuario.rolesList = RolDAO.SelectByUser(usuario);
-
-                    usuarioActual = usuario;
-
-                    logued = true;
+                logued = true;
 
                 
 
@@ -148,5 +144,6 @@ namespace UberFrba.Login
         {
             //CERRAR CONEXION
         }
+
     }
 }

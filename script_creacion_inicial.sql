@@ -33,7 +33,7 @@ go
 create table GARBAGE.Usuario(
 	usu_id int constraint PK_usu_id primary key identity (1,1),
 	usu_username nvarchar(25) unique not null,
-	usu_password char(64) not null,
+	usu_password varbinary(64) not null,
 	usu_activo bit default 1 not null,
 	usu_intentos int default 0 not null)
 go

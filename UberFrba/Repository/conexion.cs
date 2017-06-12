@@ -38,11 +38,7 @@ namespace UberFrba
         public static SqlConnection obtenerConexion()
         {
             Config config = Config.newInstance;
-            SqlConnection conn = new SqlConnection(config.connectionDB);
-            conn.Open();
-            System.Console.WriteLine("Conexion exitosa");
-            return conn;
-
+            return new SqlConnection(config.connectionDB);
         }
     }
 }

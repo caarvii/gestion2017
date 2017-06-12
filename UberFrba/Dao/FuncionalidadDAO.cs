@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UberFrba.Dto;
 using System.Data.SqlClient;
+using UberFrba.Repository;
 
 namespace UberFrba.Dao
 {
@@ -18,8 +19,8 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     FuncionalidadDTO func = new FuncionalidadDTO();
-                    func.IdFuncionalidad = Convert.ToInt32(dataReader["Id"]);
-                    func.Descripcion = Convert.ToString(dataReader["Descripcion"]);
+                    func.IdFuncionalidad = Convert.ToInt32(dataReader["func_id"]);
+                    func.Descripcion = Convert.ToString(dataReader["func_descripcion"]);
 
                     listaFunc.Add(func);
                 }
@@ -29,12 +30,11 @@ namespace UberFrba.Dao
             return listaFunc;
         }
 
-        public static List<FuncionalidadDTO> selectByRol(RolDTO rol)
+        public static List<FuncionalidadDTO> getFuncionalidadListByRol(int rolId)
         {
-            SqlConnection conn = Conexion.obtenerConexion();
-            SqlCommand com = new SqlCommand("SELECT F.Id,F.Descripcion FROM [NORMALIZADOS].Funcionalidad F" +
-                "JOIN [NORMALIZADOS].RolxFuncionalidad RxF ON RxF.Funcionalidad=F.Id AND RxF.Rol=" + rol.id, conn);
-            SqlDataReader reader = com.ExecuteReader();
+
+            SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidadListByRolId",
+                SQLManager.getSingleParams("rol_id", rolId));
             List<FuncionalidadDTO> funcionalidades = readerToListFunc(reader);
             return funcionalidades; 
         }

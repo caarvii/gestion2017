@@ -77,6 +77,7 @@
       <DependentUpon>crearCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Dao\UsuarioDAO.cs" />
+    <Compile Include="Repository\SQLManager.cs" />
     <Compile Include="UsuarioDTO.cs" />
     <Compile Include="Abm Rol\Form1.cs">
       <SubType>Form</SubType>
@@ -156,7 +157,7 @@
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validaciones.cs" />
+    <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
