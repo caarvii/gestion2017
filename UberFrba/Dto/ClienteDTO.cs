@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace UberFrba.Abm_Cliente
 {
     class ClienteDTO:UsuarioDTO{
-    
+
+        private int id { get; set; }
         private string nombre { get; set; }
         private string apellido { get; set; }
         private int dni { get; set; }
@@ -28,17 +29,35 @@ namespace UberFrba.Abm_Cliente
             fechaNacimiento=_fechaNacimiento;
         }
 
- 
+        public override string ToString()
+        {
+            return this.nombre + this.apellido;
+        }
 
-        
+        public override bool Equals(object obj)
+        {
+
+            var item = obj as ClienteDTO;
+
+            if (item == null)
+                return false;
+
+            if (this.nombre == item.nombre && this.apellido == item.apellido && this.dni == item.dni )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }    
         
 
 
 
 
         }
-
-
-
+    
     }
 

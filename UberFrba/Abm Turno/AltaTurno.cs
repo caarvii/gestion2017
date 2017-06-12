@@ -37,20 +37,17 @@ namespace UberFrba.Abm_Turno
 
         private void horaInicio_KeyPress(object sender, KeyPressEventArgs e) 
         {
-            // TODO
+            // La validacion es inherente
         }
 
         private void horaFin_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TODO
+            // La validacion es inherente
         }
 
         private void horaFin_TextChanged(object sender, KeyPressEventArgs e)
         { 
-            // Al cambiar el valor.
-
-            MessageBox.Show("ENTRO");
-
+            
             int mayor = DateTime.Compare(horaInicio.Value, horaFin.Value);
 
             if (mayor > 0 || mayor == 0)
@@ -68,12 +65,12 @@ namespace UberFrba.Abm_Turno
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TODO
+            this.allowNumericOnly(e);
         }
 
         private void precioBase_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TODO
+            this.allowNumericOnly(e);
         }
 
         private void checkHabilitado_KeyPress(object sender, KeyPressEventArgs e)
@@ -81,7 +78,7 @@ namespace UberFrba.Abm_Turno
             // TODO
         }
 
-        // Falta validacion de fecha
+        
 
         private void Agregar_Click(object sender, EventArgs e)
         {

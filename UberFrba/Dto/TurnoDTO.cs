@@ -8,6 +8,7 @@ namespace UberFrba
 {
     class TurnoDTO
     {
+        private int id { get; set; }
         private DateTime horaInicial { get; set; }
         private DateTime horaFinal { get; set; }
         private string descripcion { get; set; }
@@ -29,6 +30,30 @@ namespace UberFrba
 
         public TurnoDTO()
         {
+            this.estado = true;
+        }
+
+        public override string ToString()
+        {
+            return this.descripcion + this.horaInicial;
+        }
+
+        public override bool Equals(object obj)
+        {
+
+            var item = obj as TurnoDTO;
+
+            if (item == null)
+                return false;
+
+            if (this.estado == item.estado && this.descripcion == item.descripcion && this.horaInicial == item.horaInicial && this.horaFinal == item.horaFinal)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
         }
 
