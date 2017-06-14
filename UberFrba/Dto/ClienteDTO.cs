@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UberFrba.Dto;
 
 namespace UberFrba.Dao
 {
-    class ClienteDTO:UsuarioDTO{
-    
+    class ClienteDTO:UsuarioDTO
+    {
         private string nombre { get; set; }
         private string apellido { get; set; }
         private int dni { get; set; }
