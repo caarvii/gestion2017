@@ -11,13 +11,14 @@ namespace UberFrba.Dao
 {
     class UsuarioDAO
     {
-        public UsuarioDTO getUsuarioById(int userId)
+        public static UsuarioDTO getUsuarioById(int userId)
         {
-           SqlDataReader dataReader = SQLManager.executeProcedureList("getUsuarioById", SQLManager.getSingleParams("userId", userId));
+           SqlDataReader dataReader = SQLManager.executeProcedureList("getUsuarioById", 
+               SQLManager.getSingleParams("user_id", userId));
            return getUsuarios(dataReader).First();
         }
 
-        private List<UsuarioDTO> getUsuarios(SqlDataReader dataReader)
+        private static List<UsuarioDTO> getUsuarios(SqlDataReader dataReader)
         {
             List<UsuarioDTO> listaUsuarios = new List<UsuarioDTO>();
             if (dataReader.HasRows)
@@ -27,7 +28,10 @@ namespace UberFrba.Dao
                     UsuarioDTO usuario = new UsuarioDTO();
                     usuario.id = Convert.ToInt32(dataReader["usu_id"]);
                     usuario.username = Convert.ToString(dataReader["usu_username"]);
-              //      usuario.password = Convert.To(dataReader["usu_password"]);
+                    byte[] binaryPassword = (byte[]) dataReader["usu_password"];
+                    usuario.password = Encoding.UTF8.GetString(binaryPassword);
+                    usuario.intentos = Convert.ToInt32(dataReader["usu_intentos"]);
+                    usuario.activo = Convert.ToBoolean(dataReader["usu_activo"]);
 
                     listaUsuarios.Add(usuario);
                 }

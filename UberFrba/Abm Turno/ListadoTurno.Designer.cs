@@ -46,6 +46,11 @@
 
         }
 
+        private void botonAlta_Click_1(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
         #endregion
     }
 }

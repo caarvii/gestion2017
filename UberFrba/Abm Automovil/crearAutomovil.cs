@@ -38,9 +38,9 @@ namespace UberFrba.Abm_Automovil
         }
 
         private void txtPatente_KeyPress(object sender, EventArgs e) {
-            this.allowAlphanumericOnly(e);
+          /*  this.allowAlphanumericOnly(e);
             if (e.KeyChar != 8) this.allowMaxLenght(txtPatente, 10, e);
-            
+            */
         }
 
 

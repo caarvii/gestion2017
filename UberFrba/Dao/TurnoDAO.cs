@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UberFrba.Dto;
 
 namespace UberFrba.Dao
 {
     class TurnoDAO
     {
-
+        /*
         public static List<TurnoDTO> ReaderToListClaseRol(SqlDataReader dataReader)
         {
             List<RolDTO> listaRoles = new List<RolDTO>();
@@ -53,6 +55,6 @@ namespace UberFrba.Dao
         }
 
 
-
+        */
     }
 }

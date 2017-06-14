@@ -327,6 +327,14 @@ insert into GARBAGE.RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 	join GARBAGE.Rol R on R.rol_nombre = @ROL_ADMIN
 );
 
+insert into GARBAGE.RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
+(
+	select R.rol_id, S.usu_id
+	from GARBAGE.Usuario S 
+	join GARBAGE.Rol R on R.rol_nombre = @ROL_CLIENTE
+	where S.usu_username <> 'admin'
+);
+
 print('Insertando Usuarios admin.');
 
 insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono, 
@@ -543,15 +551,13 @@ begin
 	where usu_username = @username
 	
 	IF @usu_username IS NULL BEGIN
-		set @error_message = 'No existe ningun usuario con ese username ' + @username
-		raiserror(@error_message, 11, 1)
-		RETURN -1 
+		set @error_message = 'No existe ningun usuario con ese username ' + @username;
+		throw 50000, @error_message , 1; 
 	END
 	-- 
 	IF @usu_activo = 0 BEGIN
-		set @error_message = 'El usuario' + @username + 'se encuentra desahabilitado'
-		raiserror(@error_message, 16, 1)
-		RETURN -2
+		set @error_message = 'El usuario' + @username + 'se encuentra desahabilitado';
+		throw 50000, @error_message , 1; 
 	END
 	--Caso de contrasenia incorrecta
 	IF @usu_password <> @password BEGIN
@@ -563,9 +569,8 @@ begin
 		END
 		UPDATE GARBAGE.Usuario
 		SET usu_intentos = @usu_intentos, usu_activo = @usu_activo
-		where usu_id = @usu_id
-		raiserror('Contrasenia incorrecta',16,1)
-		RETURN -3 
+		where usu_id = @usu_id;
+		throw 50000, 'Contrasenia incorrecta' , 1;
 	END
 	
 	IF @usu_password = @password BEGIN
@@ -583,7 +588,8 @@ as
 begin 
 	(select R.rol_id, R.rol_nombre, R.rol_activo 
 		from GARBAGE.Rol R 
-		join GARBAGE.RolxUsuario RU ON R.rol_id = RU.rol_usu_rol_id and RU.rol_usu_usu_id = @user_id)
+		join GARBAGE.RolxUsuario RU ON R.rol_id = RU.rol_usu_rol_id and RU.rol_usu_usu_id = @user_id
+		where rol_activo = 1)
 end
 go
 
@@ -594,4 +600,15 @@ begin
 		from GARBAGE.Funcionalidad F 
         JOIN GARBAGE.FuncionalidadxRol RF ON RF.func_rol_func_id = F.func_id AND RF.func_rol_rol_id = @rol_id)
 end
+go
+
+/*/////////////////////////////////////////////////////////// Usuario
+*/
+
+create procedure GARBAGE.getUsuarioById(@user_id int)
+as
+begin
+	(select * from GARBAGE.Usuario where usu_id = @user_id)
+end
+
 

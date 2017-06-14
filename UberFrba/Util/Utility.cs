@@ -25,7 +25,6 @@ namespace UberFrba.Helpers
                     string line = String.Format("{0}\n\n{1}", DateTime.Now, e.ToString());
                     streamWriter.Write(line);
                     streamWriter.Write(SEPARATOR);
-
                 }
             }
         }
@@ -45,7 +44,6 @@ namespace UberFrba.Helpers
 
         public static void ShowInfo(string title, string text)
         {
-
             MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
