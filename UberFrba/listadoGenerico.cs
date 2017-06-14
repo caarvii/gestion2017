@@ -21,5 +21,20 @@ namespace UberFrba
         {
             tablaListado.DataSource = null;
         }
+
+        protected virtual void botonBaja_Click(object sender, EventArgs e)
+        {
+            // TODO
+        }
+
+        protected virtual void botonModificacion_Click(object sender, EventArgs e)
+        {
+            //TODO
+        }
+
+        protected virtual void botonAlta_Click(object sender, EventArgs e)
+        {
+            //TODO
+        }
     }
 }

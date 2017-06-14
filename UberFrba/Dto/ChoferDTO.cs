@@ -8,6 +8,7 @@ namespace UberFrba
 {
     class ChoferDTO
     {
+        private int id { get; set; }
         private string nombre { get; set; }
         private string apellido { get; set; }
         private Int32 dni { get; set; }
@@ -32,5 +33,31 @@ namespace UberFrba
         public ChoferDTO()
         {
         }
+
+
+        public override string ToString()
+        {
+            return this.nombre + this.apellido;
+        }
+
+        public override bool Equals(object obj)
+        {
+
+            var item = obj as ChoferDTO;
+
+            if (item == null)
+                return false;
+
+            if (this.nombre == item.nombre && this.apellido == item.apellido && this.dni == item.dni)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
     }
 }
