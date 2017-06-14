@@ -63,13 +63,6 @@ namespace UberFrba.Login
             return crypt.ComputeHash(Encoding.UTF8.GetBytes(value), 0, Encoding.UTF8.GetByteCount(value));
         }
 
-        public static byte[] encodear(string input)
-        {
-            SHA256Managed crypt = new SHA256Managed();
-            string hash = String.Empty;
-            return crypt.ComputeHash(Encoding.UTF8.GetBytes(input), 0, Encoding.UTF8.GetByteCount(input));
-        }
-
         public static void Login(string username, string password)
         {
             try

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba;
 
-namespace UberFrba.Abm_Cliente
+namespace UberFrba.Dao
 {
     public partial class crearCliente : Form
     {

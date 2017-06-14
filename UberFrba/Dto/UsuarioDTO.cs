@@ -12,8 +12,21 @@ namespace UberFrba.Dto
         public string username { get; set; }
         public bool activo { get; set; }
         public int intentos { get; set; }
-        public string password { get; set; }
+        public byte[] password { get; set; }
         public string mail { get; set; }
         public List<RolDTO> rolesList { get; set; }
+
+        public UsuarioDTO(String _username, String _password)
+        {
+            username = _username;
+            password = _password;
+        }
+
+        public UsuarioDTO()
+        {
+            // TODO: Complete member initialization
+        }
     }
+
+   
 }

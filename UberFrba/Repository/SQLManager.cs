@@ -53,12 +53,12 @@ namespace UberFrba.Repository
             return Convert.ToInt32(returnValue.Value);
         }
 
-        public static SqlDataReader executeProcedureList(String functionName,
+        public static SqlDataReader executeProcedureList(String procedureName,
             System.Collections.Generic.Dictionary<String, Object> parameters)
         {
             SqlConnection con = Conexion.obtenerConexion();
 
-            SqlCommand com = new SqlCommand("GARBAGE." + functionName, con);
+            SqlCommand com = new SqlCommand("GARBAGE." + procedureName, con);
             com.CommandType = CommandType.StoredProcedure;
 
             addParameters(parameters, com);
