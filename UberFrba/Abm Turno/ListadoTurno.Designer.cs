@@ -30,14 +30,19 @@
         {
             this.SuspendLayout();
             // 
+            // botonAlta
+            // 
+            this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
+            // 
             // ListadoTurno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 302);
+            this.ClientSize = new System.Drawing.Size(633, 464);
             this.Name = "ListadoTurno";
             this.Text = "ListadoTurno";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

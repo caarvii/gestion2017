@@ -69,6 +69,7 @@
     <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dao\TurnoDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\crearCliente.cs">
       <SubType>Form</SubType>

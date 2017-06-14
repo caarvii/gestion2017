@@ -20,7 +20,13 @@ namespace UberFrba.Abm_Turno
         public AltaTurno()
         {
             InitializeComponent();
+            inicializarCombo();
           
+        }
+
+        private void inicializarCombo() 
+        { 
+            // TODO
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
@@ -60,7 +66,7 @@ namespace UberFrba.Abm_Turno
 
         private void comboDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TODO
+            // Validar si es inherente
         }
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
@@ -75,7 +81,7 @@ namespace UberFrba.Abm_Turno
 
         private void checkHabilitado_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // TODO
+            // Validar si es inherente
         }
 
         
