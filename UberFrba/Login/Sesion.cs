@@ -15,47 +15,13 @@ namespace UberFrba.Login
     public class Sesion
     {
         private static RolDTO rolActual { get; set; }
-        private static UsuarioDTO usuarioActual;
-        private static bool logued;
+        private static UsuarioDTO usuarioActual { get; set; }
+        private static bool logued { get; set; }
 
-        private static UsuarioDTO defaultUser()
-        {
-            return new UsuarioDTO()
-            {
-                rolesList = new List<RolDTO>() { RolDAO.selectRolById(1) }
-            };
+        public static RolDTO RolActual{
+            get{ return rolActual; }
+            set{ rolActual = value; }
         }
-
-        public static List<RolDTO> Roles
-        {
-            get { return Usuario.rolesList; }
-        }
-
-        /// <summary>
-        /// Rol seleccionado por el usuario.
-        /// </summary>
-        public static RolDTO Rol
-        {
-            get { if (rolActual == null) rolActual = Usuario.rolesList[0]; return rolActual; }
-            set
-            {
-                if (Roles.Contains(value))
-                    rolActual = value;
-                else
-                    throw new ApplicationException("Intento de asignacion de rol no autorizado para el usuario.");
-            }
-
-        }
-
-        public static UsuarioDTO Usuario
-        {
-            get
-            {
-                if (usuarioActual == null) usuarioActual = defaultUser(); return usuarioActual;
-            }
-        }
-
-        public static bool Logued { get { return logued; } }
 
         private static byte[] getSHA256(string value)
         {
@@ -63,80 +29,43 @@ namespace UberFrba.Login
             return crypt.ComputeHash(Encoding.UTF8.GetBytes(value), 0, Encoding.UTF8.GetByteCount(value));
         }
 
-        public static void Login(string username, string password)
+        public static UsuarioDTO login(string username, string password)
         {
             try
             {
-               
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
                 parameters.Add("@username", username);
                 parameters.Add("@password", getSHA256(password));
 
-                int id = SQLManager.executePorcedure("Login", parameters);
+                int userId = SQLManager.executePorcedure("Login", parameters);
 
-                UsuarioDTO usuario = new UsuarioDTO() { id = id, username = username };
+                UsuarioDTO usuario = UsuarioDAO.getUsuarioById(userId);
+                usuario.rolesList = RolDAO.getRolListByUserId(userId);
 
-                usuario.rolesList = RolDAO.getRolListByUserId(id);
+                if (usuario.rolesList.Count == 0) throw new ApplicationException("El usuario " + username +
+                    " no tiene ningun rol asignado");
 
                 usuarioActual = usuario;
 
                 logued = true;
 
-                
-
+                return usuarioActual;
             }
             catch (SqlException ex)
             {
-                if (ex.Number == 50000) //Si es una exception que lancé yo.
+                if (ex.Number == 50000) //Si es una exception que ejecutamos nosotros.
                     throw new ApplicationException(ex.Message);
-                else throw ex;
+                else 
+                    throw ex;
             }
         }
 
-        public static void Logout()
+        public static void logout()
         {
             logued = false;
-            usuarioActual = defaultUser();
+            usuarioActual = null;
         }
-        /*
-        public static bool FuncionalidadHabilitada(ClaseFuncionalidad funcionalidad)
-        {
-            return RolActual.tienePermiso(funcionalidad);
-        }
-        */
-        public static void Start(RolDTO rol)
-        {
-            if (rol == null)
-                StartAsClient();
-            else
-                StartAsUser(rol);
-        }
-
-        public static void StartAsClient()
-        {
-            usuarioActual = defaultUser();
-            rolActual = Roles[0];
-        }
-
-        public static void StartAsUser(RolDTO rol)
-        {
-            rolActual = rol;
-        }
-
-        public static void Reset_estado()
-        {
-            using (SqlConnection conn = Conexion.obtenerConexion())
-            {
-                SqlCommand com = new SqlCommand("[NORMALIZADOS].[SP_Reset_Estado_Users]", conn);
-                com.CommandType = CommandType.StoredProcedure;
-                com.ExecuteNonQuery();
-            }
-        }
-
-        public static void End()
-        {
-            //CERRAR CONEXION
-        }
+        
 
     }
 }

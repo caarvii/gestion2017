@@ -21,7 +21,7 @@ namespace UberFrba.Dao
                 {
                     RolDTO rol = new RolDTO();
                     rol.id = Convert.ToInt32(dataReader["rol_id"]);
-                    rol.nombre = Convert.ToString(dataReader["rol_nombre"]);
+                    rol.nombre = Convert.ToString(dataReader["rol_nombre"]).Trim();
                     rol.activo = Convert.ToBoolean(dataReader["rol_activo"]);
                     rol.funcionalidadesList = FuncionalidadDAO.getFuncionalidadListByRol(rol.id);
 

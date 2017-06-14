@@ -17,10 +17,10 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
-        protected override void botonAlta_Click_1(object sender, EventArgs e)
+        /*protected override void botonAlta_Click_1(object sender, EventArgs e)
         {
             AltaTurno altaTurnoForm = new AltaTurno();
             altaTurnoForm.ShowDialog();
-        }
+        }*/
     }
 }

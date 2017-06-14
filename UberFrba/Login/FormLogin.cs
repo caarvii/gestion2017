@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dto;
 using UberFrba.Helpers;
 
 namespace UberFrba.Login
@@ -28,10 +29,27 @@ namespace UberFrba.Login
         {
             try
             {
-                Sesion.Login(txtUsername.Text, txtPassword.Text);
-                Utility.ShowInfo("Login", "Logueado exitosamente, bienvenido " + Sesion.Usuario.username);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+
+                if (string.IsNullOrEmpty(txtUsername.Text) || string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    Utility.ShowInfo("Advertencia", "No puede estar vacio el username o el password");
+                    return;
+                }
+
+                UsuarioDTO usuario = Sesion.login(txtUsername.Text, txtPassword.Text);
+
+                if (usuario.rolesList.Count > 1)
+                {
+                    this.Hide();
+                    SelectRolLogin selectRolLogin = new SelectRolLogin(usuario.rolesList);
+                    selectRolLogin.ShowDialog();
+                    Close();
+                }
+                else
+                {
+                    Sesion.RolActual = usuario.rolesList.First();
+                    //TODO show menu
+                }
 
             }
             catch (ApplicationException ex)
