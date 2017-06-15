@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UberFrba.Dto
 {
-   class TurnoDTO
+   public class TurnoDTO
     {
         public int id { get; set; }
         public DateTime horaInicial { get; set; }

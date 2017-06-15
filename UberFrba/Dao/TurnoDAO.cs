@@ -26,8 +26,7 @@ namespace UberFrba.Dao
  
             // Se habilita por defecto en 1
 
-            return SQLManager.executePorcedure("altaTurno", null);
-            // modificar para darle los parametros.
+            return SQLManager.executePorcedure("altaTurno", parameters);
 
         }
 

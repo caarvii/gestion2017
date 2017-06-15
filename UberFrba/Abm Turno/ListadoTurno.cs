@@ -19,19 +19,27 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
-        protected override void botonAlta_Click_1(object sender, EventArgs e)
-        {
-            AltaTurno altaTurnoForm = new AltaTurno();
-            altaTurnoForm.ShowDialog();
-        }
+
 
         private void ListadoTurno_Load(object sender, EventArgs e)
         {
             // Si no existe ningun filtro aplicado.
             // validar filtroDescripcion
 
-            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+            //tablaListado.DataSource = TurnoDAO.getAllTurnos();
 
+
+        }
+
+        protected override void botonAlta_Click_1(object sender, EventArgs e)
+        {
+            AltaTurno altaTurnoForm = new AltaTurno();
+            altaTurnoForm.ShowDialog();
+        }
+
+        protected override void botonBuscar_Click(object sender, EventArgs e)
+        {
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
 
         }
 
