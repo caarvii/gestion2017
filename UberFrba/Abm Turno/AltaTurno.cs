@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dto;
+using UberFrba.Dao;
 
 namespace UberFrba.Abm_Turno
 {
@@ -20,20 +22,14 @@ namespace UberFrba.Abm_Turno
         public AltaTurno()
         {
             InitializeComponent();
-            inicializarCombo();
-          
-        }
-
-        private void inicializarCombo() 
-        { 
-            // TODO
+                   
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
             this.horaInicio.ResetText();
             this.horaFin.ResetText();
-            this.comboDescripcion.Text = "";
+            this.txtDescripcion.Text = "";
             this.valorKM.Text = "";
             this.precioBase.Text = "";
             this.checkHabilitado.Text = "";
@@ -64,9 +60,9 @@ namespace UberFrba.Abm_Turno
         }
 
 
-        private void comboDescripcion_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Validar si es inherente
+            this.allowAlphanumericOnly(e);
         }
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
@@ -88,14 +84,17 @@ namespace UberFrba.Abm_Turno
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(horaInicio.Text) && !string.IsNullOrWhiteSpace(horaFin.Text) && !string.IsNullOrWhiteSpace(comboDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
+            if (!string.IsNullOrWhiteSpace(horaInicio.Text) && !string.IsNullOrWhiteSpace(horaFin.Text) && !string.IsNullOrWhiteSpace(txtDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
             {
                 if (validacionFecha())
                 {
                     if (setearVariables())
                     {
-                        // Agregar
-                        MessageBox.Show("Se agrego correctamente");
+                        if (agregarTurno(turno))
+                        {
+                            MessageBox.Show("Se agrego correctamente");
+                        }
+                        
                     }
 
                 }
@@ -130,13 +129,18 @@ namespace UberFrba.Abm_Turno
                 precio = Convert.ToDouble(precioBase.Text);
             }
             catch { MessageBox.Show("Escriba correctamente el precio base", "Validacion"); return false; }
-
-
-            turno = new TurnoDTO(horaInicio.Value, horaFin.Value, (string)comboDescripcion.SelectedValue, valor , precio , checkHabilitado.Checked);
+            
+            turno = new TurnoDTO(horaInicio.Value, horaFin.Value, txtDescripcion.Text , valor, precio, checkHabilitado.Checked);
 
             return true;
         }
 
+        private bool agregarTurno(TurnoDTO turno) 
+        {
+            //Ver si es la validacion correcta
+            return (TurnoDAO.addNewTurno(turno) > 0);
+            
+        }
 
 
     }

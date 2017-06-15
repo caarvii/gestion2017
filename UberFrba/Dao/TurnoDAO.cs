@@ -5,56 +5,71 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UberFrba.Dto;
+using UberFrba.Repository;
 
 namespace UberFrba.Dao
 {
-    class TurnoDAO
+    public class TurnoDAO
     {
-        /*
-        public static List<TurnoDTO> ReaderToListClaseRol(SqlDataReader dataReader)
+
+        //Probar si funciona
+        public static int  addNewTurno(TurnoDTO turno)
         {
-            List<RolDTO> listaRoles = new List<RolDTO>();
+            return SQLManager.executePorcedure("altaTurno", null);
+            // modificar para darle los parametros.
+
+        }
+
+        //Probar si funciona
+        public static int deleteTurno(int turno_id)
+        {
+            return SQLManager.executePorcedure("bajaLogicaTurno", null);
+
+        }
+        
+
+        // Probar si funciona
+        public static List<TurnoDTO> getAllTurnos()
+        {
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getAllTurnos",null);
+
+            return getTurnos(dataReader);
+        }
+       
+
+
+        public static TurnoDTO selectTurnoById(int turno_id)
+        {
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getTurnoById",
+               SQLManager.getSingleParams("turno_id", turno_id));
+            return getTurnos(dataReader).First();
+
+        }
+
+        private static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
+        {
+            List<TurnoDTO> listaTurnos = new List<TurnoDTO>();
             if (dataReader.HasRows)
             {
                 while (dataReader.Read())
                 {
-                    RolDTO rol = new RolDTO();
-                    rol.id = Convert.ToInt32(dataReader["rol_id"]);
-                    rol.nombre = Convert.ToString(dataReader["rol_nombre"]);
-                    rol.activo = Convert.ToBoolean(dataReader["rol_activo"]);
-                    rol.funcionalidadesList = FuncionalidadDAO.getFuncionalidadListByRol(rol.id);
+                    TurnoDTO turno = new TurnoDTO();
+                    turno.id = Convert.ToInt32(dataReader["turno_id"]);
+                    turno.horaInicial = Convert.ToDateTime(dataReader["turno_hora_inicio"]);
+                    turno.horaFinal = Convert.ToDateTime(dataReader["turno_hora_final"]);
+                    turno.descripcion =  Convert.ToString(dataReader["turno_descripcion"]);
+                    turno.valor = Convert.ToDouble(dataReader["turno_valor_km"]);
+                    turno.precio = Convert.ToDouble(dataReader["turno_precio_base"]);
 
-                    listaRoles.Add(rol);
+                    listaTurnos.Add(turno);
                 }
             }
             dataReader.Close();
             dataReader.Dispose();
-            return listaRoles;
-
+            return listaTurnos;
         }
 
 
-
-        public static TurnoDTO selectTurnoById(int id)
-        {
-            SqlConnection con = Conexion.obtenerConexion();
-            SqlCommand com = new SqlCommand("SELECT * FROM GARBAGE.Rol WHERE rol_id=" + id, con);
-            SqlDataReader reader = com.ExecuteReader();
-            List<RolDTO> Roles = ReaderToListClaseRol(reader);
-            if (Roles.Count == 0) return null;
-            return Roles[0];
-
-        }
-
-        public static List<String> getAllTurnoDescripcion()
-        {
-            SqlDataReader dataReader = SQLManager.executeProcedureList("getRolListByUserId",
-                SQLManager.getSingleParams("user_id", userId));
-
-            return ReaderToListClaseRol(dataReader);
-        }
-
-
-        */
+        
     }
 }
