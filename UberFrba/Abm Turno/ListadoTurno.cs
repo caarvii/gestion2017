@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dao;
+using UberFrba.Dto;
 
 namespace UberFrba.Abm_Turno
 {
@@ -17,10 +19,33 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
-        /*protected override void botonAlta_Click_1(object sender, EventArgs e)
+        protected override void botonAlta_Click_1(object sender, EventArgs e)
         {
             AltaTurno altaTurnoForm = new AltaTurno();
             altaTurnoForm.ShowDialog();
+        }
+
+        private void ListadoTurno_Load(object sender, EventArgs e)
+        {
+            // Si no existe ningun filtro aplicado.
+            // validar filtroDescripcion
+
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+
+
+        }
+
+        /*protected override void botonModificacion_Click_1(object sender, EventArgs e)
+        {
+            if (tablaListado.SelectedRows.Count == 1 && tablaListado.Rows.Count > 0)
+            {
+                AltaTurno altaTurnoForm = new AltaTurno(this, tablaListado.SelectedRows);
+                altaTurnoForm.Show();
+                this.Hide();
+            }   
         }*/
+
+
+
     }
 }

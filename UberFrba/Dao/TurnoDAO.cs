@@ -15,6 +15,17 @@ namespace UberFrba.Dao
         //Probar si funciona
         public static int  addNewTurno(TurnoDTO turno)
         {
+            // VER EL TEMA DE LA FECHA
+
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("turno_hora_inicio", turno.horaInicial);
+            parameters.Add("turno_hora_fin", turno.horaFinal);
+            parameters.Add("turno_descripcion", turno.descripcion);
+            parameters.Add("turno_valor_km", turno.valor);
+            parameters.Add("turno_precio_base", turno.precio);
+ 
+            // Se habilita por defecto en 1
+
             return SQLManager.executePorcedure("altaTurno", null);
             // modificar para darle los parametros.
 
@@ -23,7 +34,8 @@ namespace UberFrba.Dao
         //Probar si funciona
         public static int deleteTurno(int turno_id)
         {
-            return SQLManager.executePorcedure("bajaLogicaTurno", null);
+            
+            return SQLManager.executePorcedure("bajaLogicaTurno", SQLManager.getSingleParams("turno_id", turno_id));
 
         }
         
@@ -31,7 +43,8 @@ namespace UberFrba.Dao
         // Probar si funciona
         public static List<TurnoDTO> getAllTurnos()
         {
-            SqlDataReader dataReader = SQLManager.executeProcedureList("getAllTurnos",null);
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getAllTurnos", parameters);
 
             return getTurnos(dataReader);
         }

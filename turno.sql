@@ -17,7 +17,7 @@ as
 begin
 	
 	insert into GARBAGE.Turno(turno_hora_inicio , turno_hora_fin , turno_descripcion , turno_valor_km , turno_precio_base , turno_habilitado)
-	values (@turno_hora_inicio, @turno_hora_fin, @turno_descripcion, @turno_valor_km, @turno_precio_base)
+	values (@turno_hora_inicio, @turno_hora_fin, @turno_descripcion, @turno_valor_km, @turno_precio_base , 1)
 
 	return 1
 
