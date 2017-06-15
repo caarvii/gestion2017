@@ -8,13 +8,13 @@ namespace UberFrba
 {
     class TurnoDTO
     {
-        private int id { get; set; }
-        private DateTime horaInicial { get; set; }
-        private DateTime horaFinal { get; set; }
-        private string descripcion { get; set; }
-        private double valor { get; set; }
-        private double precio { get; set; }
-        private bool estado { get; set; }
+        public int id { get; set; }
+        public DateTime horaInicial { get; set; }
+        public DateTime horaFinal { get; set; }
+        public string descripcion { get; set; }
+        public double valor { get; set; }
+        public double precio { get; set; }
+        public bool estado { get; set; }
 
 
         public TurnoDTO(DateTime horaIni , DateTime horaFin , string desc, double valorKM , double precioBase , bool estado_hab )
