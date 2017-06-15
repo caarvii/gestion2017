@@ -43,7 +43,10 @@ namespace UberFrba.Login
             else
             {
                 Sesion.RolActual = (RolDTO) comboBoxRoles.SelectedItem;
-                //TODO show menu
+                this.Hide();
+                Menu menu = new Menu();
+                menu.ShowDialog();
+                Close();
 
             }
         }
