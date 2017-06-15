@@ -23,6 +23,12 @@ namespace UberFrba.Login
             set{ rolActual = value; }
         }
 
+        public static UsuarioDTO UsuarioActual
+        {
+            get { return usuarioActual; }
+            set { usuarioActual = value; }
+        }
+
         private static byte[] getSHA256(string value)
         {
             SHA256Managed crypt = new SHA256Managed();

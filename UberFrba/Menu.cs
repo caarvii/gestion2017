@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Login;
 
 namespace UberFrba
 {
@@ -20,7 +21,7 @@ namespace UberFrba
 
         private void onMenuLoad(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            usernameLabel.Text = Sesion.UsuarioActual.username;
         }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
