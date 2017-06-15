@@ -75,7 +75,6 @@
             this.menuFuncionalidades.Name = "menuFuncionalidades";
             this.menuFuncionalidades.Size = new System.Drawing.Size(142, 473);
             this.menuFuncionalidades.TabIndex = 0;
-            this.menuFuncionalidades.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuFuncionalidades_ItemClicked);
             // 
             // welcomeTitleLabel
             // 
@@ -85,18 +84,17 @@
             this.welcomeTitleLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.welcomeTitleLabel.Margin = new System.Windows.Forms.Padding(2, 5, 1, 0);
             this.welcomeTitleLabel.Name = "welcomeTitleLabel";
-            this.welcomeTitleLabel.Size = new System.Drawing.Size(125, 13);
+            this.welcomeTitleLabel.Size = new System.Drawing.Size(126, 13);
             this.welcomeTitleLabel.Text = "Bienvenido,";
             this.welcomeTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.welcomeTitleLabel.Click += new System.EventHandler(this.toolStripTextBox6_Click);
             // 
             // usernameLabel
             // 
             this.usernameLabel.BackColor = System.Drawing.SystemColors.Window;
             this.usernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 1, 0);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(125, 15);
-            this.usernameLabel.Text = "david";
+            this.usernameLabel.Size = new System.Drawing.Size(126, 15);
+            this.usernameLabel.Text = "username";
             this.usernameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // funcionalidadesTitleLabel
@@ -119,7 +117,7 @@
             this.abmTitleLabel.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.abmTitleLabel.Name = "abmTitleLabel";
             this.abmTitleLabel.Padding = new System.Windows.Forms.Padding(4);
-            this.abmTitleLabel.Size = new System.Drawing.Size(128, 23);
+            this.abmTitleLabel.Size = new System.Drawing.Size(129, 23);
             this.abmTitleLabel.Text = "ABMs";
             this.abmTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -128,15 +126,16 @@
             this.rolesMenuItem.BackColor = System.Drawing.SystemColors.Control;
             this.rolesMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.rolesMenuItem.Name = "rolesMenuItem";
-            this.rolesMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.rolesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.rolesMenuItem.Text = "Roles";
             this.rolesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rolesMenuItem.Click += new System.EventHandler(this.rolesMenuItem_Click);
             // 
             // clientesMenuItem
             // 
             this.clientesMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.clientesMenuItem.Name = "clientesMenuItem";
-            this.clientesMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.clientesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.clientesMenuItem.Text = "Clientes";
             this.clientesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -144,7 +143,7 @@
             // 
             this.autoMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.autoMenuItem.Name = "autoMenuItem";
-            this.autoMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.autoMenuItem.Size = new System.Drawing.Size(129, 19);
             this.autoMenuItem.Text = "Automoviles";
             this.autoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.autoMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -153,15 +152,16 @@
             // 
             this.turnosMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.turnosMenuItem.Name = "turnosMenuItem";
-            this.turnosMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.turnosMenuItem.Size = new System.Drawing.Size(129, 19);
             this.turnosMenuItem.Text = "Turnos";
             this.turnosMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.turnosMenuItem.Click += new System.EventHandler(this.turnosMenuItem_Click);
             // 
             // choferesMenuItem
             // 
             this.choferesMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.choferesMenuItem.Name = "choferesMenuItem";
-            this.choferesMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.choferesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.choferesMenuItem.Text = "Choferes";
             this.choferesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -173,7 +173,7 @@
             this.operacionesTitleLabel.Margin = new System.Windows.Forms.Padding(1, 15, 1, 0);
             this.operacionesTitleLabel.Name = "operacionesTitleLabel";
             this.operacionesTitleLabel.Padding = new System.Windows.Forms.Padding(4);
-            this.operacionesTitleLabel.Size = new System.Drawing.Size(126, 23);
+            this.operacionesTitleLabel.Size = new System.Drawing.Size(127, 23);
             this.operacionesTitleLabel.Text = "Operaciones";
             this.operacionesTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -181,16 +181,15 @@
             // 
             this.registrarViajeMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.registrarViajeMenuItem.Name = "registrarViajeMenuItem";
-            this.registrarViajeMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.registrarViajeMenuItem.Size = new System.Drawing.Size(129, 19);
             this.registrarViajeMenuItem.Text = "Registrar Viaje";
             this.registrarViajeMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.registrarViajeMenuItem.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // rendicionViajesMenuItem
             // 
             this.rendicionViajesMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.rendicionViajesMenuItem.Name = "rendicionViajesMenuItem";
-            this.rendicionViajesMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.rendicionViajesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.rendicionViajesMenuItem.Text = "Rendicion de Viajes";
             this.rendicionViajesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -198,7 +197,7 @@
             // 
             this.facturarClienteMenuItem.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.facturarClienteMenuItem.Name = "facturarClienteMenuItem";
-            this.facturarClienteMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.facturarClienteMenuItem.Size = new System.Drawing.Size(129, 19);
             this.facturarClienteMenuItem.Text = "Facturacion a Clientes";
             this.facturarClienteMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -211,7 +210,7 @@
             this.reportesTitleLabel.Margin = new System.Windows.Forms.Padding(1, 15, 1, 0);
             this.reportesTitleLabel.Name = "reportesTitleLabel";
             this.reportesTitleLabel.Padding = new System.Windows.Forms.Padding(4);
-            this.reportesTitleLabel.Size = new System.Drawing.Size(126, 23);
+            this.reportesTitleLabel.Size = new System.Drawing.Size(127, 23);
             this.reportesTitleLabel.Text = "Reportes";
             this.reportesTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -219,7 +218,7 @@
             // 
             this.listadoEstadisticoMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.listadoEstadisticoMenuItem.Name = "listadoEstadisticoMenuItem";
-            this.listadoEstadisticoMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.listadoEstadisticoMenuItem.Size = new System.Drawing.Size(129, 19);
             this.listadoEstadisticoMenuItem.Text = "Listado Estadistico";
             this.listadoEstadisticoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -231,17 +230,16 @@
             this.accountTitleLabel.Margin = new System.Windows.Forms.Padding(1, 25, 1, 0);
             this.accountTitleLabel.Name = "accountTitleLabel";
             this.accountTitleLabel.Padding = new System.Windows.Forms.Padding(4);
-            this.accountTitleLabel.Size = new System.Drawing.Size(126, 23);
+            this.accountTitleLabel.Size = new System.Drawing.Size(127, 23);
             this.accountTitleLabel.Text = "Cuenta";
             this.accountTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.accountTitleLabel.Click += new System.EventHandler(this.toolStripTextBox5_Click);
             // 
             // cerrarSesionMenuItem
             // 
             this.cerrarSesionMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cerrarSesionMenuItem.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.cerrarSesionMenuItem.Name = "cerrarSesionMenuItem";
-            this.cerrarSesionMenuItem.Size = new System.Drawing.Size(128, 19);
+            this.cerrarSesionMenuItem.Size = new System.Drawing.Size(129, 19);
             this.cerrarSesionMenuItem.Text = "Cerrar Sesion";
             this.cerrarSesionMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -250,7 +248,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(639, 473);
+            this.ClientSize = new System.Drawing.Size(695, 473);
             this.Controls.Add(this.menuFuncionalidades);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.IsMdiContainer = true;

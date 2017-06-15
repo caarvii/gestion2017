@@ -176,7 +176,6 @@
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\MenuTextBox.cs" />
     <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">

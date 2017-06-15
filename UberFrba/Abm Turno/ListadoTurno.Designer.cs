@@ -38,7 +38,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(633, 464);
+            this.ClientSize = new System.Drawing.Size(557, 470);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ListadoTurno";
             this.Text = "ListadoTurno";
             this.ResumeLayout(false);
