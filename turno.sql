@@ -16,15 +16,18 @@ create procedure GARBAGE.altaTurno(@turno_hora_inicio numeric(18,0) , @turno_hor
 as
 begin
 
-	if (select COUNT(*) from GARBAGE.TURNO
-		where turno_hora_fin = @turno_hora_fin AND
+	declare @error_message nvarchar(255)
+	declare @cant int;
+	
+	set @cant = (select COUNT(*) from GARBAGE.TURNO 		where turno_hora_fin = @turno_hora_fin AND
 	 	turno_hora_inicio = @turno_hora_inicio AND
 	 	turno_valor_km = @turno_valor_km AND
 	 	turno_precio_base = @turno_precio_base AND
-	 	turno_descripcion = @turno_descripcion ) > 0 BEGIN
-		
+	 	turno_descripcion = @turno_descripcion);
+
+	if  @cant > 0 BEGIN
 		set @error_message = 'El turno ya existe';
-		throw 50000, @error_message , 2;
+		throw 50000, @error_message , 1;
 		
 	END
 
@@ -32,7 +35,7 @@ begin
 	insert into GARBAGE.Turno(turno_hora_inicio , turno_hora_fin , turno_descripcion , turno_valor_km , turno_precio_base , turno_habilitado)
 	values (@turno_hora_inicio, @turno_hora_fin, @turno_descripcion, @turno_valor_km, @turno_precio_base , 1)
 
-	return 1
+	return 1;
 
 end
 go

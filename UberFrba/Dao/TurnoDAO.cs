@@ -79,8 +79,8 @@ namespace UberFrba.Dao
                 {
                     TurnoDTO turno = new TurnoDTO();
                     turno.id = Convert.ToInt32(dataReader["turno_id"]);
-                    turno.horaInicial = Convert.ToDateTime(dataReader["turno_hora_inicio"]);
-                    turno.horaFinal = Convert.ToDateTime(dataReader["turno_hora_final"]);
+                    turno.horaInicial = Convert.ToInt32(dataReader["turno_hora_inicio"]);
+                    turno.horaFinal = Convert.ToInt32(dataReader["turno_hora_final"]);
                     turno.descripcion =  Convert.ToString(dataReader["turno_descripcion"]);
                     turno.valor = Convert.ToDouble(dataReader["turno_valor_km"]);
                     turno.precio = Convert.ToDouble(dataReader["turno_precio_base"]);

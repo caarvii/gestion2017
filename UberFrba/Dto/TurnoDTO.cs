@@ -9,15 +9,15 @@ namespace UberFrba.Dto
    public class TurnoDTO
     {
         public int id { get; set; }
-        public DateTime horaInicial { get; set; }
-        public DateTime horaFinal { get; set; }
+        public int horaInicial { get; set; }
+        public int horaFinal { get; set; }
         public string descripcion { get; set; }
         public double valor { get; set; }
         public double precio { get; set; }
         public bool estado { get; set; }
 
 
-        public TurnoDTO(DateTime horaIni , DateTime horaFin , string desc, double valorKM , double precioBase , bool estado_hab )
+        public TurnoDTO(int horaIni, int horaFin, string desc, double valorKM, double precioBase, bool estado_hab)
         {
             this.horaInicial = horaIni;
             this.horaFinal = horaFin;

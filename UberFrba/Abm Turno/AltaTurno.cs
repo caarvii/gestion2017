@@ -28,8 +28,8 @@ namespace UberFrba.Abm_Turno
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-            this.horaInicio.ResetText();
-            this.horaFin.ResetText();
+            this.comboInicio.ResetText();
+            this.comboFin.ResetText();
             this.txtDescripcion.Text = "";
             this.valorKM.Text = "";
             this.precioBase.Text = "";
@@ -37,28 +37,6 @@ namespace UberFrba.Abm_Turno
         }
 
         // Validaciones
-
-        private void horaInicio_KeyPress(object sender, KeyPressEventArgs e) 
-        {
-            // La validacion es inherente
-        }
-
-        private void horaFin_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // La validacion es inherente
-        }
-
-        private void horaFin_TextChanged(object sender, KeyPressEventArgs e)
-        { 
-            
-            int mayor = DateTime.Compare(horaInicio.Value, horaFin.Value);
-
-            if (mayor > 0 || mayor == 0)
-            {
-                MessageBox.Show("La hora de fin debe ser mayor a la inicial dentro del mismo dia.", "Error");
-            }
-             
-        }
 
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -85,7 +63,7 @@ namespace UberFrba.Abm_Turno
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(horaInicio.Text) && !string.IsNullOrWhiteSpace(horaFin.Text) && !string.IsNullOrWhiteSpace(txtDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
+            if (!string.IsNullOrWhiteSpace(comboInicio.Text) && !string.IsNullOrWhiteSpace(comboFin.Text) && !string.IsNullOrWhiteSpace(txtDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
             {
                 if (validacionFecha())
                 {
@@ -96,7 +74,7 @@ namespace UberFrba.Abm_Turno
                 }
                 else
                 {
-                    MessageBox.Show("El viaje no puede tener una duracion de mas de 24 hs","Error");
+                    MessageBox.Show("La hora de inicio no puede ser mayor a la hora de fin o ser la misma","Error");
                 }                
             }
             else
@@ -107,7 +85,7 @@ namespace UberFrba.Abm_Turno
 
         private bool validacionFecha()
         {
-            return ( horaInicio.Value.Day == horaFin.Value.Day);
+            return ( (int) comboInicio.SelectedValue < (int) comboFin.SelectedValue );
            
         }
         
@@ -125,8 +103,8 @@ namespace UberFrba.Abm_Turno
                 precio = Convert.ToDouble(precioBase.Text);
             }
             catch { MessageBox.Show("Escriba correctamente el precio base", "Validacion"); return false; }
-            
-            turno = new TurnoDTO(horaInicio.Value, horaFin.Value, txtDescripcion.Text , valor, precio, checkHabilitado.Checked);
+
+            turno = new TurnoDTO((int)comboInicio.SelectedValue, (int)comboFin.SelectedValue, txtDescripcion.Text, valor, precio, checkHabilitado.Checked);
 
             return true;
         }

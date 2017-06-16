@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.horaFin = new System.Windows.Forms.DateTimePicker();
-            this.horaInicio = new System.Windows.Forms.DateTimePicker();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.checkHabilitado = new System.Windows.Forms.CheckBox();
             this.precioBase = new System.Windows.Forms.TextBox();
             this.valorKM = new System.Windows.Forms.TextBox();
@@ -41,15 +40,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.Agregar = new System.Windows.Forms.Button();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.comboInicio = new System.Windows.Forms.ComboBox();
+            this.comboFin = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboFin);
+            this.groupBox1.Controls.Add(this.comboInicio);
             this.groupBox1.Controls.Add(this.txtDescripcion);
-            this.groupBox1.Controls.Add(this.horaFin);
-            this.groupBox1.Controls.Add(this.horaInicio);
             this.groupBox1.Controls.Add(this.checkHabilitado);
             this.groupBox1.Controls.Add(this.precioBase);
             this.groupBox1.Controls.Add(this.valorKM);
@@ -65,22 +65,12 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
             // 
-            // horaFin
+            // txtDescripcion
             // 
-            this.horaFin.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.horaFin.Location = new System.Drawing.Point(132, 55);
-            this.horaFin.Name = "horaFin";
-            this.horaFin.Size = new System.Drawing.Size(159, 20);
-            this.horaFin.TabIndex = 13;
-            // 
-            // horaInicio
-            // 
-            this.horaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.horaInicio.Location = new System.Drawing.Point(133, 29);
-            this.horaInicio.Name = "horaInicio";
-            this.horaInicio.Size = new System.Drawing.Size(159, 20);
-            this.horaInicio.TabIndex = 12;
-            this.horaInicio.Value = new System.DateTime(2017, 6, 10, 0, 0, 0, 0);
+            this.txtDescripcion.Location = new System.Drawing.Point(136, 87);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(155, 20);
+            this.txtDescripcion.TabIndex = 14;
             // 
             // checkHabilitado
             // 
@@ -173,12 +163,71 @@
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
             // 
-            // txtDescripcion
+            // comboInicio
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(136, 87);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(155, 20);
-            this.txtDescripcion.TabIndex = 14;
+            this.comboInicio.FormattingEnabled = true;
+            this.comboInicio.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"});
+            this.comboInicio.Location = new System.Drawing.Point(135, 32);
+            this.comboInicio.Name = "comboInicio";
+            this.comboInicio.Size = new System.Drawing.Size(155, 21);
+            this.comboInicio.TabIndex = 15;
+            // 
+            // comboFin
+            // 
+            this.comboFin.FormattingEnabled = true;
+            this.comboFin.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"});
+            this.comboFin.Location = new System.Drawing.Point(135, 61);
+            this.comboFin.Name = "comboFin";
+            this.comboFin.Size = new System.Drawing.Size(155, 21);
+            this.comboFin.TabIndex = 16;
             // 
             // AltaTurno
             // 
@@ -206,11 +255,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button Agregar;
-        private System.Windows.Forms.DateTimePicker horaFin;
-        private System.Windows.Forms.DateTimePicker horaInicio;
         private System.Windows.Forms.CheckBox checkHabilitado;
         private System.Windows.Forms.TextBox precioBase;
         private System.Windows.Forms.TextBox valorKM;
         private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.ComboBox comboFin;
+        private System.Windows.Forms.ComboBox comboInicio;
     }
 }
