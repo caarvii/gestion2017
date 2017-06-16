@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboFin = new System.Windows.Forms.ComboBox();
+            this.comboInicio = new System.Windows.Forms.ComboBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.checkHabilitado = new System.Windows.Forms.CheckBox();
             this.precioBase = new System.Windows.Forms.TextBox();
@@ -40,8 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.Agregar = new System.Windows.Forms.Button();
-            this.comboInicio = new System.Windows.Forms.ComboBox();
-            this.comboFin = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +64,72 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
+            // 
+            // comboFin
+            // 
+            this.comboFin.FormattingEnabled = true;
+            this.comboFin.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"});
+            this.comboFin.Location = new System.Drawing.Point(135, 61);
+            this.comboFin.Name = "comboFin";
+            this.comboFin.Size = new System.Drawing.Size(155, 21);
+            this.comboFin.TabIndex = 16;
+            // 
+            // comboInicio
+            // 
+            this.comboInicio.FormattingEnabled = true;
+            this.comboInicio.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"});
+            this.comboInicio.Location = new System.Drawing.Point(135, 32);
+            this.comboInicio.Name = "comboInicio";
+            this.comboInicio.Size = new System.Drawing.Size(155, 21);
+            this.comboInicio.TabIndex = 15;
             // 
             // txtDescripcion
             // 
@@ -162,72 +228,6 @@
             this.Agregar.Text = "Agregar";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
-            // 
-            // comboInicio
-            // 
-            this.comboInicio.FormattingEnabled = true;
-            this.comboInicio.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23"});
-            this.comboInicio.Location = new System.Drawing.Point(135, 32);
-            this.comboInicio.Name = "comboInicio";
-            this.comboInicio.Size = new System.Drawing.Size(155, 21);
-            this.comboInicio.TabIndex = 15;
-            // 
-            // comboFin
-            // 
-            this.comboFin.FormattingEnabled = true;
-            this.comboFin.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23"});
-            this.comboFin.Location = new System.Drawing.Point(135, 61);
-            this.comboFin.Name = "comboFin";
-            this.comboFin.Size = new System.Drawing.Size(155, 21);
-            this.comboFin.TabIndex = 16;
             // 
             // AltaTurno
             // 

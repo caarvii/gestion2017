@@ -12,6 +12,37 @@ namespace UberFrba.Dao
     public class TurnoDAO
     {
 
+        public static void updateTurno(TurnoDTO turno) 
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            parameters.Add("turno_id", turno.id);
+            parameters.Add("turno_hora_inicio", turno.horaInicial);
+            parameters.Add("turno_hora_fin", turno.horaFinal);
+            parameters.Add("turno_descripcion", turno.descripcion);
+            parameters.Add("turno_valor_km", turno.valor);
+            parameters.Add("turno_precio_base", turno.precio);
+            parameters.Add("turno_habilitado", turno.estado);
+
+            try
+            {
+                SQLManager.executePorcedure("updateTurno", parameters);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.Number == 50000)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
+                else
+                {
+                    throw exception;
+                }
+            }
+
+        }
+
+
         //Probar si funciona
         public static void addNewTurno(TurnoDTO turno)
         {
@@ -31,7 +62,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.ErrorCode == 50000)
+                if (exception.Number == 50000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -80,10 +111,11 @@ namespace UberFrba.Dao
                     TurnoDTO turno = new TurnoDTO();
                     turno.id = Convert.ToInt32(dataReader["turno_id"]);
                     turno.horaInicial = Convert.ToInt32(dataReader["turno_hora_inicio"]);
-                    turno.horaFinal = Convert.ToInt32(dataReader["turno_hora_final"]);
+                    turno.horaFinal = Convert.ToInt32(dataReader["turno_hora_fin"]);
                     turno.descripcion =  Convert.ToString(dataReader["turno_descripcion"]);
                     turno.valor = Convert.ToDouble(dataReader["turno_valor_km"]);
                     turno.precio = Convert.ToDouble(dataReader["turno_precio_base"]);
+                    turno.estado = Convert.ToBoolean(dataReader["turno_habilitado"]);
 
                     listaTurnos.Add(turno);
                 }
@@ -100,8 +132,9 @@ namespace UberFrba.Dao
             foreach (KeyValuePair<string, object> filtro in filtrosTurnoList)
             {
                 stringBuilder.Append(filtro.Key);
-                stringBuilder.Append(" = ");
+                stringBuilder.Append(" = '");
                 stringBuilder.Append(filtro.Value);
+                stringBuilder.Append("'");
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());

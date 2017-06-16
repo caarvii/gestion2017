@@ -32,13 +32,25 @@
             this.filtroDescripcion = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
+            // botonLimpiar
+            // 
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click_1);
+            // 
             // botonBuscar
             // 
             this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
+            // botonBaja
+            // 
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click_1);
+            // 
             // botonAlta
             // 
             this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
+            // 
+            // botonModificacion
+            // 
+            this.botonModificacion.Click += new System.EventHandler(this.botonModificacion_Click_2);
             // 
             // label2
             // 
@@ -65,7 +77,6 @@
             this.Controls.Add(this.label2);
             this.Name = "ListadoTurno";
             this.Text = "ListadoTurno";
-            this.Load += new System.EventHandler(this.ListadoTurno_Load);
             this.Controls.SetChildIndex(this.botonLimpiar, 0);
             this.Controls.SetChildIndex(this.botonBuscar, 0);
             this.Controls.SetChildIndex(this.botonBaja, 0);

@@ -23,25 +23,21 @@ namespace UberFrba.Abm_Turno
         }
 
 
-
-        private void ListadoTurno_Load(object sender, EventArgs e)
+        private void filtroDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Si no existe ningun filtro aplicado.
-            // validar filtroDescripcion
-
-            //tablaListado.DataSource = TurnoDAO.getAllTurnos();
-
-
+            this.allowAlphanumericOnly(e);
         }
 
-        protected override void botonAlta_Click_1(object sender, EventArgs e)
+        protected  void botonAlta_Click_1(object sender, EventArgs e)
         {
             AltaTurno altaTurnoForm = new AltaTurno();
             altaTurnoForm.ShowDialog();
         }
 
-        protected override void botonBuscar_Click(object sender, EventArgs e)
+        protected  void botonBuscar_Click(object sender, EventArgs e)
         {
+            filtrosTurnoList = new Dictionary<string, object>();
+            
             if (!string.IsNullOrWhiteSpace(filtroDescripcion.Text))
             {
                 filtrosTurnoList.Add("turno_descripcion", filtroDescripcion.Text);
@@ -59,20 +55,51 @@ namespace UberFrba.Abm_Turno
                 tablaListado.DataSource = TurnoDAO.getAllTurnos();
             }
 
+        }
 
+        protected  void botonBaja_Click_1(object sender, EventArgs e)
+        {
+            // Selecciono solo uno
+            if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
+            {
+                DataGridViewRow row = this.tablaListado.SelectedRows[0];
+
+                int id = Convert.ToInt32(row.Cells["id"].Value);
+
+                if (TurnoDAO.deleteTurno(id) == 1)
+                {
+                    MessageBox.Show("Turno dado de baja correctamente");
+                }
+            
+            }
 
 
         }
 
-        /*protected override void botonModificacion_Click_1(object sender, EventArgs e)
+        private void botonLimpiar_Click_1(object sender, EventArgs e)
         {
-            if (tablaListado.SelectedRows.Count == 1 && tablaListado.Rows.Count > 0)
+            tablaListado.DataSource = null;
+            filtroDescripcion.Text = null;
+        }
+
+        private void botonModificacion_Click_2(object sender, EventArgs e)
+        {
+            if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
             {
-                AltaTurno altaTurnoForm = new AltaTurno(this, tablaListado.SelectedRows);
-                altaTurnoForm.Show();
-                this.Hide();
-            }   
-        }*/
+                DataGridViewRow row = this.tablaListado.SelectedRows[0];
+
+                int id = Convert.ToInt32(row.Cells["id"].Value);
+
+                AltaTurno altaTurno = new AltaTurno(id);
+                altaTurno.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar el turno a modificar");
+
+            }
+        }
 
 
 

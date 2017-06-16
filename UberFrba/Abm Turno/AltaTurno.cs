@@ -16,6 +16,10 @@ namespace UberFrba.Abm_Turno
     public partial class AltaTurno : Form
     {
         TurnoDTO turno;
+        TurnoDTO turnoEdicion;
+
+        private bool edicion = false;
+
 
         private double valor;
         private double precio;
@@ -23,7 +27,38 @@ namespace UberFrba.Abm_Turno
         public AltaTurno()
         {
             InitializeComponent();
+            this.Text = "Alta de Turnos";
+            this.Agregar.Text = "Agregar";
+            this.edicion = false;
+            this.checkHabilitado.Checked = true;
                    
+        }
+
+         public AltaTurno(int turnoModificableID)
+        {
+            InitializeComponent();
+
+            cargarDatosEdicion(turnoModificableID);
+
+            this.Text = "Edicion de Turnos";
+            this.Agregar.Text = "Editar";
+
+            this.edicion = true;
+
+        }
+        
+        private void cargarDatosEdicion(int turnoModificableID)
+        {
+            turnoEdicion = TurnoDAO.selectTurnoById(turnoModificableID);
+
+            this.turnoEdicion.id = turnoModificableID;
+            this.comboInicio.Text = turnoEdicion.horaInicial.ToString();
+            this.comboFin.Text = turnoEdicion.horaFinal.ToString();
+            this.txtDescripcion.Text = turnoEdicion.descripcion;
+            this.valorKM.Text = turnoEdicion.valor.ToString();
+            this.precioBase.Text = turnoEdicion.precio.ToString();
+            this.checkHabilitado.Checked = turnoEdicion.estado;   
+
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
@@ -37,7 +72,6 @@ namespace UberFrba.Abm_Turno
         }
 
         // Validaciones
-
 
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -59,7 +93,8 @@ namespace UberFrba.Abm_Turno
             // Validar si es inherente
         }
 
-        
+       
+        // Botones
 
         private void Agregar_Click(object sender, EventArgs e)
         {
@@ -69,7 +104,11 @@ namespace UberFrba.Abm_Turno
                 {
                     if (setearVariables())
                     {
-                        agregarTurno(turno);
+                        if (this.edicion)
+                        {
+                            agregarEditarTurno(turnoEdicion);
+                        }
+                        else { agregarEditarTurno(turno); } 
                     }
                 }
                 else
@@ -85,7 +124,9 @@ namespace UberFrba.Abm_Turno
 
         private bool validacionFecha()
         {
-            return ( (int) comboInicio.SelectedValue < (int) comboFin.SelectedValue );
+            int inicio = Convert.ToInt32(comboInicio.SelectedItem);
+            int final = Convert.ToInt32(comboFin.SelectedItem);
+            return ( inicio < final);
            
         }
         
@@ -104,24 +145,41 @@ namespace UberFrba.Abm_Turno
             }
             catch { MessageBox.Show("Escriba correctamente el precio base", "Validacion"); return false; }
 
-            turno = new TurnoDTO((int)comboInicio.SelectedValue, (int)comboFin.SelectedValue, txtDescripcion.Text, valor, precio, checkHabilitado.Checked);
+            turno = new TurnoDTO(Convert.ToInt32(comboInicio.SelectedItem), Convert.ToInt32(comboFin.SelectedItem), txtDescripcion.Text, valor, precio, checkHabilitado.Checked);
 
             return true;
         }
 
-        private void agregarTurno(TurnoDTO turno) 
+        private void agregarEditarTurno(TurnoDTO turno) 
         {
-            //Ver si es la validacion correcta
-            try
+            if (this.edicion)
             {
-                TurnoDAO.addNewTurno(turno);
-            }
-            catch (ApplicationException ex)
-            {
-                Utility.ShowError("Error al agregar el turno", ex);
-            }
+                // Edicion
+                try
+                {
+                    TurnoDAO.updateTurno(turno);
+                    MessageBox.Show("Se edito el turno correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al editar el turno", ex);
+                }              
 
-            MessageBox.Show("Se agrego el turno correctamente");
+            }else
+            {
+                // Alta 
+                try
+                {
+                    TurnoDAO.addNewTurno(turno);
+                    MessageBox.Show("Se agrego el turno correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el turno", ex);
+                }
+
+            }
+            
         }
 
 
