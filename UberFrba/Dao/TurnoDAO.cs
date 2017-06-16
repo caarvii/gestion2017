@@ -12,17 +12,17 @@ namespace UberFrba.Dao
     public class TurnoDAO
     {
 
-        public static void updateTurno(TurnoDTO turno) 
+        public static void updateTurno(TurnoDTO turnodto) 
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
-            parameters.Add("turno_id", turno.id);
-            parameters.Add("turno_hora_inicio", turno.horaInicial);
-            parameters.Add("turno_hora_fin", turno.horaFinal);
-            parameters.Add("turno_descripcion", turno.descripcion);
-            parameters.Add("turno_valor_km", turno.valor);
-            parameters.Add("turno_precio_base", turno.precio);
-            parameters.Add("turno_habilitado", turno.estado);
+            parameters.Add("turno_id", turnodto.id);
+            parameters.Add("turno_hora_inicio", turnodto.horaInicial);
+            parameters.Add("turno_hora_fin", turnodto.horaFinal);
+            parameters.Add("turno_descripcion", turnodto.descripcion);
+            parameters.Add("turno_valor_km", turnodto.valor);
+            parameters.Add("turno_precio_base", turnodto.precio);
+            parameters.Add("turno_habilitado", turnodto.estado);
 
             try
             {

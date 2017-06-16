@@ -52,12 +52,13 @@ namespace UberFrba.Abm_Turno
             turnoEdicion = TurnoDAO.selectTurnoById(turnoModificableID);
 
             this.turnoEdicion.id = turnoModificableID;
+
             this.comboInicio.Text = turnoEdicion.horaInicial.ToString();
             this.comboFin.Text = turnoEdicion.horaFinal.ToString();
             this.txtDescripcion.Text = turnoEdicion.descripcion;
             this.valorKM.Text = turnoEdicion.valor.ToString();
             this.precioBase.Text = turnoEdicion.precio.ToString();
-            this.checkHabilitado.Checked = turnoEdicion.estado;   
+            this.checkHabilitado.Checked = turnoEdicion.estado;  
 
         }
 
@@ -104,11 +105,7 @@ namespace UberFrba.Abm_Turno
                 {
                     if (setearVariables())
                     {
-                        if (this.edicion)
-                        {
-                            agregarEditarTurno(turnoEdicion);
-                        }
-                        else { agregarEditarTurno(turno); } 
+                        agregarEditarTurno(turno); 
                     }
                 }
                 else
@@ -150,14 +147,15 @@ namespace UberFrba.Abm_Turno
             return true;
         }
 
-        private void agregarEditarTurno(TurnoDTO turno) 
+        private void agregarEditarTurno(TurnoDTO turnoActivo) 
         {
             if (this.edicion)
             {
                 // Edicion
                 try
                 {
-                    TurnoDAO.updateTurno(turno);
+                    turnoActivo.id = this.turnoEdicion.id;
+                    TurnoDAO.updateTurno(turnoActivo);
                     MessageBox.Show("Se edito el turno correctamente");
                 }
                 catch (ApplicationException ex)
@@ -170,7 +168,7 @@ namespace UberFrba.Abm_Turno
                 // Alta 
                 try
                 {
-                    TurnoDAO.addNewTurno(turno);
+                    TurnoDAO.addNewTurno(turnoActivo);
                     MessageBox.Show("Se agrego el turno correctamente");
                 }
                 catch (ApplicationException ex)
