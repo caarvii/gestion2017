@@ -14,6 +14,9 @@ namespace UberFrba.Abm_Turno
 {
     public partial class ListadoTurno : UberFrba.listadoGenerico
     {
+
+        Dictionary<string, object> filtrosTurnoList = new Dictionary<string, object>();
+
         public ListadoTurno()
         {
             InitializeComponent();
@@ -39,7 +42,25 @@ namespace UberFrba.Abm_Turno
 
         protected override void botonBuscar_Click(object sender, EventArgs e)
         {
-            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+            if (!string.IsNullOrWhiteSpace(filtroDescripcion.Text))
+            {
+                filtrosTurnoList.Add("turno_descripcion", filtroDescripcion.Text);
+            }
+
+            //if check todos los filtros 
+
+            if (filtrosTurnoList.Count > 0)
+            {
+                //Tiene filtros
+                tablaListado.DataSource = TurnoDAO.getTurnosFilter(filtrosTurnoList);
+            }
+            else
+            {
+                tablaListado.DataSource = TurnoDAO.getAllTurnos();
+            }
+
+
+
 
         }
 

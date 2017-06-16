@@ -81,7 +81,19 @@ namespace UberFrba.Dao
             return listaTurnos;
         }
 
+        internal static List<TurnoDTO> getTurnosFilter(Dictionary<string, object> filtrosTurnoList)
+        {   
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Turno where ");
 
-        
+            foreach (KeyValuePair<string, object> filtro in filtrosTurnoList)
+            {
+                stringBuilder.Append(filtro.Key);
+                stringBuilder.Append(" = ");
+                stringBuilder.Append(filtro.Value);
+            }
+
+            SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
+            return getTurnos(dataReader);
+        }
     }
 }
