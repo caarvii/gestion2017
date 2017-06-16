@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dto;
 using UberFrba.Dao;
+using UberFrba.Helpers;
 
 namespace UberFrba.Abm_Turno
 {
@@ -90,13 +91,8 @@ namespace UberFrba.Abm_Turno
                 {
                     if (setearVariables())
                     {
-                        if (agregarTurno(turno))
-                        {
-                            MessageBox.Show("Se agrego correctamente");
-                        }
-                        
+                        agregarTurno(turno);
                     }
-
                 }
                 else
                 {
@@ -135,11 +131,19 @@ namespace UberFrba.Abm_Turno
             return true;
         }
 
-        private bool agregarTurno(TurnoDTO turno) 
+        private void agregarTurno(TurnoDTO turno) 
         {
             //Ver si es la validacion correcta
-            return (TurnoDAO.addNewTurno(turno) > 0);
-            
+            try
+            {
+                TurnoDAO.addNewTurno(turno);
+            }
+            catch (ApplicationException ex)
+            {
+                Utility.ShowError("Error al agregar el turno", ex);
+            }
+
+            MessageBox.Show("Se agrego el turno correctamente");
         }
 
 

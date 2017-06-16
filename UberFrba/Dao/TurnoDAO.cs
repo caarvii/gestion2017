@@ -13,7 +13,7 @@ namespace UberFrba.Dao
     {
 
         //Probar si funciona
-        public static int  addNewTurno(TurnoDTO turno)
+        public static void addNewTurno(TurnoDTO turno)
         {
             // VER EL TEMA DE LA FECHA
 
@@ -25,9 +25,21 @@ namespace UberFrba.Dao
             parameters.Add("turno_precio_base", turno.precio);
  
             // Se habilita por defecto en 1
-
-            return SQLManager.executePorcedure("altaTurno", parameters);
-
+            try
+            {
+                SQLManager.executePorcedure("altaTurno", parameters);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.ErrorCode == 50000)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
+                else
+                {
+                    throw exception;
+                }
+            }
         }
 
         //Probar si funciona
