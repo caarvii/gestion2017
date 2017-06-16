@@ -34,9 +34,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
@@ -49,6 +49,7 @@
             this.btnCrearCliente = new System.Windows.Forms.Button();
             this.txtCodigoPostal = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -105,14 +106,14 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Apellido";
             // 
-            // label9
+            // lblUsuario
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(46, 290);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Usuario";
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Location = new System.Drawing.Point(46, 290);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(43, 13);
+            this.lblUsuario.TabIndex = 8;
+            this.lblUsuario.Text = "Usuario";
             // 
             // label10
             // 
@@ -123,14 +124,14 @@
             this.label10.TabIndex = 9;
             this.label10.Text = "Fecha de Nacimiento";
             // 
-            // label11
+            // lblPassword
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(47, 324);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
-            this.label11.TabIndex = 10;
-            this.label11.Text = "Contraseña";
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(47, 316);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(61, 13);
+            this.lblPassword.TabIndex = 10;
+            this.lblPassword.Text = "Contraseña";
             // 
             // txtNombre
             // 
@@ -189,7 +190,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(163, 318);
+            this.txtPassword.Location = new System.Drawing.Point(163, 313);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(200, 20);
             this.txtPassword.TabIndex = 11;
@@ -203,7 +204,7 @@
             // 
             // btnCrearCliente
             // 
-            this.btnCrearCliente.Location = new System.Drawing.Point(262, 362);
+            this.btnCrearCliente.Location = new System.Drawing.Point(262, 368);
             this.btnCrearCliente.Name = "btnCrearCliente";
             this.btnCrearCliente.Size = new System.Drawing.Size(101, 23);
             this.btnCrearCliente.TabIndex = 12;
@@ -228,11 +229,23 @@
             this.label3.TabIndex = 23;
             this.label3.Text = "Codigo Postal";
             // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(262, 339);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(101, 23);
+            this.btnModificar.TabIndex = 25;
+            this.btnModificar.Text = "Modificar cliente";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Visible = false;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
             // crearCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 407);
+            this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtCodigoPostal);
             this.Controls.Add(this.btnCrearCliente);
@@ -245,9 +258,9 @@
             this.Controls.Add(this.txtTelefono);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.label11);
+            this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -270,9 +283,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.TextBox txtDni;
@@ -287,5 +300,6 @@
         private System.Windows.Forms.Button btnCrearCliente;
 
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnModificar;
     }
 }

@@ -13,10 +13,45 @@ namespace UberFrba.Dao
 {
     public partial class crearCliente : Form
     {
+        ClienteDTO clienteAModificar;
+
         public crearCliente()
         {
             InitializeComponent();
         }
+        
+
+        //este constructor lo voy a usar para modificar un cliente
+        public crearCliente(ClienteDTO _clienteAModificar)
+        {
+            InitializeComponent();
+            clienteAModificar = _clienteAModificar;
+            CargarDatosDeClienteAModificar();
+            btnCrearCliente.Visible = false;
+            btnModificar.Visible = true;
+            lblUsuario.Visible = false;
+            lblPassword.Visible = false;
+            txtPassword.Visible = false;
+            txtUserName.Visible = false;
+            this.Text = "Modificar cliente";
+        }
+
+        private void CargarDatosDeClienteAModificar(){
+            ClienteDTO cliente = ClienteDAO.getClienteById(clienteAModificar.id);
+            txtNombre.Text = cliente.nombre;
+            txtApellido.Text = cliente.apellido;
+            txtDni.Text = cliente.dni.ToString();
+            txtMail.Text = cliente.mail;
+            txtTelefono.Text = cliente.telefono.ToString();
+            txtDireccion.Text = cliente.direccion;
+            txtCodigoPostal.Text = cliente.codigoPostal.ToString();
+            txtUserName.Text = cliente.username;
+        }
+
+
+
+
+
 
         private ClienteDTO cargarCliente()
         {
@@ -58,8 +93,18 @@ namespace UberFrba.Dao
 
         private void crearCliente_Load(object sender, EventArgs e)
         {
-
+            
         }
+
+        public void mostrarBotonModificar()
+        {
+            btnModificar.Visible = true;
+        }
+
+        public void ocultarCrear() {
+            btnCrearCliente.Visible = false;    
+        }
+
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -103,6 +148,18 @@ namespace UberFrba.Dao
         {
             this.allowNumericOnly(e);
             if (e.KeyChar != 8) this.allowMaxLenght(txtCodigoPostal, 18, e);
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            //ClienteDTO cliente = cargarCliente();
+            //cliente.id = clienteAModificar.id;
+            //ClienteDAO.modificarCliente(cliente);
+            MessageBox.Show("Cliente modificado con exito");
+
+            this.Close(); //Cierro formulario
+            
+        
         }
 
 
