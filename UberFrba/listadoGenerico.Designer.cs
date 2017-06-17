@@ -113,6 +113,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(550, 470);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Controls.Add(this.botonModificacion);
             this.Controls.Add(this.botonAlta);
             this.Controls.Add(this.botonBaja);
