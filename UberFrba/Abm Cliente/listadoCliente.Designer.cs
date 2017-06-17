@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Cliente
 {
-    partial class listadoCliente
+    partial class ListadoCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -51,8 +51,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 470);
-            this.Name = "listadoCliente";
-            this.Text = "listadoCliente";
+            this.Name = "ListadoCliente";
+            this.Text = "ListadoCliente";
             this.Load += new System.EventHandler(this.listadoCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

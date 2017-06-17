@@ -76,11 +76,11 @@
     <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\listadoCliente.cs">
+    <Compile Include="Abm Cliente\ListadoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\listadoCliente.Designer.cs">
-      <DependentUpon>listadoCliente.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ListadoCliente.Designer.cs">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
@@ -90,11 +90,11 @@
     <Compile Include="Dao\ModeloDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
-    <Compile Include="Abm Cliente\crearCliente.cs">
+    <Compile Include="Abm Cliente\AltaCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\crearCliente.Designer.cs">
-      <DependentUpon>crearCliente.cs</DependentUpon>
+    <Compile Include="Abm Cliente\AltaCliente.Designer.cs">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Dao\UsuarioDAO.cs" />
     <Compile Include="Dto\MarcaDTO.cs" />
@@ -204,8 +204,8 @@
     <EmbeddedResource Include="Abm Automovil\crearAutomovil.resx">
       <DependentUpon>crearAutomovil.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\listadoCliente.resx">
-      <DependentUpon>listadoCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\ListadoCliente.resx">
+      <DependentUpon>ListadoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\AltaChofer.resx">
       <DependentUpon>AltaChofer.cs</DependentUpon>
@@ -216,8 +216,8 @@
     <EmbeddedResource Include="Abm Turno\ListadoTurno.resx">
       <DependentUpon>ListadoTurno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Cliente\crearCliente.resx">
-      <DependentUpon>crearCliente.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
+      <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="altaGenerica.resx">
       <DependentUpon>altaGenerica.cs</DependentUpon>

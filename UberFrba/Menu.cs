@@ -52,9 +52,21 @@ namespace UberFrba
                 ListadoTurno listadoTurno = new ListadoTurno();
                 listadoTurno.MdiParent = this;
                 listadoTurno.Dock = DockStyle.Fill;
-                listadoTurno.Show();
 
-                this.currentFrom = listadoTurno;
+                if (currentFrom != null)
+                {
+                    var oldForm = currentFrom;
+                    this.currentFrom = listadoTurno;
+                    oldForm.Hide();
+                    currentFrom.Show();
+                    oldForm.Close();
+                }
+                else
+                {
+                    this.currentFrom = listadoTurno;
+                    currentFrom.Show();
+                }
+
             }
             
         }
@@ -67,11 +79,27 @@ namespace UberFrba
 
         private void clientesMenuItem_Click(object sender, System.EventArgs e)
         {
-            listadoCliente listado = new listadoCliente();
-            listado.Show();
+            if (canShowForm("ListadoCliente"))
+            {
+                ListadoCliente listadoCliente = new ListadoCliente();
+                listadoCliente.MdiParent = this;
+                listadoCliente.Dock = DockStyle.Fill;
+
+                if (currentFrom != null)
+                {
+                    var oldForm = currentFrom;
+                    this.currentFrom = listadoCliente;
+                    oldForm.Hide();
+                    currentFrom.Show();
+                    oldForm.Close();
+                }
+                else
+                {
+                    this.currentFrom = listadoCliente;
+                    currentFrom.Show();
+                }
+            }
         }
-
-
 
     }
 }
