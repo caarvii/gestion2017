@@ -13,7 +13,7 @@ using UberFrba.Interface;
 
 namespace UberFrba.Abm_Cliente
 {
-    public partial class listadoCliente : Form , OnCreateUpdateListener
+    public partial class listadoCliente : UberFrba.listadoGenerico , OnCreateUpdateListener
     {
         
 
@@ -35,51 +35,58 @@ namespace UberFrba.Abm_Cliente
 
         public void cargarDGVClientes()
         {
-            dgvClientes.DataSource = ClienteDAO.getAllClientes();
+            tablaListado.DataSource = ClienteDAO.getAllClientes();
         }
 
-        private void btnModificar_Click(object sender, EventArgs e)
+        protected void btnActualizarListado_Click(object sender, EventArgs e)
         {
-            if (dgvClientes.SelectedRows.Count == 1)
+            cargarDGVClientes();
+        }
+
+
+        protected void botonAlta_Click_1(object sender, EventArgs e)
+        {
+            crearCliente crearClienteForm = new crearCliente();
+            crearClienteForm.ShowDialog();
+        }
+
+        protected void botonBaja_Click_1(object sender, EventArgs e)
+        {
+            if (tablaListado.SelectedRows.Count == 1)
             {
-                DataGridViewRow row = this.dgvClientes.SelectedRows[0];
+                DataGridViewRow row = this.tablaListado.SelectedRows[0];
+                ClienteDTO cliente = new ClienteDTO();
+                int id = Convert.ToInt32(row.Cells["id"].Value);
+
+                if (ClienteDAO.deleteCliente(id) == 1)
+                {
+                    MessageBox.Show("Cliente dado de baja correctamente");
+                    cargarDGVClientes();
+                }
+
+            }
+        }
+
+        private void botonLimpiar_Click_1(object sender, EventArgs e)
+        {
+            tablaListado.DataSource = null;
+        }
+
+        private void botonModificacion_Click_1(object sender, EventArgs e)
+        {
+            if (tablaListado.SelectedRows.Count == 1)
+            {
+                DataGridViewRow row = this.tablaListado.SelectedRows[0];
                 ClienteDTO cliente = new ClienteDTO();
                 cliente.id = Convert.ToInt32(row.Cells["id"].Value);
-                
-                crearCliente ventanaCliente = new crearCliente(cliente,this);
-                ventanaCliente.ShowDialog();
+
+                crearCliente crearClienteForm = new crearCliente(cliente, this);
+                crearClienteForm.ShowDialog();
             }
             else
             {
                 MessageBox.Show("Debe seleccionar el cliente a modificar");
             }
-
-        }
-
-        private void btnActualizarListado_Click(object sender, EventArgs e)
-        {
-            cargarDGVClientes();
-        }
-
-        private void btnDeshabilitar_Click(object sender, EventArgs e)
-        {
-            if (dgvClientes.SelectedRows.Count == 1)
-            {
-                DataGridViewRow row = this.dgvClientes.SelectedRows[0];
-                ClienteDTO cliente = new ClienteDTO();
-                int id = Convert.ToInt32(row.Cells["id"].Value);
-
-                 if (ClienteDAO.deleteCliente(id) == 1)
-                 {
-                     MessageBox.Show("Cliente dado de baja correctamente");
-                 }
-
-            }
-        }
-
-        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
 
