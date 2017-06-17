@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.Abm_Turno;
-using UberFrba.Login;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Turno;
+using UberFrba.Dto;
+using UberFrba.Login;
 
 namespace UberFrba
 {
@@ -22,6 +23,15 @@ namespace UberFrba
         public Menu()
         {
             InitializeComponent();
+            loadFuncionalidades();
+            
+        }
+
+        private void loadFuncionalidades()
+        {
+            RolDTO rol = Sesion.RolActual;
+            List<FuncionalidadDTO> funcionalidades = rol.funcionalidadesList;
+
         }
 
 
@@ -42,9 +52,21 @@ namespace UberFrba
                 ListadoTurno listadoTurno = new ListadoTurno();
                 listadoTurno.MdiParent = this;
                 listadoTurno.Dock = DockStyle.Fill;
-                listadoTurno.Show();
 
-                this.currentFrom = listadoTurno;
+                if (currentFrom != null)
+                {
+                    var oldForm = currentFrom;
+                    this.currentFrom = listadoTurno;
+                    oldForm.Hide();
+                    currentFrom.Show();
+                    oldForm.Close();
+                }
+                else
+                {
+                    this.currentFrom = listadoTurno;
+                    currentFrom.Show();
+                }
+
             }
             
         }
@@ -55,18 +77,29 @@ namespace UberFrba
                 (this.currentFrom != null && !this.currentFrom.Name.Equals(formName));
         }
 
-        private void clientesMenuItem_Click(object sender, EventArgs e)
+        private void clientesMenuItem_Click(object sender, System.EventArgs e)
         {
+            if (canShowForm("ListadoCliente"))
+            {
+                ListadoCliente listadoCliente = new ListadoCliente();
+                listadoCliente.MdiParent = this;
+                listadoCliente.Dock = DockStyle.Fill;
 
-
-            listadoCliente listadoCliente = new listadoCliente();
-            listadoCliente.Show
-                ();
+                if (currentFrom != null)
+                {
+                    var oldForm = currentFrom;
+                    this.currentFrom = listadoCliente;
+                    oldForm.Hide();
+                    currentFrom.Show();
+                    oldForm.Close();
+                }
+                else
+                {
+                    this.currentFrom = listadoCliente;
+                    currentFrom.Show();
+                }
+            }
         }
-
-
-
-
 
     }
 }

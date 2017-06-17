@@ -1,6 +1,6 @@
 ﻿namespace UberFrba
 {
-    partial class listadoGenerico
+    partial class ListadoGenerico
     {
         /// <summary>
         /// Required designer variable.
