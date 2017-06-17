@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.Abm_Turno;
-using UberFrba.Login;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Turno;
+using UberFrba.Dto;
+using UberFrba.Login;
 
 namespace UberFrba
 {
@@ -22,6 +23,15 @@ namespace UberFrba
         public Menu()
         {
             InitializeComponent();
+            loadFuncionalidades();
+            
+        }
+
+        private void loadFuncionalidades()
+        {
+            RolDTO rol = Sesion.RolActual;
+            List<FuncionalidadDTO> funcionalidades = rol.funcionalidadesList;
+
         }
 
 
@@ -55,16 +65,11 @@ namespace UberFrba
                 (this.currentFrom != null && !this.currentFrom.Name.Equals(formName));
         }
 
-        private void clientesMenuItem_Click(object sender, EventArgs e)
+        private void clientesMenuItem_Click(object sender, System.EventArgs e)
         {
-
-
-            listadoCliente listadoCliente = new listadoCliente();
-            listadoCliente.Show
-                ();
+            listadoCliente listado = new listadoCliente();
+            listado.Show();
         }
-
-
 
 
 
