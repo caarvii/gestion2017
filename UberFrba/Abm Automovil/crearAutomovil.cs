@@ -32,7 +32,7 @@ namespace UberFrba.Abm_Automovil
             cmbMarca.DisplayMember = "descripcion";
             cmbMarca.ValueMember = "id";
 
-            List<TurnoDTO> turnos = TurnoDAO.getAllTurnoDescripcion();
+            List<TurnoDTO> turnos = TurnoDAO.getAllTurnos();
             cmbTurno.DataSource = turnos;
             cmbTurno.DisplayMember = "descripcion";
             cmbTurno.ValueMember = "id";
