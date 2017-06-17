@@ -8,7 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba;
+using UberFrba.Abm_Cliente;
 using UberFrba.Helpers;
+using UberFrba.Interface;
 
 namespace UberFrba.Dao
 {
@@ -20,10 +22,11 @@ namespace UberFrba.Dao
         {
             InitializeComponent();
         }
-        
+
+        OnCreateUpdateListener listener;
 
         //este constructor lo voy a usar para modificar un cliente
-        public crearCliente(ClienteDTO _clienteAModificar)
+        public crearCliente(ClienteDTO _clienteAModificar, OnCreateUpdateListener _listener)
         {
             InitializeComponent();
             clienteAModificar = _clienteAModificar;
@@ -35,6 +38,7 @@ namespace UberFrba.Dao
             txtPassword.Visible = false;
             txtUserName.Visible = false;
             this.Text = "Modificar cliente";
+            listener = _listener;
         }
 
         private void CargarDatosDeClienteAModificar(){
@@ -171,6 +175,8 @@ namespace UberFrba.Dao
                 ClienteDAO.updateCliente(cliente);
                 MessageBox.Show("Cliente modificado con exito");
                 this.Close(); //Cierro formulario
+                listener.onOperationFinish();
+                
             }
             catch (ApplicationException ex)
             {

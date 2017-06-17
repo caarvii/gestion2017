@@ -138,6 +138,7 @@
             this.clientesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.clientesMenuItem.Text = "Clientes";
             this.clientesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.clientesMenuItem.Click += new System.EventHandler(this.clientesMenuItem_Click);
             // 
             // autoMenuItem
             // 

@@ -82,6 +82,7 @@
     <Compile Include="Abm Cliente\listadoCliente.Designer.cs">
       <DependentUpon>listadoCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />

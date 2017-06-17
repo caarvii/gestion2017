@@ -101,6 +101,11 @@ namespace UberFrba.Abm_Turno
             }
         }
 
+        private void ListadoTurno_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
 
     }

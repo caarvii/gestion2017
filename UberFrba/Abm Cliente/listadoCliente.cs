@@ -8,11 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
+using UberFrba.Interface;
+
 
 namespace UberFrba.Abm_Cliente
 {
-    public partial class listadoCliente : Form
+    public partial class listadoCliente : Form , OnCreateUpdateListener
     {
+        
+
+         public void onOperationFinish() {
+
+            cargarDGVClientes();
+        
+        }
+
         public listadoCliente()
         {
             InitializeComponent();
@@ -36,7 +46,7 @@ namespace UberFrba.Abm_Cliente
                 ClienteDTO cliente = new ClienteDTO();
                 cliente.id = Convert.ToInt32(row.Cells["id"].Value);
                 
-                crearCliente ventanaCliente = new crearCliente(cliente);
+                crearCliente ventanaCliente = new crearCliente(cliente,this);
                 ventanaCliente.ShowDialog();
             }
             else
@@ -65,6 +75,11 @@ namespace UberFrba.Abm_Cliente
                  }
 
             }
+        }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 

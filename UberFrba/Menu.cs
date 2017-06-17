@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Abm_Turno;
 using UberFrba.Login;
+using UberFrba.Abm_Cliente;
 
 namespace UberFrba
 {
@@ -52,6 +53,15 @@ namespace UberFrba
         {
             return this.currentFrom == null || 
                 (this.currentFrom != null && !this.currentFrom.Name.Equals(formName));
+        }
+
+        private void clientesMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+            listadoCliente listadoCliente = new listadoCliente();
+            listadoCliente.Show
+                ();
         }
 
 

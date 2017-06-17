@@ -72,10 +72,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(550, 470);
             this.Controls.Add(this.filtroDescripcion);
             this.Controls.Add(this.label2);
             this.Name = "ListadoTurno";
             this.Text = "ListadoTurno";
+            this.Load += new System.EventHandler(this.ListadoTurno_Load);
             this.Controls.SetChildIndex(this.botonLimpiar, 0);
             this.Controls.SetChildIndex(this.botonBuscar, 0);
             this.Controls.SetChildIndex(this.botonBaja, 0);
