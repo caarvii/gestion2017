@@ -8,14 +8,14 @@ namespace UberFrba
 {
     class ChoferDTO
     {
-        private int id { get; set; }
-        private string nombre { get; set; }
-        private string apellido { get; set; }
-        private Int32 dni { get; set; }
-        private string direccion { get; set; }
-        private Int32 telefono { get; set; }
-        private string mail { get; set; }
-        private DateTime fechaNacimiento { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public Int32 dni { get; set; }
+        public string direccion { get; set; }
+        public Int32 telefono { get; set; }
+        public string mail { get; set; }
+        public DateTime fechaNacimiento { get; set; }
 
         // Podria faltar la herencia de Usuario
 

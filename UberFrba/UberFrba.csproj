@@ -84,6 +84,10 @@
     </Compile>
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
+    <Compile Include="Dao\AutomovilDAO.cs" />
+    <Compile Include="Dao\ChoferDAO.cs" />
+    <Compile Include="Dao\MarcaDAO.cs" />
+    <Compile Include="Dao\ModeloDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\crearCliente.cs">
@@ -93,6 +97,8 @@
       <DependentUpon>crearCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Dao\UsuarioDAO.cs" />
+    <Compile Include="Dto\MarcaDTO.cs" />
+    <Compile Include="Dto\ModeloDTO.cs" />
     <Compile Include="Login\SelectRolLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\listadoCliente.resx">
       <DependentUpon>listadoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\AltaChofer.resx">
+      <DependentUpon>AltaChofer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\AltaTurno.resx">
       <DependentUpon>AltaTurno.cs</DependentUpon>
