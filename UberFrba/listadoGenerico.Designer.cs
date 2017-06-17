@@ -122,6 +122,7 @@
             this.Controls.Add(this.tablaListado);
             this.Name = "listadoGenerico";
             this.Text = "listadoGenerico";
+            this.Load += new System.EventHandler(this.listadoGenerico_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tablaListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

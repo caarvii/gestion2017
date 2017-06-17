@@ -76,6 +76,13 @@
     <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\listadoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\listadoCliente.Designer.cs">
+      <DependentUpon>listadoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\crearCliente.cs">
@@ -189,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\crearAutomovil.resx">
       <DependentUpon>crearAutomovil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\listadoCliente.resx">
+      <DependentUpon>listadoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\AltaTurno.resx">
       <DependentUpon>AltaTurno.cs</DependentUpon>

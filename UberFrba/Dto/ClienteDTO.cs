@@ -7,17 +7,17 @@ using UberFrba.Dto;
 
 namespace UberFrba.Dao
 {
-    class ClienteDTO:UsuarioDTO{
+    public class ClienteDTO:UsuarioDTO{
 
-        private int id { get; set; }
-        private string nombre { get; set; }
-        private string apellido { get; set; }
-        private int dni { get; set; }
-        private String mail { get; set; }
-        private int telefono { get; set; }
-        private String direccion { get; set; }
-        private int codigoPostal { get; set; }
-        private DateTime fechaNacimiento { get; set; }
+        public int id { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public int dni { get; set; }
+        public String mail { get; set; }
+        public int telefono { get; set; }
+        public String direccion { get; set; }
+        public int codigoPostal { get; set; }
+        public DateTime fechaNacimiento { get; set; }
 
         public ClienteDTO(String _nombre, String _apellido, int _dni, String _mail, int _telefono, String _direccion, int _codigoPostal, DateTime _fechaNacimiento,string username,string password):base(username,password){
             nombre=_nombre;
@@ -29,6 +29,10 @@ namespace UberFrba.Dao
             codigoPostal = _codigoPostal;
             fechaNacimiento=_fechaNacimiento;
         }
+
+
+        public ClienteDTO() { }
+
 
         public override string ToString()
         {
