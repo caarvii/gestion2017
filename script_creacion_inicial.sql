@@ -298,11 +298,8 @@ insert into GARBAGE.FuncionalidadxRol
 	from GARBAGE.Rol, GARBAGE.Funcionalidad 
 	where rol_id = 1;
 
---TODO que funcionalidades tiene el cliente y el chofer???
---insert into GARBAGE.FuncionalidadxRol values (2,4),(2,6),(2,7),(2,8),(2,9),(2,10),(2,11),(2,12);
---go
-
-
+--El cliente solo puede facturarse y el chofer solo puede registrar un viaje.
+insert into GARBAGE.FuncionalidadxRol values (2,8), (3,6);
 
 print('Insertando Funcionalidades x Rol.');
 

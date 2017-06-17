@@ -36,5 +36,10 @@ namespace UberFrba
         {
             //TODO
         }
+
+        private void listadoGenerico_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

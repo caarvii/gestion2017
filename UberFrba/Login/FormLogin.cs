@@ -48,7 +48,10 @@ namespace UberFrba.Login
                 else
                 {
                     Sesion.RolActual = usuario.rolesList.First();
-                    //TODO show menu
+                    this.Hide();
+                    Menu menu = new Menu();
+                    menu.ShowDialog();
+                    Close();
                 }
 
             }

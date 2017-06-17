@@ -72,8 +72,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+<<<<<<< HEAD
+            this.ClientSize = new System.Drawing.Size(633, 464);
             this.Controls.Add(this.filtroDescripcion);
             this.Controls.Add(this.label2);
+=======
+            this.ClientSize = new System.Drawing.Size(557, 470);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+>>>>>>> dev
             this.Name = "ListadoTurno";
             this.Text = "ListadoTurno";
             this.Controls.SetChildIndex(this.botonLimpiar, 0);

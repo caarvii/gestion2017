@@ -43,15 +43,15 @@
             this.tablaListado.AllowUserToAddRows = false;
             this.tablaListado.AllowUserToDeleteRows = false;
             this.tablaListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tablaListado.Location = new System.Drawing.Point(20, 146);
+            this.tablaListado.Location = new System.Drawing.Point(20, 173);
             this.tablaListado.Name = "tablaListado";
             this.tablaListado.ReadOnly = true;
-            this.tablaListado.Size = new System.Drawing.Size(610, 264);
+            this.tablaListado.Size = new System.Drawing.Size(511, 237);
             this.tablaListado.TabIndex = 1;
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(435, 106);
+            this.botonLimpiar.Location = new System.Drawing.Point(336, 133);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(96, 34);
             this.botonLimpiar.TabIndex = 2;
@@ -61,7 +61,7 @@
             // 
             // botonBuscar
             // 
-            this.botonBuscar.Location = new System.Drawing.Point(537, 106);
+            this.botonBuscar.Location = new System.Drawing.Point(438, 133);
             this.botonBuscar.Name = "botonBuscar";
             this.botonBuscar.Size = new System.Drawing.Size(93, 34);
             this.botonBuscar.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             // botonBaja
             // 
-            this.botonBaja.Location = new System.Drawing.Point(265, 416);
+            this.botonBaja.Location = new System.Drawing.Point(223, 416);
             this.botonBaja.Name = "botonBaja";
             this.botonBaja.Size = new System.Drawing.Size(136, 45);
             this.botonBaja.TabIndex = 5;
@@ -89,7 +89,7 @@
             // 
             // botonAlta
             // 
-            this.botonAlta.Location = new System.Drawing.Point(21, 416);
+            this.botonAlta.Location = new System.Drawing.Point(21, 415);
             this.botonAlta.Name = "botonAlta";
             this.botonAlta.Size = new System.Drawing.Size(145, 45);
             this.botonAlta.TabIndex = 6;
@@ -99,7 +99,7 @@
             // 
             // botonModificacion
             // 
-            this.botonModificacion.Location = new System.Drawing.Point(494, 417);
+            this.botonModificacion.Location = new System.Drawing.Point(395, 416);
             this.botonModificacion.Name = "botonModificacion";
             this.botonModificacion.Size = new System.Drawing.Size(136, 44);
             this.botonModificacion.TabIndex = 7;
@@ -112,7 +112,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(637, 470);
+            this.ClientSize = new System.Drawing.Size(550, 470);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Controls.Add(this.botonModificacion);
             this.Controls.Add(this.botonAlta);
             this.Controls.Add(this.botonBaja);
@@ -122,6 +123,7 @@
             this.Controls.Add(this.tablaListado);
             this.Name = "listadoGenerico";
             this.Text = "listadoGenerico";
+            this.Load += new System.EventHandler(this.listadoGenerico_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tablaListado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
