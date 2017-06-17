@@ -7,12 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dto;
+using UberFrba.Dao;
+using UberFrba.Helpers;
 
 namespace UberFrba.Abm_Turno
 {
     public partial class AltaTurno : Form
     {
         TurnoDTO turno;
+        TurnoDTO turnoEdicion;
+
+        private bool edicion = false;
+
 
         private double valor;
         private double precio;
@@ -20,20 +27,46 @@ namespace UberFrba.Abm_Turno
         public AltaTurno()
         {
             InitializeComponent();
-            inicializarCombo();
-          
+            this.Text = "Alta de Turnos";
+            this.Agregar.Text = "Agregar";
+            this.edicion = false;
+            this.checkHabilitado.Checked = true;
+                   
         }
 
-        private void inicializarCombo() 
-        { 
-            // TODO
+         public AltaTurno(int turnoModificableID)
+        {
+            InitializeComponent();
+
+            cargarDatosEdicion(turnoModificableID);
+
+            this.Text = "Edicion de Turnos";
+            this.Agregar.Text = "Editar";
+
+            this.edicion = true;
+
+        }
+        
+        private void cargarDatosEdicion(int turnoModificableID)
+        {
+            turnoEdicion = TurnoDAO.selectTurnoById(turnoModificableID);
+
+            this.turnoEdicion.id = turnoModificableID;
+
+            this.comboInicio.Text = turnoEdicion.horaInicial.ToString();
+            this.comboFin.Text = turnoEdicion.horaFinal.ToString();
+            this.txtDescripcion.Text = turnoEdicion.descripcion;
+            this.valorKM.Text = turnoEdicion.valor.ToString();
+            this.precioBase.Text = turnoEdicion.precio.ToString();
+            this.checkHabilitado.Checked = turnoEdicion.estado;  
+
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-            this.horaInicio.ResetText();
-            this.horaFin.ResetText();
-            this.comboDescripcion.Text = "";
+            this.comboInicio.ResetText();
+            this.comboFin.ResetText();
+            this.txtDescripcion.Text = "";
             this.valorKM.Text = "";
             this.precioBase.Text = "";
             this.checkHabilitado.Text = "";
@@ -41,32 +74,9 @@ namespace UberFrba.Abm_Turno
 
         // Validaciones
 
-        private void horaInicio_KeyPress(object sender, KeyPressEventArgs e) 
+        private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // La validacion es inherente
-        }
-
-        private void horaFin_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // La validacion es inherente
-        }
-
-        private void horaFin_TextChanged(object sender, KeyPressEventArgs e)
-        { 
-            
-            int mayor = DateTime.Compare(horaInicio.Value, horaFin.Value);
-
-            if (mayor > 0 || mayor == 0)
-            {
-                MessageBox.Show("La hora de fin debe ser mayor a la inicial dentro del mismo dia.", "Error");
-            }
-             
-        }
-
-
-        private void comboDescripcion_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Validar si es inherente
+            this.allowAlphanumericOnly(e);
         }
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
@@ -84,24 +94,23 @@ namespace UberFrba.Abm_Turno
             // Validar si es inherente
         }
 
-        
+       
+        // Botones
 
         private void Agregar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(horaInicio.Text) && !string.IsNullOrWhiteSpace(horaFin.Text) && !string.IsNullOrWhiteSpace(comboDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
+            if (!string.IsNullOrWhiteSpace(comboInicio.Text) && !string.IsNullOrWhiteSpace(comboFin.Text) && !string.IsNullOrWhiteSpace(txtDescripcion.Text) && !string.IsNullOrWhiteSpace(valorKM.Text) && !string.IsNullOrWhiteSpace(precioBase.Text) && !string.IsNullOrWhiteSpace(checkHabilitado.Text))
             {
                 if (validacionFecha())
                 {
                     if (setearVariables())
                     {
-                        // Agregar
-                        MessageBox.Show("Se agrego correctamente");
+                        agregarEditarTurno(turno); 
                     }
-
                 }
                 else
                 {
-                    MessageBox.Show("El viaje no puede tener una duracion de mas de 24 hs","Error");
+                    MessageBox.Show("La hora de inicio no puede ser mayor a la hora de fin o ser la misma","Error");
                 }                
             }
             else
@@ -112,7 +121,9 @@ namespace UberFrba.Abm_Turno
 
         private bool validacionFecha()
         {
-            return ( horaInicio.Value.Day == horaFin.Value.Day);
+            int inicio = Convert.ToInt32(comboInicio.SelectedItem);
+            int final = Convert.ToInt32(comboFin.SelectedItem);
+            return ( inicio < final);
            
         }
         
@@ -131,12 +142,43 @@ namespace UberFrba.Abm_Turno
             }
             catch { MessageBox.Show("Escriba correctamente el precio base", "Validacion"); return false; }
 
-
-            turno = new TurnoDTO(horaInicio.Value, horaFin.Value, (string)comboDescripcion.SelectedValue, valor , precio , checkHabilitado.Checked);
+            turno = new TurnoDTO(Convert.ToInt32(comboInicio.SelectedItem), Convert.ToInt32(comboFin.SelectedItem), txtDescripcion.Text, valor, precio, checkHabilitado.Checked);
 
             return true;
         }
 
+        private void agregarEditarTurno(TurnoDTO turnoActivo) 
+        {
+            if (this.edicion)
+            {
+                // Edicion
+                try
+                {
+                    turnoActivo.id = this.turnoEdicion.id;
+                    TurnoDAO.updateTurno(turnoActivo);
+                    MessageBox.Show("Se edito el turno correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al editar el turno", ex);
+                }              
+
+            }else
+            {
+                // Alta 
+                try
+                {
+                    TurnoDAO.addNewTurno(turnoActivo);
+                    MessageBox.Show("Se agrego el turno correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el turno", ex);
+                }
+
+            }
+            
+        }
 
 
     }

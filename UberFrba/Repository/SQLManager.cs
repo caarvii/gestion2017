@@ -72,5 +72,14 @@ namespace UberFrba.Repository
             parameters.Add(key, value);
             return parameters;
         }
+
+
+        internal static SqlDataReader executeQuery(string query)
+        {
+            SqlConnection con = Conexion.obtenerConexion();
+            SqlCommand command = new SqlCommand(query, con);
+            command.CommandType = CommandType.Text;
+            return _executeList(con, command);
+        }
     }
 }
