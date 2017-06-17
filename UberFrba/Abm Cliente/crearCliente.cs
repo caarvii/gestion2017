@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba;
+using UberFrba.Helpers;
 
 namespace UberFrba.Dao
 {
@@ -63,7 +64,7 @@ namespace UberFrba.Dao
             if (!Int32.TryParse(txtTelefono.Text, out telefono)) throw new Exception("El telefono debe ser numerico");
             
             int codigoPostal;
-            if (!Int32.TryParse(txtCodigoPostal.Text, out codigoPostal)) throw new Exception("El telefono debe ser numerico");
+            if (!Int32.TryParse(txtCodigoPostal.Text, out codigoPostal)) throw new Exception("El codigo postal debe ser numerico");
 
 
             ClienteDTO unCliente = new ClienteDTO(
@@ -84,13 +85,24 @@ namespace UberFrba.Dao
 
         private void btnCrearCliente_Click(object sender, EventArgs e)
         {
-            ClienteDTO nuevoCliente = this.cargarCliente();
-            //Aca le tengo que conectarme a la bd e insertar el cliente
+            try
+            {
+                ClienteDTO nuevoCliente = this.cargarCliente();
+                ClienteDAO.addNewCliente(nuevoCliente);
+                MessageBox.Show("Se agrego el turno correctamente");
+
+            }
+            catch (ApplicationException ex)
+            {
+                    Utility.ShowError("Error al agregar el cliente", ex);
+            }
+
+        }
+        
             //vamos a necesitar un trigger que c/vez que inserte un cliente inserte el usuario
 
 
-        }
-
+        
         private void crearCliente_Load(object sender, EventArgs e)
         {
             
@@ -152,14 +164,24 @@ namespace UberFrba.Dao
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            //ClienteDTO cliente = cargarCliente();
-            //cliente.id = clienteAModificar.id;
-            //ClienteDAO.modificarCliente(cliente);
-            MessageBox.Show("Cliente modificado con exito");
-
-            this.Close(); //Cierro formulario
-            
+            try
+            {
+                ClienteDTO cliente = cargarCliente();
+                cliente.id = clienteAModificar.id;
+                ClienteDAO.updateCliente(cliente);
+                MessageBox.Show("Cliente modificado con exito");
+                this.Close(); //Cierro formulario
+            }
+            catch (ApplicationException ex)
+            {
+                Utility.ShowError("Error al agregar el cliente", ex);
+            }
         
+        }
+
+        private void txtCodigoPostal_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
 

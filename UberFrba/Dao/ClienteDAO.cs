@@ -30,6 +30,7 @@ namespace UberFrba.Dao
                     cliente.direccion = Convert.ToString(dataReader["cli_direccion"]);
                     cliente.codigoPostal = Convert.ToInt32(dataReader["cli_cp"]);
                     //cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
+                    cliente.activo = Convert.ToBoolean(dataReader["cli_activo"]);
                     clientes.Add(cliente);
                 }
             }
@@ -46,12 +47,40 @@ namespace UberFrba.Dao
             SqlDataReader reader = SQLManager.executeProcedureList("getClientes", parameters);
             return readerToListCliente(reader);
         }
-        /*
-        SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidadListByRolId",
-    SQLManager.getSingleParams("rol_id", rolId));
-                    List<FuncionalidadDTO> funcionalidades = readerToListFunc(reader);
-            return funcionalidades; 
-        */
+
+
+        public static void addNewCliente(ClienteDTO cliente){
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("cli_nombre", cliente.nombre);
+            parameters.Add("cli_apellido", cliente.apellido);
+            parameters.Add("cli_dni", cliente.dni);
+            parameters.Add("cli_mail", cliente.mail);
+            parameters.Add("cli_telefono", cliente.telefono);
+            parameters.Add("cli_direccion", cliente.direccion);
+            parameters.Add("cli_cp", cliente.codigoPostal);
+            parameters.Add("cli_fechanac", cliente.fechaNacimiento);
+            parameters.Add("usu_usuario", cliente.username);
+            parameters.Add("usu_password", cliente.password);
+
+            try
+            {
+                SQLManager.executePorcedure("altaCliente", parameters);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.Number == 50000 || exception.Number == 60000)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
+                else
+                {
+                    throw exception;
+                }
+            }
+        
+        
+        }
+
         
         public static ClienteDTO getClienteById(int clienteId)
         {
@@ -60,12 +89,39 @@ namespace UberFrba.Dao
             return readerToListCliente(reader).First();
         }
 
-        public static void modificarCliente(ClienteDTO cliente){
+        public static void updateCliente(ClienteDTO cliente){
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("cli_id",cliente.id);
+            parameters.Add("cli_nombre", cliente.nombre);
+            parameters.Add("cli_apellido", cliente.apellido);
+            parameters.Add("cli_dni", cliente.dni);
+            parameters.Add("cli_mail", cliente.mail);
+            parameters.Add("cli_telefono", cliente.telefono);
+            parameters.Add("cli_direccion", cliente.direccion);
+            parameters.Add("cli_cp", cliente.codigoPostal);
+            parameters.Add("cli_fechanac", cliente.fechaNacimiento);
 
-
+            try
+            {
+                SQLManager.executePorcedure("updateCliente", parameters);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.Number == 50000)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
+                else
+                {
+                    throw exception;
+                }
+            }
 
         }
 
+        public static int deleteCliente(int cli_id){
+             return SQLManager.executePorcedure("bajaLogicaCliente", SQLManager.getSingleParams("cli_id", cli_id));
+        }
 
 
     }

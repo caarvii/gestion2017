@@ -31,6 +31,7 @@
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnActualizarListado = new System.Windows.Forms.Button();
+            this.btnDeshabilitar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,22 @@
             this.btnActualizarListado.UseVisualStyleBackColor = true;
             this.btnActualizarListado.Click += new System.EventHandler(this.btnActualizarListado_Click);
             // 
+            // btnDeshabilitar
+            // 
+            this.btnDeshabilitar.Location = new System.Drawing.Point(679, 391);
+            this.btnDeshabilitar.Name = "btnDeshabilitar";
+            this.btnDeshabilitar.Size = new System.Drawing.Size(121, 23);
+            this.btnDeshabilitar.TabIndex = 3;
+            this.btnDeshabilitar.Text = "Deshabilitar";
+            this.btnDeshabilitar.UseVisualStyleBackColor = true;
+            this.btnDeshabilitar.Click += new System.EventHandler(this.btnDeshabilitar_Click);
+            // 
             // listadoCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 397);
+            this.ClientSize = new System.Drawing.Size(939, 421);
+            this.Controls.Add(this.btnDeshabilitar);
             this.Controls.Add(this.btnActualizarListado);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.dgvClientes);
@@ -84,5 +96,6 @@
         private System.Windows.Forms.DataGridView dgvClientes;
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnActualizarListado;
+        private System.Windows.Forms.Button btnDeshabilitar;
     }
 }

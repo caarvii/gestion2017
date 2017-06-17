@@ -51,6 +51,21 @@ namespace UberFrba.Abm_Cliente
             cargarDGVClientes();
         }
 
+        private void btnDeshabilitar_Click(object sender, EventArgs e)
+        {
+            if (dgvClientes.SelectedRows.Count == 1)
+            {
+                DataGridViewRow row = this.dgvClientes.SelectedRows[0];
+                ClienteDTO cliente = new ClienteDTO();
+                int id = Convert.ToInt32(row.Cells["id"].Value);
+
+                 if (ClienteDAO.deleteCliente(id) == 1)
+                 {
+                     MessageBox.Show("Cliente dado de baja correctamente");
+                 }
+
+            }
+        }
 
 
 
