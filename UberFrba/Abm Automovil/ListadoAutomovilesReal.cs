@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class ListadoAutomovilesReal : UberFrba.listadoGenerico
+    public partial class ListadoAutomovilesReal : UberFrba.ListadoGenerico
     {
         public ListadoAutomovilesReal()
         {

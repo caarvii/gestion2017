@@ -13,7 +13,7 @@ using UberFrba.Interface;
 
 namespace UberFrba.Abm_Cliente
 {
-    public partial class ListadoCliente : UberFrba.listadoGenerico , OnCreateUpdateListener
+    public partial class ListadoCliente : UberFrba.ListadoGenerico , OnCreateUpdateListener
     {
         
 

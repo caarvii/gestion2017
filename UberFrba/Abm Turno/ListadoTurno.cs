@@ -12,7 +12,7 @@ using UberFrba.Dto;
 
 namespace UberFrba.Abm_Turno
 {
-    public partial class ListadoTurno : UberFrba.listadoGenerico
+    public partial class ListadoTurno : UberFrba.ListadoGenerico
     {
 
         Dictionary<string, object> filtrosTurnoList = new Dictionary<string, object>();
