@@ -28,5 +28,11 @@ namespace UberFrba.Abm_Rol
         {
             loadRoles();
         }
+
+        private void botonAlta_Click_1(object sender, EventArgs e)
+        {
+            AltaRol altaRol = new AltaRol();
+            altaRol.ShowDialog();
+        }
     }
 }

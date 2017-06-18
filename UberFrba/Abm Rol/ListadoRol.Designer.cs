@@ -34,6 +34,10 @@
             // 
             this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
+            // botonAlta
+            // 
+            this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
+            // 
             // ListadoRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
