@@ -24,7 +24,6 @@ namespace UberFrba.Menu
         {
             InitializeComponent();
             loadFuncionalidades();
-            
         }
 
         private void loadFuncionalidades()
@@ -152,6 +151,15 @@ namespace UberFrba.Menu
                 this.currentFrom = newForm;
                 currentFrom.Show();
             }
+        }
+
+        private void cerrarSesionMenuItem_Click(object sender, EventArgs e)
+        {
+            Sesion.logout();
+            FormLogin formLogin = new FormLogin();
+            this.Hide();
+            formLogin.ShowDialog();
+            this.Close();
         }
 
 

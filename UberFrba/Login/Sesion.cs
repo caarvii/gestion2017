@@ -70,6 +70,7 @@ namespace UberFrba.Login
         {
             logued = false;
             usuarioActual = null;
+            rolActual = null;
         }
         
 
