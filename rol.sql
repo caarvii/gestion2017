@@ -12,6 +12,7 @@ begin
 end
 go
 
+
 create procedure GARBAGE.deleteRol(@rol_id int)
 as 
 begin
