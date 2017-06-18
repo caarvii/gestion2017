@@ -23,5 +23,10 @@ namespace UberFrba.Abm_Rol
         {
             tablaListado.DataSource = RolDAO.getRoles();
         }
+
+        private void botonBuscar_Click(object sender, EventArgs e)
+        {
+            loadRoles();
+        }
     }
 }

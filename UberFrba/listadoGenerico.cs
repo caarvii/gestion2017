@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace UberFrba
 {
-    public partial class ListadoGenerico : Form
+    public abstract partial class ListadoGenerico : Form
     {
         public ListadoGenerico()
         {
