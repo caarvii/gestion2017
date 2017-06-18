@@ -36,6 +36,9 @@ namespace UberFrba.Abm_Cliente
         public void cargarDGVClientes()
         {
             tablaListado.DataSource = ClienteDAO.getAllClientes();
+            tablaListado.Columns["username"].Visible=false;
+            tablaListado.Columns["password"].Visible = false;
+            tablaListado.Columns["intentos"].Visible = false;
         }
 
         protected void btnActualizarListado_Click(object sender, EventArgs e)

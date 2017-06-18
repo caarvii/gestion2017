@@ -29,7 +29,7 @@ namespace UberFrba.Dao
                     cliente.telefono = Convert.ToInt32(dataReader["cli_telefono"]);
                     cliente.direccion = Convert.ToString(dataReader["cli_direccion"]);
                     cliente.codigoPostal = Convert.ToInt32(dataReader["cli_cp"]);
-                    //cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
+                   // cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
                     cliente.activo = Convert.ToBoolean(dataReader["cli_activo"]);
                     clientes.Add(cliente);
                 }
