@@ -81,17 +81,12 @@ namespace UberFrba.Dao
 
         }
         
-
         // Probar si funciona
         public static List<TurnoDTO> getAllTurnos()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            SqlDataReader dataReader = SQLManager.executeProcedureList("getAllTurnos", parameters);
-
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getAllTurnos");
             return getTurnos(dataReader);
         }
-       
-
 
         public static TurnoDTO selectTurnoById(int turno_id)
         {

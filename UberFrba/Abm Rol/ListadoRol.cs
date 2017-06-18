@@ -7,14 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dao;
 
 namespace UberFrba.Abm_Rol
 {
-    public partial class Form1 : Form
+    public partial class ListadoRol : UberFrba.ListadoGenerico
     {
-        public Form1()
+        public ListadoRol()
         {
             InitializeComponent();
+            loadRoles();
+        }
+
+        private void loadRoles()
+        {
+            tablaListado.DataSource = RolDAO.getRoles();
         }
     }
 }

@@ -43,8 +43,7 @@ namespace UberFrba.Dao
 
         public static List<ClienteDTO> getAllClientes()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            SqlDataReader reader = SQLManager.executeProcedureList("getClientes", parameters);
+            SqlDataReader reader = SQLManager.executeProcedureList("getClientes");
             return readerToListCliente(reader);
         }
 
@@ -85,7 +84,7 @@ namespace UberFrba.Dao
         public static ClienteDTO getClienteById(int clienteId)
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getClienteById",
-            SQLManager.getSingleParams("cli_id", clienteId));
+                SQLManager.getSingleParams("cli_id", clienteId));
             return readerToListCliente(reader).First();
         }
 

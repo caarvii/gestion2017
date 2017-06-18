@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 using UberFrba.Dto;
 using UberFrba.Login;
@@ -45,7 +46,7 @@ namespace UberFrba.Menu
             this.facturarClienteMenuItem.Available = false;
             this.listadoEstadisticoMenuItem.Available = false;
 
-            foreach(FuncionalidadDTO funcionalidad in funcionalidades)
+            foreach (FuncionalidadDTO funcionalidad in funcionalidades)
             {
                 switch (funcionalidad.toFuncionalidad())
                 {
@@ -107,16 +108,19 @@ namespace UberFrba.Menu
 
         private void rolesMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO
+            if (canShowForm("ListadoRol"))
+            {
+                showMenuForm(new ListadoRol());
+            }
         }
 
         private void turnosMenuItem_Click(object sender, EventArgs e)
         {
             if (canShowForm("ListadoTurno"))
-            {   
+            {
                 showMenuForm(new ListadoTurno());
             }
-            
+
         }
 
         private void clientesMenuItem_Click(object sender, System.EventArgs e)
