@@ -19,8 +19,8 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     FuncionalidadDTO func = new FuncionalidadDTO();
-                    func.IdFuncionalidad = Convert.ToInt32(dataReader["func_id"]);
-                    func.Descripcion = Convert.ToString(dataReader["func_descripcion"]);
+                    func.id = Convert.ToInt32(dataReader["func_id"]);
+                    func.descripcion = Convert.ToString(dataReader["func_descripcion"]);
 
                     listaFunc.Add(func);
                 }

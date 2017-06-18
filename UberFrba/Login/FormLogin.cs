@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dto;
 using UberFrba.Helpers;
+using UberFrba.Menu;
 
 namespace UberFrba.Login
 {
@@ -49,7 +50,7 @@ namespace UberFrba.Login
                 {
                     Sesion.RolActual = usuario.rolesList.First();
                     this.Hide();
-                    Menu menu = new Menu();
+                    MenuHome menu = new MenuHome();
                     menu.ShowDialog();
                     Close();
                 }

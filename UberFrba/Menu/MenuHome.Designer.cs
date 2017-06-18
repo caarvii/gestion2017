@@ -1,6 +1,6 @@
-﻿namespace UberFrba
+﻿namespace UberFrba.Menu
 {
-    partial class Menu 
+    partial class MenuHome 
     {
         /// <summary>
         /// Required designer variable.
