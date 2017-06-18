@@ -46,23 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Automovil\AltaAutomovil.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Automovil\AltaAutomovil.Designer.cs">
-      <DependentUpon>AltaAutomovil.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Automovil\ListadoAutomovilesReal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Automovil\ListadoAutomovilesReal.Designer.cs">
       <DependentUpon>ListadoAutomovilesReal.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Automovil\MenuAutomovil.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Automovil\MenuAutomovil.Designer.cs">
-      <DependentUpon>MenuAutomovil.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Automovil\crearAutomovil.cs">
       <SubType>Form</SubType>
@@ -130,12 +118,6 @@
     <Compile Include="Abm Turno\ListadoTurno.Designer.cs">
       <DependentUpon>ListadoTurno.cs</DependentUpon>
     </Compile>
-    <Compile Include="altaGenerica.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="altaGenerica.Designer.cs">
-      <DependentUpon>altaGenerica.cs</DependentUpon>
-    </Compile>
     <Compile Include="Repository\Conexion.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Dto\ChoferDTO.cs" />
@@ -157,11 +139,11 @@
     <Compile Include="Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="listadoGenerico.cs">
+    <Compile Include="ListadoGenerico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="listadoGenerico.Designer.cs">
-      <DependentUpon>listadoGenerico.cs</DependentUpon>
+    <Compile Include="ListadoGenerico.Designer.cs">
+      <DependentUpon>ListadoGenerico.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\FormLogin.cs">
       <SubType>Form</SubType>
@@ -170,12 +152,6 @@
       <DependentUpon>FormLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\Sesion.cs" />
-    <Compile Include="menuGenerico.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="menuGenerico.Designer.cs">
-      <DependentUpon>menuGenerico.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro Viajes\Form1.cs">
@@ -192,14 +168,8 @@
     </Compile>
     <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
-    <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
-      <DependentUpon>AltaAutomovil.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\ListadoAutomovilesReal.resx">
       <DependentUpon>ListadoAutomovilesReal.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Automovil\MenuAutomovil.resx">
-      <DependentUpon>MenuAutomovil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\crearAutomovil.resx">
       <DependentUpon>crearAutomovil.cs</DependentUpon>
@@ -219,11 +189,8 @@
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="altaGenerica.resx">
-      <DependentUpon>altaGenerica.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="listadoGenerico.resx">
-      <DependentUpon>listadoGenerico.cs</DependentUpon>
+    <EmbeddedResource Include="ListadoGenerico.resx">
+      <DependentUpon>ListadoGenerico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
@@ -233,9 +200,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="menuGenerico.resx">
-      <DependentUpon>menuGenerico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
