@@ -51,6 +51,7 @@ namespace UberFrba.Login
             this.comboBoxRoles.Size = new System.Drawing.Size(168, 21);
             this.comboBoxRoles.TabIndex = 1;
             this.comboBoxRoles.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.comboBoxRoles.KeyDown += new KeyEventHandler(txtPass_KeyDown);
             this.comboBoxRoles.SelectedIndexChanged += new System.EventHandler(this.comboBoxRoles_SelectedIndexChanged);
             // 
             // buttonIngresar

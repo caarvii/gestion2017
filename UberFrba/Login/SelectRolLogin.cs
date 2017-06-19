@@ -35,6 +35,11 @@ namespace UberFrba.Login
             comboBoxRoles.Text = rol.nombre.Trim();
         }
 
+        public void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter) buttonIngresar.PerformClick();
+        }
+
         private void buttonIngresar_Click(object sender, EventArgs e)
         {
             if (comboBoxRoles.SelectedIndex == -1)

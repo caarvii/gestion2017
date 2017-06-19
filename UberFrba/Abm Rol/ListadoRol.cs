@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Rol
 {
-    public partial class ListadoRol : UberFrba.ListadoGenerico
+    public partial class ListadoRol : UberFrba.ListadoGenerico, OnCreateUpdateListener
     {
         public ListadoRol()
         {
@@ -33,6 +34,11 @@ namespace UberFrba.Abm_Rol
         {
             AltaRol altaRol = new AltaRol();
             altaRol.ShowDialog();
+        }
+
+        public void onOperationFinish()
+        {
+            throw new NotImplementedException();
         }
     }
 }
