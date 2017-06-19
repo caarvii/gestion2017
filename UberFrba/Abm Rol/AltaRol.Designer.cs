@@ -31,7 +31,7 @@ namespace UberFrba.Abm_Rol
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.removeFuncionalidadButton = new System.Windows.Forms.Button();
-            this.funcionalidadesDataGridView = new System.Windows.Forms.DataGridView(); 
+            this.funcionalidadesDataGridView = new System.Windows.Forms.DataGridView();
             this.funcionalidadesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.addFuncionalidadButton = new System.Windows.Forms.Button();
             this.funcionalidadesComboBox = new System.Windows.Forms.ComboBox();
@@ -75,20 +75,21 @@ namespace UberFrba.Abm_Rol
             // 
             // funcionalidadesDataGridView
             // 
+            this.funcionalidadesDataGridView.AllowUserToAddRows = false;
+            this.funcionalidadesDataGridView.AllowUserToDeleteRows = false;
+            this.funcionalidadesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.funcionalidadesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.funcionalidadesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.funcionalidadesColumn});
             this.funcionalidadesDataGridView.Location = new System.Drawing.Point(172, 116);
             this.funcionalidadesDataGridView.MultiSelect = false;
             this.funcionalidadesDataGridView.Name = "funcionalidadesDataGridView";
             this.funcionalidadesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.funcionalidadesDataGridView.Size = new System.Drawing.Size(240, 150);
             this.funcionalidadesDataGridView.TabIndex = 7;
-            this.funcionalidadesDataGridView.AllowUserToAddRows = false;
-            this.funcionalidadesDataGridView.AllowUserToDeleteRows = false;
-            this.funcionalidadesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.funcionalidadesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.funcionalidadesDataGridView.Columns.AddRange(
-                new System.Windows.Forms.DataGridViewColumn[] { this.funcionalidadesColumn });
-
+            // 
+            // funcionalidadesColumn
+            // 
             this.funcionalidadesColumn.HeaderText = "Funcionalidades";
             this.funcionalidadesColumn.Name = "funcionalidadesColumn";
             this.funcionalidadesColumn.ReadOnly = true;
@@ -165,6 +166,7 @@ namespace UberFrba.Abm_Rol
             this.createRolButton.TabIndex = 1;
             this.createRolButton.Text = "Crear Rol";
             this.createRolButton.UseVisualStyleBackColor = true;
+            this.createRolButton.Click += new System.EventHandler(this.createRolButton_Click);
             // 
             // AltaRol
             // 

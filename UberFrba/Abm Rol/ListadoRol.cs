@@ -32,13 +32,13 @@ namespace UberFrba.Abm_Rol
 
         private void botonAlta_Click_1(object sender, EventArgs e)
         {
-            AltaRol altaRol = new AltaRol();
+            AltaRol altaRol = new AltaRol(this);
             altaRol.ShowDialog();
         }
 
         public void onOperationFinish()
         {
-            throw new NotImplementedException();
+            loadRoles();
         }
     }
 }

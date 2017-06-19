@@ -28,6 +28,10 @@ go
 create procedure GARBAGE.createRol(@rol_nombre nvarchar(30), @funcionalidades GARBAGE.FuncionalidadType readonly)
 as 
 begin
+
+	if (select count(*) from GARBAGE.Rol where rol_nombre = @rol_nombre) > 0
+		throw 50000, 'Ya existe un rol con ese nombre', 1;
+
 	insert into GARBAGE.Rol(rol_nombre) values (@rol_nombre)
 	
 	declare @rol_id int
@@ -41,3 +45,5 @@ begin
 
 end
 go
+
+--drop procedure GARBAGE.createRol

@@ -10,18 +10,26 @@ using System.Windows.Forms;
 using UberFrba.Dao;
 using UberFrba.Dto;
 using UberFrba.Helpers;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Rol
 {
     public partial class AltaRol : Form
     {
         private List<FuncionalidadDTO> funcionalidadesXRol;
+        private OnCreateUpdateListener createUpdateListener;
 
         public AltaRol()
         {
             InitializeComponent();
             loadFuncionalidades();
             funcionalidadesXRol = new List<FuncionalidadDTO>();
+            habilitadoCheckBox.CheckState = CheckState.Checked;
+        }
+
+        public AltaRol(OnCreateUpdateListener createUpdateListener) : this()
+        {
+            this.createUpdateListener = createUpdateListener;
         }
 
         private void loadFuncionalidades()
@@ -40,14 +48,21 @@ namespace UberFrba.Abm_Rol
             if (funcionalidadesComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Seleccione alguna funcionalidad para agregar");
+                return;
             }
-            else
+
+            FuncionalidadDTO funcionalidad = (FuncionalidadDTO)funcionalidadesComboBox.SelectedItem;
+
+            if (funcionalidadesXRol.Contains(funcionalidad))
             {
-                FuncionalidadDTO funcionalidad = (FuncionalidadDTO)funcionalidadesComboBox.SelectedItem;
-                funcionalidadesXRol.Add(funcionalidad);
-                funcionalidadesDataGridView.Rows.Add(funcionalidad.descripcion);
-                funcionalidadesComboBox.SelectedIndex = -1;
+                MessageBox.Show("Ya ha agregado esta funcionalidad");
+                return;
             }
+
+            funcionalidadesXRol.Add(funcionalidad);
+            funcionalidadesDataGridView.Rows.Add(funcionalidad.descripcion);
+            funcionalidadesComboBox.SelectedIndex = -1;
+            
         }
 
         private void removeFuncionalidadButton_Click(object sender, EventArgs e)
@@ -63,6 +78,34 @@ namespace UberFrba.Abm_Rol
                 funcionalidadesXRol.RemoveAt(index);
                 funcionalidadesDataGridView.Rows.RemoveAt(index);
             }
+        }
+
+        private void createRolButton_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(nombreTextBox.Text))
+            {
+                Utility.ShowInfo("Alta Rol", "Debe ingresar un nombre para el rol");
+                return;
+            }
+
+            if (funcionalidadesXRol.Count == 0)
+            {
+                Utility.ShowInfo("Alta Rol", "Debe agregar al menos una funcionalidad");
+                return;
+            }
+
+            try
+            {
+                RolDAO.createRol(nombreTextBox.Text, funcionalidadesXRol);
+                this.Close();
+                createUpdateListener.onOperationFinish();
+            }
+            catch (ApplicationException excep)
+            {
+                Utility.ShowError("Alta Rol", excep.Message);
+            }
+
+
         }
 
     }

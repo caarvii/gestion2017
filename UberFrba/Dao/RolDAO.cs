@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -53,6 +54,32 @@ namespace UberFrba.Dao
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getRoles");
             return parseRoles(reader);
+        }
+
+        internal static void createRol(string rolNombre, List<FuncionalidadDTO> funcionalidadesXRol)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("funcionalidad_id", typeof(int));
+            foreach (FuncionalidadDTO funcionalidad in funcionalidadesXRol)
+            {
+                table.Rows.Add(funcionalidad.id);
+            }
+
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("rol_nombre", rolNombre);
+            parametros.Add("funcionalidades", table);
+
+            try
+            {
+                SQLManager.executePorcedure("createRol", parametros);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.Number == 50000)
+                    throw new ApplicationException(exception.Message);
+                else
+                    throw exception;
+            }
         }
     }
 }
