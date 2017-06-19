@@ -14,9 +14,9 @@ namespace UberFrba.Dao
 
         public int id;
 
-        public static List<MarcaDTO> getAllMarcas() {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            SqlDataReader reader = SQLManager.executeProcedureList("getMarcas", parameters);
+        public static List<MarcaDTO> getAllMarcas()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getMarcas");
             return readerToListMarcas(reader);
         }
 

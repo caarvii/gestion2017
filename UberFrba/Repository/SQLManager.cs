@@ -53,6 +53,11 @@ namespace UberFrba.Repository
             return Convert.ToInt32(returnValue.Value);
         }
 
+        public static SqlDataReader executeProcedureList(String procedureName)
+        {
+            return executeProcedureList(procedureName, new Dictionary<string, object>());
+        }
+
         public static SqlDataReader executeProcedureList(String procedureName,
             System.Collections.Generic.Dictionary<String, Object> parameters)
         {

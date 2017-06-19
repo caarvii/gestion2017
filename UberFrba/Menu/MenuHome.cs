@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Abm_Cliente;
+using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 using UberFrba.Dto;
 using UberFrba.Login;
@@ -17,8 +18,7 @@ namespace UberFrba.Menu
     public partial class MenuHome : Form
     {
 
-        public Form currentFrom { get; set; }
-
+        public Form currentForm { get; set; }
 
         public MenuHome()
         {
@@ -45,7 +45,7 @@ namespace UberFrba.Menu
             this.facturarClienteMenuItem.Available = false;
             this.listadoEstadisticoMenuItem.Available = false;
 
-            foreach(FuncionalidadDTO funcionalidad in funcionalidades)
+            foreach (FuncionalidadDTO funcionalidad in funcionalidades)
             {
                 switch (funcionalidad.toFuncionalidad())
                 {
@@ -96,9 +96,7 @@ namespace UberFrba.Menu
             {
                 this.reportesTitleLabel.Visible = true;
             }
-
         }
-
 
         private void onMenuLoad(object sender, System.EventArgs e)
         {
@@ -107,16 +105,18 @@ namespace UberFrba.Menu
 
         private void rolesMenuItem_Click(object sender, EventArgs e)
         {
-            //TODO
+            if (canShowForm("ListadoRol"))
+            {
+                showMenuForm(new ListadoRol());
+            }
         }
 
         private void turnosMenuItem_Click(object sender, EventArgs e)
         {
             if (canShowForm("ListadoTurno"))
-            {   
+            {
                 showMenuForm(new ListadoTurno());
             }
-            
         }
 
         private void clientesMenuItem_Click(object sender, System.EventArgs e)
@@ -129,8 +129,8 @@ namespace UberFrba.Menu
 
         private bool canShowForm(string formName)
         {
-            return this.currentFrom == null ||
-                (this.currentFrom != null && !this.currentFrom.Name.Equals(formName));
+            return this.currentForm == null ||
+                (this.currentForm != null && !this.currentForm.Name.Equals(formName));
         }
 
         private void showMenuForm(Form newForm)
@@ -138,18 +138,18 @@ namespace UberFrba.Menu
             newForm.MdiParent = this;
             newForm.Dock = DockStyle.Fill;
 
-            if (currentFrom != null)
+            if (currentForm != null)
             {
-                var oldForm = currentFrom;
-                this.currentFrom = newForm;
+                var oldForm = currentForm;
+                this.currentForm = newForm;
                 oldForm.Hide();
-                currentFrom.Show();
+                currentForm.Show();
                 oldForm.Close();
             }
             else
             {
-                this.currentFrom = newForm;
-                currentFrom.Show();
+                this.currentForm = newForm;
+                currentForm.Show();
             }
         }
 
