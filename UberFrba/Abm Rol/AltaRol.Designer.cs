@@ -29,7 +29,7 @@ namespace UberFrba.Abm_Rol
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxRol = new System.Windows.Forms.GroupBox();
             this.removeFuncionalidadButton = new System.Windows.Forms.Button();
             this.funcionalidadesDataGridView = new System.Windows.Forms.DataGridView();
             this.funcionalidadesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,27 +41,27 @@ namespace UberFrba.Abm_Rol
             this.nombreTextBox = new System.Windows.Forms.TextBox();
             this.nombreLabel = new System.Windows.Forms.Label();
             this.createRolButton = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxRol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.removeFuncionalidadButton);
-            this.groupBox1.Controls.Add(this.funcionalidadesDataGridView);
-            this.groupBox1.Controls.Add(this.addFuncionalidadButton);
-            this.groupBox1.Controls.Add(this.funcionalidadesComboBox);
-            this.groupBox1.Controls.Add(this.fucionalidadLabel);
-            this.groupBox1.Controls.Add(this.habilitadoCheckBox);
-            this.groupBox1.Controls.Add(this.stateLabel);
-            this.groupBox1.Controls.Add(this.nombreTextBox);
-            this.groupBox1.Controls.Add(this.nombreLabel);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(426, 280);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Definir el nombre y sus funcionalidades";
+            this.groupBoxRol.Controls.Add(this.removeFuncionalidadButton);
+            this.groupBoxRol.Controls.Add(this.funcionalidadesDataGridView);
+            this.groupBoxRol.Controls.Add(this.addFuncionalidadButton);
+            this.groupBoxRol.Controls.Add(this.funcionalidadesComboBox);
+            this.groupBoxRol.Controls.Add(this.fucionalidadLabel);
+            this.groupBoxRol.Controls.Add(this.habilitadoCheckBox);
+            this.groupBoxRol.Controls.Add(this.stateLabel);
+            this.groupBoxRol.Controls.Add(this.nombreTextBox);
+            this.groupBoxRol.Controls.Add(this.nombreLabel);
+            this.groupBoxRol.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxRol.Name = "groupBox1";
+            this.groupBoxRol.Size = new System.Drawing.Size(426, 280);
+            this.groupBoxRol.TabIndex = 0;
+            this.groupBoxRol.TabStop = false;
+            this.groupBoxRol.Text = "Definir el nombre y sus funcionalidades";
             // 
             // removeFuncionalidadButton
             // 
@@ -174,14 +174,15 @@ namespace UberFrba.Abm_Rol
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(450, 335);
             this.Controls.Add(this.createRolButton);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxRol);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "AltaRol";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AltaRol";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.Text = "Creacion Rol";
+            this.groupBoxRol.ResumeLayout(false);
+            this.groupBoxRol.PerformLayout();
+            this.Load += new System.EventHandler(this.onAltaLoad);
             ((System.ComponentModel.ISupportInitialize)(this.funcionalidadesDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -189,7 +190,7 @@ namespace UberFrba.Abm_Rol
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxRol;
         private System.Windows.Forms.Label nombreLabel;
         private System.Windows.Forms.Label stateLabel;
         private System.Windows.Forms.TextBox nombreTextBox;

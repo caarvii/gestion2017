@@ -22,14 +22,18 @@ namespace UberFrba.Abm_Rol
         public AltaRol()
         {
             InitializeComponent();
-            loadFuncionalidades();
-            funcionalidadesXRol = new List<FuncionalidadDTO>();
-            habilitadoCheckBox.CheckState = CheckState.Checked;
         }
 
         public AltaRol(OnCreateUpdateListener createUpdateListener) : this()
         {
             this.createUpdateListener = createUpdateListener;
+        }
+
+        private void onAltaLoad(object sender, System.EventArgs e)
+        {
+            loadFuncionalidades();
+            funcionalidadesXRol = new List<FuncionalidadDTO>();
+            habilitadoCheckBox.CheckState = CheckState.Checked;
         }
 
         private void loadFuncionalidades()
