@@ -190,6 +190,11 @@ namespace UberFrba.Dao
 
         }
 
+        private void crearCliente_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
 
 
             

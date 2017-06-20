@@ -11,7 +11,10 @@ namespace UberFrba.Dto
         public int id;
         public string nombre;
 
-
+        public override string ToString()
+        {
+            return nombre;
+        }
 
 
 
