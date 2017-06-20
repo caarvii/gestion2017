@@ -24,8 +24,9 @@ namespace UberFrba.Abm_Automovil
 
         public void onOperationFinish(TurnoDTO turno)
         {
-            txtTurno.Text = turno.id.ToString();
             txtTurnoDescripcion.Text = turno.descripcion;
+            txtTurnoHoraInicio.Text = turno.horaInicial.ToString();
+            txtTurnoHoraFin.Text = turno.horaFinal.ToString();
         }
 
 
@@ -49,15 +50,20 @@ namespace UberFrba.Abm_Automovil
             */
         }
 
-        private void btnCrearAutomovil_Click(object sender, EventArgs e)
+
+        private AutomovilDTO cargarAutomovil()
         {
 
-        }
+            int licencia;
+            if (!Int32.TryParse(txtLicencia.Text, out licencia)) throw new Exception("La licencia debe ser numerica");
 
-        private void cmbMarca_SelectedIndexChanged(object sender, EventArgs e)
-        {
+            AutomovilDTO unAutomovil = new AutomovilDTO(
 
-          
+
+
+
+
+
         }
 
         
@@ -84,6 +90,11 @@ namespace UberFrba.Abm_Automovil
             ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this);
             ListadoSeleccionDeChoferForm.ShowDialog();
              */ 
+        }
+
+        private void btnCrearAutomovil_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

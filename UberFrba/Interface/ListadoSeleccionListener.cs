@@ -9,9 +9,10 @@ namespace UberFrba.Interface
 {
     public interface ListadoSeleccionListener
     {
-        void onOperationFinishTurno(TurnoDTO turno);
+        void onOperationFinish(TurnoDTO turno);
 
-        void onOperationFinishChofer(TurnoDTO chofer);
+        //void onOperationFinishChofer(TurnoDTO chofer);
+
 
     }
 }
