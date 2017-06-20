@@ -26,7 +26,7 @@ namespace UberFrba.Dao
                     automovil.auto_modelo_id = Convert.ToInt32(dataReader["auto_mod_id"]);
                     automovil.auto_modelo_nombre = Convert.ToString(dataReader["mod_nombre"]);
                     automovil.auto_patente = Convert.ToString(dataReader["auto_patente"]);
-                    automovil.auto_licencia = Convert.ToString(dataReader["auto_licencia"]);
+                    automovil.auto_licencia = Convert.ToInt32(dataReader["auto_licencia"]);
                     automovil.auto_rodado = Convert.ToString(dataReader["auto_rodado"]);
                     automoviles.Add(automovil);
                 }

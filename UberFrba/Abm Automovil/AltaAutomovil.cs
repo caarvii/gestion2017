@@ -161,7 +161,7 @@ namespace UberFrba.Abm_Automovil
                 {
                     AutomovilDTO automovil = cargarAutomovil();
                     automovil.auto_id = AutomovilAModificar.auto_id;
-                    AutomovilDAO.updateAutomovil(automovil);
+                    //AutomovilDAO.updateAutomovil(automovil);
                     MessageBox.Show("Automovil modificado con exito");
                     this.Close(); //Cierro formulario
                     listener.onOperationFinish();
