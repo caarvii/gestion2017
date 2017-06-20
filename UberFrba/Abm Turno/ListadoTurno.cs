@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Turno
 {
-    public partial class ListadoTurno : UberFrba.ListadoGenerico
+    public partial class ListadoTurno : UberFrba.ListadoGenerico, OnCreateUpdateListener
     {
 
         Dictionary<string, object> filtrosTurnoList = new Dictionary<string, object>();
@@ -20,6 +21,20 @@ namespace UberFrba.Abm_Turno
         public ListadoTurno()
         {
             InitializeComponent();
+        }
+
+        public void onOperationFinish()
+        {
+
+            cargarListadoTurnos();
+
+        }
+
+        private void cargarListadoTurnos()
+        {
+
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+
         }
 
 
@@ -30,7 +45,7 @@ namespace UberFrba.Abm_Turno
 
         protected  void botonAlta_Click_1(object sender, EventArgs e)
         {
-            AltaTurno altaTurnoForm = new AltaTurno();
+            AltaTurno altaTurnoForm = new AltaTurno(this);
             altaTurnoForm.ShowDialog();
         }
 
@@ -49,10 +64,13 @@ namespace UberFrba.Abm_Turno
             {
                 //Tiene filtros
                 tablaListado.DataSource = TurnoDAO.getTurnosFilter(filtrosTurnoList);
+                tablaListado.Columns["estado"].Visible = false;
+
             }
             else
             {
-                tablaListado.DataSource = TurnoDAO.getAllTurnos();
+                cargarListadoTurnos();
+                tablaListado.Columns["estado"].Visible = false;
             }
 
         }
@@ -69,6 +87,7 @@ namespace UberFrba.Abm_Turno
                 if (TurnoDAO.deleteTurno(id) == 1)
                 {
                     MessageBox.Show("Turno dado de baja correctamente");
+                    cargarListadoTurnos();
                 }
             
             }
@@ -90,7 +109,7 @@ namespace UberFrba.Abm_Turno
 
                 int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                AltaTurno altaTurno = new AltaTurno(id);
+                AltaTurno altaTurno = new AltaTurno(id , this);
                 altaTurno.ShowDialog();
 
             }
