@@ -44,9 +44,35 @@ namespace UberFrba.Dao
             return readerToListAutomovil(reader);
         }
 
+         public static void addNewAutomovil(AutomovilDTO automovil){
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("auto_id", automovil.auto_id);
+            parameters.Add("marca_id", automovil.auto_marca_id);
+            parameters.Add("auto_modelo_id", automovil.auto_modelo_id);
+            parameters.Add("auto_patente", automovil.auto_patente);
+            parameters.Add("auto_licencia", automovil.auto_licencia);
+            parameters.Add("auto_rodado", automovil.auto_rodado);
+            parameters.Add("auto_turno_id", automovil.auto_turno_id);
+            parameters.Add("auto_chofer_id", automovil.auto_chofer_id);
+
+            try
+            {
+                SQLManager.executePorcedure("altaAutomovil", parameters);
+            }
+            catch (SqlException exception)
+            {
+                if (exception.Number == 50000)
+                {
+                    throw new ApplicationException(exception.Message);
+                }
+                else
+                {
+                    throw exception;
+                }
+            }
 
 
-
+         }
 
 
 

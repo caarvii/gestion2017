@@ -37,14 +37,16 @@ namespace UberFrba.Abm_Turno
 
         private void cargarListadoTurnos()
         {
-
-            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+            turnos = TurnoDAO.getAllTurnos();
+            tablaListado.DataSource = turnos;
 
 		}
         public ListadoTurno(ListadoSeleccionListener _listener)
         {
             InitializeComponent();
             listener = _listener;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            cargarListadoTurnos();
             botonAlta.Visible = false;
             botonBaja.Visible = false;
             botonModificacion.Text = "Seleccionar";

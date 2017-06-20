@@ -11,6 +11,8 @@ using UberFrba.Dao;
 using UberFrba.Dto;
 using UberFrba.Abm_Turno;
 using UberFrba.Interface;
+using UberFrba.Helpers;
+
 
 namespace UberFrba.Abm_Automovil
 {
@@ -22,13 +24,46 @@ namespace UberFrba.Abm_Automovil
             cargarComboBox();
         }
 
+        public AltaAutomovil(AutomovilDTO _AutomovilAModificar, OnCreateUpdateListener _listener)
+        {
+            InitializeComponent();
+            cargarComboBox();
+            AutomovilAModificar = _AutomovilAModificar;
+            CargarDatosDeAutomovilAModificar();
+            btnCrearAutomovil.Visible = false;
+            btnModificar.Visible = true;
+            this.Text = "Modificar automovil";
+            listener = _listener;
+        }
+
+
+        TurnoDTO turnoGlobal;
+        ChoferDTO choferGlobal;
+        OnCreateUpdateListener listener;
+        AutomovilDTO AutomovilAModificar;
+
         public void onOperationFinish(TurnoDTO turno)
         {
+            turnoGlobal =turno;
             txtTurnoDescripcion.Text = turno.descripcion;
             txtTurnoHoraInicio.Text = turno.horaInicial.ToString();
             txtTurnoHoraFin.Text = turno.horaFinal.ToString();
         }
 
+        private void CargarDatosDeAutomovilAModificar()
+        {
+            
+            
+            
+            cmbMarca.SelectedItem= ((AutomovilDTO) AutomovilAModificar).auto_marca_nombre;
+            cmbModelo.SelectedItem= ((AutomovilDTO) AutomovilAModificar).auto_modelo_nombre;
+            txtPatente.Text = AutomovilAModificar.auto_patente;
+            txtLicencia.Text = AutomovilAModificar.auto_licencia.ToString();
+            //    
+
+
+
+        }
 
 
         private void cargarComboBox()
@@ -45,9 +80,9 @@ namespace UberFrba.Abm_Automovil
         }
 
         private void txtPatente_KeyPress(object sender, EventArgs e) {
-          /*  this.allowAlphanumericOnly(e);
-            if (e.KeyChar != 8) this.allowMaxLenght(txtPatente, 10, e);
-            */
+            //this.allowAlphanumericOnly(e);
+            //if (e.KeyChar != 8) this.allowMaxLenght(txtPatente, 10, e);
+            
         }
 
 
@@ -58,8 +93,13 @@ namespace UberFrba.Abm_Automovil
             if (!Int32.TryParse(txtLicencia.Text, out licencia)) throw new Exception("La licencia debe ser numerica");
 
             AutomovilDTO unAutomovil = new AutomovilDTO(
+            ((MarcaDTO) cmbMarca.SelectedItem).id,
+            ((ModeloDTO) cmbModelo.SelectedItem).id,
+            txtPatente.Text,
+            txtLicencia.Text,
+            txtAutoRodado.Text);
 
-
+           return unAutomovil;
 
 
 
@@ -94,8 +134,53 @@ namespace UberFrba.Abm_Automovil
 
         private void btnCrearAutomovil_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtTurnoDescripcion.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text))
+            {
+                try
+                {
+                    AutomovilDTO nuevoAutomovil = this.cargarAutomovil();
+                    AutomovilDAO.addNewAutomovil(nuevoAutomovil);
+                    MessageBox.Show("Se agrego el automovil correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el automovil", ex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe completar todos los campos", "Error");
+            }
+       }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtTurnoDescripcion.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text))
+            {
+                try
+                {
+                    AutomovilDTO automovil = cargarAutomovil();
+                    automovil.auto_id = AutomovilAModificar.auto_id;
+                    AutomovilDAO.updateAutomovil(automovil);
+                    MessageBox.Show("Automovil modificado con exito");
+                    this.Close(); //Cierro formulario
+                    listener.onOperationFinish();
+
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el automovil", ex);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe completar todos los campos", "Error");
+            }
 
         }
+
+
+
 
     }
 }

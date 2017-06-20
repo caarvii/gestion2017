@@ -46,6 +46,9 @@
             this.txtTurnoHoraInicio = new System.Windows.Forms.TextBox();
             this.txtTurnoHoraFin = new System.Windows.Forms.TextBox();
             this.txtChoferNombreCompleto = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtAutoRodado = new System.Windows.Forms.TextBox();
+            this.btnModificar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -112,7 +115,7 @@
             // 
             // btnCrearAutomovil
             // 
-            this.btnCrearAutomovil.Location = new System.Drawing.Point(202, 202);
+            this.btnCrearAutomovil.Location = new System.Drawing.Point(207, 228);
             this.btnCrearAutomovil.Name = "btnCrearAutomovil";
             this.btnCrearAutomovil.Size = new System.Drawing.Size(87, 23);
             this.btnCrearAutomovil.TabIndex = 10;
@@ -154,7 +157,7 @@
             // 
             // cmdSeleccionarTurno
             // 
-            this.cmdSeleccionarTurno.Location = new System.Drawing.Point(321, 150);
+            this.cmdSeleccionarTurno.Location = new System.Drawing.Point(304, 147);
             this.cmdSeleccionarTurno.Name = "cmdSeleccionarTurno";
             this.cmdSeleccionarTurno.Size = new System.Drawing.Size(111, 19);
             this.cmdSeleccionarTurno.TabIndex = 16;
@@ -164,7 +167,7 @@
             // 
             // cmdSeleccionarChofer
             // 
-            this.cmdSeleccionarChofer.Location = new System.Drawing.Point(321, 176);
+            this.cmdSeleccionarChofer.Location = new System.Drawing.Point(304, 174);
             this.cmdSeleccionarChofer.Name = "cmdSeleccionarChofer";
             this.cmdSeleccionarChofer.Size = new System.Drawing.Size(111, 20);
             this.cmdSeleccionarChofer.TabIndex = 17;
@@ -205,11 +208,41 @@
             this.txtChoferNombreCompleto.Size = new System.Drawing.Size(82, 20);
             this.txtChoferNombreCompleto.TabIndex = 21;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(83, 205);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 13);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Auto rodado";
+            // 
+            // txtAutoRodado
+            // 
+            this.txtAutoRodado.Location = new System.Drawing.Point(149, 202);
+            this.txtAutoRodado.Name = "txtAutoRodado";
+            this.txtAutoRodado.Size = new System.Drawing.Size(140, 20);
+            this.txtAutoRodado.TabIndex = 23;
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(207, 228);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(87, 23);
+            this.btnModificar.TabIndex = 24;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Visible = false;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
             // AltaAutomovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(527, 334);
+            this.Controls.Add(this.btnModificar);
+            this.Controls.Add(this.txtAutoRodado);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtChoferNombreCompleto);
             this.Controls.Add(this.txtTurnoHoraFin);
             this.Controls.Add(this.txtTurnoHoraInicio);
@@ -256,5 +289,8 @@
         private System.Windows.Forms.TextBox txtTurnoHoraInicio;
         private System.Windows.Forms.TextBox txtTurnoHoraFin;
         private System.Windows.Forms.TextBox txtChoferNombreCompleto;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtAutoRodado;
+        private System.Windows.Forms.Button btnModificar;
     }
 }
