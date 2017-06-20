@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Automovil
 {
-    partial class frmCrearAutomovil
+    partial class AltaAutomovil
     {
         /// <summary>
         /// Required designer variable.
@@ -168,7 +168,7 @@
             this.cmbModelo.TabIndex = 13;
             this.cmbModelo.SelectedIndexChanged += new System.EventHandler(this.cmbModelo_SelectedIndexChanged);
             // 
-            // frmCrearAutomovil
+            // AltaAutomovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,9 +187,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "frmCrearAutomovil";
-            this.Text = "crearAutomovil";
-            this.Load += new System.EventHandler(this.frmCrearAutomovil_Load);
+            this.Name = "AltaAutomovil";
+            this.Text = "AltaAutomovil";
+            this.Load += new System.EventHandler(this.AltaAutomovil_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

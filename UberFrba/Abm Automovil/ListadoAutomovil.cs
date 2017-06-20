@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class ListadoAutomovilesReal : UberFrba.ListadoGenerico
+    public partial class ListadoAutomovil : UberFrba.ListadoGenerico
     {
-        public ListadoAutomovilesReal()
+        public ListadoAutomovil()
         {
             InitializeComponent();
             this.Text = this.Text + " de Automoviles";
@@ -47,6 +47,13 @@ namespace UberFrba.Abm_Automovil
 
             // TODO
 
+        }
+
+
+        protected void botonAlta_Click_1(object sender, EventArgs e)
+        {
+            AltaAutomovil altaAutomovilForm = new AltaAutomovil();
+            altaAutomovilForm.ShowDialog();
         }
 
     }

@@ -12,18 +12,15 @@ using UberFrba.Dto;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class frmCrearAutomovil : Form
+    public partial class AltaAutomovil : Form
     {
-        public frmCrearAutomovil()
+        public AltaAutomovil()
         {
             InitializeComponent();
             cargarComboBox();
         }
 
-        private void frmCrearAutomovil_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void cargarComboBox()
         {
@@ -74,6 +71,11 @@ namespace UberFrba.Abm_Automovil
         }
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AltaAutomovil_Load(object sender, EventArgs e)
         {
 
         }

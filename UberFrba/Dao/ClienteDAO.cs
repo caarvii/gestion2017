@@ -48,6 +48,22 @@ namespace UberFrba.Dao
             return readerToListCliente(reader);
         }
 
+        internal static List<ClienteDTO> getClientesFilter(Dictionary<string, object> filtrosClienteList)
+        {
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Cliente where ");
+
+            foreach (KeyValuePair<string, object> filtro in filtrosClienteList)
+            {
+                stringBuilder.Append(filtro.Key);
+                stringBuilder.Append(" = '");
+                stringBuilder.Append(filtro.Value);
+                stringBuilder.Append("'");
+            }
+
+            SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
+            return readerToListCliente(dataReader);
+        }
+
 
         public static void addNewCliente(ClienteDTO cliente){
             Dictionary<string, object> parameters = new Dictionary<string, object>();
