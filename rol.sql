@@ -74,4 +74,36 @@ begin
 end
 go
 
+create trigger GARBAGE.deleteUsuariosRol
+on GARBAGE.Rol instead of update
+as
+begin
+
+	declare cursor_roles cursor for (select I.rol_id, I.rol_activo from inserted I)
+
+	declare @rol_id int, @rol_activo bit;
+
+	open cursor_roles
+
+	fetch next from cursor_roles into @rol_id, @rol_activo;
+
+	while(@@fetch_status = 0)
+	begin
+		if(@rol_activo = 0)
+		begin
+			delete GARBAGE.RolxUsuario where rol_usu_rol_id = @rol_id
+		end
+		fetch next from cursor_roles into @rol_id, @rol_activo;
+	end
+
+	update GARBAGE.Rol set rol_nombre = I.rol_nombre, rol_activo = I.rol_activo
+	from inserted I
+	where I.rol_id = GARBAGE.Rol.rol_id
+
+	close cursor_roles
+	deallocate cursor_roles
+
+end
+
+
 --drop procedure GARBAGE.createRol

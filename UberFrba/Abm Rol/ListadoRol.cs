@@ -69,7 +69,7 @@ namespace UberFrba.Abm_Rol
         {
             if (tablaListado.RowCount == 0)
             {
-                MessageBox.Show("Debe buscar y seleccionar un rol para modificarlo");
+                MessageBox.Show("Debe buscar y seleccionar un rol para darlo de baja");
                 return;
             }
 
