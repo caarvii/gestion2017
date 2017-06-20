@@ -50,6 +50,8 @@ namespace UberFrba
             this.tablaListado.ReadOnly = true;
             this.tablaListado.Size = new System.Drawing.Size(511, 237);
             this.tablaListado.TabIndex = 1;
+            this.tablaListado.MultiSelect = false;
+            this.tablaListado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
             // botonLimpiar
             // 

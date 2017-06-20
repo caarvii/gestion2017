@@ -16,17 +16,33 @@ namespace UberFrba.Abm_Rol
 {
     public partial class AltaRol : Form
     {
+
+        private static string ALTA_NAME = "Crear Rol";
+        private static string MODIFICACION_NAME = "Modificar Rol";
+
         private List<FuncionalidadDTO> funcionalidadesXRol;
         private OnCreateUpdateListener createUpdateListener;
+        private RolDTO rol;
+        private ListadoRol listadoRol;
+        private bool editMode { get; set; } 
 
         public AltaRol()
         {
             InitializeComponent();
+            editMode = false;
         }
 
-        public AltaRol(OnCreateUpdateListener createUpdateListener) : this()
+        public AltaRol(OnCreateUpdateListener createUpdateListener)
+            : this()
         {
             this.createUpdateListener = createUpdateListener;
+        }
+
+        public AltaRol(RolDTO rol, OnCreateUpdateListener createUpdateListener) :
+            this(createUpdateListener)
+        {
+            this.rol = rol;
+            this.editMode = true;
         }
 
         private void onAltaLoad(object sender, System.EventArgs e)
@@ -34,6 +50,27 @@ namespace UberFrba.Abm_Rol
             loadFuncionalidades();
             funcionalidadesXRol = new List<FuncionalidadDTO>();
             habilitadoCheckBox.CheckState = CheckState.Checked;
+            
+            stateLabel.Visible = editMode;
+            habilitadoCheckBox.Visible = editMode;
+
+            if (editMode && rol != null)
+            {
+                loadFieldsWithRol();
+                this.Text = MODIFICACION_NAME;
+                this.createUpdateRolButton.Text = MODIFICACION_NAME;
+            }
+        }
+
+        private void loadFieldsWithRol()
+        {
+            nombreTextBox.Text = rol.nombre;
+            habilitadoCheckBox.CheckState = rol.activo ? CheckState.Checked : CheckState.Unchecked;
+            foreach (FuncionalidadDTO func in rol.funcionalidadesList)
+            {
+                funcionalidadesXRol.Add(func);
+                funcionalidadesDataGridView.Rows.Add(func.id, func.descripcion);
+            }
         }
 
         private void loadFuncionalidades()
@@ -64,9 +101,8 @@ namespace UberFrba.Abm_Rol
             }
 
             funcionalidadesXRol.Add(funcionalidad);
-            funcionalidadesDataGridView.Rows.Add(funcionalidad.descripcion);
+            funcionalidadesDataGridView.Rows.Add(funcionalidad.id, funcionalidad.descripcion);
             funcionalidadesComboBox.SelectedIndex = -1;
-            
         }
 
         private void removeFuncionalidadButton_Click(object sender, EventArgs e)
@@ -84,33 +120,46 @@ namespace UberFrba.Abm_Rol
             }
         }
 
-        private void createRolButton_Click(object sender, EventArgs e)
+        private void createUpdateRolButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(nombreTextBox.Text))
             {
-                Utility.ShowInfo("Alta Rol", "Debe ingresar un nombre para el rol");
+                Utility.ShowInfo(editMode ? MODIFICACION_NAME : ALTA_NAME,
+                    "Debe ingresar un nombre para el rol");
                 return;
             }
 
             if (funcionalidadesXRol.Count == 0)
             {
-                Utility.ShowInfo("Alta Rol", "Debe agregar al menos una funcionalidad");
+                Utility.ShowInfo(editMode ? MODIFICACION_NAME : ALTA_NAME,
+                    "El rol debe tener al menos una funcionalidad");
                 return;
             }
 
             try
             {
-                RolDAO.createRol(nombreTextBox.Text, funcionalidadesXRol);
+                if (editMode && rol != null)
+                {
+                    RolDAO.updateRol(rol.id, nombreTextBox.Text, 
+                        habilitadoCheckBox.CheckState == CheckState.Checked, funcionalidadesXRol);
+                }
+                else
+                {
+                    RolDAO.createRol(nombreTextBox.Text, funcionalidadesXRol);
+                }
+
                 this.Close();
                 createUpdateListener.onOperationFinish();
             }
             catch (ApplicationException excep)
             {
-                Utility.ShowError("Alta Rol", excep.Message);
+                Utility.ShowError(editMode ? MODIFICACION_NAME : ALTA_NAME, excep.Message);
             }
 
 
         }
 
+
+       
     }
 }
