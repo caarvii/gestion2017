@@ -140,6 +140,7 @@ namespace UberFrba.Abm_Turno
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(155, 20);
             this.txtDescripcion.TabIndex = 14;
+            this.txtDescripcion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescripcion_KeyPress);
             // 
             // checkHabilitado
             // 
@@ -159,6 +160,7 @@ namespace UberFrba.Abm_Turno
             this.precioBase.Name = "precioBase";
             this.precioBase.Size = new System.Drawing.Size(155, 20);
             this.precioBase.TabIndex = 10;
+            this.precioBase.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.precioBase_KeyPress);
             // 
             // valorKM
             // 
@@ -166,6 +168,7 @@ namespace UberFrba.Abm_Turno
             this.valorKM.Name = "valorKM";
             this.valorKM.Size = new System.Drawing.Size(157, 20);
             this.valorKM.TabIndex = 9;
+            this.valorKM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.valorKM_KeyPress);
             // 
             // label5
             // 
