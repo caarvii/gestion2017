@@ -34,9 +34,17 @@
             // 
             this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
+            // botonBaja
+            // 
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click_1);
+            // 
             // botonAlta
             // 
             this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
+            // 
+            // botonModificacion
+            // 
+            this.botonModificacion.Click += new System.EventHandler(this.botonModificacion_Click_1);
             // 
             // ListadoRol
             // 
