@@ -11,37 +11,35 @@ namespace UberFrba.Dto
         public enum Funcionalidad
         {
             ABM_ROL,
-	        //ABM_USUARIO,
-	        //ABM_CLIENTE,
-	        ABM_CIUDAD,
-	        ABM_RUTA_AEREA,
-	        ABM_AERONAVE,
-	        GENERAR_VIAJE,
-	        REGISTRO_LLEGADA_DESTINO,
-	        COMPRA_PASAJE_ENCOMIENDA,
-	        CANCELAR_PASAJE_ENCOMIENDA,
-	        CONSULTA_MILLAS,
-	        CANJE_MILLAS,
+	        ABM_CLIENTE,
+	        ABM_AUTOMOVIL,
+            AMB_TURNO,
+            AMB_CHOFER,
+            REGISTRAR_VIAJE,
+            RENDICION_DE_VIAJES,
+            FACTURACION_CLIENTES,
 	        LISTADO_ESTADISTICO
         }
 
-        public Funcionalidad toFuncionalidad() { return (Funcionalidad)this.IdFuncionalidad; }
+        public Funcionalidad toFuncionalidad() { 
+            return (Funcionalidad) Enum.Parse(typeof(Funcionalidad), (this.id - 1).ToString());
+        }
 
-        public int IdFuncionalidad{get;set;}
-        public string Descripcion{get;set;}
+        public int id { get; set;}
+        public string descripcion { get; set;}
 
         public FuncionalidadDTO(){
         }
 
         public FuncionalidadDTO(int id, string desc)
         {
-            this.IdFuncionalidad = id;
-            Descripcion = desc;
+            this.id = id;
+            descripcion = desc;
         }
 
         public override string ToString()
         {
-            return Descripcion;
+            return descripcion;
         }
 
         public override bool Equals(object obj)
@@ -53,7 +51,7 @@ namespace UberFrba.Dto
                 return false;
             }
 
-            return item.Descripcion == this.Descripcion;
+            return item.descripcion == this.descripcion;
         }
 
         public override int GetHashCode()

@@ -1,6 +1,6 @@
-﻿namespace UberFrba
+﻿namespace UberFrba.Menu
 {
-    partial class Menu 
+    partial class MenuHome 
     {
         /// <summary>
         /// Required designer variable.
@@ -243,8 +243,9 @@
             this.cerrarSesionMenuItem.Size = new System.Drawing.Size(129, 19);
             this.cerrarSesionMenuItem.Text = "Cerrar Sesion";
             this.cerrarSesionMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cerrarSesionMenuItem.Click += new System.EventHandler(this.cerrarSesionMenuItem_Click);
             // 
-            // Menu
+            // MenuHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -255,7 +256,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuFuncionalidades;
             this.MaximizeBox = false;
-            this.Name = "Menu";
+            this.Name = "MenuHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.onMenuLoad);

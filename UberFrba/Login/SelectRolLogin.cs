@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dto;
+using UberFrba.Menu;
 
 namespace UberFrba.Login
 {
@@ -34,6 +35,11 @@ namespace UberFrba.Login
             comboBoxRoles.Text = rol.nombre.Trim();
         }
 
+        public void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter) buttonIngresar.PerformClick();
+        }
+
         private void buttonIngresar_Click(object sender, EventArgs e)
         {
             if (comboBoxRoles.SelectedIndex == -1)
@@ -44,7 +50,7 @@ namespace UberFrba.Login
             {
                 Sesion.RolActual = (RolDTO) comboBoxRoles.SelectedItem;
                 this.Hide();
-                Menu menu = new Menu();
+                MenuHome menu = new MenuHome();
                 menu.ShowDialog();
                 Close();
 

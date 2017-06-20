@@ -19,8 +19,8 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     FuncionalidadDTO func = new FuncionalidadDTO();
-                    func.IdFuncionalidad = Convert.ToInt32(dataReader["func_id"]);
-                    func.Descripcion = Convert.ToString(dataReader["func_descripcion"]);
+                    func.id = Convert.ToInt32(dataReader["func_id"]);
+                    func.descripcion = Convert.ToString(dataReader["func_descripcion"]);
 
                     listaFunc.Add(func);
                 }
@@ -35,8 +35,13 @@ namespace UberFrba.Dao
 
             SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidadListByRolId",
                 SQLManager.getSingleParams("rol_id", rolId));
-            List<FuncionalidadDTO> funcionalidades = readerToListFunc(reader);
-            return funcionalidades; 
+            return readerToListFunc(reader); 
+        }
+
+        internal static List<FuncionalidadDTO> getFuncionalidades()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidades");
+            return readerToListFunc(reader); 
         }
     }
 }

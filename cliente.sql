@@ -3,7 +3,7 @@ as
 begin
 	(select * from GARBAGE.Cliente)
 end
-
+go
 
 create procedure GARBAGE.getClienteById(@cli_id int)
 as

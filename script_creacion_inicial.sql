@@ -285,7 +285,7 @@ insert into GARBAGE.Funcionalidad(func_descripcion)
 	('ABM de Chofer'),
 	('ABM de Turno'),
 	('Registrar Viaje'),
-	('Rendicion de cuenta del Chofer'),
+	('Rendicion de Viajes'),
 	('Facturacion a Cliente'),
 	('Listado Estadístico')
 

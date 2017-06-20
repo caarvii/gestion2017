@@ -40,8 +40,8 @@ namespace UberFrba.Login
             try
             {
                 Dictionary<string, object> parameters = new Dictionary<string, object>();
-                parameters.Add("@username", username);
-                parameters.Add("@password", getSHA256(password));
+                parameters.Add("username", username);
+                parameters.Add("password", getSHA256(password));
 
                 int userId = SQLManager.executePorcedure("Login", parameters);
 
@@ -70,6 +70,7 @@ namespace UberFrba.Login
         {
             logued = false;
             usuarioActual = null;
+            rolActual = null;
         }
         
 

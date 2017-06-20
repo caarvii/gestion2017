@@ -29,7 +29,7 @@ namespace UberFrba.Dao
                     cliente.telefono = Convert.ToInt32(dataReader["cli_telefono"]);
                     cliente.direccion = Convert.ToString(dataReader["cli_direccion"]);
                     cliente.codigoPostal = Convert.ToInt32(dataReader["cli_cp"]);
-                    //cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
+                   // cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
                     cliente.activo = Convert.ToBoolean(dataReader["cli_activo"]);
                     clientes.Add(cliente);
                 }
@@ -43,8 +43,7 @@ namespace UberFrba.Dao
 
         public static List<ClienteDTO> getAllClientes()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            SqlDataReader reader = SQLManager.executeProcedureList("getClientes", parameters);
+            SqlDataReader reader = SQLManager.executeProcedureList("getClientes");
             return readerToListCliente(reader);
         }
 
@@ -85,7 +84,7 @@ namespace UberFrba.Dao
         public static ClienteDTO getClienteById(int clienteId)
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getClienteById",
-            SQLManager.getSingleParams("cli_id", clienteId));
+                SQLManager.getSingleParams("cli_id", clienteId));
             return readerToListCliente(reader).First();
         }
 
