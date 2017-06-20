@@ -24,6 +24,12 @@ namespace UberFrba.Dao
                     chofer.dni = Convert.ToInt32(dataReader["chof_dni"]);
                     chofer.nombre = Convert.ToString(dataReader["chof_nombre"]);
                     chofer.apellido = Convert.ToString(dataReader["chof_apellido"]);
+                    chofer.mail = Convert.ToString(dataReader["chof_mail"]);
+                    chofer.direccion = Convert.ToString(dataReader["chof_direccion"]);
+                    chofer.telefono = Convert.ToInt32(dataReader["chof_telefono"]);
+                    chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fechanac"]);
+                    chofer.estado = Convert.ToBoolean(dataReader["chof_activo"]);
+
                     choferes.Add(chofer);
                 }
             }
@@ -48,6 +54,12 @@ namespace UberFrba.Dao
         }
 
 
+        public static int deleteChofer(int chofer_id)
+        {
+
+            return SQLManager.executePorcedure("bajaLogicaChofer", SQLManager.getSingleParams("chof_id", chofer_id));
+
+        }
 
 
         public static void addNewChofer(ChoferDTO chofer)
@@ -96,7 +108,7 @@ namespace UberFrba.Dao
             parameters.Add("chof_telefono", chofer.telefono);
             parameters.Add("chof_direccion", chofer.direccion);
             parameters.Add("chof_fechanac", chofer.fechaNacimiento);
-
+            parameters.Add("chof_activo", chofer.estado);
             
             // Usuario y fecha
 
@@ -106,7 +118,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }

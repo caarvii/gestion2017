@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dto;
 using UberFrba.Dao;
+using UberFrba.Helpers;
+
 
 namespace UberFrba.Abm_Chofer
 {
@@ -52,6 +54,7 @@ namespace UberFrba.Abm_Chofer
             this.txtDireccion.Text = choferEdicion.direccion;
             this.txtTelefono.Text = choferEdicion.telefono.ToString();
             this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
+            this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
             
             //PENDIENTE
 
@@ -59,8 +62,6 @@ namespace UberFrba.Abm_Chofer
             //this.txtPassword.Text =
 
             //txtUserName.Text = cliente.username;
-                
-            // CONSULTAR QUE HACEMOS CON ESTADO.
             
         }
 
@@ -108,8 +109,82 @@ namespace UberFrba.Abm_Chofer
 
         private void botonAgregar_Click(object sender, EventArgs e)
         {
+            this.txtNombre.Text = choferEdicion.nombre;
+            this.txtApellido.Text = choferEdicion.apellido;
+            this.txtDNI.Text = choferEdicion.dni.ToString();
+            this.txtDireccion.Text = choferEdicion.direccion;
+            this.txtTelefono.Text = choferEdicion.telefono.ToString();
+            this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
+            this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
+
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text) 
+                && !string.IsNullOrWhiteSpace(txtApellido.Text)
+                && !string.IsNullOrWhiteSpace(txtDNI.Text)
+                && !string.IsNullOrWhiteSpace(txtDireccion.Text)
+                && !string.IsNullOrWhiteSpace(txtTelefono.Text)
+                && !string.IsNullOrWhiteSpace(dateFechaNac.Value.ToString()))
+            {
+               if (setearVariables())
+                 {
+                   agregarEditarChofer(chofer);
+                 }
+            }
+            else
+            {
+                MessageBox.Show("Debe completar todos los campos", "Error");
+            }
+        }
+
+        private bool setearVariables()
+        {
+            chofer = new ChoferDTO(txtNombre.Text
+                                    ,txtApellido.Text 
+                                    , Convert.ToInt32(txtDNI.Text)
+                                    , txtDireccion.Text
+                                    , Convert.ToInt32(txtTelefono.Text)
+                                    , txtMail.Text
+                                    , Convert.ToDateTime(dateFechaNac.Value)
+                                    , checkHabilitado.Checked);
+            return true;
+        }
+
+
+        private void agregarEditarChofer(ChoferDTO choferActivo)
+        {
+
+            if (this.edicion)
+            {
+                // Edicion
+                try
+                {
+                    choferActivo.id = this.chofer.id;
+
+                    ChoferDAO.updateChofer(choferActivo)
+                    MessageBox.Show("Se edito el chofer correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al editar el chofer", ex);
+                }
+
+            }
+            else
+            {
+                // Alta 
+                try
+                {
+                    ChoferDAO.addNewChofer(choferActivo);
+                    MessageBox.Show("Se agrego el chofer correctamente");
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el turno", ex);
+                }
+
+            }
 
         }
+
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
@@ -120,6 +195,9 @@ namespace UberFrba.Abm_Chofer
             this.txtTelefono.Text = "";
             this.txtMail.Text = "";
             this.dateFechaNac.ResetText();
+
+            // Verificar 
+
             this.txtUsuario.Text = "";
             this.txtPassword.Text = "";
 
