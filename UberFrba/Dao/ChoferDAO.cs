@@ -74,12 +74,8 @@ namespace UberFrba.Dao
             parameters.Add("chof_direccion", chofer.direccion);
             parameters.Add("chof_fechanac", chofer.fechaNacimiento);
 
-            // VER POR AHORA
-            //parameters.Add("usu_usuario", chofer.username);
-            //parameters.Add("usu_password", chofer.password);
+            // El estado se habilita por defecto en 1.
 
-
-            // Se habilita por defecto en 1
             try
             {
                 SQLManager.executePorcedure("altaChofer", parameters);
@@ -101,6 +97,7 @@ namespace UberFrba.Dao
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
+            parameters.Add("chof_id", chofer.id);
             parameters.Add("chof_nombre", chofer.nombre);
             parameters.Add("chof_apellido", chofer.apellido);
             parameters.Add("chof_dni", chofer.dni);
@@ -110,7 +107,7 @@ namespace UberFrba.Dao
             parameters.Add("chof_fechanac", chofer.fechaNacimiento);
             parameters.Add("chof_activo", chofer.estado);
             
-            // Usuario y fecha
+            // Usuario no se updetea
 
             try
             {

@@ -21,7 +21,6 @@ namespace UberFrba.Abm_Chofer
 
         private bool edicion = false;
 
-
         public AltaChofer()
         {
             InitializeComponent();
@@ -55,13 +54,6 @@ namespace UberFrba.Abm_Chofer
             this.txtTelefono.Text = choferEdicion.telefono.ToString();
             this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
             this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
-            
-            //PENDIENTE
-
-            //this.txtUsuario.Text = 
-            //this.txtPassword.Text =
-
-            //txtUserName.Text = cliente.username;
             
         }
 
@@ -185,7 +177,6 @@ namespace UberFrba.Abm_Chofer
 
         }
 
-
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
             this.txtNombre.Text = "";
@@ -195,12 +186,6 @@ namespace UberFrba.Abm_Chofer
             this.txtTelefono.Text = "";
             this.txtMail.Text = "";
             this.dateFechaNac.ResetText();
-
-            // Verificar 
-
-            this.txtUsuario.Text = "";
-            this.txtPassword.Text = "";
-
             this.checkHabilitado.Checked = false;
         }
 

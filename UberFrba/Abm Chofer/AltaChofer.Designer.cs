@@ -46,19 +46,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonAgregar = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.labelContraseña = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtPassword);
-            this.groupBox1.Controls.Add(this.txtUsuario);
-            this.groupBox1.Controls.Add(this.labelContraseña);
-            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.checkHabilitado);
             this.groupBox1.Controls.Add(this.dateFechaNac);
             this.groupBox1.Controls.Add(this.txtMail);
@@ -76,7 +68,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 362);
+            this.groupBox1.Size = new System.Drawing.Size(312, 299);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
@@ -85,7 +77,7 @@
             // 
             this.checkHabilitado.AutoSize = true;
             this.checkHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkHabilitado.Location = new System.Drawing.Point(15, 328);
+            this.checkHabilitado.Location = new System.Drawing.Point(15, 269);
             this.checkHabilitado.Name = "checkHabilitado";
             this.checkHabilitado.Size = new System.Drawing.Size(73, 17);
             this.checkHabilitado.TabIndex = 14;
@@ -207,7 +199,7 @@
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(17, 382);
+            this.botonLimpiar.Location = new System.Drawing.Point(17, 319);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(99, 34);
             this.botonLimpiar.TabIndex = 1;
@@ -217,7 +209,7 @@
             // 
             // botonAgregar
             // 
-            this.botonAgregar.Location = new System.Drawing.Point(230, 382);
+            this.botonAgregar.Location = new System.Drawing.Point(230, 319);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(99, 34);
             this.botonAgregar.TabIndex = 2;
@@ -225,45 +217,11 @@
             this.botonAgregar.UseVisualStyleBackColor = true;
             this.botonAgregar.Click += new System.EventHandler(this.botonAgregar_Click);
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 263);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 13);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Usuario";
-            // 
-            // labelContraseña
-            // 
-            this.labelContraseña.AutoSize = true;
-            this.labelContraseña.Location = new System.Drawing.Point(12, 299);
-            this.labelContraseña.Name = "labelContraseña";
-            this.labelContraseña.Size = new System.Drawing.Size(61, 13);
-            this.labelContraseña.TabIndex = 16;
-            this.labelContraseña.Text = "Contraseña";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.Location = new System.Drawing.Point(93, 263);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(198, 20);
-            this.txtUsuario.TabIndex = 17;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(94, 295);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(197, 20);
-            this.txtPassword.TabIndex = 18;
-            this.txtPassword.UseSystemPasswordChar = true;
-            // 
             // AltaChofer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 428);
+            this.ClientSize = new System.Drawing.Size(337, 361);
             this.Controls.Add(this.botonAgregar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.groupBox1);
@@ -295,9 +253,5 @@
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.CheckBox checkHabilitado;
-        private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.TextBox txtUsuario;
-        private System.Windows.Forms.Label labelContraseña;
-        private System.Windows.Forms.Label label8;
     }
 }
