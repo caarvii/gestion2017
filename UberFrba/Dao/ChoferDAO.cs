@@ -27,7 +27,7 @@ namespace UberFrba.Dao
                     chofer.mail = Convert.ToString(dataReader["chof_mail"]);
                     chofer.direccion = Convert.ToString(dataReader["chof_direccion"]);
                     chofer.telefono = Convert.ToInt32(dataReader["chof_telefono"]);
-                    chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fechanac"]);
+                    chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fecha_nacimiento"]);
                     chofer.estado = Convert.ToBoolean(dataReader["chof_activo"]);
 
                     choferes.Add(chofer);
@@ -46,10 +46,10 @@ namespace UberFrba.Dao
             return ReaderToListChofer(reader);
         }
 
-        public static ChoferDTO getChoferById(int choferId)
+        public static ChoferDTO getChoferById(int chofer_id)
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getChoferById",
-            SQLManager.getSingleParams("chof_id", choferId));
+            SQLManager.getSingleParams("chofer_id", chofer_id));
             return ReaderToListChofer(reader).First();
         }
 
@@ -72,7 +72,7 @@ namespace UberFrba.Dao
             parameters.Add("chof_mail", chofer.mail);
             parameters.Add("chof_telefono", chofer.telefono);
             parameters.Add("chof_direccion", chofer.direccion);
-            parameters.Add("chof_fechanac", chofer.fechaNacimiento);
+            parameters.Add("chof_fecha_nacimiento", chofer.fechaNacimiento);
 
             // El estado se habilita por defecto en 1.
 
@@ -104,7 +104,7 @@ namespace UberFrba.Dao
             parameters.Add("chof_mail", chofer.mail);
             parameters.Add("chof_telefono", chofer.telefono);
             parameters.Add("chof_direccion", chofer.direccion);
-            parameters.Add("chof_fechanac", chofer.fechaNacimiento);
+            parameters.Add("chof_fecha_nacimiento", chofer.fechaNacimiento);
             parameters.Add("chof_activo", chofer.estado);
             
             // Usuario no se updetea
@@ -130,7 +130,7 @@ namespace UberFrba.Dao
 
         internal static List<ChoferDTO> getChoferFilter(Dictionary<string, object> filtrosChoferList)
         {
-            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Turno where ");
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Chofer where ");
 
             foreach (KeyValuePair<string, object> filtro in filtrosChoferList)
             {

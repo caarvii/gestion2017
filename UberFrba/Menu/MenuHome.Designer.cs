@@ -166,6 +166,7 @@
             this.choferesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.choferesMenuItem.Text = "Choferes";
             this.choferesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.choferesMenuItem.Click += new System.EventHandler(this.choferesMenuItem_Click);
             // 
             // operacionesTitleLabel
             // 

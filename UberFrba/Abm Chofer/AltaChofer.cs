@@ -42,7 +42,7 @@ namespace UberFrba.Abm_Chofer
 
             this.Text = "Edicion de Choferes";
             this.botonAgregar.Text = "Editar";
-            this.edicion = false;
+            this.edicion = true;
 
             listener = listenerExterno;
         }
@@ -106,14 +106,6 @@ namespace UberFrba.Abm_Chofer
 
         private void botonAgregar_Click(object sender, EventArgs e)
         {
-            this.txtNombre.Text = choferEdicion.nombre;
-            this.txtApellido.Text = choferEdicion.apellido;
-            this.txtDNI.Text = choferEdicion.dni.ToString();
-            this.txtDireccion.Text = choferEdicion.direccion;
-            this.txtTelefono.Text = choferEdicion.telefono.ToString();
-            this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
-            this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
-
             if (!string.IsNullOrWhiteSpace(txtNombre.Text) 
                 && !string.IsNullOrWhiteSpace(txtApellido.Text)
                 && !string.IsNullOrWhiteSpace(txtDNI.Text)

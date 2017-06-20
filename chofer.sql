@@ -30,7 +30,7 @@ create procedure GARBAGE.altaChofer(
             @chof_mail varchar(255),
             @chof_telefono numeric (18,0),
 			@chof_direccion varchar(255),
-            @chof_fecha_naciemiento datetime
+            @chof_fecha_nacimiento datetime
 			)
 as
 begin
@@ -76,7 +76,7 @@ begin
 			  @chof_mail,
 			  @chof_telefono,
 			  @chof_direccion,
-			  @chof_fecha_naciemiento,
+			  @chof_fecha_nacimiento,
 			  @user_id,
 			  1)
 

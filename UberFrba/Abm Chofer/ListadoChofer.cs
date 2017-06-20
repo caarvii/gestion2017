@@ -42,7 +42,7 @@ namespace UberFrba.Abm_Chofer
         {
             tablaListado.DataSource = null;
             filtroNombre.Text = null;
-            filtroApellido = null;
+            filtroApellido.Text = null;
             filtroDNI.Text = null;
         
         }
@@ -116,8 +116,8 @@ namespace UberFrba.Abm_Chofer
 
                 int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                AltaChofer altaTurno = new AltaChofer(id, this);
-                altaTurno.ShowDialog();
+                AltaChofer altaChofer = new AltaChofer(id, this);
+                altaChofer.ShowDialog();
 
             }
             else
