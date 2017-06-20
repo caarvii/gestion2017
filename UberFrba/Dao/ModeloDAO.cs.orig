@@ -33,9 +33,16 @@ namespace UberFrba.Dao
 
         public static List<ModeloDTO> getAllModelos()
         {
+<<<<<<< HEAD
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             SqlDataReader reader = SQLManager.executeProcedureList("getModelos", parameters);
             return readerToListModelos(reader);
+=======
+            SqlDataReader reader = SQLManager.executeProcedureList("getModelosListByMarca",
+                SQLManager.getSingleParams("marca_id", marcaId));
+            List<ModeloDTO> modelos = readerToListModelos(reader);
+            return modelos;
+>>>>>>> dev
         }
 
 

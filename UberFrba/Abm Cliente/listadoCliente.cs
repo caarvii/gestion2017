@@ -16,6 +16,7 @@ namespace UberFrba.Abm_Cliente
     public partial class ListadoCliente : UberFrba.ListadoGenerico , OnCreateUpdateListener
     {
         
+        Dictionary<string, object> filtrosClienteList = new Dictionary<string, object>();
 
          public void onOperationFinish() {
 
@@ -40,6 +41,9 @@ namespace UberFrba.Abm_Cliente
             tablaListado.Columns["password"].Visible = false;
             tablaListado.Columns["intentos"].Visible = false;
         }
+
+
+
 
         protected void btnActualizarListado_Click(object sender, EventArgs e)
         {
@@ -89,6 +93,33 @@ namespace UberFrba.Abm_Cliente
             else
             {
                 MessageBox.Show("Debe seleccionar el cliente a modificar");
+            }
+        }
+
+        protected void botonBuscar_Click(object sender, EventArgs e)
+        {
+            {
+                filtrosClienteList = new Dictionary<string, object>();
+
+                if (!string.IsNullOrWhiteSpace(txtFiltroNombre.Text) || !string.IsNullOrWhiteSpace(txtFiltroApellido.Text) || !string.IsNullOrWhiteSpace(txtFiltroDni.Text))
+                {
+                    filtrosClienteList.Add("cli_nombre", txtFiltroNombre.Text);
+                    filtrosClienteList.Add("cli_apellido", txtFiltroApellido.Text);
+                    filtrosClienteList.Add("cli_dni", txtFiltroDni.Text);
+                }
+
+                //if check todos los filtros 
+
+                if (filtrosClienteList.Count > 0)
+                {
+                    //Tiene filtros
+                    tablaListado.DataSource = ClienteDAO.getClientesFilter(filtrosClienteList);
+                }
+                else
+                {
+                    cargarDGVClientes();
+                }
+
             }
         }
 

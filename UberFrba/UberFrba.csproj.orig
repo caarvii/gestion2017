@@ -71,14 +71,17 @@
     <Compile Include="Abm Cliente\ListadoCliente.Designer.cs">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+    <Compile Include="Dto\AutomovilDTO.cs" />
+    <Compile Include="Interface\ListadoSeleccionListener.cs" />
+=======
     <Compile Include="Abm Rol\AltaRol.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dto\AutomovilDTO.cs" />
-    <Compile Include="Interface\ListadoSeleccionListener.cs" />
+>>>>>>> dev
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\AutomovilDAO.cs" />

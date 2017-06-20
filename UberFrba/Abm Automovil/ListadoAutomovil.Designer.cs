@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Automovil
 {
-    partial class ListadoAutomovilesReal
+    partial class ListadoAutomovil
     {
         /// <summary>
         /// Required designer variable.
@@ -34,15 +34,25 @@
             // 
             this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
-            // ListadoAutomovilesReal
+            // botonAlta
+            // 
+            this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
+            // 
+            // ListadoAutomovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 497);
-            this.Name = "ListadoAutomovilesReal";
-            //this.Text = "ListadoAutomovilesReal";
+            this.Name = "ListadoAutomovil";
+            this.Load += new System.EventHandler(this.ListadoAutomovil_Load_1);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
+        }
+
+        private void ListadoAutomovil_Load(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
