@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using UberFrba.Dto;
 using UberFrba.Dao;
 using UberFrba.Helpers;
+using UberFrba.Interface;
 
 
 namespace UberFrba.Abm_Chofer
@@ -21,17 +22,19 @@ namespace UberFrba.Abm_Chofer
 
         private bool edicion = false;
 
-        public AltaChofer()
+        OnCreateUpdateListener listener;
+
+        public AltaChofer(OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
             this.Text = "Alta de Choferes";
             this.botonAgregar.Text = "Agregar";
             this.edicion = false;
             this.checkHabilitado.Checked = true;
-
+            listener = listenerExterno;
         }
 
-        public AltaChofer(int choferModificableID)
+        public AltaChofer(int choferModificableID, OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
 
@@ -40,6 +43,8 @@ namespace UberFrba.Abm_Chofer
             this.Text = "Edicion de Choferes";
             this.botonAgregar.Text = "Editar";
             this.edicion = false;
+
+            listener = listenerExterno;
         }
 
         private void cargarDatosEdicion(int choferModificableID)
@@ -151,8 +156,10 @@ namespace UberFrba.Abm_Chofer
                 {
                     choferActivo.id = this.chofer.id;
 
-                    ChoferDAO.updateChofer(choferActivo)
+                    ChoferDAO.updateChofer(choferActivo);
                     MessageBox.Show("Se edito el chofer correctamente");
+                    this.Close();
+                    listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {
@@ -167,6 +174,8 @@ namespace UberFrba.Abm_Chofer
                 {
                     ChoferDAO.addNewChofer(choferActivo);
                     MessageBox.Show("Se agrego el chofer correctamente");
+                    this.Close();
+                    listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {

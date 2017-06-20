@@ -82,7 +82,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000 || exception.Number == 60000)
+                if (exception.Number == 50000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -115,7 +115,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000 || exception.Number == 60000)
+                if (exception.Number == 50000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -125,6 +125,23 @@ namespace UberFrba.Dao
                 }
             }
 
+        }
+
+
+        internal static List<ChoferDTO> getChoferFilter(Dictionary<string, object> filtrosChoferList)
+        {
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Turno where ");
+
+            foreach (KeyValuePair<string, object> filtro in filtrosChoferList)
+            {
+                stringBuilder.Append(filtro.Key);
+                stringBuilder.Append(" = '");
+                stringBuilder.Append(filtro.Value);
+                stringBuilder.Append("'");
+            }
+
+            SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
+            return ReaderToListChofer(dataReader);
         }
 
 
