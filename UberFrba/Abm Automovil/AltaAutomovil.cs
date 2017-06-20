@@ -9,15 +9,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Abm_Turno;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class AltaAutomovil : Form
+    public partial class AltaAutomovil : Form, ListadoSeleccionListener
     {
         public AltaAutomovil()
         {
             InitializeComponent();
             cargarComboBox();
+        }
+
+        public void onOperationFinish(TurnoDTO turno)
+        {
+            txtTurno.Text = turno.id.ToString();
+            txtTurnoDescripcion.Text = turno.descripcion;
         }
 
 
@@ -29,15 +37,10 @@ namespace UberFrba.Abm_Automovil
             cmbMarca.DisplayMember = "descripcion";
             cmbMarca.ValueMember = "id";
 
-            List<TurnoDTO> turnos = TurnoDAO.getAllTurnos();
-            cmbTurno.DataSource = turnos;
-            cmbTurno.DisplayMember = "descripcion";
-            cmbTurno.ValueMember = "id";
-
-            List<ChoferDTO> choferes = ChoferDAO.getAllChoferes();
-            cmbChofer.DataSource = choferes;
-            cmbChofer.DisplayMember = "dni";
-            cmbChofer.ValueMember = "id";
+            List<ModeloDTO> modelo = ModeloDAO.getAllModelos();
+          //  cmbModelo.DataSource = modelo;
+            cmbModelo.ValueMember = "id";
+            cmbModelo.DisplayMember = "descripcion";
         }
 
         private void txtPatente_KeyPress(object sender, EventArgs e) {
@@ -48,27 +51,16 @@ namespace UberFrba.Abm_Automovil
 
         private void btnCrearAutomovil_Click(object sender, EventArgs e)
         {
-            MarcaDTO marca = (MarcaDTO)cmbMarca.SelectedItem;
-            int id_marca = marca.id;
-            string Modelo = txtModelo.Text;
-            string Patente = txtPatente.Text;
-            string Licencia = txtLicencia.Text;
-            TurnoDTO turno = (TurnoDTO)cmbTurno.SelectedItem;
-            ChoferDTO chofer = (ChoferDTO)cmbChofer.SelectedItem;
-
-
-
 
         }
 
         private void cmbMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MarcaDTO marca = (MarcaDTO)cmbMarca.SelectedItem;
-            List<ModeloDTO> modelos = ModeloDAO.getModelosListByMarca(marca.id);
-            cmbModelo.DataSource = modelos;
-            cmbModelo.DisplayMember = "nombre";
-            cmbModelo.ValueMember = "id";
+
+          
         }
+
+        
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -80,8 +72,19 @@ namespace UberFrba.Abm_Automovil
 
         }
 
+        private void cmdSeleccionarTurno_Click(object sender, EventArgs e)
+        {
+            ListadoTurno ListadoSeleccionDeTurnoForm = new ListadoTurno(this);
+            ListadoSeleccionDeTurnoForm.ShowDialog();
+        }
 
-
+        private void cmdSeleccionarChofer_Click(object sender, EventArgs e)
+        {
+            /*
+            ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this);
+            ListadoSeleccionDeChoferForm.ShowDialog();
+             */ 
+        }
 
     }
 }

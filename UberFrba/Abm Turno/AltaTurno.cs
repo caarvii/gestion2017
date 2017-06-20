@@ -31,7 +31,7 @@ namespace UberFrba.Abm_Turno
             this.Agregar.Text = "Agregar";
             this.edicion = false;
             this.checkHabilitado.Checked = true;
-                   
+
         }
 
          public AltaTurno(int turnoModificableID)
@@ -178,6 +178,11 @@ namespace UberFrba.Abm_Turno
 
             }
             
+        }
+
+        private void AltaTurno_Load(object sender, EventArgs e)
+        {
+
         }
 
 

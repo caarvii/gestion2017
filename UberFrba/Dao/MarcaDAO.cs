@@ -12,7 +12,6 @@ namespace UberFrba.Dao
     class MarcaDAO
     {
 
-        public int id;
 
         public static List<MarcaDTO> getAllMarcas() {
             Dictionary<string, object> parameters = new Dictionary<string, object>();

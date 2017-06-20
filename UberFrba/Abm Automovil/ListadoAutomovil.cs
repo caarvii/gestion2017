@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dao;
 
 namespace UberFrba.Abm_Automovil
 {
@@ -15,37 +16,21 @@ namespace UberFrba.Abm_Automovil
         public ListadoAutomovil()
         {
             InitializeComponent();
-            this.Text = this.Text + " de Automoviles";
-
-            // Agregar o no los criterios de busqueda.
-            llenarTablaSinCriterios(tablaListado);
+            cargarDGVAutomovil();
 
         }
 
-        private static void llenarTablaSinCriterios(DataGridView tablaListado)
-        {
-            // Abro consulta
-           // CONN.connection.Open();
 
-            // Deberia pegarle a la base.
-           // string consultaSQL = "SELECT * FROM GARBAGE.Automovil";
-
-
-            //tablaListado.DataSource = CONN.devolverDatosConConsulta(consultaSQL);
-
-
-           // CONN.connection.Close();
-            // Cierro consulta
+        public void cargarDGVAutomovil() {
+            tablaListado.DataSource = AutomovilDAO.getAllAutomoviles();
+        
         }
+
 
         protected override void botonLimpiar_Click(object sender, EventArgs e)
         {
-            // Limpiar generico
-            base.botonLimpiar_Click(this, null);
+            tablaListado.DataSource = null;
 
-            // Limpiar especifico de los criterios.
-
-            // TODO
 
         }
 
@@ -54,6 +39,11 @@ namespace UberFrba.Abm_Automovil
         {
             AltaAutomovil altaAutomovilForm = new AltaAutomovil();
             altaAutomovilForm.ShowDialog();
+        }
+
+        private void ListadoAutomovil_Load_1(object sender, EventArgs e)
+        {
+
         }
 
     }

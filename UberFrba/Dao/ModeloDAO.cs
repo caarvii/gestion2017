@@ -12,7 +12,7 @@ namespace UberFrba.Dao
     class ModeloDAO
     {
 
-        public static List<ModeloDTO> readerToListModelos(SqlDataReader dataReader)
+        private static List<ModeloDTO> readerToListModelos(SqlDataReader dataReader)
         {
             List<ModeloDTO> modelos = new List<ModeloDTO>();
             if (dataReader.HasRows)
@@ -20,8 +20,8 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     ModeloDTO modelo = new ModeloDTO();
-                    modelo.id = Convert.ToInt32(dataReader["modelo_id"]);
-                    modelo.nombre = Convert.ToString(dataReader["modelo_nombre"]);
+                    modelo.id = Convert.ToInt32(dataReader["mod_id"]);
+                    modelo.nombre = Convert.ToString(dataReader["mod_nombre"]);
 
                     modelos.Add(modelo);
                 }
@@ -31,13 +31,11 @@ namespace UberFrba.Dao
             return modelos;
         }
 
-        public static List<ModeloDTO> getModelosListByMarca(int marcaId)
+        public static List<ModeloDTO> getAllModelos()
         {
-
-            SqlDataReader reader = SQLManager.executeProcedureList("getModelosListByMarca",
-                SQLManager.getSingleParams("marca_id", marcaId));
-            List<ModeloDTO> modelos = readerToListModelos(reader);
-            return modelos;
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            SqlDataReader reader = SQLManager.executeProcedureList("getModelos", parameters);
+            return readerToListModelos(reader);
         }
 
 

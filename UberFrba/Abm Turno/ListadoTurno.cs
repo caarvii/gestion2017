@@ -9,18 +9,36 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Interface;
+using UberFrba.Helpers;
+using UberFrba.Abm_Automovil;
 
 namespace UberFrba.Abm_Turno
 {
     public partial class ListadoTurno : UberFrba.ListadoGenerico
     {
 
+        ListadoSeleccionListener listener;
+        bool seleccionDeTurno = false;
+        List<TurnoDTO> turnos;
         Dictionary<string, object> filtrosTurnoList = new Dictionary<string, object>();
 
         public ListadoTurno()
         {
             InitializeComponent();
         }
+
+        public ListadoTurno(ListadoSeleccionListener _listener)
+        {
+            InitializeComponent();
+            listener = _listener;
+            botonAlta.Visible = false;
+            botonBaja.Visible = false;
+            botonModificacion.Text = "Seleccionar";
+            seleccionDeTurno = true;
+
+        }
+
 
 
         private void filtroDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -48,13 +66,13 @@ namespace UberFrba.Abm_Turno
             if (filtrosTurnoList.Count > 0)
             {
                 //Tiene filtros
-                tablaListado.DataSource = TurnoDAO.getTurnosFilter(filtrosTurnoList);
+                turnos = TurnoDAO.getTurnosFilter(filtrosTurnoList);
             }
             else
             {
-                tablaListado.DataSource = TurnoDAO.getAllTurnos();
+                turnos = TurnoDAO.getAllTurnos();
             }
-
+            tablaListado.DataSource = turnos;
         }
 
         protected  void botonBaja_Click_1(object sender, EventArgs e)
@@ -84,19 +102,33 @@ namespace UberFrba.Abm_Turno
 
         private void botonModificacion_Click_2(object sender, EventArgs e)
         {
-            if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
+
+            if (seleccionDeTurno ==false)
             {
-                DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
-                int id = Convert.ToInt32(row.Cells["id"].Value);
+                if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
+                {
+                    DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
-                AltaTurno altaTurno = new AltaTurno(id);
-                altaTurno.ShowDialog();
+                    int id = Convert.ToInt32(row.Cells["id"].Value);
 
+                    AltaTurno altaTurno = new AltaTurno(id);
+                    altaTurno.ShowDialog();
+
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar el turno a modificar");
+
+                }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar el turno a modificar");
+
+                //verificar q tenga 1 columna seleccionada
+                int index = tablaListado.SelectedRows[0].Index;
+                listener.onOperationFinish(turnos.ElementAt(index));
+                this.Close();
 
             }
         }

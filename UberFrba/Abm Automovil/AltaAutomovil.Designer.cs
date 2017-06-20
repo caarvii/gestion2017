@@ -34,14 +34,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbMarca = new System.Windows.Forms.ComboBox();
-            this.txtModelo = new System.Windows.Forms.TextBox();
             this.txtPatente = new System.Windows.Forms.TextBox();
-            this.cmbTurno = new System.Windows.Forms.ComboBox();
-            this.cmbChofer = new System.Windows.Forms.ComboBox();
             this.btnCrearAutomovil = new System.Windows.Forms.Button();
             this.txtLicencia = new System.Windows.Forms.TextBox();
             this.Licencia = new System.Windows.Forms.Label();
+            this.txtTurno = new System.Windows.Forms.TextBox();
+            this.txtChofer = new System.Windows.Forms.TextBox();
+            this.cmdSeleccionarTurno = new System.Windows.Forms.Button();
+            this.cmdSeleccionarChofer = new System.Windows.Forms.Button();
             this.cmbModelo = new System.Windows.Forms.ComboBox();
+            this.txtTurnoDescripcion = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -74,7 +76,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(91, 149);
+            this.label4.Location = new System.Drawing.Point(98, 149);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 3;
@@ -99,13 +101,6 @@
             this.cmbMarca.TabIndex = 5;
             this.cmbMarca.SelectedIndexChanged += new System.EventHandler(this.cmbMarca_SelectedIndexChanged);
             // 
-            // txtModelo
-            // 
-            this.txtModelo.Location = new System.Drawing.Point(149, 66);
-            this.txtModelo.Name = "txtModelo";
-            this.txtModelo.Size = new System.Drawing.Size(160, 20);
-            this.txtModelo.TabIndex = 6;
-            // 
             // txtPatente
             // 
             this.txtPatente.Location = new System.Drawing.Point(149, 93);
@@ -114,27 +109,9 @@
             this.txtPatente.TabIndex = 7;
             this.txtPatente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPatente_KeyPress);
             // 
-            // cmbTurno
-            // 
-            this.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTurno.FormattingEnabled = true;
-            this.cmbTurno.Location = new System.Drawing.Point(149, 146);
-            this.cmbTurno.Name = "cmbTurno";
-            this.cmbTurno.Size = new System.Drawing.Size(160, 21);
-            this.cmbTurno.TabIndex = 8;
-            // 
-            // cmbChofer
-            // 
-            this.cmbChofer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbChofer.FormattingEnabled = true;
-            this.cmbChofer.Location = new System.Drawing.Point(149, 176);
-            this.cmbChofer.Name = "cmbChofer";
-            this.cmbChofer.Size = new System.Drawing.Size(160, 21);
-            this.cmbChofer.TabIndex = 9;
-            // 
             // btnCrearAutomovil
             // 
-            this.btnCrearAutomovil.Location = new System.Drawing.Point(222, 285);
+            this.btnCrearAutomovil.Location = new System.Drawing.Point(222, 269);
             this.btnCrearAutomovil.Name = "btnCrearAutomovil";
             this.btnCrearAutomovil.Size = new System.Drawing.Size(87, 23);
             this.btnCrearAutomovil.TabIndex = 10;
@@ -158,29 +135,71 @@
             this.Licencia.TabIndex = 12;
             this.Licencia.Text = "Licencia";
             // 
+            // txtTurno
+            // 
+            this.txtTurno.Location = new System.Drawing.Point(149, 149);
+            this.txtTurno.Name = "txtTurno";
+            this.txtTurno.Size = new System.Drawing.Size(90, 20);
+            this.txtTurno.TabIndex = 14;
+            // 
+            // txtChofer
+            // 
+            this.txtChofer.Location = new System.Drawing.Point(149, 176);
+            this.txtChofer.Name = "txtChofer";
+            this.txtChofer.Size = new System.Drawing.Size(160, 20);
+            this.txtChofer.TabIndex = 15;
+            // 
+            // cmdSeleccionarTurno
+            // 
+            this.cmdSeleccionarTurno.Location = new System.Drawing.Point(341, 149);
+            this.cmdSeleccionarTurno.Name = "cmdSeleccionarTurno";
+            this.cmdSeleccionarTurno.Size = new System.Drawing.Size(111, 20);
+            this.cmdSeleccionarTurno.TabIndex = 16;
+            this.cmdSeleccionarTurno.Text = "Seleccionar turno";
+            this.cmdSeleccionarTurno.UseVisualStyleBackColor = true;
+            this.cmdSeleccionarTurno.Click += new System.EventHandler(this.cmdSeleccionarTurno_Click);
+            // 
+            // cmdSeleccionarChofer
+            // 
+            this.cmdSeleccionarChofer.Location = new System.Drawing.Point(341, 172);
+            this.cmdSeleccionarChofer.Name = "cmdSeleccionarChofer";
+            this.cmdSeleccionarChofer.Size = new System.Drawing.Size(111, 20);
+            this.cmdSeleccionarChofer.TabIndex = 17;
+            this.cmdSeleccionarChofer.Text = "Seleccionar chofer";
+            this.cmdSeleccionarChofer.UseVisualStyleBackColor = true;
+            this.cmdSeleccionarChofer.Click += new System.EventHandler(this.cmdSeleccionarChofer_Click);
+            // 
             // cmbModelo
             // 
             this.cmbModelo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbModelo.FormattingEnabled = true;
-            this.cmbModelo.Location = new System.Drawing.Point(322, 69);
+            this.cmbModelo.Location = new System.Drawing.Point(149, 65);
             this.cmbModelo.Name = "cmbModelo";
             this.cmbModelo.Size = new System.Drawing.Size(160, 21);
-            this.cmbModelo.TabIndex = 13;
-            this.cmbModelo.SelectedIndexChanged += new System.EventHandler(this.cmbModelo_SelectedIndexChanged);
+            this.cmbModelo.TabIndex = 18;
+            // 
+            // txtTurnoDescripcion
+            // 
+            this.txtTurnoDescripcion.Location = new System.Drawing.Point(245, 149);
+            this.txtTurnoDescripcion.Name = "txtTurnoDescripcion";
+            this.txtTurnoDescripcion.Size = new System.Drawing.Size(90, 20);
+            this.txtTurnoDescripcion.TabIndex = 19;
             // 
             // AltaAutomovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 334);
+            this.ClientSize = new System.Drawing.Size(527, 334);
+            this.Controls.Add(this.txtTurnoDescripcion);
             this.Controls.Add(this.cmbModelo);
+            this.Controls.Add(this.cmdSeleccionarChofer);
+            this.Controls.Add(this.cmdSeleccionarTurno);
+            this.Controls.Add(this.txtChofer);
+            this.Controls.Add(this.txtTurno);
             this.Controls.Add(this.Licencia);
             this.Controls.Add(this.txtLicencia);
             this.Controls.Add(this.btnCrearAutomovil);
-            this.Controls.Add(this.cmbChofer);
-            this.Controls.Add(this.cmbTurno);
             this.Controls.Add(this.txtPatente);
-            this.Controls.Add(this.txtModelo);
             this.Controls.Add(this.cmbMarca);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -203,13 +222,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbMarca;
-        private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.TextBox txtPatente;
-        private System.Windows.Forms.ComboBox cmbTurno;
-        private System.Windows.Forms.ComboBox cmbChofer;
         private System.Windows.Forms.Button btnCrearAutomovil;
         private System.Windows.Forms.TextBox txtLicencia;
         private System.Windows.Forms.Label Licencia;
+        private System.Windows.Forms.TextBox txtTurno;
+        private System.Windows.Forms.TextBox txtChofer;
+        private System.Windows.Forms.Button cmdSeleccionarTurno;
+        private System.Windows.Forms.Button cmdSeleccionarChofer;
         private System.Windows.Forms.ComboBox cmbModelo;
+        private System.Windows.Forms.TextBox txtTurnoDescripcion;
     }
 }

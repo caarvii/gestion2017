@@ -44,6 +44,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(642, 497);
             this.Name = "ListadoAutomovil";
+            this.Load += new System.EventHandler(this.ListadoAutomovil_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

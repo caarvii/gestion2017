@@ -71,6 +71,8 @@
     <Compile Include="Abm Cliente\ListadoCliente.Designer.cs">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dto\AutomovilDTO.cs" />
+    <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\AutomovilDAO.cs" />
