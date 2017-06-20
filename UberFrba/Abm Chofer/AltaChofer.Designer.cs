@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkHabilitado = new System.Windows.Forms.CheckBox();
+            this.dateFechaNac = new System.Windows.Forms.DateTimePicker();
+            this.txtMail = new System.Windows.Forms.TextBox();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtDNI = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
@@ -42,10 +46,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonAgregar = new System.Windows.Forms.Button();
-            this.txtTelefono = new System.Windows.Forms.TextBox();
-            this.txtMail = new System.Windows.Forms.TextBox();
-            this.dateFechaNac = new System.Windows.Forms.DateTimePicker();
-            this.checkHabilitado = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,10 +68,43 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 305);
+            this.groupBox1.Size = new System.Drawing.Size(312, 299);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
+            // 
+            // checkHabilitado
+            // 
+            this.checkHabilitado.AutoSize = true;
+            this.checkHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkHabilitado.Location = new System.Drawing.Point(15, 269);
+            this.checkHabilitado.Name = "checkHabilitado";
+            this.checkHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.checkHabilitado.TabIndex = 14;
+            this.checkHabilitado.Text = "Habilitado";
+            this.checkHabilitado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkHabilitado.UseVisualStyleBackColor = true;
+            // 
+            // dateFechaNac
+            // 
+            this.dateFechaNac.Location = new System.Drawing.Point(123, 230);
+            this.dateFechaNac.Name = "dateFechaNac";
+            this.dateFechaNac.Size = new System.Drawing.Size(168, 20);
+            this.dateFechaNac.TabIndex = 13;
+            // 
+            // txtMail
+            // 
+            this.txtMail.Location = new System.Drawing.Point(91, 197);
+            this.txtMail.Name = "txtMail";
+            this.txtMail.Size = new System.Drawing.Size(201, 20);
+            this.txtMail.TabIndex = 12;
+            // 
+            // txtTelefono
+            // 
+            this.txtTelefono.Location = new System.Drawing.Point(91, 160);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(202, 20);
+            this.txtTelefono.TabIndex = 11;
             // 
             // txtDireccion
             // 
@@ -104,7 +137,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 246);
+            this.label7.Location = new System.Drawing.Point(12, 236);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(106, 13);
             this.label7.TabIndex = 6;
@@ -166,7 +199,7 @@
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(17, 325);
+            this.botonLimpiar.Location = new System.Drawing.Point(17, 319);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(99, 34);
             this.botonLimpiar.TabIndex = 1;
@@ -176,7 +209,7 @@
             // 
             // botonAgregar
             // 
-            this.botonAgregar.Location = new System.Drawing.Point(230, 325);
+            this.botonAgregar.Location = new System.Drawing.Point(230, 319);
             this.botonAgregar.Name = "botonAgregar";
             this.botonAgregar.Size = new System.Drawing.Size(99, 34);
             this.botonAgregar.TabIndex = 2;
@@ -184,44 +217,11 @@
             this.botonAgregar.UseVisualStyleBackColor = true;
             this.botonAgregar.Click += new System.EventHandler(this.botonAgregar_Click);
             // 
-            // txtTelefono
-            // 
-            this.txtTelefono.Location = new System.Drawing.Point(91, 160);
-            this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(202, 20);
-            this.txtTelefono.TabIndex = 11;
-            // 
-            // txtMail
-            // 
-            this.txtMail.Location = new System.Drawing.Point(91, 197);
-            this.txtMail.Name = "txtMail";
-            this.txtMail.Size = new System.Drawing.Size(201, 20);
-            this.txtMail.TabIndex = 12;
-            // 
-            // dateFechaNac
-            // 
-            this.dateFechaNac.Location = new System.Drawing.Point(123, 240);
-            this.dateFechaNac.Name = "dateFechaNac";
-            this.dateFechaNac.Size = new System.Drawing.Size(168, 20);
-            this.dateFechaNac.TabIndex = 13;
-            // 
-            // checkHabilitado
-            // 
-            this.checkHabilitado.AutoSize = true;
-            this.checkHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkHabilitado.Location = new System.Drawing.Point(15, 273);
-            this.checkHabilitado.Name = "checkHabilitado";
-            this.checkHabilitado.Size = new System.Drawing.Size(73, 17);
-            this.checkHabilitado.TabIndex = 14;
-            this.checkHabilitado.Text = "Habilitado";
-            this.checkHabilitado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.checkHabilitado.UseVisualStyleBackColor = true;
-            // 
             // AltaChofer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 371);
+            this.ClientSize = new System.Drawing.Size(337, 361);
             this.Controls.Add(this.botonAgregar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.groupBox1);

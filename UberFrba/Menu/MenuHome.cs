@@ -13,6 +13,7 @@ using UberFrba.Abm_Turno;
 using UberFrba.Dto;
 using UberFrba.Login;
 using UberFrba.Abm_Automovil;
+using UberFrba.Abm_Chofer;
 
 namespace UberFrba.Menu
 {
@@ -168,6 +169,14 @@ namespace UberFrba.Menu
             if (canShowForm("ListadoAutomovil"))
             {
                 showMenuForm(new ListadoAutomovil());
+            }
+        }
+
+        private void choferesMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("ListadoChofer"))
+            {
+                showMenuForm(new ListadoChofer());
             }
         }
 
