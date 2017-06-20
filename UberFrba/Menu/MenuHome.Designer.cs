@@ -148,6 +148,7 @@
             this.autoMenuItem.Text = "Automoviles";
             this.autoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.autoMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.autoMenuItem.Click += new System.EventHandler(this.autoMenuItem_Click);
             // 
             // turnosMenuItem
             // 

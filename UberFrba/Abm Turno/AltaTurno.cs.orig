@@ -34,8 +34,12 @@ namespace UberFrba.Abm_Turno
             this.Agregar.Text = "Agregar";
             this.edicion = false;
             this.checkHabilitado.Checked = true;
+<<<<<<< HEAD
+
+=======
             listener = listenerExterno;
                    
+>>>>>>> dev
         }
 
         public AltaTurno(int turnoModificableID, OnCreateUpdateListener listenerExterno)

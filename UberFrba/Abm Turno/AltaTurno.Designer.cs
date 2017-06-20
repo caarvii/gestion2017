@@ -65,8 +65,12 @@ namespace UberFrba.Abm_Turno
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
-
-            var itemsHours = new object[] {
+            // 
+            // comboFin
+            // 
+            this.comboFin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboFin.FormattingEnabled = true;
+            this.comboFin.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -90,14 +94,7 @@ namespace UberFrba.Abm_Turno
             "20",
             "21",
             "22",
-            "23"};
-
-            // 
-            // comboFin
-            // 
-            this.comboFin.FormattingEnabled = true;
-            this.comboFin.Items.AddRange(itemsHours);
-            this.comboFin.DropDownStyle = ComboBoxStyle.DropDownList;
+            "23"});
             this.comboFin.Location = new System.Drawing.Point(135, 61);
             this.comboFin.Name = "comboFin";
             this.comboFin.Size = new System.Drawing.Size(155, 21);
@@ -105,9 +102,33 @@ namespace UberFrba.Abm_Turno
             // 
             // comboInicio
             // 
+            this.comboInicio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboInicio.FormattingEnabled = true;
-            this.comboInicio.Items.AddRange(itemsHours);
-            this.comboInicio.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.comboInicio.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23"});
             this.comboInicio.Location = new System.Drawing.Point(135, 32);
             this.comboInicio.Name = "comboInicio";
             this.comboInicio.Size = new System.Drawing.Size(155, 21);
@@ -224,6 +245,7 @@ namespace UberFrba.Abm_Turno
             this.Controls.Add(this.groupBox1);
             this.Name = "AltaTurno";
             this.Text = "Alta de Turnos";
+            this.Load += new System.EventHandler(this.AltaTurno_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
