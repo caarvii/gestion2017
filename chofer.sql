@@ -23,9 +23,6 @@ begin
 end
 go
 
-
-
-
 create procedure GARBAGE.altaChofer(
             @chof_nombre varchar(255),
             @chof_apellido varchar(255),
@@ -41,6 +38,7 @@ begin
 	declare @error_message nvarchar(255);
 	declare @cant int;
 	declare @user_id int;
+	declare @nombre_sugerido varchar(25);
 
 	set @cant = (SELECT COUNT (*) FROM GARBAGE.Chofer WHERE chof_telefono=@chof_telefono);
 	
@@ -50,9 +48,18 @@ begin
 		
 	END
 
-	-- TRIGGER DE CHOFER
+	SET @nombre_sugerido = GARBAGE.DevolverUsuarioValido(@chof_nombre , @chof_apellido)
 
-	-- AQUI
+	IF (@nombre_sugerido = 'NADA') BEGIN
+		SET @nombre_sugerido = GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)
+	END
+
+	-- Inserta tambien en tabla Usuario
+
+	INSERT INTO GARBAGE.Usuario (usu_username,usu_password)
+	VALUES (@nombre_sugerido, HASHBYTES('SHA2_256',GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)))
+
+	SET @user_id = scope_identity();
 
 	insert into GARBAGE.Chofer(chof_nombre,
 							   chof_apellido,
@@ -76,7 +83,6 @@ begin
 	RETURN 1
 END
 GO
-
 
 create procedure GARBAGE.updateChofer(
 			@chof_id numeric(18,0),
@@ -119,5 +125,34 @@ begin
 end
 go
 
+create function GARBAGE.DevolverUsuarioValido(@nombre varchar(255), @apellido varchar(255))
+returns varchar(25)
+AS BEGIN
+	
+	DECLARE @cant int;
+	DECLARE @usuario_sugerido varchar(25);
+	DECLARE @usu_id int;
 
+	SET @cant = (SELECT COUNT(*) FROM GARBAGE.Usuario WHERE usu_username = GARBAGE.GenerarUsuario(@nombre , @apellido)) ;
+	
+	IF (@cant = 0) BEGIN
+		SET @usuario_sugerido = 'NADA'
 
+	END
+	ELSE BEGIN
+
+		SET @usuario_sugerido = CONCAT ( GARBAGE.GenerarUsuario(@nombre , @apellido), @cant )
+
+	END
+
+	RETURN @usuario_sugerido 
+
+END
+go
+
+drop procedure GARBAGE.getChoferes;
+drop procedure GARBAGE.getChoferById;
+drop procedure GARBAGE.bajaLogicaChofer;
+drop procedure GARBAGE.altaChofer;
+drop procedure GARBAGE.updateChofer;
+drop function GARBAGE.DevolverUsuarioValido;
