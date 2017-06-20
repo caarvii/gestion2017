@@ -34,6 +34,8 @@ namespace UberFrba.Abm_Turno
             this.Agregar.Text = "Agregar";
             this.edicion = false;
             this.checkHabilitado.Checked = true;
+            this.checkHabilitado.Visible = false;
+            
             listener = listenerExterno;
                    
         }
@@ -75,7 +77,7 @@ namespace UberFrba.Abm_Turno
             this.txtDescripcion.Text = "";
             this.valorKM.Text = "";
             this.precioBase.Text = "";
-            this.checkHabilitado.Text = "";
+            this.checkHabilitado.Checked = false;
         }
 
         // Validaciones
@@ -87,12 +89,12 @@ namespace UberFrba.Abm_Turno
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.allowNumericOnly(e);
+            this.allowNumericOnlyForDouble(e);
         }
 
         private void precioBase_KeyPress(object sender, KeyPressEventArgs e)
         {
-            this.allowNumericOnly(e);
+            this.allowNumericOnlyForDouble(e);
         }
 
         // Botones
