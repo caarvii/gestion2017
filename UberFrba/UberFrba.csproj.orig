@@ -47,17 +47,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Automovil\ListadoAutomovil.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Automovil\ListadoAutomovil.Designer.cs">
-      <DependentUpon>ListadoAutomovil.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Automovil\AltaAutomovil.cs">
-      <SubType>Form</SubType>
-    </Compile>
+<<<<<<< HEAD
+    <Compile Include="Abm Automovil\AltaAutomovil.cs" />
     <Compile Include="Abm Automovil\AltaAutomovil.Designer.cs">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
+    </Compile>
+=======
+>>>>>>> dev
+    <Compile Include="Abm Automovil\ListadoAutomovilesReal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\ListadoAutomovilesReal.Designer.cs">
+      <DependentUpon>ListadoAutomovilesReal.cs</DependentUpon>
+    </Compile>
+<<<<<<< HEAD
+    <Compile Include="Abm Automovil\MenuAutomovil.cs" />
+    <Compile Include="Abm Automovil\MenuAutomovil.Designer.cs">
+      <DependentUpon>MenuAutomovil.cs</DependentUpon>
+    </Compile>
+=======
+>>>>>>> dev
+    <Compile Include="Abm Automovil\crearAutomovil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\crearAutomovil.Designer.cs">
+      <DependentUpon>crearAutomovil.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Chofer\AltaChofer.cs">
       <SubType>Form</SubType>
@@ -77,8 +91,6 @@
     <Compile Include="Abm Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dto\AutomovilDTO.cs" />
-    <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\AutomovilDAO.cs" />
@@ -177,11 +189,11 @@
     </Compile>
     <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
-    <EmbeddedResource Include="Abm Automovil\ListadoAutomovil.resx">
-      <DependentUpon>ListadoAutomovil.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Automovil\ListadoAutomovilesReal.resx">
+      <DependentUpon>ListadoAutomovilesReal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
-      <DependentUpon>AltaAutomovil.cs</DependentUpon>
+    <EmbeddedResource Include="Abm Automovil\crearAutomovil.resx">
+      <DependentUpon>crearAutomovil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ListadoCliente.resx">
       <DependentUpon>ListadoCliente.cs</DependentUpon>

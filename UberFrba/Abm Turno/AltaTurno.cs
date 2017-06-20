@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using UberFrba.Dto;
 using UberFrba.Dao;
 using UberFrba.Helpers;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Turno
 {
@@ -23,18 +24,21 @@ namespace UberFrba.Abm_Turno
 
         private double valor;
         private double precio;
-        
-        public AltaTurno()
+
+        OnCreateUpdateListener listener;
+
+        public AltaTurno(OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
             this.Text = "Alta de Turnos";
             this.Agregar.Text = "Agregar";
             this.edicion = false;
             this.checkHabilitado.Checked = true;
-
+            listener = listenerExterno;
+                   
         }
 
-         public AltaTurno(int turnoModificableID)
+        public AltaTurno(int turnoModificableID, OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
 
@@ -44,6 +48,8 @@ namespace UberFrba.Abm_Turno
             this.Agregar.Text = "Editar";
 
             this.edicion = true;
+
+            listener = listenerExterno;
 
         }
         
@@ -64,8 +70,8 @@ namespace UberFrba.Abm_Turno
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-            this.comboInicio.ResetText();
-            this.comboFin.ResetText();
+            this.comboInicio.SelectedIndex = -1;
+            this.comboFin.SelectedIndex = -1;
             this.txtDescripcion.Text = "";
             this.valorKM.Text = "";
             this.precioBase.Text = "";
@@ -89,12 +95,6 @@ namespace UberFrba.Abm_Turno
             this.allowNumericOnly(e);
         }
 
-        private void checkHabilitado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Validar si es inherente
-        }
-
-       
         // Botones
 
         private void Agregar_Click(object sender, EventArgs e)
@@ -157,6 +157,8 @@ namespace UberFrba.Abm_Turno
                     turnoActivo.id = this.turnoEdicion.id;
                     TurnoDAO.updateTurno(turnoActivo);
                     MessageBox.Show("Se edito el turno correctamente");
+                    this.Close();
+                    listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {
@@ -170,6 +172,8 @@ namespace UberFrba.Abm_Turno
                 {
                     TurnoDAO.addNewTurno(turnoActivo);
                     MessageBox.Show("Se agrego el turno correctamente");
+                    this.Close();
+                    listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {

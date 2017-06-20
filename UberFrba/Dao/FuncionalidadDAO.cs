@@ -35,8 +35,13 @@ namespace UberFrba.Dao
 
             SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidadListByRolId",
                 SQLManager.getSingleParams("rol_id", rolId));
-            List<FuncionalidadDTO> funcionalidades = readerToListFunc(reader);
-            return funcionalidades; 
+            return readerToListFunc(reader); 
+        }
+
+        internal static List<FuncionalidadDTO> getFuncionalidades()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getFuncionalidades");
+            return readerToListFunc(reader); 
         }
     }
 }

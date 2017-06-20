@@ -15,7 +15,7 @@ using UberFrba.Abm_Automovil;
 
 namespace UberFrba.Abm_Turno
 {
-    public partial class ListadoTurno : UberFrba.ListadoGenerico
+    public partial class ListadoTurno : UberFrba.ListadoGenerico, OnCreateUpdateListener
     {
 
         ListadoSeleccionListener listener;
@@ -28,6 +28,19 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
+        public void onOperationFinish()
+        {
+
+            cargarListadoTurnos();
+
+        }
+
+        private void cargarListadoTurnos()
+        {
+
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
+
+		}
         public ListadoTurno(ListadoSeleccionListener _listener)
         {
             InitializeComponent();
@@ -39,6 +52,7 @@ namespace UberFrba.Abm_Turno
 
         }
 
+        
 
 
         private void filtroDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -48,7 +62,7 @@ namespace UberFrba.Abm_Turno
 
         protected  void botonAlta_Click_1(object sender, EventArgs e)
         {
-            AltaTurno altaTurnoForm = new AltaTurno();
+            AltaTurno altaTurnoForm = new AltaTurno(this);
             altaTurnoForm.ShowDialog();
         }
 
@@ -73,6 +87,7 @@ namespace UberFrba.Abm_Turno
                 turnos = TurnoDAO.getAllTurnos();
             }
             tablaListado.DataSource = turnos;
+			tablaListado.Columns["estado"].Visible = false
         }
 
         protected  void botonBaja_Click_1(object sender, EventArgs e)
@@ -87,6 +102,7 @@ namespace UberFrba.Abm_Turno
                 if (TurnoDAO.deleteTurno(id) == 1)
                 {
                     MessageBox.Show("Turno dado de baja correctamente");
+                    cargarListadoTurnos();
                 }
             
             }
@@ -112,9 +128,9 @@ namespace UberFrba.Abm_Turno
 
                     int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                    AltaTurno altaTurno = new AltaTurno(id);
-                    altaTurno.ShowDialog();
 
+                AltaTurno altaTurno = new AltaTurno(id , this);
+                altaTurno.ShowDialog();
                 }
                 else
                 {

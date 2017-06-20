@@ -56,15 +56,7 @@ begin
 		join GARBAGE.RolxUsuario RU ON R.rol_id = RU.rol_usu_rol_id and RU.rol_usu_usu_id = @user_id
 		where rol_activo = 1)
 end
-go
 
-create procedure GARBAGE.getFuncionalidadListByRolId(@rol_id int)
-as
-begin
-	(select F.func_id, F.func_descripcion 
-		from GARBAGE.Funcionalidad F 
-        JOIN GARBAGE.FuncionalidadxRol RF ON RF.func_rol_func_id = F.func_id AND RF.func_rol_rol_id = @rol_id)
-end
 
 drop procedure GARBAGE.Login;
 drop procedure GARBAGE.getRolListByUserId;

@@ -1,4 +1,5 @@
-﻿namespace UberFrba
+﻿using System.Windows.Forms;
+namespace UberFrba
 {
     partial class ListadoGenerico
     {
@@ -42,6 +43,7 @@
             // 
             this.tablaListado.AllowUserToAddRows = false;
             this.tablaListado.AllowUserToDeleteRows = false;
+            this.tablaListado.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.tablaListado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tablaListado.Location = new System.Drawing.Point(20, 173);
             this.tablaListado.Name = "tablaListado";
