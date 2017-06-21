@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
+using UberFrba.Dto;
+using UberFrba.Interface;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class ListadoAutomovil : UberFrba.ListadoGenerico
+    public partial class ListadoAutomovil : UberFrba.ListadoGenerico, OnCreateUpdateListener
     {
         public ListadoAutomovil()
         {
@@ -19,10 +21,11 @@ namespace UberFrba.Abm_Automovil
             cargarDGVAutomovil();
 
         }
-
+        List<AutomovilDTO> automoviles;
 
         public void cargarDGVAutomovil() {
-            tablaListado.DataSource = AutomovilDAO.getAllAutomoviles();
+            automoviles=AutomovilDAO.getAllAutomoviles();
+            tablaListado.DataSource = automoviles;
         
         }
 
@@ -44,6 +47,22 @@ namespace UberFrba.Abm_Automovil
         private void ListadoAutomovil_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void botonModificacion_Click_1(object sender, EventArgs e)
+        {
+            if (tablaListado.SelectedRows.Count == 1)
+            {
+
+                int index = tablaListado.SelectedRows[0].Index;
+                AutomovilDTO automovil = (AutomovilDTO) automoviles.ElementAt(index);
+                AltaAutomovil crearAutomovilForm = new AltaAutomovil(automovil, this);
+                crearAutomovilForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar el automovil a modificar");
+            }
         }
 
     }

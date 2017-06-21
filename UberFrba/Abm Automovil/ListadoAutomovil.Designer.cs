@@ -38,6 +38,10 @@
             // 
             this.botonAlta.Click += new System.EventHandler(this.botonAlta_Click_1);
             // 
+            // botonModificacion
+            // 
+            this.botonModificacion.Click += new System.EventHandler(this.botonModificacion_Click_1);
+            // 
             // ListadoAutomovil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
