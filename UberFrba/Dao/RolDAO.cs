@@ -56,7 +56,7 @@ namespace UberFrba.Dao
             return parseRoles(reader);
         }
 
-        internal static void createRol(string rolNombre, List<FuncionalidadDTO> funcionalidadesXRol)
+        private static Dictionary<string, object> createRolParams(string rolNombre, List<FuncionalidadDTO> funcionalidadesXRol)
         {
             DataTable table = new DataTable();
             table.Columns.Add("funcionalidad_id", typeof(int));
@@ -68,10 +68,28 @@ namespace UberFrba.Dao
             Dictionary<string, object> parametros = new Dictionary<string, object>();
             parametros.Add("rol_nombre", rolNombre);
             parametros.Add("funcionalidades", table);
+            return parametros;
+        }
 
+        internal static void createRol(string rolNombre, List<FuncionalidadDTO> funcionalidadesXRol)
+        {
+            executeRolProcedure("createRol", createRolParams(rolNombre, funcionalidadesXRol));
+        }
+
+        internal static void updateRol(int rolId, string rolNombre, bool rolActivo, List<FuncionalidadDTO> funcionalidadesXRol)
+        {
+            Dictionary<string, object> parametros = createRolParams(rolNombre, funcionalidadesXRol);
+            parametros.Add("rol_id", rolId);
+            parametros.Add("rol_activo", rolActivo);
+
+            executeRolProcedure("updateRol", parametros);
+        }
+
+        private static void executeRolProcedure(string procedureName, Dictionary<string, object> parametros)
+        {
             try
             {
-                SQLManager.executePorcedure("createRol", parametros);
+                SQLManager.executePorcedure(procedureName, parametros);
             }
             catch (SqlException exception)
             {
@@ -80,6 +98,11 @@ namespace UberFrba.Dao
                 else
                     throw exception;
             }
+        }
+
+        internal static void deleteRol(int rolId)
+        {
+            executeRolProcedure("bajaLogica", SQLManager.getSingleParams("rol_id", rolId));
         }
     }
 }

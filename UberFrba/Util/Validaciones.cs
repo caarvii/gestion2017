@@ -43,6 +43,10 @@ namespace UberFrba
             }
         }
 
+        public static void allowNumericOnlyForDouble(this Form aForm, KeyPressEventArgs e)
+        {
+            e.Handled = !(char.IsNumber(e.KeyChar) || e.KeyChar == ',' || e.KeyChar == (char)Keys.Back);
+        }
 
 
 

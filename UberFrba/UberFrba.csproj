@@ -65,6 +65,12 @@
     <Compile Include="Abm Chofer\AltaChofer.Designer.cs">
       <DependentUpon>AltaChofer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Chofer\ListadoChofer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\ListadoChofer.Designer.cs">
+      <DependentUpon>ListadoChofer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Cliente\ListadoCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\AltaAutomovil.resx">
       <DependentUpon>AltaAutomovil.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\ListadoChofer.resx">
+      <DependentUpon>ListadoChofer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ListadoCliente.resx">
       <DependentUpon>ListadoCliente.cs</DependentUpon>
