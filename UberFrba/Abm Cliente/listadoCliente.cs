@@ -86,8 +86,10 @@ namespace UberFrba.Abm_Cliente
             if (tablaListado.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = this.tablaListado.SelectedRows[0];
-                ClienteDTO cliente = new ClienteDTO();
-                cliente.id = Convert.ToInt32(row.Cells["id"].Value);
+
+                int id  = Convert.ToInt32(row.Cells["id"].Value);
+
+                ClienteDTO cliente = ClienteDAO.getClienteById(id);
 
                 crearCliente crearClienteForm = new crearCliente(cliente, this);
                 crearClienteForm.ShowDialog();
