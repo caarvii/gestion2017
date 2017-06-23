@@ -30,7 +30,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000 )
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -62,7 +62,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }

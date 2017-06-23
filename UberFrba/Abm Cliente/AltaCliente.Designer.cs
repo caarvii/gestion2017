@@ -184,7 +184,6 @@
             this.txtCodigoPostal.Name = "txtCodigoPostal";
             this.txtCodigoPostal.Size = new System.Drawing.Size(200, 20);
             this.txtCodigoPostal.TabIndex = 8;
-            this.txtCodigoPostal.TextChanged += new System.EventHandler(this.txtCodigoPostal_TextChanged);
             this.txtCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigoPostal_KeyPress);
             // 
             // label3
@@ -260,7 +259,6 @@
             this.Name = "crearCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Crear Cliente";
-            this.Load += new System.EventHandler(this.crearCliente_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
