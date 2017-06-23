@@ -53,7 +53,7 @@ create table GARBAGE.Cliente(
 	cli_dni numeric(18,0) not null,
 	cli_telefono numeric(18,0) unique not null,
 	cli_direccion varchar(255) not null,
-	cli_fecha_nacimiento varchar(255) not null,
+	cli_fecha_nacimiento datetime not null,
 	cli_cp numeric(18,0) default 1 not null,
 	cli_mail varchar(255), 
 	cli_activo bit default 1 not null,
@@ -67,7 +67,7 @@ create table GARBAGE.Chofer(
 	chof_dni numeric(18,0) not null,
 	chof_telefono numeric(18,0) not null,
 	chof_direccion varchar(255) not null,
-	chof_fecha_nacimiento varchar(255) not null,
+	chof_fecha_nacimiento datetime not null,
 	chof_mail varchar(255) not null,
 	chof_activo bit default 1 not null,
 	chof_usu_id int)

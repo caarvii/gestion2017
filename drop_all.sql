@@ -48,3 +48,8 @@ drop view GARBAGE.RendicionViajeView;
 
 drop procedure GARBAGE.SPMigracion;
 
+drop procedure GARBAGE.Login;
+drop procedure GARBAGE.getRolListByUserId;
+drop procedure GARBAGE.getFuncionalidadListByRolId;
+drop procedure GARBAGE.getUsuarioById;
+

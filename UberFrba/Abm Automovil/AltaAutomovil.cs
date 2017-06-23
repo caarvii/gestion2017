@@ -101,6 +101,7 @@ namespace UberFrba.Abm_Automovil
             int licencia;
             if (!Int32.TryParse(txtLicencia.Text, out licencia)) throw new Exception("La licencia debe ser numerica");
 
+
             AutomovilDTO unAutomovil = new AutomovilDTO(
             ((MarcaDTO) cmbMarca.SelectedItem).id,
             ((ModeloDTO) cmbModelo.SelectedItem).id,
@@ -111,9 +112,6 @@ namespace UberFrba.Abm_Automovil
             choferGlobal.id);
 
            return unAutomovil;
-
-
-
 
         }
 
