@@ -7,7 +7,7 @@ using UberFrba.Dto;
 
 namespace UberFrba.Dao
 {
-    public class ClienteDTO:UsuarioDTO{
+    public class ClienteDTO{
 
         public int id { get; set; }
         public string nombre { get; set; }
@@ -18,8 +18,10 @@ namespace UberFrba.Dao
         public String direccion { get; set; }
         public int codigoPostal { get; set; }
         public DateTime fechaNacimiento { get; set; }
+        public bool estado { get; set; }
 
-        public ClienteDTO(String _nombre, String _apellido, int _dni, String _mail, int _telefono, String _direccion, int _codigoPostal, DateTime _fechaNacimiento,string username,string password):base(username,password){
+        public ClienteDTO(String _nombre, String _apellido, int _dni, String _mail, int _telefono, String _direccion, int _codigoPostal, DateTime _fechaNacimiento , bool _estado)
+        {
             nombre=_nombre;
             apellido = _apellido;
             dni = _dni;
@@ -28,6 +30,7 @@ namespace UberFrba.Dao
             direccion = _direccion;
             codigoPostal = _codigoPostal;
             fechaNacimiento=_fechaNacimiento;
+            estado = _estado;
         }
 
 
