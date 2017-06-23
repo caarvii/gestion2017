@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UberFrba.Dto
 {
-    class AutomovilDTO
+    public class AutomovilDTO
     {
         private int p1;
         private int p2;
@@ -15,27 +15,27 @@ namespace UberFrba.Dto
         private string p5;
 
 
-        public int auto_id { get; set; }
-        public int auto_marca_id { get; set; }
-        public string auto_marca_nombre { get; set; }
-        public int auto_modelo_id { get; set; }
-        public string auto_modelo_nombre { get; set; }
-        public string auto_patente { get; set; }
-        public string auto_licencia { get; set; }
-        public string auto_rodado { get; set; }
-        public int auto_chofer_id { get; set; }
-        public int auto_turno_id { get; set; }
+        public int id { get; set; }
+        public int marca_id { get; set; }
+        public string marca_nombre { get; set; }
+        public int modelo_id { get; set; }
+        public string modelo_nombre { get; set; }
+        public string patente { get; set; }
+        public int licencia { get; set; }
+        public string rodado { get; set; }
+        public int chofer_id { get; set; }
+        public int turno_id { get; set; }
 
 
-        public AutomovilDTO(int _auto_marca_id, int _auto_modelo_id, string _auto_patente, string _auto_licencia, string _auto_rodado,int _auto_chofer_id,int _auto_turno_id)
+        public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, int _licencia, string _rodado,int _chofer_id,int _turno_id)
         {
-        auto_marca_id = _auto_marca_id;
-        auto_modelo_id = _auto_modelo_id;
-        auto_patente= _auto_patente; 
-        auto_licencia= _auto_licencia;
-        auto_rodado = _auto_rodado;
-        auto_chofer_id = _auto_chofer_id;
-        auto_turno_id = _auto_turno_id; 
+        marca_id = _marca_id;
+        modelo_id = _modelo_id;
+        patente= _patente; 
+        licencia= _licencia;
+        rodado = _rodado;
+        chofer_id = _chofer_id;
+        turno_id = _turno_id; 
         
         }
 

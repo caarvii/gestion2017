@@ -12,6 +12,7 @@ using UberFrba.Dto;
 using UberFrba.Abm_Turno;
 using UberFrba.Interface;
 using UberFrba.Helpers;
+using UberFrba.Abm_Automovil;
 
 
 namespace UberFrba.Abm_Automovil
@@ -24,6 +25,11 @@ namespace UberFrba.Abm_Automovil
             cargarComboBox();
         }
 
+        TurnoDTO turnoGlobal;
+        ChoferDTO choferGlobal;
+        OnCreateUpdateListener listener;
+        AutomovilDTO AutomovilAModificar;
+        
         public AltaAutomovil(AutomovilDTO _AutomovilAModificar, OnCreateUpdateListener _listener)
         {
             InitializeComponent();
@@ -36,13 +42,16 @@ namespace UberFrba.Abm_Automovil
             listener = _listener;
         }
 
+        public void onOperationFinishChofer(ChoferDTO chofer)
+        {
+            choferGlobal = chofer;
+            txtChoferDni.Text = chofer.dni.ToString();
+            txtChoferNombreCompleto.Text = chofer.nombre + " " + chofer.apellido;
+        }
 
-        TurnoDTO turnoGlobal;
-        ChoferDTO choferGlobal;
-        OnCreateUpdateListener listener;
-        AutomovilDTO AutomovilAModificar;
+        
 
-        public void onOperationFinish(TurnoDTO turno)
+        public void onOperationFinishTurno(TurnoDTO turno)
         {
             turnoGlobal =turno;
             txtTurnoDescripcion.Text = turno.descripcion;
@@ -55,11 +64,11 @@ namespace UberFrba.Abm_Automovil
             
             
             
-            cmbMarca.SelectedItem= ((AutomovilDTO) AutomovilAModificar).auto_marca_nombre;
-            cmbModelo.SelectedItem= ((AutomovilDTO) AutomovilAModificar).auto_modelo_nombre;
-            txtPatente.Text = AutomovilAModificar.auto_patente;
-            txtLicencia.Text = AutomovilAModificar.auto_licencia.ToString();
-            //    
+            cmbMarca.SelectedItem= AutomovilAModificar.marca_nombre; // esto no se porq no anda...
+            cmbModelo.SelectedItem = AutomovilAModificar.modelo_nombre; // esto no se porq no anda...
+            txtPatente.Text = AutomovilAModificar.patente;
+            txtLicencia.Text = AutomovilAModificar.licencia.ToString();
+            
 
 
 
@@ -96,8 +105,10 @@ namespace UberFrba.Abm_Automovil
             ((MarcaDTO) cmbMarca.SelectedItem).id,
             ((ModeloDTO) cmbModelo.SelectedItem).id,
             txtPatente.Text,
-            txtLicencia.Text,
-            txtAutoRodado.Text);
+            licencia,
+            txtAutoRodado.Text,
+            turnoGlobal.id,
+            choferGlobal.id);
 
            return unAutomovil;
 
@@ -160,7 +171,7 @@ namespace UberFrba.Abm_Automovil
                 try
                 {
                     AutomovilDTO automovil = cargarAutomovil();
-                    automovil.auto_id = AutomovilAModificar.auto_id;
+                    automovil.id = AutomovilAModificar.id;
                     //AutomovilDAO.updateAutomovil(automovil);
                     MessageBox.Show("Automovil modificado con exito");
                     this.Close(); //Cierro formulario

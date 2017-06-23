@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UberFrba
 {
-    class ChoferDTO
+    public class ChoferDTO
     {
         public int id { get; set; }
         public string nombre { get; set; }

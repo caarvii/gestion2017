@@ -146,7 +146,7 @@ namespace UberFrba.Abm_Turno
                 if (tablaListado.RowCount > 0)
                 {
                     int index = tablaListado.SelectedRows[0].Index;
-                    listener.onOperationFinish(turnos.ElementAt(index));
+                    listener.onOperationFinishTurno(turnos.ElementAt(index));
                     this.Close();
                 }
                 else

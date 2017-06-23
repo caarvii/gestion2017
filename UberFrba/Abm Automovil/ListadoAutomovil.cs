@@ -29,6 +29,13 @@ namespace UberFrba.Abm_Automovil
         
         }
 
+        public void onOperationFinish()
+        {
+
+            
+
+        }
+
 
         protected override void botonLimpiar_Click(object sender, EventArgs e)
         {
