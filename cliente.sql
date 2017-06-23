@@ -40,6 +40,7 @@ begin
 	declare @cant int;
 	declare @user_id int;
 	declare @nombre_sugerido varchar(25);
+	declare @id_rol_cliente int;
 
 	set @cant = (SELECT COUNT (*) FROM GARBAGE.Cliente WHERE cli_telefono = @cli_telefono);
 	
@@ -55,12 +56,31 @@ begin
 		SET @nombre_sugerido = GARBAGE.GenerarUsuario(@cli_nombre , @cli_apellido)
 	END
 
+
+		-- Podria volver a agregarse en un futuro
+
+	SET @id_rol_cliente = (select rol_id from GARBAGE.Rol WHERE rol_nombre = 'Cliente');
+
+
+	-- ROL INHABILITADO
+	IF ( (SELECT COUNT(*) FROM GARBAGE.Rol WHERE rol_id = @id_rol_cliente AND rol_activo = 0) > 0 ) BEGIN
+	
+		set @error_message = 'No se puede crear un cliente con un rol inactivo';
+		throw 70000, @error_message , 1;
+
+	END 
+
 	-- Inserta tambien en tabla Usuario
 
 	INSERT INTO GARBAGE.Usuario (usu_username,usu_password)
 	VALUES (@nombre_sugerido, HASHBYTES('SHA2_256',GARBAGE.GenerarUsuario(@cli_nombre , @cli_apellido)))
 
 	SET @user_id = scope_identity();
+
+		-- INSERTA EN TABLA ROL_POR_USUARIO ( AL SER VALIDO ) 
+
+	INSERT INTO GARBAGE.RolxUsuario (rol_usu_rol_id , rol_usu_usu_id)
+	VALUES (@id_rol_cliente , @user_id)
 
 	insert into GARBAGE.Cliente(cli_nombre,
 							   cli_apellido,

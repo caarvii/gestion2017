@@ -39,6 +39,8 @@ begin
 	declare @cant int;
 	declare @user_id int;
 	declare @nombre_sugerido varchar(25);
+	declare @id_rol_chofer int;
+
 
 	set @cant = (SELECT COUNT (*) FROM GARBAGE.Chofer WHERE chof_telefono=@chof_telefono);
 	
@@ -54,12 +56,30 @@ begin
 		SET @nombre_sugerido = GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)
 	END
 
-	-- Inserta tambien en tabla Usuario
+	-- Podria volver a agregarse en un futuro
+
+	SET @id_rol_chofer = (select rol_id from GARBAGE.Rol WHERE rol_nombre = 'Chofer');
+
+
+	-- ROL INHABILITADO
+	IF ( (SELECT COUNT(*) FROM GARBAGE.Rol WHERE rol_id = @id_rol_chofer AND rol_activo = 0) > 0 ) BEGIN
+	
+		set @error_message = 'No se puede crear un chofer con un rol inactivo';
+		throw 70000, @error_message , 1;
+
+	END 
+
+	-- INSERTA EN TABLA USUARIO
 
 	INSERT INTO GARBAGE.Usuario (usu_username,usu_password)
 	VALUES (@nombre_sugerido, HASHBYTES('SHA2_256',GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)))
 
 	SET @user_id = scope_identity();
+
+	-- INSERTA EN TABLA ROL_POR_USUARIO ( AL SER VALIDO ) 
+
+	INSERT INTO GARBAGE.RolxUsuario (rol_usu_rol_id , rol_usu_usu_id)
+	VALUES (@id_rol_chofer , @user_id)
 
 	insert into GARBAGE.Chofer(chof_nombre,
 							   chof_apellido,
