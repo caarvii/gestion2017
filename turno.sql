@@ -27,12 +27,13 @@ begin
 	 	turno_descripcion = @turno_descripcion);
 
 	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
-					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio )
+					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
+							AND turno_habilitado > 0
 					);
 
 	-- TURNOS SOLAPADOS
 
-	if  @solapado > 0 BEGIN
+	if  @solapado > 0  BEGIN
 		set @error_message = 'El turno no puede agregarse o editarse solapando a otro turno';
 		throw 60000, @error_message , 1;
 		
@@ -66,14 +67,16 @@ begin
 	set @cant = (select COUNT(*) from GARBAGE.TURNO  where turno_id = @turno_id );
 
 
+	-- Solo busca por aquellos habilitados.
 
 	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
-					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio )
+					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
+							AND turno_habilitado > 0
 					);
 
 	-- TURNOS SOLAPADOS
 
-	if  @solapado > 0 BEGIN
+	if  (@solapado > 0 ) AND (@turno_habilitado > 0) BEGIN
 		set @error_message = 'El turno no puede agregarse o editarse solapando a otro turno';
 		throw 60000, @error_message , 1;
 		

@@ -205,6 +205,7 @@ namespace UberFrba.Dao
             this.txtDireccion.Text = "";
             this.txtTelefono.Text = "";
             this.txtMail.Text = "";
+            this.txtCodigoPostal.Text = "";
             this.dtpFechaNacimiento.ResetText();
             this.checkHabilitado.Checked = false;
         }
