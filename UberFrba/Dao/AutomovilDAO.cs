@@ -26,7 +26,7 @@ namespace UberFrba.Dao
                     automovil.modelo_id = Convert.ToInt32(dataReader["auto_mod_id"]);
                     automovil.modelo_nombre = Convert.ToString(dataReader["mod_nombre"]);
                     automovil.patente = Convert.ToString(dataReader["auto_patente"]);
-                    automovil.licencia = Convert.ToInt32(dataReader["auto_licencia"]);
+                    automovil.licencia = Convert.ToString(dataReader["auto_licencia"]);
                     automovil.rodado = Convert.ToString(dataReader["auto_rodado"]);
                     automoviles.Add(automovil);
                 }
@@ -46,8 +46,7 @@ namespace UberFrba.Dao
 
          public static void addNewAutomovil(AutomovilDTO automovil){
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("auto_id", automovil.id);
-            parameters.Add("marca_id", automovil.marca_id);
+            parameters.Add("auto_marca_id", automovil.marca_id);
             parameters.Add("auto_modelo_id", automovil.modelo_id);
             parameters.Add("auto_patente", automovil.patente);
             parameters.Add("auto_licencia", automovil.licencia);
@@ -61,7 +60,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }

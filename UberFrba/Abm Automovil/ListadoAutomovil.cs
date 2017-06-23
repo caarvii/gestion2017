@@ -47,7 +47,7 @@ namespace UberFrba.Abm_Automovil
 
         protected void botonAlta_Click_1(object sender, EventArgs e)
         {
-            AltaAutomovil altaAutomovilForm = new AltaAutomovil();
+            AltaAutomovil altaAutomovilForm = new AltaAutomovil(this);
             altaAutomovilForm.ShowDialog();
         }
 

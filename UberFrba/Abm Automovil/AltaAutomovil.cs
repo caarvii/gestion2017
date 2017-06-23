@@ -13,13 +13,14 @@ using UberFrba.Abm_Turno;
 using UberFrba.Interface;
 using UberFrba.Helpers;
 using UberFrba.Abm_Automovil;
+using UberFrba.Abm_Chofer;
 
 
 namespace UberFrba.Abm_Automovil
 {
     public partial class AltaAutomovil : Form, ListadoSeleccionListener
     {
-        public AltaAutomovil()
+        public AltaAutomovil(OnCreateUpdateListener _listener)
         {
             InitializeComponent();
             cargarComboBox();
@@ -34,6 +35,7 @@ namespace UberFrba.Abm_Automovil
         {
             InitializeComponent();
             cargarComboBox();
+           // choferGlobal = ChoferDAO.getChoferById(
             AutomovilAModificar = _AutomovilAModificar;
             CargarDatosDeAutomovilAModificar();
             btnCrearAutomovil.Visible = false;
@@ -57,6 +59,9 @@ namespace UberFrba.Abm_Automovil
             txtTurnoDescripcion.Text = turno.descripcion;
             txtTurnoHoraInicio.Text = turno.horaInicial.ToString();
             txtTurnoHoraFin.Text = turno.horaFinal.ToString();
+
+
+
         }
 
         private void CargarDatosDeAutomovilAModificar()
@@ -67,8 +72,7 @@ namespace UberFrba.Abm_Automovil
             cmbMarca.SelectedItem= AutomovilAModificar.marca_nombre; // esto no se porq no anda...
             cmbModelo.SelectedItem = AutomovilAModificar.modelo_nombre; // esto no se porq no anda...
             txtPatente.Text = AutomovilAModificar.patente;
-            txtLicencia.Text = AutomovilAModificar.licencia.ToString();
-            
+
 
 
 
@@ -83,9 +87,9 @@ namespace UberFrba.Abm_Automovil
             cmbMarca.ValueMember = "id";
 
             List<ModeloDTO> modelo = ModeloDAO.getAllModelos();
-          //  cmbModelo.DataSource = modelo;
+            cmbModelo.DataSource = modelo;
+            cmbModelo.DisplayMember = "nombre";
             cmbModelo.ValueMember = "id";
-            cmbModelo.DisplayMember = "descripcion";
         }
 
         private void txtPatente_KeyPress(object sender, EventArgs e) {
@@ -98,15 +102,12 @@ namespace UberFrba.Abm_Automovil
         private AutomovilDTO cargarAutomovil()
         {
 
-            int licencia;
-            if (!Int32.TryParse(txtLicencia.Text, out licencia)) throw new Exception("La licencia debe ser numerica");
-
 
             AutomovilDTO unAutomovil = new AutomovilDTO(
             ((MarcaDTO) cmbMarca.SelectedItem).id,
             ((ModeloDTO) cmbModelo.SelectedItem).id,
             txtPatente.Text,
-            licencia,
+            txtLicencia.Text,
             txtAutoRodado.Text,
             turnoGlobal.id,
             choferGlobal.id);
@@ -135,10 +136,10 @@ namespace UberFrba.Abm_Automovil
 
         private void cmdSeleccionarChofer_Click(object sender, EventArgs e)
         {
-            /*
+            
             ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this);
             ListadoSeleccionDeChoferForm.ShowDialog();
-             */ 
+              
         }
 
         private void btnCrearAutomovil_Click(object sender, EventArgs e)
@@ -150,6 +151,7 @@ namespace UberFrba.Abm_Automovil
                     AutomovilDTO nuevoAutomovil = this.cargarAutomovil();
                     AutomovilDAO.addNewAutomovil(nuevoAutomovil);
                     MessageBox.Show("Se agrego el automovil correctamente");
+                   // listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {

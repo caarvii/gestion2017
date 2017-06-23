@@ -21,13 +21,13 @@ namespace UberFrba.Dto
         public int modelo_id { get; set; }
         public string modelo_nombre { get; set; }
         public string patente { get; set; }
-        public int licencia { get; set; }
+        public string licencia { get; set; }
         public string rodado { get; set; }
         public int chofer_id { get; set; }
         public int turno_id { get; set; }
 
 
-        public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, int _licencia, string _rodado,int _chofer_id,int _turno_id)
+        public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, string _licencia, string _rodado,int _chofer_id,int _turno_id)
         {
         marca_id = _marca_id;
         modelo_id = _modelo_id;
