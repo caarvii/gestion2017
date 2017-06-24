@@ -20,14 +20,14 @@ namespace UberFrba.Dao
                 while (dataReader.Read())
                 {
                     AutomovilDTO automovil = new AutomovilDTO();
-                    automovil.auto_id = Convert.ToInt32(dataReader["auto_id"]);
-                    automovil.auto_marca_id = Convert.ToInt32(dataReader["auto_marca_id"]);
-                    automovil.auto_marca_nombre = Convert.ToString(dataReader["marca_nombre"]);
-                    automovil.auto_modelo_id = Convert.ToInt32(dataReader["auto_mod_id"]);
-                    automovil.auto_modelo_nombre = Convert.ToString(dataReader["mod_nombre"]);
-                    automovil.auto_patente = Convert.ToString(dataReader["auto_patente"]);
-                    automovil.auto_licencia = Convert.ToInt32(dataReader["auto_licencia"]);
-                    automovil.auto_rodado = Convert.ToString(dataReader["auto_rodado"]);
+                    automovil.id = Convert.ToInt32(dataReader["auto_id"]);
+                    automovil.marca_id = Convert.ToInt32(dataReader["auto_marca_id"]);
+                    automovil.marca_nombre = Convert.ToString(dataReader["marca_nombre"]);
+                    automovil.modelo_id = Convert.ToInt32(dataReader["auto_mod_id"]);
+                    automovil.modelo_nombre = Convert.ToString(dataReader["mod_nombre"]);
+                    automovil.patente = Convert.ToString(dataReader["auto_patente"]);
+                    automovil.licencia = Convert.ToString(dataReader["auto_licencia"]);
+                    automovil.rodado = Convert.ToString(dataReader["auto_rodado"]);
                     automoviles.Add(automovil);
                 }
             }
@@ -46,14 +46,13 @@ namespace UberFrba.Dao
 
          public static void addNewAutomovil(AutomovilDTO automovil){
             Dictionary<string, object> parameters = new Dictionary<string, object>();
-            parameters.Add("auto_id", automovil.auto_id);
-            parameters.Add("marca_id", automovil.auto_marca_id);
-            parameters.Add("auto_modelo_id", automovil.auto_modelo_id);
-            parameters.Add("auto_patente", automovil.auto_patente);
-            parameters.Add("auto_licencia", automovil.auto_licencia);
-            parameters.Add("auto_rodado", automovil.auto_rodado);
-            parameters.Add("auto_turno_id", automovil.auto_turno_id);
-            parameters.Add("auto_chofer_id", automovil.auto_chofer_id);
+            parameters.Add("auto_marca_id", automovil.marca_id);
+            parameters.Add("auto_modelo_id", automovil.modelo_id);
+            parameters.Add("auto_patente", automovil.patente);
+            parameters.Add("auto_licencia", automovil.licencia);
+            parameters.Add("auto_rodado", automovil.rodado);
+            parameters.Add("auto_turno_id", automovil.turno_id);
+            parameters.Add("auto_chofer_id", automovil.chofer_id);
 
             try
             {
@@ -61,7 +60,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }

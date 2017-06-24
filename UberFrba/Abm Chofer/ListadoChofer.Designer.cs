@@ -117,6 +117,7 @@
             this.Controls.Add(this.label2);
             this.Name = "ListadoChofer";
             this.Text = "ListadoChofer";
+            this.Load += new System.EventHandler(this.ListadoChofer_Load);
             this.Controls.SetChildIndex(this.botonLimpiar, 0);
             this.Controls.SetChildIndex(this.botonBuscar, 0);
             this.Controls.SetChildIndex(this.botonBaja, 0);

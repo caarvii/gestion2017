@@ -15,12 +15,32 @@ namespace UberFrba.Abm_Chofer
     public partial class ListadoChofer : UberFrba.ListadoGenerico, OnCreateUpdateListener
     {
 
+        ListadoSeleccionListener listener;
+        bool seleccionDeChofer = false;
+        List<ChoferDTO> choferes;
+
         Dictionary<string, object> filtrosChoferList = new Dictionary<string, object>();
 
         public ListadoChofer()
         {
             InitializeComponent();
         }
+
+        public ListadoChofer(ListadoSeleccionListener _listener)
+        {
+            InitializeComponent();
+            listener = _listener;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            cargarListadoChofer();
+            botonAlta.Visible = false;
+            botonBaja.Visible = false;
+            botonModificacion.Text = "Seleccionar";
+            seleccionDeChofer = true;
+        }
+
+
+
+
 
         public void onOperationFinish()
         {
@@ -33,7 +53,8 @@ namespace UberFrba.Abm_Chofer
         private void cargarListadoChofer()
         {
 
-            tablaListado.DataSource = ChoferDAO.getAllChoferes();
+            choferes = ChoferDAO.getAllChoferes();
+            tablaListado.DataSource = choferes;
             tablaListado.Columns["estado"].Visible = false;
 
         }
@@ -110,21 +131,48 @@ namespace UberFrba.Abm_Chofer
 
         private void botonModificacion_Click_1(object sender, EventArgs e)
         {
-            if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
+
+            if (seleccionDeChofer == false)
             {
-                DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
-                int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                AltaChofer altaChofer = new AltaChofer(id, this);
-                altaChofer.ShowDialog();
+                if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
+                {
+                    DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
-            }
-            else
-            {
-                MessageBox.Show("Debe seleccionar el chofer a modificar");
+                    int id = Convert.ToInt32(row.Cells["id"].Value);
 
-            }
+                    AltaChofer altaChofer = new AltaChofer(id, this);
+                    altaChofer.ShowDialog();
+
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar el chofer a modificar");
+
+                }
+
+            }else{
+
+                if (tablaListado.RowCount > 0)
+                {
+                    int index = tablaListado.SelectedRows[0].Index;
+                    listener.onOperationFinishChofer(choferes.ElementAt(index));
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila");
+                }
+
+
+
+
+           }
+        }  
+
+        private void ListadoChofer_Load(object sender, EventArgs e)
+        {
 
         }
 

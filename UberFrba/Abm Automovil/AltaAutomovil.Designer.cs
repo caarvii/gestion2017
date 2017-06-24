@@ -102,20 +102,20 @@
             this.cmbMarca.FormattingEnabled = true;
             this.cmbMarca.Location = new System.Drawing.Point(149, 38);
             this.cmbMarca.Name = "cmbMarca";
-            this.cmbMarca.Size = new System.Drawing.Size(140, 21);
+            this.cmbMarca.Size = new System.Drawing.Size(195, 21);
             this.cmbMarca.TabIndex = 5;
             // 
             // txtPatente
             // 
             this.txtPatente.Location = new System.Drawing.Point(148, 94);
             this.txtPatente.Name = "txtPatente";
-            this.txtPatente.Size = new System.Drawing.Size(141, 20);
+            this.txtPatente.Size = new System.Drawing.Size(196, 20);
             this.txtPatente.TabIndex = 7;
             this.txtPatente.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPatente_KeyPress);
             // 
             // btnCrearAutomovil
             // 
-            this.btnCrearAutomovil.Location = new System.Drawing.Point(207, 228);
+            this.btnCrearAutomovil.Location = new System.Drawing.Point(257, 228);
             this.btnCrearAutomovil.Name = "btnCrearAutomovil";
             this.btnCrearAutomovil.Size = new System.Drawing.Size(87, 23);
             this.btnCrearAutomovil.TabIndex = 10;
@@ -127,7 +127,7 @@
             // 
             this.txtLicencia.Location = new System.Drawing.Point(149, 120);
             this.txtLicencia.Name = "txtLicencia";
-            this.txtLicencia.Size = new System.Drawing.Size(140, 20);
+            this.txtLicencia.Size = new System.Drawing.Size(195, 20);
             this.txtLicencia.TabIndex = 11;
             // 
             // Licencia
@@ -144,7 +144,7 @@
             this.txtTurnoDescripcion.Enabled = false;
             this.txtTurnoDescripcion.Location = new System.Drawing.Point(149, 149);
             this.txtTurnoDescripcion.Name = "txtTurnoDescripcion";
-            this.txtTurnoDescripcion.Size = new System.Drawing.Size(78, 20);
+            this.txtTurnoDescripcion.Size = new System.Drawing.Size(133, 20);
             this.txtTurnoDescripcion.TabIndex = 14;
             // 
             // txtChoferDni
@@ -152,12 +152,12 @@
             this.txtChoferDni.Enabled = false;
             this.txtChoferDni.Location = new System.Drawing.Point(149, 176);
             this.txtChoferDni.Name = "txtChoferDni";
-            this.txtChoferDni.Size = new System.Drawing.Size(52, 20);
+            this.txtChoferDni.Size = new System.Drawing.Size(66, 20);
             this.txtChoferDni.TabIndex = 15;
             // 
             // cmdSeleccionarTurno
             // 
-            this.cmdSeleccionarTurno.Location = new System.Drawing.Point(304, 147);
+            this.cmdSeleccionarTurno.Location = new System.Drawing.Point(350, 149);
             this.cmdSeleccionarTurno.Name = "cmdSeleccionarTurno";
             this.cmdSeleccionarTurno.Size = new System.Drawing.Size(111, 19);
             this.cmdSeleccionarTurno.TabIndex = 16;
@@ -167,7 +167,7 @@
             // 
             // cmdSeleccionarChofer
             // 
-            this.cmdSeleccionarChofer.Location = new System.Drawing.Point(304, 174);
+            this.cmdSeleccionarChofer.Location = new System.Drawing.Point(350, 176);
             this.cmdSeleccionarChofer.Name = "cmdSeleccionarChofer";
             this.cmdSeleccionarChofer.Size = new System.Drawing.Size(111, 20);
             this.cmdSeleccionarChofer.TabIndex = 17;
@@ -181,13 +181,13 @@
             this.cmbModelo.FormattingEnabled = true;
             this.cmbModelo.Location = new System.Drawing.Point(149, 65);
             this.cmbModelo.Name = "cmbModelo";
-            this.cmbModelo.Size = new System.Drawing.Size(140, 21);
+            this.cmbModelo.Size = new System.Drawing.Size(195, 21);
             this.cmbModelo.TabIndex = 18;
             // 
             // txtTurnoHoraInicio
             // 
             this.txtTurnoHoraInicio.Enabled = false;
-            this.txtTurnoHoraInicio.Location = new System.Drawing.Point(233, 149);
+            this.txtTurnoHoraInicio.Location = new System.Drawing.Point(288, 149);
             this.txtTurnoHoraInicio.Name = "txtTurnoHoraInicio";
             this.txtTurnoHoraInicio.Size = new System.Drawing.Size(25, 20);
             this.txtTurnoHoraInicio.TabIndex = 19;
@@ -195,7 +195,7 @@
             // txtTurnoHoraFin
             // 
             this.txtTurnoHoraFin.Enabled = false;
-            this.txtTurnoHoraFin.Location = new System.Drawing.Point(264, 149);
+            this.txtTurnoHoraFin.Location = new System.Drawing.Point(319, 149);
             this.txtTurnoHoraFin.Name = "txtTurnoHoraFin";
             this.txtTurnoHoraFin.Size = new System.Drawing.Size(25, 20);
             this.txtTurnoHoraFin.TabIndex = 20;
@@ -203,9 +203,9 @@
             // txtChoferNombreCompleto
             // 
             this.txtChoferNombreCompleto.Enabled = false;
-            this.txtChoferNombreCompleto.Location = new System.Drawing.Point(207, 175);
+            this.txtChoferNombreCompleto.Location = new System.Drawing.Point(221, 175);
             this.txtChoferNombreCompleto.Name = "txtChoferNombreCompleto";
-            this.txtChoferNombreCompleto.Size = new System.Drawing.Size(82, 20);
+            this.txtChoferNombreCompleto.Size = new System.Drawing.Size(123, 20);
             this.txtChoferNombreCompleto.TabIndex = 21;
             // 
             // label6
@@ -221,12 +221,12 @@
             // 
             this.txtAutoRodado.Location = new System.Drawing.Point(149, 202);
             this.txtAutoRodado.Name = "txtAutoRodado";
-            this.txtAutoRodado.Size = new System.Drawing.Size(140, 20);
+            this.txtAutoRodado.Size = new System.Drawing.Size(195, 20);
             this.txtAutoRodado.TabIndex = 23;
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(207, 228);
+            this.btnModificar.Location = new System.Drawing.Point(257, 228);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(87, 23);
             this.btnModificar.TabIndex = 24;
