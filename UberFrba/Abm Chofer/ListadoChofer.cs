@@ -38,10 +38,6 @@ namespace UberFrba.Abm_Chofer
             seleccionDeChofer = true;
         }
 
-
-
-
-
         public void onOperationFinish()
         {
 

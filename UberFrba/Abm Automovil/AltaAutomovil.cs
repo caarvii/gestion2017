@@ -51,7 +51,11 @@ namespace UberFrba.Abm_Automovil
             txtChoferNombreCompleto.Text = chofer.nombre + " " + chofer.apellido;
         }
 
-        
+        public void onOperationFinishCliente (ClienteDTO cliente)
+        {
+            // TODO
+        }
+
 
         public void onOperationFinishTurno(TurnoDTO turno)
         {

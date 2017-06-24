@@ -11,6 +11,7 @@ using UberFrba;
 using UberFrba.Abm_Cliente;
 using UberFrba.Helpers;
 using UberFrba.Interface;
+using UberFrba.Dto;
 
 namespace UberFrba.Dao
 {
