@@ -3,10 +3,11 @@ as
 begin
 	
 	(SELECT *
-	 FROM GARBAGE.Automovil A , GARBAGE.ChoferxAutomovil CA
+	 FROM GARBAGE.Automovil A , GARBAGE.ChoferxAutomovil CA , GARBAGE.Marca,GARBAGE.Modelo
 	 WHERE A.auto_id = CA.chof_auto_auto_id AND
 		   CA.chof_auto_chof_id = @chof_id AND
-		   CA.chof_auto_habilitado = 1)
+		   CA.chof_auto_habilitado = 1 AND 
+		   A.auto_marca_id= marca_id AND A.auto_mod_id = mod_id)
 
 end
 go

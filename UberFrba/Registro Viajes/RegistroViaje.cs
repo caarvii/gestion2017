@@ -29,6 +29,7 @@ namespace UberFrba.Registro_Viajes
         public RegistroViaje()
         {
             InitializeComponent();
+            this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
         }
 
         public void onOperationFinishCliente(ClienteDTO cliente)
