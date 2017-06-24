@@ -20,10 +20,16 @@ namespace UberFrba.Registro_Viajes
     public partial class RegistroViaje : Form, ListadoSeleccionListener
     {
         TurnoDTO turnoGlobal;
+        
         ChoferDTO choferGlobal;
         ClienteDTO clienteGlobal;
+        AutomovilDTO autoGlobal;
+
         OnCreateUpdateListener listener;
-        AutomovilDTO AutomovilAModificar;
+       
+
+
+
 
         public RegistroViaje()
         {
@@ -42,6 +48,9 @@ namespace UberFrba.Registro_Viajes
             choferGlobal = chofer;
             txtNombreChofer.Text = chofer.nombre + " " + chofer.apellido;
             txtDNIChofer.Text = chofer.dni.ToString();
+
+            cargarAutomovilDisponible();
+
         }
 
         public void onOperationFinishTurno(TurnoDTO turno)
@@ -49,6 +58,28 @@ namespace UberFrba.Registro_Viajes
             // NO SE IMPLEMENTA
         }
 
+        // METODOS GENERALES
+
+        private void cargarAutomovilDisponible()
+        {
+            AutomovilDTO auto = AutomovilDAO.getAutomovilDisponible(choferGlobal.id);
+            txtAutomovil.Text = auto.patente;
+
+            cargarTurnosDeAuto(auto.id);
+
+        }
+
+        private void cargarTurnosDeAuto(int auto_id)
+        {
+            List<TurnoDTO> turnos = TurnoDAO.getTurnosByAutoId(auto_id);
+
+            comboTurno.DataSource = turnos;
+            comboTurno.DisplayMember = "descripcion";
+            comboTurno.ValueMember = "id";
+
+            comboTurno.Enabled = true; 
+
+        }
 
 
         // VALIDACIONES

@@ -44,6 +44,16 @@ namespace UberFrba.Dao
             return readerToListAutomovil(reader);
         }
 
+
+        public static AutomovilDTO getAutomovilDisponible(int chof_id)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getAutomovilDisponible",
+                SQLManager.getSingleParams("chof_id", chof_id));
+            return readerToListAutomovil(reader).First();
+        }
+
+
+
          public static void addNewAutomovil(AutomovilDTO automovil){
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("auto_marca_id", automovil.marca_id);

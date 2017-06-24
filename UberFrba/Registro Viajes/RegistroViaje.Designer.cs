@@ -109,6 +109,7 @@
             // 
             this.txtHoraFin.Location = new System.Drawing.Point(353, 94);
             this.txtHoraFin.Name = "txtHoraFin";
+            this.txtHoraFin.ReadOnly = true;
             this.txtHoraFin.Size = new System.Drawing.Size(39, 20);
             this.txtHoraFin.TabIndex = 19;
             // 
@@ -116,6 +117,7 @@
             // 
             this.txtHoraInicio.Location = new System.Drawing.Point(283, 95);
             this.txtHoraInicio.Name = "txtHoraInicio";
+            this.txtHoraInicio.ReadOnly = true;
             this.txtHoraInicio.Size = new System.Drawing.Size(41, 20);
             this.txtHoraInicio.TabIndex = 18;
             // 
@@ -143,6 +145,7 @@
             // 
             this.txtNombreChofer.Location = new System.Drawing.Point(219, 40);
             this.txtNombreChofer.Name = "txtNombreChofer";
+            this.txtNombreChofer.ReadOnly = true;
             this.txtNombreChofer.Size = new System.Drawing.Size(105, 20);
             this.txtNombreChofer.TabIndex = 15;
             // 
@@ -150,6 +153,7 @@
             // 
             this.txtDNIChofer.Location = new System.Drawing.Point(101, 40);
             this.txtDNIChofer.Name = "txtDNIChofer";
+            this.txtDNIChofer.ReadOnly = true;
             this.txtDNIChofer.Size = new System.Drawing.Size(108, 20);
             this.txtDNIChofer.TabIndex = 14;
             // 
@@ -172,6 +176,7 @@
             // 
             this.txtNombreCliente.Location = new System.Drawing.Point(219, 221);
             this.txtNombreCliente.Name = "txtNombreCliente";
+            this.txtNombreCliente.ReadOnly = true;
             this.txtNombreCliente.Size = new System.Drawing.Size(105, 20);
             this.txtNombreCliente.TabIndex = 11;
             // 
@@ -179,6 +184,7 @@
             // 
             this.txtDNICliente.Location = new System.Drawing.Point(101, 220);
             this.txtDNICliente.Name = "txtDNICliente";
+            this.txtDNICliente.ReadOnly = true;
             this.txtDNICliente.Size = new System.Drawing.Size(108, 20);
             this.txtDNICliente.TabIndex = 10;
             // 
@@ -198,6 +204,7 @@
             // 
             // comboTurno
             // 
+            this.comboTurno.Enabled = false;
             this.comboTurno.FormattingEnabled = true;
             this.comboTurno.Location = new System.Drawing.Point(101, 94);
             this.comboTurno.Name = "comboTurno";
