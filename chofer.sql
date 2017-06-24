@@ -12,12 +12,12 @@ begin
 end
 go
 
-create procedure GARBAGE.bajaLogicaChofer(@chofer_id int)
+create procedure GARBAGE.bajaLogicaChofer(@chof_id int)
 as
 begin
 	
 	update GARBAGE.Chofer set chof_activo = 0
-	where chof_id = @chofer_id;
+	where chof_id = @chof_id;
 	RETURN 1
 
 end
@@ -112,8 +112,8 @@ create procedure GARBAGE.updateChofer(
             @chof_mail varchar(255),
             @chof_telefono numeric (18,0),
 			@chof_direccion varchar(255),
-            @chof_fecha_naciemiento datetime ,
-			@chof_habilitado bit
+            @chof_fecha_nacimiento datetime ,
+			@chof_activo bit
 			)
 as
 begin
@@ -135,9 +135,9 @@ begin
 							  chof_dni = @chof_dni,
 							  chof_telefono = @chof_telefono,
 							  chof_direccion = @chof_direccion,
-							  chof_fecha_nacimiento = @chof_fecha_naciemiento,
+							  chof_fecha_nacimiento = @chof_fecha_nacimiento,
 							  chof_mail = @chof_mail,
-							  chof_activo = @chof_habilitado
+							  chof_activo = @chof_activo
 	where chof_id = @chof_id;
 
 	RETURN 1
@@ -153,7 +153,7 @@ AS BEGIN
 	DECLARE @usuario_sugerido varchar(25);
 	DECLARE @usu_id int;
 
-	SET @cant = (SELECT COUNT(*) FROM GARBAGE.Usuario WHERE usu_username = GARBAGE.GenerarUsuario(@nombre , @apellido)) ;
+	SET @cant = (SELECT COUNT(*) FROM GARBAGE.Usuario WHERE usu_username LIKE GARBAGE.GenerarUsuario( @nombre , @apellido) + '%') ;
 	
 	IF (@cant = 0) BEGIN
 		SET @usuario_sugerido = 'NADA'
