@@ -35,7 +35,7 @@ namespace UberFrba.Dto
 
         public override string ToString()
         {
-            return this.descripcion + this.horaInicial;
+            return this.descripcion;
         }
 
         public override bool Equals(object obj)

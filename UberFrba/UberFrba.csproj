@@ -83,6 +83,7 @@
     <Compile Include="Abm Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dao\RendicionDAO.cs" />
     <Compile Include="Dto\AutomovilDTO.cs" />
     <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
@@ -175,11 +176,11 @@
     <Compile Include="Registro Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.cs">
+    <Compile Include="Rendicion Viajes\Rendicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Rendicion Viajes\Rendicion.Designer.cs">
+      <DependentUpon>Rendicion.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
@@ -234,6 +235,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Rendicion Viajes\Rendicion.resx">
+      <DependentUpon>Rendicion.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

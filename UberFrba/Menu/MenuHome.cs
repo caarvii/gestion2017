@@ -14,6 +14,7 @@ using UberFrba.Dto;
 using UberFrba.Login;
 using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
+using UberFrba.Rendicion_Viajes;
 
 namespace UberFrba.Menu
 {
@@ -177,6 +178,14 @@ namespace UberFrba.Menu
             if (canShowForm("ListadoChofer"))
             {
                 showMenuForm(new ListadoChofer());
+            }
+        }
+
+        private void rendicionViajesMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("Rendicion"))
+            {
+                showMenuForm(new Rendicion());
             }
         }
 
