@@ -55,7 +55,7 @@ namespace UberFrba.Abm_Cliente
 
         protected void botonAlta_Click_1(object sender, EventArgs e)
         {
-            crearCliente crearClienteForm = new crearCliente();
+            crearCliente crearClienteForm = new crearCliente(this);
             crearClienteForm.ShowDialog();
         }
 

@@ -113,7 +113,7 @@ namespace UberFrba.Abm_Chofer
 
                 int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                if (TurnoDAO.deleteTurno(id) == 1)
+                if (ChoferDAO.deleteChofer(id) == 1)
                 {
                     MessageBox.Show("Chofer dado de baja correctamente");
                     cargarListadoChofer();

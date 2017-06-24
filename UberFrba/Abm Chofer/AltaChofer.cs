@@ -52,14 +52,17 @@ namespace UberFrba.Abm_Chofer
             //Cargar todos los datos de los choferes
             choferEdicion = ChoferDAO.getChoferById(choferModificableID);
 
+            this.choferEdicion.id = choferModificableID;
+
             this.txtNombre.Text = choferEdicion.nombre;
             this.txtApellido.Text = choferEdicion.apellido;
             this.txtDNI.Text = choferEdicion.dni.ToString();
             this.txtDireccion.Text = choferEdicion.direccion;
             this.txtTelefono.Text = choferEdicion.telefono.ToString();
             this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
-            this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
-            
+            //this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
+            this.checkHabilitado.Checked = choferEdicion.estado;
+
         }
 
 
@@ -111,6 +114,7 @@ namespace UberFrba.Abm_Chofer
                 && !string.IsNullOrWhiteSpace(txtDNI.Text)
                 && !string.IsNullOrWhiteSpace(txtDireccion.Text)
                 && !string.IsNullOrWhiteSpace(txtTelefono.Text)
+                && !string.IsNullOrWhiteSpace(txtMail.Text)
                 && !string.IsNullOrWhiteSpace(dateFechaNac.Value.ToString()))
             {
                if (setearVariables())
@@ -146,7 +150,7 @@ namespace UberFrba.Abm_Chofer
                 // Edicion
                 try
                 {
-                    choferActivo.id = this.chofer.id;
+                    choferActivo.id = this.choferEdicion.id;
 
                     ChoferDAO.updateChofer(choferActivo);
                     MessageBox.Show("Se edito el chofer correctamente");
