@@ -171,6 +171,8 @@
             this.txtCantKM.Name = "txtCantKM";
             this.txtCantKM.Size = new System.Drawing.Size(134, 20);
             this.txtCantKM.TabIndex = 12;
+            this.txtCantKM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantKM_KeyPress);
+
             // 
             // txtNombreCliente
             // 
@@ -210,6 +212,7 @@
             this.comboTurno.Name = "comboTurno";
             this.comboTurno.Size = new System.Drawing.Size(134, 21);
             this.comboTurno.TabIndex = 7;
+            this.comboTurno.SelectedIndexChanged += new System.EventHandler(this.comboTurno_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -223,7 +226,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 186);
+            this.label6.Location = new System.Drawing.Point(17, 190);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 5;

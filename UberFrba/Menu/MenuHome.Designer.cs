@@ -187,6 +187,7 @@
             this.registrarViajeMenuItem.Size = new System.Drawing.Size(129, 19);
             this.registrarViajeMenuItem.Text = "Registrar Viaje";
             this.registrarViajeMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.registrarViajeMenuItem.Click += new System.EventHandler(this.registrarViajeMenuItem_Click);
             // 
             // rendicionViajesMenuItem
             // 

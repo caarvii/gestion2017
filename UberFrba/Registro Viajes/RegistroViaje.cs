@@ -20,17 +20,12 @@ namespace UberFrba.Registro_Viajes
     public partial class RegistroViaje : Form, ListadoSeleccionListener
     {
         TurnoDTO turnoGlobal;
-        
         ChoferDTO choferGlobal;
         ClienteDTO clienteGlobal;
         AutomovilDTO autoGlobal;
 
         OnCreateUpdateListener listener;
        
-
-
-
-
         public RegistroViaje()
         {
             InitializeComponent();
@@ -63,6 +58,8 @@ namespace UberFrba.Registro_Viajes
         private void cargarAutomovilDisponible()
         {
             AutomovilDTO auto = AutomovilDAO.getAutomovilDisponible(choferGlobal.id);
+            autoGlobal = auto;
+
             txtAutomovil.Text = auto.patente;
 
             cargarTurnosDeAuto(auto.id);
@@ -81,10 +78,24 @@ namespace UberFrba.Registro_Viajes
 
         }
 
+        private void comboTurno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboTurno.SelectedIndex != -1)
+            {
+                txtHoraInicio.Text = ((TurnoDTO)comboTurno.SelectedItem).horaInicial.ToString();
+
+                txtHoraFin.Text = ((TurnoDTO)comboTurno.SelectedItem).horaFinal.ToString();
+            }
+
+        }
 
         // VALIDACIONES
 
+        private void txtCantKM_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowNumericOnlyForDouble(e);
 
+        }
 
 
 
@@ -119,13 +130,60 @@ namespace UberFrba.Registro_Viajes
             ListadoSeleccionCliente.ShowDialog();
         }
 
+        private bool validacionFecha()
+        {
+            return (dataFechaInicio.Value < dataFechaFin.Value);
+
+        }
+
+        private void registrarViaje()
+        {
+            // SETEO 
+            ViajeDTO nuevoViaje = new ViajeDTO( 
+                                               autoGlobal.id,
+                                               ((TurnoDTO)comboTurno.SelectedItem).id,
+                                               choferGlobal.id,
+                                               Convert.ToInt32(txtCantKM.Text),
+                                               dataFechaInicio.Value,
+                                               dataFechaFin.Value,
+                                               clienteGlobal.id
+                                                );
+            // REGISTRO
+
+            ViajeDAO.addNewViaje(nuevoViaje);
+
+        }
+
         private void botonRegistrar_Click(object sender, EventArgs e)
         {
             // TODO
 
+            if (!string.IsNullOrWhiteSpace(txtDNIChofer.Text) 
+                && !string.IsNullOrWhiteSpace(txtAutomovil.Text) 
+                && !string.IsNullOrWhiteSpace(comboTurno.Text)
+                && !string.IsNullOrWhiteSpace(txtCantKM.Text)
+                && !string.IsNullOrWhiteSpace(dataFechaFin.Value.ToString())
+                && !string.IsNullOrWhiteSpace(dataFechaInicio.Value.ToString())
+                && !string.IsNullOrWhiteSpace(txtDNICliente.Text)
+                )
+            {
+                if (validacionFecha())
+                {
 
+                    registrarViaje();
 
+                }
+                else 
+                {
+                    MessageBox.Show("La fecha inicial no puede ser mayor o igual a la fecha final", "Error");
+                }
 
+            }
+            else
+            {
+                MessageBox.Show("Debe completar todos los campos", "Error");
+
+            }
 
 
         }

@@ -83,7 +83,9 @@
     <Compile Include="Abm Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dao\ViajeDAO.cs" />
     <Compile Include="Dto\AutomovilDTO.cs" />
+    <Compile Include="Dto\ViajeDTO.cs" />
     <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
