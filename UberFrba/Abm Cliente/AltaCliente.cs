@@ -18,13 +18,22 @@ namespace UberFrba.Dao
     {
         ClienteDTO clienteAModificar;
 
+        OnCreateUpdateListener listener;
 
-        public crearCliente()
+        public crearCliente(OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
-        }
+            this.Text = "Alta de Clientes";
 
-        OnCreateUpdateListener listener;
+            btnCrearCliente.Visible = true
+                ;
+            btnModificar.Visible = false;
+
+            this.checkHabilitado.Checked = true;
+            
+            listener = listenerExterno;
+
+        }
 
         public crearCliente(ClienteDTO _clienteAModificar, OnCreateUpdateListener _listener)
         {
@@ -59,6 +68,7 @@ namespace UberFrba.Dao
 
         private ClienteDTO cargarCliente()
         {
+            /*
             int dni;
             if (!Int32.TryParse(txtDni.Text, out dni)) throw new Exception("El DNI debe ser numerico");
             
@@ -67,15 +77,16 @@ namespace UberFrba.Dao
             
             int codigoPostal;
             if (!Int32.TryParse(txtCodigoPostal.Text, out codigoPostal)) throw new Exception("El codigo postal debe ser numerico");
+            */
 
             ClienteDTO unCliente = new ClienteDTO(
                                                     txtNombre.Text
                                                     ,txtApellido.Text
-                                                    ,dni
+                                                    , Convert.ToInt32(txtDni.Text)
                                                     ,txtMail.Text
-                                                    ,telefono
+                                                    , Convert.ToInt32(txtTelefono.Text)
                                                     ,txtDireccion.Text
-                                                    ,codigoPostal
+                                                    , Convert.ToInt32(txtCodigoPostal.Text)
                                                     ,Convert.ToDateTime(dtpFechaNacimiento.Value)
                                                     ,checkHabilitado.Checked);
 
@@ -138,6 +149,8 @@ namespace UberFrba.Dao
                 && !string.IsNullOrWhiteSpace(txtDni.Text)
                 && !string.IsNullOrWhiteSpace(txtDireccion.Text)
                 && !string.IsNullOrWhiteSpace(txtTelefono.Text)
+                && !string.IsNullOrWhiteSpace(txtCodigoPostal.Text)
+                && !string.IsNullOrWhiteSpace(txtMail.Text)
                 && !string.IsNullOrWhiteSpace(dtpFechaNacimiento.Value.ToString()))
             {
                 try
@@ -145,7 +158,10 @@ namespace UberFrba.Dao
                     ClienteDTO nuevoCliente = this.cargarCliente();
 
                     ClienteDAO.addNewCliente(nuevoCliente);
-                    MessageBox.Show("Se agrego el turno correctamente");
+                    MessageBox.Show("Se agrego el cliente correctamente");
+
+                    this.Close();
+                    listener.onOperationFinish();
 
                 }
                 catch (ApplicationException ex)
