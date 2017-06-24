@@ -29,9 +29,11 @@ namespace UberFrba.Dao
                     cliente.telefono = Convert.ToInt32(dataReader["cli_telefono"]);
                     cliente.direccion = Convert.ToString(dataReader["cli_direccion"]);
                     cliente.codigoPostal = Convert.ToInt32(dataReader["cli_cp"]);
-                   // cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fechanac"]);
-                    cliente.activo = Convert.ToBoolean(dataReader["cli_activo"]);
+                    cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fecha_nacimiento"]);
+                    cliente.estado = Convert.ToBoolean(dataReader["cli_activo"]);
+
                     clientes.Add(cliente);
+
                 }
             }
             dataReader.Close();
@@ -40,11 +42,17 @@ namespace UberFrba.Dao
 
        }
 
-
         public static List<ClienteDTO> getAllClientes()
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getClientes");
             return readerToListCliente(reader);
+        }
+
+        public static ClienteDTO getClienteById(int clienteId)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getClienteById",
+                SQLManager.getSingleParams("cli_id", clienteId));
+            return readerToListCliente(reader).First();
         }
 
         internal static List<ClienteDTO> getClientesFilter(Dictionary<string, object> filtrosClienteList)
@@ -65,7 +73,9 @@ namespace UberFrba.Dao
 
 
         public static void addNewCliente(ClienteDTO cliente){
+
             Dictionary<string, object> parameters = new Dictionary<string, object>();
+            
             parameters.Add("cli_nombre", cliente.nombre);
             parameters.Add("cli_apellido", cliente.apellido);
             parameters.Add("cli_dni", cliente.dni);
@@ -73,9 +83,9 @@ namespace UberFrba.Dao
             parameters.Add("cli_telefono", cliente.telefono);
             parameters.Add("cli_direccion", cliente.direccion);
             parameters.Add("cli_cp", cliente.codigoPostal);
-            parameters.Add("cli_fechanac", cliente.fechaNacimiento);
-            parameters.Add("usu_usuario", cliente.username);
-            parameters.Add("usu_password", cliente.password);
+            parameters.Add("cli_fecha_nacimiento", cliente.fechaNacimiento);
+
+            // El estado se habilita por defecto en 1.
 
             try
             {
@@ -83,7 +93,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000 || exception.Number == 60000)
+                if (exception.Number == 50000 || exception.Number == 70000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -96,16 +106,10 @@ namespace UberFrba.Dao
         
         }
 
-        
-        public static ClienteDTO getClienteById(int clienteId)
-        {
-            SqlDataReader reader = SQLManager.executeProcedureList("getClienteById",
-                SQLManager.getSingleParams("cli_id", clienteId));
-            return readerToListCliente(reader).First();
-        }
-
         public static void updateCliente(ClienteDTO cliente){
+
             Dictionary<string, object> parameters = new Dictionary<string, object>();
+            
             parameters.Add("cli_id",cliente.id);
             parameters.Add("cli_nombre", cliente.nombre);
             parameters.Add("cli_apellido", cliente.apellido);
@@ -114,7 +118,10 @@ namespace UberFrba.Dao
             parameters.Add("cli_telefono", cliente.telefono);
             parameters.Add("cli_direccion", cliente.direccion);
             parameters.Add("cli_cp", cliente.codigoPostal);
-            parameters.Add("cli_fechanac", cliente.fechaNacimiento);
+            parameters.Add("cli_fecha_nacimiento", cliente.fechaNacimiento);
+            parameters.Add("cli_activo", cliente.estado);
+
+            // Usuario no se updetea
 
             try
             {

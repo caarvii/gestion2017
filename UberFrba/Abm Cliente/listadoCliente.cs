@@ -37,13 +37,15 @@ namespace UberFrba.Abm_Cliente
         public void cargarDGVClientes()
         {
             tablaListado.DataSource = ClienteDAO.getAllClientes();
-            tablaListado.Columns["username"].Visible=false;
-            tablaListado.Columns["password"].Visible = false;
-            tablaListado.Columns["intentos"].Visible = false;
+            tablaListado.Columns["estado"].Visible = false;
+
+            //VER
+
+            //tablaListado.Columns["username"].Visible=false;
+            //tablaListado.Columns["password"].Visible = false;
+            //tablaListado.Columns["intentos"].Visible = false;
+        
         }
-
-
-
 
         protected void btnActualizarListado_Click(object sender, EventArgs e)
         {
@@ -53,7 +55,7 @@ namespace UberFrba.Abm_Cliente
 
         protected void botonAlta_Click_1(object sender, EventArgs e)
         {
-            crearCliente crearClienteForm = new crearCliente();
+            crearCliente crearClienteForm = new crearCliente(this);
             crearClienteForm.ShowDialog();
         }
 
@@ -62,7 +64,7 @@ namespace UberFrba.Abm_Cliente
             if (tablaListado.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = this.tablaListado.SelectedRows[0];
-                ClienteDTO cliente = new ClienteDTO();
+                
                 int id = Convert.ToInt32(row.Cells["id"].Value);
 
                 if (ClienteDAO.deleteCliente(id) == 1)
@@ -84,8 +86,10 @@ namespace UberFrba.Abm_Cliente
             if (tablaListado.SelectedRows.Count == 1)
             {
                 DataGridViewRow row = this.tablaListado.SelectedRows[0];
-                ClienteDTO cliente = new ClienteDTO();
-                cliente.id = Convert.ToInt32(row.Cells["id"].Value);
+
+                int id  = Convert.ToInt32(row.Cells["id"].Value);
+
+                ClienteDTO cliente = ClienteDAO.getClienteById(id);
 
                 crearCliente crearClienteForm = new crearCliente(cliente, this);
                 crearClienteForm.ShowDialog();
@@ -101,11 +105,19 @@ namespace UberFrba.Abm_Cliente
             {
                 filtrosClienteList = new Dictionary<string, object>();
 
-                if (!string.IsNullOrWhiteSpace(txtFiltroNombre.Text) || !string.IsNullOrWhiteSpace(txtFiltroApellido.Text) || !string.IsNullOrWhiteSpace(txtFiltroDni.Text))
+                if (!string.IsNullOrWhiteSpace(txtFiltroNombre.Text))
                 {
                     filtrosClienteList.Add("cli_nombre", txtFiltroNombre.Text);
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtFiltroApellido.Text))
+                {
                     filtrosClienteList.Add("cli_apellido", txtFiltroApellido.Text);
-                    filtrosClienteList.Add("cli_dni", txtFiltroDni.Text);
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtFiltroDni.Text))
+                {
+                     filtrosClienteList.Add("cli_dni", txtFiltroDni.Text);
                 }
 
                 //if check todos los filtros 
@@ -114,6 +126,7 @@ namespace UberFrba.Abm_Cliente
                 {
                     //Tiene filtros
                     tablaListado.DataSource = ClienteDAO.getClientesFilter(filtrosClienteList);
+                    tablaListado.Columns["estado"].Visible = false;
                 }
                 else
                 {

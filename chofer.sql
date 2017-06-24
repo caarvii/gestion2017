@@ -12,12 +12,12 @@ begin
 end
 go
 
-create procedure GARBAGE.bajaLogicaChofer(@chofer_id int)
+create procedure GARBAGE.bajaLogicaChofer(@chof_id int)
 as
 begin
 	
 	update GARBAGE.Chofer set chof_activo = 0
-	where chof_id = @chofer_id;
+	where chof_id = @chof_id;
 	RETURN 1
 
 end
@@ -39,6 +39,8 @@ begin
 	declare @cant int;
 	declare @user_id int;
 	declare @nombre_sugerido varchar(25);
+	declare @id_rol_chofer int;
+
 
 	set @cant = (SELECT COUNT (*) FROM GARBAGE.Chofer WHERE chof_telefono=@chof_telefono);
 	
@@ -54,12 +56,30 @@ begin
 		SET @nombre_sugerido = GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)
 	END
 
-	-- Inserta tambien en tabla Usuario
+	-- Podria volver a agregarse en un futuro
+
+	SET @id_rol_chofer = (select rol_id from GARBAGE.Rol WHERE rol_nombre = 'Chofer');
+
+
+	-- ROL INHABILITADO
+	IF ( (SELECT COUNT(*) FROM GARBAGE.Rol WHERE rol_id = @id_rol_chofer AND rol_activo = 0) > 0 ) BEGIN
+	
+		set @error_message = 'No se puede crear un chofer con un rol inactivo';
+		throw 70000, @error_message , 1;
+
+	END 
+
+	-- INSERTA EN TABLA USUARIO
 
 	INSERT INTO GARBAGE.Usuario (usu_username,usu_password)
 	VALUES (@nombre_sugerido, HASHBYTES('SHA2_256',GARBAGE.GenerarUsuario(@chof_nombre , @chof_apellido)))
 
 	SET @user_id = scope_identity();
+
+	-- INSERTA EN TABLA ROL_POR_USUARIO ( AL SER VALIDO ) 
+
+	INSERT INTO GARBAGE.RolxUsuario (rol_usu_rol_id , rol_usu_usu_id)
+	VALUES (@id_rol_chofer , @user_id)
 
 	insert into GARBAGE.Chofer(chof_nombre,
 							   chof_apellido,
@@ -92,8 +112,8 @@ create procedure GARBAGE.updateChofer(
             @chof_mail varchar(255),
             @chof_telefono numeric (18,0),
 			@chof_direccion varchar(255),
-            @chof_fecha_naciemiento datetime ,
-			@chof_habilitado bit
+            @chof_fecha_nacimiento datetime ,
+			@chof_activo bit
 			)
 as
 begin
@@ -115,9 +135,9 @@ begin
 							  chof_dni = @chof_dni,
 							  chof_telefono = @chof_telefono,
 							  chof_direccion = @chof_direccion,
-							  chof_fecha_nacimiento = @chof_fecha_naciemiento,
+							  chof_fecha_nacimiento = @chof_fecha_nacimiento,
 							  chof_mail = @chof_mail,
-							  chof_activo = @chof_habilitado
+							  chof_activo = @chof_activo
 	where chof_id = @chof_id;
 
 	RETURN 1
@@ -133,7 +153,7 @@ AS BEGIN
 	DECLARE @usuario_sugerido varchar(25);
 	DECLARE @usu_id int;
 
-	SET @cant = (SELECT COUNT(*) FROM GARBAGE.Usuario WHERE usu_username = GARBAGE.GenerarUsuario(@nombre , @apellido)) ;
+	SET @cant = (SELECT COUNT(*) FROM GARBAGE.Usuario WHERE usu_username LIKE GARBAGE.GenerarUsuario( @nombre , @apellido) + '%') ;
 	
 	IF (@cant = 0) BEGIN
 		SET @usuario_sugerido = 'NADA'

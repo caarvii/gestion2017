@@ -18,31 +18,43 @@ namespace UberFrba.Dao
     {
         ClienteDTO clienteAModificar;
 
-        public crearCliente()
-        {
-            InitializeComponent();
-        }
-
         OnCreateUpdateListener listener;
 
-        //este constructor lo voy a usar para modificar un cliente
+        public crearCliente(OnCreateUpdateListener listenerExterno)
+        {
+            InitializeComponent();
+            this.Text = "Alta de Clientes";
+
+            btnCrearCliente.Visible = true
+                ;
+            btnModificar.Visible = false;
+
+            this.checkHabilitado.Checked = true;
+            
+            listener = listenerExterno;
+
+        }
+
         public crearCliente(ClienteDTO _clienteAModificar, OnCreateUpdateListener _listener)
         {
             InitializeComponent();
             clienteAModificar = _clienteAModificar;
-            CargarDatosDeClienteAModificar();
+
+            CargarDatosDeClienteAModificar(clienteAModificar);
+
             btnCrearCliente.Visible = false;
             btnModificar.Visible = true;
-            lblUsuario.Visible = false;
-            lblPassword.Visible = false;
-            txtPassword.Visible = false;
-            txtUserName.Visible = false;
+            
             this.Text = "Modificar cliente";
             listener = _listener;
         }
 
-        private void CargarDatosDeClienteAModificar(){
-            ClienteDTO cliente = ClienteDAO.getClienteById(clienteAModificar.id);
+        private void CargarDatosDeClienteAModificar(ClienteDTO clienteAModificar)
+        {
+            //ClienteDTO cliente = ClienteDAO.getClienteById(clienteAModificar.id);
+
+            ClienteDTO cliente = clienteAModificar;
+
             txtNombre.Text = cliente.nombre;
             txtApellido.Text = cliente.apellido;
             txtDni.Text = cliente.dni.ToString();
@@ -50,17 +62,13 @@ namespace UberFrba.Dao
             txtTelefono.Text = cliente.telefono.ToString();
             txtDireccion.Text = cliente.direccion;
             txtCodigoPostal.Text = cliente.codigoPostal.ToString();
-            txtUserName.Text = cliente.username;
+            this.checkHabilitado.Checked = Convert.ToBoolean(cliente.estado);
+            
         }
-
-
-
-
-
 
         private ClienteDTO cargarCliente()
         {
-
+            /*
             int dni;
             if (!Int32.TryParse(txtDni.Text, out dni)) throw new Exception("El DNI debe ser numerico");
             
@@ -69,58 +77,24 @@ namespace UberFrba.Dao
             
             int codigoPostal;
             if (!Int32.TryParse(txtCodigoPostal.Text, out codigoPostal)) throw new Exception("El codigo postal debe ser numerico");
-
+            */
 
             ClienteDTO unCliente = new ClienteDTO(
-                txtNombre.Text,
-                txtApellido.Text,
-                dni,
-                txtMail.Text,
-                telefono,
-                txtDireccion.Text,
-                codigoPostal,
-                dtpFechaNacimiento.Value.Date,
-                txtUserName.Text,
-                txtPassword.Text);
+                                                    txtNombre.Text
+                                                    ,txtApellido.Text
+                                                    , Convert.ToInt32(txtDni.Text)
+                                                    ,txtMail.Text
+                                                    , Convert.ToInt32(txtTelefono.Text)
+                                                    ,txtDireccion.Text
+                                                    , Convert.ToInt32(txtCodigoPostal.Text)
+                                                    ,Convert.ToDateTime(dtpFechaNacimiento.Value)
+                                                    ,checkHabilitado.Checked);
 
             return unCliente;
-
         }
 
-        private void btnCrearCliente_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ClienteDTO nuevoCliente = this.cargarCliente();
-                ClienteDAO.addNewCliente(nuevoCliente);
-                MessageBox.Show("Se agrego el turno correctamente");
 
-            }
-            catch (ApplicationException ex)
-            {
-                    Utility.ShowError("Error al agregar el cliente", ex);
-            }
-
-        }
-        
-            //vamos a necesitar un trigger que c/vez que inserte un cliente inserte el usuario
-
-
-        
-        private void crearCliente_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void mostrarBotonModificar()
-        {
-            btnModificar.Visible = true;
-        }
-
-        public void ocultarCrear() {
-            btnCrearCliente.Visible = false;    
-        }
-
+        // VALIDACIONES
 
         private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -135,7 +109,6 @@ namespace UberFrba.Dao
             if (e.KeyChar != 8)
                 this.allowMaxLenght(txtNombre, 255, e);
         }
-
 
         private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -166,54 +139,104 @@ namespace UberFrba.Dao
             if (e.KeyChar != 8) this.allowMaxLenght(txtCodigoPostal, 18, e);
         }
 
+
+        // BOTONES
+
+        private void btnCrearCliente_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text)
+                && !string.IsNullOrWhiteSpace(txtApellido.Text)
+                && !string.IsNullOrWhiteSpace(txtDni.Text)
+                && !string.IsNullOrWhiteSpace(txtDireccion.Text)
+                && !string.IsNullOrWhiteSpace(txtTelefono.Text)
+                && !string.IsNullOrWhiteSpace(txtCodigoPostal.Text)
+                && !string.IsNullOrWhiteSpace(txtMail.Text)
+                && !string.IsNullOrWhiteSpace(dtpFechaNacimiento.Value.ToString()))
+            {
+                try
+                {
+                    ClienteDTO nuevoCliente = this.cargarCliente();
+
+                    ClienteDAO.addNewCliente(nuevoCliente);
+                    MessageBox.Show("Se agrego el cliente correctamente");
+
+                    this.Close();
+                    listener.onOperationFinish();
+
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el cliente", ex);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Debe completar todos los campos", "Error");
+
+            }
+
+        }
+
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text)
+                && !string.IsNullOrWhiteSpace(txtApellido.Text)
+                && !string.IsNullOrWhiteSpace(txtDni.Text)
+                && !string.IsNullOrWhiteSpace(txtDireccion.Text)
+                && !string.IsNullOrWhiteSpace(txtTelefono.Text)
+                && !string.IsNullOrWhiteSpace(dtpFechaNacimiento.Value.ToString()))
             {
-                ClienteDTO cliente = cargarCliente();
-                cliente.id = clienteAModificar.id;
-                ClienteDAO.updateCliente(cliente);
-                MessageBox.Show("Cliente modificado con exito");
-                this.Close(); //Cierro formulario
-                listener.onOperationFinish();
-                
+                try
+                {
+                    ClienteDTO cliente = cargarCliente();
+
+                    cliente.id = clienteAModificar.id;
+
+                    ClienteDAO.updateCliente(cliente);
+                    MessageBox.Show("Cliente modificado con exito");
+
+                    this.Close();
+                    listener.onOperationFinish();
+
+                }
+                catch (ApplicationException ex)
+                {
+                    Utility.ShowError("Error al agregar el cliente", ex);
+                } 
+
             }
-            catch (ApplicationException ex)
+            else
             {
-                Utility.ShowError("Error al agregar el cliente", ex);
+                MessageBox.Show("Debe completar todos los campos", "Error");
             }
         
         }
 
-        private void txtCodigoPostal_TextChanged(object sender, EventArgs e)
+        private void botonLimpiar_Click(object sender, EventArgs e)
         {
-
+            this.txtNombre.Text = "";
+            this.txtApellido.Text = "";
+            this.txtDni.Text = "";
+            this.txtDireccion.Text = "";
+            this.txtTelefono.Text = "";
+            this.txtMail.Text = "";
+            this.txtCodigoPostal.Text = "";
+            this.dtpFechaNacimiento.ResetText();
+            this.checkHabilitado.Checked = false;
         }
 
-        private void crearCliente_Load_1(object sender, EventArgs e)
+        public void mostrarBotonModificar()
         {
-
+            btnModificar.Visible = true;
         }
 
+        public void ocultarCrear()
+        {
+            btnCrearCliente.Visible = false;
+        }
 
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-     
-        
-
-
+        // FIN LINEA
 
 
     }
