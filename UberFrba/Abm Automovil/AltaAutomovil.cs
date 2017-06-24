@@ -116,7 +116,6 @@ namespace UberFrba.Abm_Automovil
 
         }
 
-        
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -151,7 +150,7 @@ namespace UberFrba.Abm_Automovil
                     AutomovilDTO nuevoAutomovil = this.cargarAutomovil();
                     AutomovilDAO.addNewAutomovil(nuevoAutomovil);
                     MessageBox.Show("Se agrego el automovil correctamente");
-                   // listener.onOperationFinish();
+                    listener.onOperationFinish();
                 }
                 catch (ApplicationException ex)
                 {
