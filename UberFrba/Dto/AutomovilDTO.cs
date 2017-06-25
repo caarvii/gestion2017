@@ -25,9 +25,11 @@ namespace UberFrba.Dto
         public string rodado { get; set; }
         public int chofer_id { get; set; }
         public int turno_id { get; set; }
+        public bool activo { get; set; }
+        public List<TurnoDTO> turnosList { get; set; }
 
 
-        public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, string _licencia, string _rodado,int _chofer_id,int _turno_id)
+        public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, string _licencia, string _rodado,int _chofer_id)
         {
         marca_id = _marca_id;
         modelo_id = _modelo_id;
@@ -35,9 +37,8 @@ namespace UberFrba.Dto
         licencia= _licencia;
         rodado = _rodado;
         chofer_id = _chofer_id;
-        turno_id = _turno_id; 
-        
-        }
+                }
+
 
         public AutomovilDTO() { }
 
