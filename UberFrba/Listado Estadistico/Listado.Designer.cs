@@ -1,4 +1,5 @@
-﻿namespace UberFrba.Listado_Estadistico
+﻿using System.Windows.Forms;
+namespace UberFrba.Listado_Estadistico
 {
     partial class Listado
     {
@@ -41,6 +42,7 @@
             // 
             // comboAnio
             // 
+            this.comboAnio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboAnio.FormattingEnabled = true;
             this.comboAnio.Items.AddRange(new object[] {
             "2010",
@@ -51,27 +53,30 @@
             "2015",
             "2016",
             "2017"});
-            this.comboAnio.Location = new System.Drawing.Point(291, 9);
+            this.comboAnio.Location = new System.Drawing.Point(425, 6);
             this.comboAnio.Name = "comboAnio";
             this.comboAnio.Size = new System.Drawing.Size(121, 21);
             this.comboAnio.TabIndex = 0;
+            this.comboAnio.SelectedIndexChanged += new System.EventHandler(this.comboAnio_SelectedIndexChanged);
             // 
             // comboTrimestre
             // 
+            this.comboTrimestre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboTrimestre.FormattingEnabled = true;
             this.comboTrimestre.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4"});
-            this.comboTrimestre.Location = new System.Drawing.Point(291, 36);
+            this.comboTrimestre.Location = new System.Drawing.Point(425, 33);
             this.comboTrimestre.Name = "comboTrimestre";
             this.comboTrimestre.Size = new System.Drawing.Size(121, 21);
             this.comboTrimestre.TabIndex = 1;
+            this.comboTrimestre.SelectedIndexChanged += new System.EventHandler(this.comboTrimestre_SelectedIndexChanged);
             // 
             // Calcular
             // 
-            this.Calcular.Location = new System.Drawing.Point(331, 90);
+            this.Calcular.Location = new System.Drawing.Point(465, 87);
             this.Calcular.Name = "Calcular";
             this.Calcular.Size = new System.Drawing.Size(81, 21);
             this.Calcular.TabIndex = 2;
@@ -81,16 +86,18 @@
             // 
             // comboFuncionalidad
             // 
+            this.comboFuncionalidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFuncionalidad.FormattingEnabled = true;
             this.comboFuncionalidad.Items.AddRange(new object[] {
-            "Choferes mayor recaudacion",
-            "Choferes viaje mas largo realizado",
-            "Clientes mayor consumo",
+            "Choferes con mayor recaudacion",
+            "Choferes con el viaje mas largo realizado",
+            "Clientes con mayor consumo",
             "Cliente que utilizo mas veces mismo automovil"});
-            this.comboFuncionalidad.Location = new System.Drawing.Point(149, 63);
+            this.comboFuncionalidad.Location = new System.Drawing.Point(283, 60);
             this.comboFuncionalidad.Name = "comboFuncionalidad";
             this.comboFuncionalidad.Size = new System.Drawing.Size(263, 21);
             this.comboFuncionalidad.TabIndex = 3;
+            this.comboFuncionalidad.SelectedIndexChanged += new System.EventHandler(this.comboFuncionalidad_SelectedIndexChanged);
             // 
             // labelAnio
             // 
@@ -125,12 +132,12 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 133);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(400, 222);
+            this.dataGridView1.Size = new System.Drawing.Size(534, 222);
             this.dataGridView1.TabIndex = 7;
             // 
             // Listado
             // 
-            this.ClientSize = new System.Drawing.Size(424, 367);
+            this.ClientSize = new System.Drawing.Size(558, 367);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.labelListado);
             this.Controls.Add(this.labelTrimestre);
