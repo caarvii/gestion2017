@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using UberFrba.Abm_Chofer;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Helpers;
 using UberFrba.Interface;
 using UberFrba.Login;
 using UberFrba.Repository;
@@ -20,12 +21,11 @@ namespace UberFrba.Rendicion_Viajes
     {
         private TurnoDTO turno;
         private ChoferDTO chofer;
-        private DateTime date;
 
         public Rendicion()
         {
             InitializeComponent();
-            this.fechaRendicionDateTimePicker.Value = Config.newInstance.date; 
+            this.fechaRendicionDateTimePicker.Value = Config.newInstance.date;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -86,6 +86,22 @@ namespace UberFrba.Rendicion_Viajes
             this.turno = null;
             inicioTurnoTextBox.Text = "";
             finTurnoTextBox.Text = "";
+
+            viajesParaRendirDataGridView.DataSource = null;
+        }
+
+        private void buscarViajesButton_Click(object sender, EventArgs e)
+        {
+            if (chofer == null || turno == null)
+            {
+                Utility.ShowInfo("Rendicion", "Debe seleccionar un chofer y un turno para buscar los viajes");
+                return;
+            }
+
+            DataTable dt = new DataTable();
+            dt.Load(RendicionDAO.getViajesNoRendidos(chofer, turno, fechaRendicionDateTimePicker.Value));
+
+            viajesParaRendirDataGridView.DataSource = dt;
         }
     }
 }

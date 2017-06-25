@@ -30,6 +30,7 @@ namespace UberFrba.Rendicion_Viajes
         private void InitializeComponent()
         {
             this.rendicionGroupBox = new System.Windows.Forms.GroupBox();
+            this.cleanButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.viajesGroupBox = new System.Windows.Forms.GroupBox();
             this.totalPlataLabel = new System.Windows.Forms.Label();
@@ -48,7 +49,6 @@ namespace UberFrba.Rendicion_Viajes
             this.choferLabel = new System.Windows.Forms.Label();
             this.fechaRendicionDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.fechaLabel = new System.Windows.Forms.Label();
-            this.cleanButton = new System.Windows.Forms.Button();
             this.rendicionGroupBox.SuspendLayout();
             this.viajesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viajesParaRendirDataGridView)).BeginInit();
@@ -78,6 +78,16 @@ namespace UberFrba.Rendicion_Viajes
             this.rendicionGroupBox.TabIndex = 0;
             this.rendicionGroupBox.TabStop = false;
             this.rendicionGroupBox.Text = "Rendicion";
+            // 
+            // cleanButton
+            // 
+            this.cleanButton.Location = new System.Drawing.Point(125, 129);
+            this.cleanButton.Name = "cleanButton";
+            this.cleanButton.Size = new System.Drawing.Size(75, 23);
+            this.cleanButton.TabIndex = 14;
+            this.cleanButton.Text = "Limpiar";
+            this.cleanButton.UseVisualStyleBackColor = true;
+            this.cleanButton.Click += new System.EventHandler(this.cleanButton_Click);
             // 
             // button1
             // 
@@ -128,7 +138,11 @@ namespace UberFrba.Rendicion_Viajes
             this.viajesParaRendirDataGridView.Name = "viajesParaRendirDataGridView";
             this.viajesParaRendirDataGridView.Size = new System.Drawing.Size(432, 165);
             this.viajesParaRendirDataGridView.TabIndex = 1;
-            // 
+            this.viajesParaRendirDataGridView.MultiSelect = false;
+            this.viajesParaRendirDataGridView.ReadOnly = true;
+            this.viajesParaRendirDataGridView.AllowUserToAddRows = false;
+            this.viajesParaRendirDataGridView.AllowUserToDeleteRows = false;
+            this.viajesParaRendirDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // buscarViajesButton
             // 
             this.buscarViajesButton.Location = new System.Drawing.Point(23, 129);
@@ -137,6 +151,7 @@ namespace UberFrba.Rendicion_Viajes
             this.buscarViajesButton.TabIndex = 12;
             this.buscarViajesButton.Text = "Buscar Viajes";
             this.buscarViajesButton.UseVisualStyleBackColor = true;
+            this.buscarViajesButton.Click += new System.EventHandler(this.buscarViajesButton_Click);
             // 
             // finTurnoTextBox
             // 
@@ -229,10 +244,10 @@ namespace UberFrba.Rendicion_Viajes
             this.choferLabel.TabIndex = 2;
             this.choferLabel.Text = "Chofer";
             // 
-            // dateTimePicker1
+            // fechaRendicionDateTimePicker
             // 
             this.fechaRendicionDateTimePicker.Location = new System.Drawing.Point(78, 31);
-            this.fechaRendicionDateTimePicker.Name = "dateTimePicker1";
+            this.fechaRendicionDateTimePicker.Name = "fechaRendicionDateTimePicker";
             this.fechaRendicionDateTimePicker.Size = new System.Drawing.Size(239, 20);
             this.fechaRendicionDateTimePicker.TabIndex = 1;
             // 
@@ -244,16 +259,6 @@ namespace UberFrba.Rendicion_Viajes
             this.fechaLabel.Size = new System.Drawing.Size(37, 13);
             this.fechaLabel.TabIndex = 0;
             this.fechaLabel.Text = "Fecha";
-            // 
-            // cleanButton
-            // 
-            this.cleanButton.Location = new System.Drawing.Point(125, 129);
-            this.cleanButton.Name = "cleanButton";
-            this.cleanButton.Size = new System.Drawing.Size(75, 23);
-            this.cleanButton.TabIndex = 14;
-            this.cleanButton.Text = "Limpiar";
-            this.cleanButton.UseVisualStyleBackColor = true;
-            this.cleanButton.Click += new System.EventHandler(this.cleanButton_Click);
             // 
             // Rendicion
             // 

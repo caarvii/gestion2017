@@ -17,5 +17,15 @@ namespace UberFrba.Dao
                 SQLManager.getSingleParams("chof_id", chofer.id));
             return TurnoDAO.getTurnos(reader);
         }
+
+        public static SqlDataReader getViajesNoRendidos(ChoferDTO chofer, TurnoDTO turno, DateTime dateTime)
+        {
+            Dictionary<string, object> parametros = new Dictionary<string, object>();
+            parametros.Add("chof_id", chofer.id);
+            parametros.Add("turno_id", turno.id);
+            parametros.Add("fecha", dateTime);
+
+            return SQLManager.executeProcedureList("getViajesNoRendidos", parametros);
+        }
     }
 }
