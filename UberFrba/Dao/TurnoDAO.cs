@@ -96,6 +96,14 @@ namespace UberFrba.Dao
 
         }
 
+        public static List<TurnoDTO> getTurnosByAutomovilId(int auto_id)
+        {
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getTurnosByAutomovilId",
+               SQLManager.getSingleParams("auto_id", auto_id));
+            return getTurnos(dataReader);
+
+        }
+
         private static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
         {
             List<TurnoDTO> listaTurnos = new List<TurnoDTO>();
