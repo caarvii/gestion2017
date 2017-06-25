@@ -30,6 +30,10 @@ namespace UberFrba.Registro_Viajes
         {
             InitializeComponent();
             this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+
+            //this.dataFechaInicio.Format = DateTimePickerFormat.Time;
+            //this.dataFechaInicio.ShowUpDown = true;
+
         }
 
         public void onOperationFinishCliente(ClienteDTO cliente)
@@ -97,9 +101,6 @@ namespace UberFrba.Registro_Viajes
             this.allowNumericOnlyForDouble(e);
 
         }
-
-
-
 
         // BOTONES
 

@@ -172,7 +172,6 @@
             this.txtCantKM.Size = new System.Drawing.Size(134, 20);
             this.txtCantKM.TabIndex = 12;
             this.txtCantKM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantKM_KeyPress);
-
             // 
             // txtNombreCliente
             // 
@@ -192,6 +191,7 @@
             // 
             // dataFechaFin
             // 
+            this.dataFechaFin.CustomFormat = "MM/dd/yyyy hh:mm:ss";
             this.dataFechaFin.Location = new System.Drawing.Point(101, 189);
             this.dataFechaFin.Name = "dataFechaFin";
             this.dataFechaFin.Size = new System.Drawing.Size(223, 20);
@@ -199,6 +199,8 @@
             // 
             // dataFechaInicio
             // 
+            this.dataFechaInicio.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.dataFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataFechaInicio.Location = new System.Drawing.Point(101, 157);
             this.dataFechaInicio.Name = "dataFechaInicio";
             this.dataFechaInicio.Size = new System.Drawing.Size(223, 20);
@@ -303,10 +305,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(550, 470);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonRegistrar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegistroViaje";
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);

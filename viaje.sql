@@ -26,20 +26,41 @@ end
 go
 
 create procedure GARBAGE.altaViaje(
-            @chof_nombre varchar(255),
-            @chof_apellido varchar(255),
-            @chof_dni numeric (18,0),
-            @chof_mail varchar(255),
-            @chof_telefono numeric (18,0),
-			@chof_direccion varchar(255),
-            @chof_fecha_nacimiento datetime
+            @viaje_auto_id int,
+			@viaje_turno_id int,
+			@viaje_chof_id int ,
+			@viaje_cant_km numeric(18,2) ,
+			@fecha_hora_ini datetime ,
+			@fecha_hora_fin datetime,
+			@viaje_cli_id int
 			)
 as
 begin
 
+	
+	-- validar viajes duplicados , etc.
 
 
 
+	INSERT INTO GARBAGE.Viaje(	viaje_auto_id
+								,viaje_turno_id
+								,viaje_chof_id
+								,viaje_cant_km
+								,fecha_hora_ini
+								,fecha_hora_fin
+								,viaje_cli_id
+								)
+	VALUES (
+			 @viaje_auto_id
+			,@viaje_turno_id
+			,@viaje_chof_id
+			,@viaje_cant_km 
+			,@fecha_hora_ini
+			,@fecha_hora_fin
+			,@viaje_cli_id
+				)
+
+	RETURN 1
 
 end
 go
