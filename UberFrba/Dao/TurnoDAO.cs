@@ -30,7 +30,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000 )
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -62,7 +62,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -96,7 +96,15 @@ namespace UberFrba.Dao
 
         }
 
-        private static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
+        public static List<TurnoDTO> getTurnosByAutomovilId(int auto_id)
+        {
+            SqlDataReader dataReader = SQLManager.executeProcedureList("getTurnosByAutomovilId",
+               SQLManager.getSingleParams("auto_id", auto_id));
+            return getTurnos(dataReader);
+
+        }
+
+        public static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
         {
             List<TurnoDTO> listaTurnos = new List<TurnoDTO>();
             if (dataReader.HasRows)

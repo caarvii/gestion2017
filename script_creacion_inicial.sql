@@ -8,6 +8,162 @@ else
 	print('El esquema GARBAGE ya existe.')
 go
 
+/****************************************************************/
+/*********** DROP ALL PROCEDURES, FUNCTIONS AND VIEWS ***********/
+/****************************************************************/
+
+declare @objectName varchar(500)
+declare @type char(2)
+declare @typeName varchar(30)
+
+declare cursorObjectsDB cursor for 
+	select sys.objects.name, sys.objects.type
+	from sys.objects 
+	join sys.schemas on sys.schemas.schema_id = sys.objects.schema_id and sys.schemas.name = 'GARBAGE' 
+	where type = 'p' or type in (N'FN', N'IF', N'TF', N'FS', N'FT') or type = 'V' or type= 'TT'
+
+open cursorObjectsDB
+fetch next from cursorObjectsDB into @objectName, @type
+while @@fetch_status = 0
+begin
+
+	if(@type = 'P')
+	begin
+		set @typeName = 'procedure'
+	end
+	if(@type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+	begin
+		set @typeName = 'function'
+	end
+	if(@type = 'V')
+	begin
+		set @typeName = 'view'
+	end
+
+	exec('drop ' + @typeName + ' GARBAGE.' + @objectName )
+	print('drop ' + @typeName + ' GARBAGE.' + @objectName )
+
+    fetch next from cursorObjectsDB into @objectName, @type
+end
+close cursorObjectsDB
+deallocate cursorObjectsDB
+go
+
+/************************************************/
+/*********** DROP ALL TABLE IF EXISTS ***********/
+/************************************************/
+
+create function GARBAGE.existeTabla(@nombreTabla varchar(50))
+returns bit
+as begin
+ return (select count(*) 
+		from INFORMATION_SCHEMA.TABLES 
+		where TABLE_SCHEMA = 'GARBAGE' and TABLE_NAME = @nombreTabla)
+end
+go
+
+if(GARBAGE.existeTabla('ItemxFactura') = 1)
+begin
+	drop table GARBAGE.ItemxFactura
+end
+go
+
+if(GARBAGE.existeTabla('Factura') = 1)
+begin
+	drop table GARBAGE.Factura
+end
+go
+
+if(GARBAGE.existeTabla('Rendicion') = 1)
+begin
+	drop table GARBAGE.Rendicion
+end
+go
+
+if(GARBAGE.existeTabla('Viaje') = 1)
+begin
+	drop table GARBAGE.Viaje
+end
+go
+
+if(GARBAGE.existeTabla('TurnoxAutomovil') = 1)
+begin
+	drop table GARBAGE.TurnoxAutomovil
+end
+go
+
+if(GARBAGE.existeTabla('Turno') = 1)
+begin
+	drop table GARBAGE.Turno
+end
+go
+
+if(GARBAGE.existeTabla('ChoferxAutomovil') = 1)
+begin	
+	drop table GARBAGE.ChoferxAutomovil
+end
+go
+
+if(GARBAGE.existeTabla('Automovil') = 1)
+begin
+	drop table GARBAGE.Automovil
+end
+go
+
+if(GARBAGE.existeTabla('Modelo') = 1)
+begin
+	drop table GARBAGE.Modelo
+end
+go
+
+if(GARBAGE.existeTabla('Marca') = 1)
+begin
+	drop table GARBAGE.Marca
+end
+go
+
+if(GARBAGE.existeTabla('Chofer') = 1)
+begin
+	drop table GARBAGE.Chofer
+end
+go
+
+if(GARBAGE.existeTabla('Cliente') = 1)
+begin
+	drop table GARBAGE.Cliente
+end
+go
+
+if(GARBAGE.existeTabla('RolxUsuario') = 1)
+begin
+	drop table GARBAGE.RolxUsuario
+end
+go
+
+if(GARBAGE.existeTabla('Usuario') = 1)
+begin
+	drop table GARBAGE.Usuario
+end
+go
+
+if(GARBAGE.existeTabla('FuncionalidadxRol') = 1)
+begin
+	drop table GARBAGE.FuncionalidadxRol
+end
+go
+
+if(GARBAGE.existeTabla('Rol') = 1)
+begin
+	drop table GARBAGE.Rol
+end
+go
+
+if(GARBAGE.existeTabla('Funcionalidad') = 1)
+begin
+	drop table GARBAGE.Funcionalidad
+end
+go
+
 /******************************************** INICIO - CREACION DE TABLAS ******************************************/
 
 create table GARBAGE.Rol(
@@ -53,7 +209,7 @@ create table GARBAGE.Cliente(
 	cli_dni numeric(18,0) not null,
 	cli_telefono numeric(18,0) unique not null,
 	cli_direccion varchar(255) not null,
-	cli_fecha_nacimiento varchar(255) not null,
+	cli_fecha_nacimiento datetime not null,
 	cli_cp numeric(18,0) default 1 not null,
 	cli_mail varchar(255), 
 	cli_activo bit default 1 not null,
@@ -67,7 +223,7 @@ create table GARBAGE.Chofer(
 	chof_dni numeric(18,0) not null,
 	chof_telefono numeric(18,0) not null,
 	chof_direccion varchar(255) not null,
-	chof_fecha_nacimiento varchar(255) not null,
+	chof_fecha_nacimiento datetime not null,
 	chof_mail varchar(255) not null,
 	chof_activo bit default 1 not null,
 	chof_usu_id int)
@@ -527,8 +683,20 @@ alter table GARBAGE.Factura alter column fact_total decimal (12,2) not null
 end
 go
 
+/****************************************************************************/
+/*************************** EJECUCION MIGRACION ****************************/
+/****************************************************************************/
 exec GARBAGE.SPMigracion;
 go
+/****************************************************************************/
+
+
+/****************************************************************************/
+/****************************************************************************/
+/**************************** LOGIN PROCEDURES ******************************/
+/****************************************************************************/
+/****************************************************************************/
+
 
 create procedure GARBAGE.Login(@username nvarchar(255), @password varbinary(64)) 
 as
@@ -590,6 +758,39 @@ begin
 end
 go
 
+
+
+
+/******************************************************************************/
+/******************************************************************************/
+/**************************** USUARIO PROCEDURES ******************************/
+/******************************************************************************/
+/******************************************************************************/
+
+create procedure GARBAGE.getUsuarioById(@user_id int)
+as
+begin
+	(select * from GARBAGE.Usuario where usu_id = @user_id)
+end
+go
+
+
+
+
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************** FUNCIONALIDADES PROCEDURES ******************************/
+/**************************************************************************************/
+/**************************************************************************************/
+
+
+create procedure GARBAGE.getFuncionalidades
+as
+begin
+	(select * from GARBAGE.Funcionalidad)
+end
+go
+
 create procedure GARBAGE.getFuncionalidadListByRolId(@rol_id int)
 as
 begin
@@ -599,13 +800,125 @@ begin
 end
 go
 
-/*/////////////////////////////////////////////////////////// Usuario
-*/
 
-create procedure GARBAGE.getUsuarioById(@user_id int)
+
+
+/**************************************************************************/
+/**************************************************************************/
+/**************************** ROL PROCEDURES ******************************/
+/**************************************************************************/
+/**************************************************************************/
+
+
+create procedure GARBAGE.getRoles
 as
 begin
-	(select * from GARBAGE.Usuario where usu_id = @user_id)
+	(select * from GARBAGE.Rol)
 end
+go
 
+create procedure GARBAGE.getRolById(@rol_id int)
+as
+begin
+	(select * from GARBAGE.Rol where rol_id= @rol_id)
+end
+go
+
+create procedure GARBAGE.deleteRol(@rol_id int)
+as 
+begin
+	update GARBAGE.Rol set rol_activo = 0 
+	where rol_id = @rol_id
+end
+go
+
+IF EXISTS (SELECT * FROM sys.table_types WHERE name ='FuncionalidadType')
+    drop type GARBAGE.FuncionalidadType
+GO
+
+create type GARBAGE.FuncionalidadType as table(
+	funcionalidad_id int not null
+)
+go
+
+create procedure GARBAGE.createRol(@rol_nombre nvarchar(30), @funcionalidades GARBAGE.FuncionalidadType readonly)
+as 
+begin
+
+	if (select count(*) from GARBAGE.Rol where rol_nombre = @rol_nombre) > 0
+		throw 50000, 'Ya existe un rol con ese nombre', 1;
+
+	insert into GARBAGE.Rol(rol_nombre) values (@rol_nombre)
+	
+	declare @rol_id int
+	set @rol_id = scope_identity()
+
+	insert into GARBAGE.FuncionalidadxRol (func_rol_rol_id, func_rol_func_id) (
+		select @rol_id, F.func_id
+		from @funcionalidades as FUNC
+		join GARBAGE.Funcionalidad F on F.func_id = FUNC.funcionalidad_id
+	);
+
+end
+go
+
+
+create procedure GARBAGE.updateRol(@rol_id int, @rol_nombre nvarchar(30), @rol_activo bit, 
+	@funcionalidades GARBAGE.FuncionalidadType readonly)
+as
+begin
+
+	update GARBAGE.Rol set rol_nombre = @rol_nombre, rol_activo = @rol_activo
+	where rol_id = @rol_id
+
+	delete GARBAGE.FuncionalidadxRol where func_rol_rol_id = @rol_id;
+
+	insert into GARBAGE.FuncionalidadxRol (func_rol_rol_id, func_rol_func_id) (
+		select @rol_id, F.func_id
+		from @funcionalidades as FUNC
+		join GARBAGE.Funcionalidad F on F.func_id = FUNC.funcionalidad_id
+	);
+
+end
+go
+
+
+create procedure GARBAGE.bajaLogica(@rol_id int)
+as
+begin
+	update GARBAGE.Rol set rol_activo = 0 
+	where rol_id = @rol_id
+end
+go
+
+create trigger GARBAGE.deleteUsuariosRol
+on GARBAGE.Rol instead of update
+as
+begin
+
+	declare cursor_roles cursor for (select I.rol_id, I.rol_activo from inserted I)
+
+	declare @rol_id int, @rol_activo bit;
+
+	open cursor_roles
+
+	fetch next from cursor_roles into @rol_id, @rol_activo;
+
+	while(@@fetch_status = 0)
+	begin
+		if(@rol_activo = 0)
+		begin
+			delete GARBAGE.RolxUsuario where rol_usu_rol_id = @rol_id
+		end
+		fetch next from cursor_roles into @rol_id, @rol_activo;
+	end
+
+	update GARBAGE.Rol set rol_nombre = I.rol_nombre, rol_activo = I.rol_activo
+	from inserted I
+	where I.rol_id = GARBAGE.Rol.rol_id
+
+	close cursor_roles
+	deallocate cursor_roles
+
+end
 

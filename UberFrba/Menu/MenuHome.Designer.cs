@@ -148,6 +148,7 @@
             this.autoMenuItem.Text = "Automoviles";
             this.autoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.autoMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.autoMenuItem.Click += new System.EventHandler(this.autoMenuItem_Click);
             // 
             // turnosMenuItem
             // 
@@ -165,6 +166,7 @@
             this.choferesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.choferesMenuItem.Text = "Choferes";
             this.choferesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.choferesMenuItem.Click += new System.EventHandler(this.choferesMenuItem_Click);
             // 
             // operacionesTitleLabel
             // 
@@ -193,6 +195,7 @@
             this.rendicionViajesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.rendicionViajesMenuItem.Text = "Rendicion de Viajes";
             this.rendicionViajesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rendicionViajesMenuItem.Click += new System.EventHandler(this.rendicionViajesMenuItem_Click);
             // 
             // facturarClienteMenuItem
             // 

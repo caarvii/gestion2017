@@ -27,7 +27,7 @@ namespace UberFrba.Dao
                     chofer.mail = Convert.ToString(dataReader["chof_mail"]);
                     chofer.direccion = Convert.ToString(dataReader["chof_direccion"]);
                     chofer.telefono = Convert.ToInt32(dataReader["chof_telefono"]);
-                    chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fecha_nacimiento"]);
+                    chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fechanac"]);
                     chofer.estado = Convert.ToBoolean(dataReader["chof_activo"]);
 
                     choferes.Add(chofer);
@@ -45,19 +45,13 @@ namespace UberFrba.Dao
             return ReaderToListChofer(reader);
         }
 
-        public static ChoferDTO getChoferById(int chofer_id)
+        public static ChoferDTO getChoferById(int choferId)
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getChoferById",
-            SQLManager.getSingleParams("chofer_id", chofer_id));
+            SQLManager.getSingleParams("chof_id", choferId));
             return ReaderToListChofer(reader).First();
         }
 
-        public static ChoferDTO getChoferByAutomovilId(int auto_id)
-        {
-            SqlDataReader reader = SQLManager.executeProcedureList("getChoferByAutomovilId",
-            SQLManager.getSingleParams("auto_id", auto_id));
-            return ReaderToListChofer(reader).First();
-        }
 
         public static int deleteChofer(int chofer_id)
         {
@@ -77,17 +71,22 @@ namespace UberFrba.Dao
             parameters.Add("chof_mail", chofer.mail);
             parameters.Add("chof_telefono", chofer.telefono);
             parameters.Add("chof_direccion", chofer.direccion);
-            parameters.Add("chof_fecha_nacimiento", chofer.fechaNacimiento);
+            parameters.Add("chof_fechanac", chofer.fechaNacimiento);
 
-            // El estado se habilita por defecto en 1.
+            // VER POR AHORA
+            //parameters.Add("usu_usuario", chofer.username);
+            //parameters.Add("usu_password", chofer.password);
 
+<<<<<<< HEAD
+
+            // Se habilita por defecto en 1
             try
             {
                 SQLManager.executePorcedure("altaChofer", parameters);
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000 || exception.Number == 70000 )
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -102,17 +101,16 @@ namespace UberFrba.Dao
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
 
-            parameters.Add("chof_id", chofer.id);
             parameters.Add("chof_nombre", chofer.nombre);
             parameters.Add("chof_apellido", chofer.apellido);
             parameters.Add("chof_dni", chofer.dni);
             parameters.Add("chof_mail", chofer.mail);
             parameters.Add("chof_telefono", chofer.telefono);
             parameters.Add("chof_direccion", chofer.direccion);
-            parameters.Add("chof_fecha_nacimiento", chofer.fechaNacimiento);
+            parameters.Add("chof_fechanac", chofer.fechaNacimiento);
             parameters.Add("chof_activo", chofer.estado);
             
-            // Usuario no se updetea
+            // Usuario y fecha
 
             try
             {
@@ -120,7 +118,7 @@ namespace UberFrba.Dao
             }
             catch (SqlException exception)
             {
-                if (exception.Number == 50000)
+                if (exception.Number == 50000 || exception.Number == 60000)
                 {
                     throw new ApplicationException(exception.Message);
                 }
@@ -133,31 +131,9 @@ namespace UberFrba.Dao
         }
 
 
-        internal static List<ChoferDTO> getChoferFilter(Dictionary<string, object> filtrosChoferList)
-        {
-            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Chofer where ");
-
-            foreach (KeyValuePair<string, object> filtro in filtrosChoferList)
-            {
-                stringBuilder.Append(filtro.Key);
-                stringBuilder.Append(" = '");
-                stringBuilder.Append(filtro.Value);
-                stringBuilder.Append("'");
-            }
-
-            SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
-            return ReaderToListChofer(dataReader);
-        }
 
 
-        public static List<ChoferDTO> getChoferesHabilitados()
-        {
-            SqlDataReader reader = SQLManager.executeProcedureList("getChoferesHabilitados");
-            return ReaderToListChofer(reader);
-        }
-
-
-
-
+=======
+>>>>>>> dev
     }
 }

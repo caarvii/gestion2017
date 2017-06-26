@@ -10,8 +10,11 @@ using System.Windows.Forms;
 using UberFrba.Dao;
 using UberFrba.Dto;
 using UberFrba.Interface;
+<<<<<<< HEAD
 using UberFrba.Helpers;
 using UberFrba.Abm_Automovil;
+=======
+>>>>>>> dev
 
 namespace UberFrba.Abm_Turno
 {
@@ -28,6 +31,19 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
+<<<<<<< HEAD
+        public ListadoTurno(ListadoSeleccionListener _listener)
+        {
+            InitializeComponent();
+            listener = _listener;
+            botonAlta.Visible = false;
+            botonBaja.Visible = false;
+            botonModificacion.Text = "Seleccionar";
+            seleccionDeTurno = true;
+
+        }
+
+=======
         public void onOperationFinish()
         {
 
@@ -37,24 +53,11 @@ namespace UberFrba.Abm_Turno
 
         private void cargarListadoTurnos()
         {
-            turnos = TurnoDAO.getAllTurnos();
-            tablaListado.DataSource = turnos;
 
-		}
-        public ListadoTurno(ListadoSeleccionListener _listener)
-        {
-            InitializeComponent();
-            listener = _listener;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            cargarListadoTurnos();
-            botonAlta.Visible = false;
-            botonBaja.Visible = false;
-            botonModificacion.Text = "Seleccionar";
-            seleccionDeTurno = true;
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
 
         }
-
-        
+>>>>>>> dev
 
 
         private void filtroDescripcion_KeyPress(object sender, KeyPressEventArgs e)
@@ -82,14 +85,24 @@ namespace UberFrba.Abm_Turno
             if (filtrosTurnoList.Count > 0)
             {
                 //Tiene filtros
+<<<<<<< HEAD
                 turnos = TurnoDAO.getTurnosFilter(filtrosTurnoList);
             }
             else
             {
                 turnos = TurnoDAO.getAllTurnos();
+=======
+                tablaListado.DataSource = TurnoDAO.getTurnosFilter(filtrosTurnoList);
+                tablaListado.Columns["estado"].Visible = false;
+
+            }
+            else
+            {
+                cargarListadoTurnos();
+                tablaListado.Columns["estado"].Visible = false;
+>>>>>>> dev
             }
             tablaListado.DataSource = turnos;
-            tablaListado.Columns["estado"].Visible = false;
         }
 
         protected  void botonBaja_Click_1(object sender, EventArgs e)
@@ -121,18 +134,23 @@ namespace UberFrba.Abm_Turno
         private void botonModificacion_Click_2(object sender, EventArgs e)
         {
 
-            if (seleccionDeTurno == false)
+            if (seleccionDeTurno ==false)
             {
 
                 if (tablaListado.SelectedRows.Count == 1 && tablaListado.RowCount != 0)
                 {
                     DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
+<<<<<<< HEAD
                     int id = Convert.ToInt32(row.Cells["id"].Value);
+=======
+                AltaTurno altaTurno = new AltaTurno(id , this);
+                altaTurno.ShowDialog();
+>>>>>>> dev
 
-
-                    AltaTurno altaTurno = new AltaTurno(id, this);
+                    AltaTurno altaTurno = new AltaTurno(id);
                     altaTurno.ShowDialog();
+
                 }
                 else
                 {
@@ -143,16 +161,10 @@ namespace UberFrba.Abm_Turno
             else
             {
 
-                if (tablaListado.RowCount > 0)
-                {
-                    int index = tablaListado.SelectedRows[0].Index;
-                    listener.onOperationFinishTurno(turnos.ElementAt(index));
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar una fila");
-                }
+                //verificar q tenga 1 columna seleccionada
+                int index = tablaListado.SelectedRows[0].Index;
+                listener.onOperationFinish(turnos.ElementAt(index));
+                this.Close();
 
             }
         }

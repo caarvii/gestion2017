@@ -13,6 +13,9 @@ using UberFrba.Abm_Turno;
 using UberFrba.Dto;
 using UberFrba.Listado_Estadistico;
 using UberFrba.Login;
+using UberFrba.Abm_Automovil;
+using UberFrba.Abm_Chofer;
+using UberFrba.Rendicion_Viajes;
 
 namespace UberFrba.Menu
 {
@@ -161,6 +164,30 @@ namespace UberFrba.Menu
             this.Hide();
             formLogin.ShowDialog();
             this.Close();
+        }
+
+        private void autoMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("ListadoAutomovil"))
+            {
+                showMenuForm(new ListadoAutomovil());
+            }
+        }
+
+        private void choferesMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("ListadoChofer"))
+            {
+                showMenuForm(new ListadoChofer());
+            }
+        }
+
+        private void rendicionViajesMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("Rendicion"))
+            {
+                showMenuForm(new Rendicion());
+            }
         }
 
         private void listadoEstadisticoMenuItem_Click(object sender, EventArgs e)

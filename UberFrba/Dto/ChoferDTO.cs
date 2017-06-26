@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UberFrba
 {
-    class ChoferDTO
+    public class ChoferDTO
     {
         public int id { get; set; }
         public string nombre { get; set; }
@@ -16,10 +16,11 @@ namespace UberFrba
         public Int32 telefono { get; set; }
         public string mail { get; set; }
         public DateTime fechaNacimiento { get; set; }
+        public bool estado { get; set; }
 
         // Podria faltar la herencia de Usuario
 
-        public ChoferDTO(string nombre_var , string apellido_var , Int32 dni_var , string direccion_var , Int32 telefono_var , string mail_var , DateTime fechaNac_var)
+        public ChoferDTO(string nombre_var , string apellido_var , Int32 dni_var , string direccion_var , Int32 telefono_var , string mail_var , DateTime fechaNac_var , bool estado)
         {
             this.nombre = nombre_var;
             this.apellido = apellido_var;
@@ -28,6 +29,7 @@ namespace UberFrba
             this.telefono = telefono_var;
             this.mail = mail_var;
             this.fechaNacimiento = fechaNac_var;
+            this.estado = estado;
         }
 
         public ChoferDTO()

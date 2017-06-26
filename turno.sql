@@ -18,12 +18,28 @@ begin
 
 	declare @error_message nvarchar(255)
 	declare @cant int;
+	declare @solapado int;
 	
 	set @cant = (select COUNT(*) from GARBAGE.TURNO 		where turno_hora_fin = @turno_hora_fin AND
 	 	turno_hora_inicio = @turno_hora_inicio AND
 	 	turno_valor_km = @turno_valor_km AND
 	 	turno_precio_base = @turno_precio_base AND
 	 	turno_descripcion = @turno_descripcion);
+
+	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
+					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
+							AND turno_habilitado > 0
+					);
+
+	-- TURNOS SOLAPADOS
+
+	if  @solapado > 0  BEGIN
+		set @error_message = 'El turno no puede agregarse o editarse solapando a otro turno';
+		throw 60000, @error_message , 1;
+		
+	END
+
+	-- TURNOS DUPLICADOS
 
 	if  @cant > 0 BEGIN
 		set @error_message = 'El turno ya existe';
@@ -46,8 +62,27 @@ begin
 
 	declare @error_message nvarchar(255)
 	declare @cant int;
+	declare @solapado int;
 	
 	set @cant = (select COUNT(*) from GARBAGE.TURNO  where turno_id = @turno_id );
+
+
+	-- Solo busca por aquellos habilitados.
+
+	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
+					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
+							AND turno_habilitado > 0
+					);
+
+	-- TURNOS SOLAPADOS
+
+	if  (@solapado > 0 ) AND (@turno_habilitado > 0) BEGIN
+		set @error_message = 'El turno no puede agregarse o editarse solapando a otro turno';
+		throw 60000, @error_message , 1;
+		
+	END
+
+	-- TURNOS DUPLICADOS
 
 	if  @cant = 0 BEGIN
 		set @error_message = 'El turno no existe';
@@ -76,6 +111,7 @@ begin
 	RETURN 1
 
 end
+go
 
 drop procedure GARBAGE.getTurnoById;
 drop procedure GARBAGE.getAllTurnos;

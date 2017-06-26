@@ -8,10 +8,13 @@ namespace UberFrba.Dto
 {
     class ModeloDTO
     {
-        public int id;
-        public string nombre;
+        public int id { get; set; }
+        public string nombre { get; set; }
 
-
+        public override string ToString()
+        {
+            return nombre;
+        }
 
 
 
