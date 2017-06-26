@@ -31,10 +31,10 @@ namespace UberFrba.Rendicion_Viajes
         {
             this.rendicionGroupBox = new System.Windows.Forms.GroupBox();
             this.cleanButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.generarRendicionButton = new System.Windows.Forms.Button();
             this.viajesGroupBox = new System.Windows.Forms.GroupBox();
-            this.totalPlataLabel = new System.Windows.Forms.Label();
-            this.totalRendicionLabel = new System.Windows.Forms.Label();
+            this.totalRendicionMontoLabel = new System.Windows.Forms.Label();
+            this.totalRendicionTituloLabel = new System.Windows.Forms.Label();
             this.viajesParaRendirDataGridView = new System.Windows.Forms.DataGridView();
             this.buscarViajesButton = new System.Windows.Forms.Button();
             this.finTurnoTextBox = new System.Windows.Forms.TextBox();
@@ -57,7 +57,7 @@ namespace UberFrba.Rendicion_Viajes
             // rendicionGroupBox
             // 
             this.rendicionGroupBox.Controls.Add(this.cleanButton);
-            this.rendicionGroupBox.Controls.Add(this.button1);
+            this.rendicionGroupBox.Controls.Add(this.generarRendicionButton);
             this.rendicionGroupBox.Controls.Add(this.viajesGroupBox);
             this.rendicionGroupBox.Controls.Add(this.buscarViajesButton);
             this.rendicionGroupBox.Controls.Add(this.finTurnoTextBox);
@@ -91,18 +91,19 @@ namespace UberFrba.Rendicion_Viajes
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(391, 413);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 13, 3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 23);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "Rendir Viajes";
-            this.button1.UseVisualStyleBackColor = true;
+            this.generarRendicionButton.Location = new System.Drawing.Point(391, 413);
+            this.generarRendicionButton.Margin = new System.Windows.Forms.Padding(3, 13, 3, 3);
+            this.generarRendicionButton.Name = "button1";
+            this.generarRendicionButton.Size = new System.Drawing.Size(109, 23);
+            this.generarRendicionButton.TabIndex = 13;
+            this.generarRendicionButton.Text = "Rendir Viajes";
+            this.generarRendicionButton.UseVisualStyleBackColor = true;
+            this.generarRendicionButton.Click += new System.EventHandler(this.generarRendicionButton_Click);
             // 
             // viajesGroupBox
             // 
-            this.viajesGroupBox.Controls.Add(this.totalPlataLabel);
-            this.viajesGroupBox.Controls.Add(this.totalRendicionLabel);
+            this.viajesGroupBox.Controls.Add(this.totalRendicionMontoLabel);
+            this.viajesGroupBox.Controls.Add(this.totalRendicionTituloLabel);
             this.viajesGroupBox.Controls.Add(this.viajesParaRendirDataGridView);
             this.viajesGroupBox.Location = new System.Drawing.Point(23, 170);
             this.viajesGroupBox.Name = "viajesGroupBox";
@@ -110,39 +111,37 @@ namespace UberFrba.Rendicion_Viajes
             this.viajesGroupBox.TabIndex = 2;
             this.viajesGroupBox.TabStop = false;
             this.viajesGroupBox.Text = "Viajes para rendir";
-            this.viajesGroupBox.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // totalPlataLabel
+            // totalRendicionMontoLabel
             // 
-            this.totalPlataLabel.Location = new System.Drawing.Point(375, 205);
-            this.totalPlataLabel.Name = "totalPlataLabel";
-            this.totalPlataLabel.Size = new System.Drawing.Size(79, 13);
-            this.totalPlataLabel.TabIndex = 3;
-            this.totalPlataLabel.Text = "$ 156.67";
-            this.totalPlataLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.totalRendicionMontoLabel.Location = new System.Drawing.Point(375, 205);
+            this.totalRendicionMontoLabel.Name = "totalRendicionMontoLabel";
+            this.totalRendicionMontoLabel.Size = new System.Drawing.Size(79, 13);
+            this.totalRendicionMontoLabel.TabIndex = 3;
+            this.totalRendicionMontoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // totalRendicionLabel
+            // totalRendicionTituloLabel
             // 
-            this.totalRendicionLabel.AutoSize = true;
-            this.totalRendicionLabel.Location = new System.Drawing.Point(284, 205);
-            this.totalRendicionLabel.Name = "totalRendicionLabel";
-            this.totalRendicionLabel.Size = new System.Drawing.Size(85, 13);
-            this.totalRendicionLabel.TabIndex = 2;
-            this.totalRendicionLabel.Text = "Total Rendicion:";
-            this.totalRendicionLabel.Click += new System.EventHandler(this.label2_Click);
+            this.totalRendicionTituloLabel.AutoSize = true;
+            this.totalRendicionTituloLabel.Location = new System.Drawing.Point(284, 205);
+            this.totalRendicionTituloLabel.Name = "totalRendicionTituloLabel";
+            this.totalRendicionTituloLabel.Size = new System.Drawing.Size(85, 13);
+            this.totalRendicionTituloLabel.TabIndex = 2;
+            this.totalRendicionTituloLabel.Text = "Total Rendicion:";
             // 
             // viajesParaRendirDataGridView
             // 
-            this.viajesParaRendirDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viajesParaRendirDataGridView.Location = new System.Drawing.Point(22, 28);
-            this.viajesParaRendirDataGridView.Name = "viajesParaRendirDataGridView";
-            this.viajesParaRendirDataGridView.Size = new System.Drawing.Size(432, 165);
-            this.viajesParaRendirDataGridView.TabIndex = 1;
-            this.viajesParaRendirDataGridView.MultiSelect = false;
-            this.viajesParaRendirDataGridView.ReadOnly = true;
             this.viajesParaRendirDataGridView.AllowUserToAddRows = false;
             this.viajesParaRendirDataGridView.AllowUserToDeleteRows = false;
-            this.viajesParaRendirDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            this.viajesParaRendirDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.viajesParaRendirDataGridView.Location = new System.Drawing.Point(22, 28);
+            this.viajesParaRendirDataGridView.MultiSelect = false;
+            this.viajesParaRendirDataGridView.Name = "viajesParaRendirDataGridView";
+            this.viajesParaRendirDataGridView.ReadOnly = true;
+            this.viajesParaRendirDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.viajesParaRendirDataGridView.Size = new System.Drawing.Size(432, 165);
+            this.viajesParaRendirDataGridView.TabIndex = 1;
+            // 
             // buscarViajesButton
             // 
             this.buscarViajesButton.Location = new System.Drawing.Point(23, 129);
@@ -169,7 +168,6 @@ namespace UberFrba.Rendicion_Viajes
             this.finTurnoLabel.Size = new System.Drawing.Size(21, 13);
             this.finTurnoLabel.TabIndex = 10;
             this.finTurnoLabel.Text = "Fin";
-            this.finTurnoLabel.Click += new System.EventHandler(this.label1_Click);
             // 
             // inicioTurnoLabel
             // 
@@ -298,9 +296,9 @@ namespace UberFrba.Rendicion_Viajes
         private System.Windows.Forms.DataGridView viajesParaRendirDataGridView;
         private System.Windows.Forms.Button buscarViajesButton;
         private System.Windows.Forms.TextBox finTurnoTextBox;
-        private System.Windows.Forms.Label totalRendicionLabel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label totalPlataLabel;
+        private System.Windows.Forms.Label totalRendicionTituloLabel;
+        private System.Windows.Forms.Button generarRendicionButton;
+        private System.Windows.Forms.Label totalRendicionMontoLabel;
         private Button cleanButton;
     }
 }

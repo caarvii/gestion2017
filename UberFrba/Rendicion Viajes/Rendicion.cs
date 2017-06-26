@@ -21,26 +21,15 @@ namespace UberFrba.Rendicion_Viajes
     {
         private TurnoDTO turno;
         private ChoferDTO chofer;
+        private double importeTotal;
+        private List<int> viajesParaRendirList;
 
         public Rendicion()
         {
             InitializeComponent();
+            this.importeTotal = 0;
+            this.viajesParaRendirList = new List<int>();
             this.fechaRendicionDateTimePicker.Value = Config.newInstance.date;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
 
         public void onOperationFinishTurno(TurnoDTO turno)
@@ -59,7 +48,7 @@ namespace UberFrba.Rendicion_Viajes
 
         private void selectChoferButton_Click(object sender, EventArgs e)
         {
-            ListadoChofer listadoSeleccionDeChoferForm = new ListadoChofer(this);
+            ListadoChofer listadoSeleccionDeChoferForm = new ListadoChofer(this , true);
             listadoSeleccionDeChoferForm.ShowDialog();
         }
 
@@ -75,6 +64,11 @@ namespace UberFrba.Rendicion_Viajes
 
         private void cleanButton_Click(object sender, EventArgs e)
         {
+            cleanFields();
+        }
+
+        private void cleanFields()
+        {
             this.fechaRendicionDateTimePicker.Value = Config.newInstance.date;
 
             this.chofer = null;
@@ -88,6 +82,11 @@ namespace UberFrba.Rendicion_Viajes
             finTurnoTextBox.Text = "";
 
             viajesParaRendirDataGridView.DataSource = null;
+
+            viajesParaRendirList.Clear();
+
+            importeTotal = 0;
+            totalRendicionMontoLabel.Text = "";
         }
 
         private void buscarViajesButton_Click(object sender, EventArgs e)
@@ -101,7 +100,52 @@ namespace UberFrba.Rendicion_Viajes
             DataTable dt = new DataTable();
             dt.Load(RendicionDAO.getViajesNoRendidos(chofer, turno, fechaRendicionDateTimePicker.Value));
 
+
+            if (dt.Rows.Count == 0)
+            {
+                Utility.ShowInfo("Rendicion", "No hay viajes sin rendir para los datos ingresados");
+                return;
+            }
+
             viajesParaRendirDataGridView.DataSource = dt;
+
+            List<double> valorRendiciones = dt.AsEnumerable().Select(x => 
+                Convert.ToDouble(x[x.Table.Columns["valor_rendicion"].Ordinal])).ToList();
+
+            viajesParaRendirList.AddRange(dt.AsEnumerable().Select(x =>
+               Convert.ToInt32(x[x.Table.Columns["viaje_id"].Ordinal])).ToList());
+
+            importeTotal = valorRendiciones.Sum();
+
+            totalRendicionMontoLabel.Text = "$ " + importeTotal;
+        }
+
+        private void generarRendicionButton_Click(object sender, EventArgs e)
+        {
+            if (chofer == null || turno == null)
+            {
+                Utility.ShowInfo("Rendicion", "Debe seleccionar un chofer y un turno para buscar los viajes");
+                return;
+            }
+
+            if (viajesParaRendirList.Count == 0)
+            {
+                Utility.ShowInfo("Rendicion", "Seleccione Buscar Viajes para encontrar los viajes del chofer");
+                return;
+            }
+
+            try
+            {
+                RendicionDAO.generarRendicion(chofer, turno, fechaRendicionDateTimePicker.Value, importeTotal, viajesParaRendirList);
+                Utility.ShowInfo("Rendicion", "Rendicion creada con exito");
+                cleanFields();
+            }
+            catch (ApplicationException ex)
+            {
+                Utility.ShowError("Rendicion", ex.Message);
+            }
+
+           
         }
     }
 }

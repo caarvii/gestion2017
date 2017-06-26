@@ -41,8 +41,7 @@ namespace UberFrba.Dao
 
         public static List<ChoferDTO> getAllChoferes()
         {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-            SqlDataReader reader = SQLManager.executeProcedureList("getChoferes", parameters);
+            SqlDataReader reader = SQLManager.executeProcedureList("getChoferes");
             return ReaderToListChofer(reader);
         }
 
@@ -142,6 +141,13 @@ namespace UberFrba.Dao
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
             return ReaderToListChofer(dataReader);
+        }
+
+
+        public static List<ChoferDTO> getChoferesHabilitados()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getChoferesHabilitados");
+            return ReaderToListChofer(reader);
         }
 
 
