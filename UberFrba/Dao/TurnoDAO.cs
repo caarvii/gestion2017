@@ -104,7 +104,6 @@ namespace UberFrba.Dao
 
         }
 
-        private static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
         public static List<TurnoDTO> getTurnos(SqlDataReader dataReader)
         {
             List<TurnoDTO> listaTurnos = new List<TurnoDTO>();

@@ -86,8 +86,12 @@ insert into GARBAGE.TurnoxAutomovil(turno_auto_auto_id, turno_auto_turno_id) (
 
 END
 RETURN 1
+go
 
 
+if exists (select * from sys.table_types where name ='TurnoType')
+    drop type GARBAGE.TurnoType
+go
 
 
 create type GARBAGE.TurnoType as table(
