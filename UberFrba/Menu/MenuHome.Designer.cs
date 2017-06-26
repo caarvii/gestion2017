@@ -195,6 +195,7 @@
             this.rendicionViajesMenuItem.Size = new System.Drawing.Size(129, 19);
             this.rendicionViajesMenuItem.Text = "Rendicion de Viajes";
             this.rendicionViajesMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rendicionViajesMenuItem.Click += new System.EventHandler(this.rendicionViajesMenuItem_Click);
             // 
             // facturarClienteMenuItem
             // 
