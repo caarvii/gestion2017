@@ -52,6 +52,12 @@ namespace UberFrba.Dao
             return ReaderToListChofer(reader).First();
         }
 
+        public static ChoferDTO getChoferByAutomovilId(int auto_id)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getChoferByAutomovilId",
+            SQLManager.getSingleParams("auto_id", auto_id));
+            return ReaderToListChofer(reader).First();
+        }
 
         public static int deleteChofer(int chofer_id)
         {

@@ -236,6 +236,11 @@ namespace UberFrba.Dao
             btnCrearCliente.Visible = false;
         }
 
+        private void crearCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
         // FIN LINEA
 
 
