@@ -225,6 +225,7 @@
             this.listadoEstadisticoMenuItem.Size = new System.Drawing.Size(129, 19);
             this.listadoEstadisticoMenuItem.Text = "Listado Estadistico";
             this.listadoEstadisticoMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.listadoEstadisticoMenuItem.Click += new System.EventHandler(this.listadoEstadisticoMenuItem_Click);
             // 
             // accountTitleLabel
             // 

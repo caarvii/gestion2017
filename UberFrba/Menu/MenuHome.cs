@@ -11,6 +11,7 @@ using UberFrba.Abm_Cliente;
 using UberFrba.Abm_Rol;
 using UberFrba.Abm_Turno;
 using UberFrba.Dto;
+using UberFrba.Listado_Estadistico;
 using UberFrba.Login;
 using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
@@ -189,6 +190,13 @@ namespace UberFrba.Menu
             }
         }
 
+        private void listadoEstadisticoMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("Listado"))
+            {
+                showMenuForm(new Listado());
+            }
 
+        }
     }
 }
