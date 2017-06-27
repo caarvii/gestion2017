@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UberFrba.Facturacion
 {
-    public partial class Form1 : Form
+    public partial class FacturacionCliente : Form
     {
-        public Form1()
+        public FacturacionCliente()
         {
             InitializeComponent();
         }
