@@ -23,24 +23,31 @@ namespace UberFrba.Abm_Automovil
         public AltaAutomovil(OnCreateUpdateListener _listener)
         {
             InitializeComponent();
-            cargarComboBox();
+            cargarDatosIniciales();
+            listener = _listener;
+            turnos = new List<TurnoDTO>();
         }
 
         TurnoDTO turnoGlobal;
         ChoferDTO choferGlobal;
         OnCreateUpdateListener listener;
         AutomovilDTO AutomovilAModificar;
+        List<TurnoDTO> turnos;
         
         public AltaAutomovil(AutomovilDTO _AutomovilAModificar, OnCreateUpdateListener _listener)
         {
+
+
             InitializeComponent();
-            cargarComboBox();
-           // choferGlobal = ChoferDAO.getChoferById(
+            turnos = new List<TurnoDTO>();
+            cargarDatosIniciales();
             AutomovilAModificar = _AutomovilAModificar;
             CargarDatosDeAutomovilAModificar();
             btnCrearAutomovil.Visible = false;
             btnModificar.Visible = true;
             this.Text = "Modificar automovil";
+            chkAutoActivo.Visible = true;
+            lblAutoActivo.Visible = true;
             listener = _listener;
         }
 
@@ -60,9 +67,9 @@ namespace UberFrba.Abm_Automovil
         public void onOperationFinishTurno(TurnoDTO turno)
         {
             turnoGlobal =turno;
-            txtTurnoDescripcion.Text = turno.descripcion;
-            txtTurnoHoraInicio.Text = turno.horaInicial.ToString();
-            txtTurnoHoraFin.Text = turno.horaFinal.ToString();
+            //txtTurnoDescripcion.Text = turno.descripcion;
+            //txtTurnoHoraInicio.Text = turno.horaInicial.ToString();
+//            txtTurnoHoraFin.Text = turno.horaFinal.ToString();
 
 
 
@@ -77,30 +84,69 @@ namespace UberFrba.Abm_Automovil
             cmbModelo.SelectedItem = AutomovilAModificar.modelo_nombre; // esto no se porq no anda...
             txtPatente.Text = AutomovilAModificar.patente;
 
+            choferGlobal = ChoferDAO.getChoferByAutomovilId(AutomovilAModificar.chofer_id);
 
 
+            txtChoferDni.Text = choferGlobal.dni.ToString();
+            txtChoferNombreCompleto.Text = choferGlobal.nombre + " " + choferGlobal.apellido;
+
+            turnos = TurnoDAO.getTurnosByAutomovilId(AutomovilAModificar.id);
+
+            foreach (TurnoDTO turno in turnos) {
+                dgvTurnos.Rows.Add(turno.descripcion, turno.horaInicial, turno.horaFinal);
+            }
+            chkAutoActivo.Checked = AutomovilAModificar.activo;
+
+            txtLicencia.Text = AutomovilAModificar.licencia;
+            txtAutoRodado.Text = AutomovilAModificar.rodado;
 
         }
 
 
-        private void cargarComboBox()
+        private void cargarDatosIniciales()
         {
             List<MarcaDTO> marcas = MarcaDAO.getAllMarcas();
             cmbMarca.DataSource = marcas;
             cmbMarca.DisplayMember = "descripcion";
             cmbMarca.ValueMember = "id";
+            cmbMarca.SelectedIndex = -1;
 
-            List<ModeloDTO> modelo = ModeloDAO.getAllModelos();
-            cmbModelo.DataSource = modelo;
+            List<ModeloDTO> modelos = ModeloDAO.getAllModelos();
+            cmbModelo.DataSource = modelos;
             cmbModelo.DisplayMember = "nombre";
             cmbModelo.ValueMember = "id";
+            cmbModelo.SelectedIndex = -1;
+
+            List<TurnoDTO> turnos = TurnoDAO.getAllTurnos();
+            cmbTurno.DataSource = turnos;
+            cmbTurno.DisplayMember = "descripcion";
+            cmbTurno.ValueMember = "id";
+            cmbTurno.SelectedIndex = -1;
+
+
         }
 
-        private void txtPatente_KeyPress(object sender, EventArgs e) {
-            //this.allowAlphanumericOnly(e);
-            //if (e.KeyChar != 8) this.allowMaxLenght(txtPatente, 10, e);
+        private void txtPatente_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtPatente, 10, e);
             
         }
+
+        private void txtLicencia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtLicencia, 26, e);
+
+        }
+
+        private void txtAutoRodado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.allowAlphanumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtAutoRodado, 10, e);
+
+        }
+
 
 
         private AutomovilDTO cargarAutomovil()
@@ -113,14 +159,12 @@ namespace UberFrba.Abm_Automovil
             txtPatente.Text,
             txtLicencia.Text,
             txtAutoRodado.Text,
-            turnoGlobal.id,
             choferGlobal.id);
 
            return unAutomovil;
 
         }
 
-        
 
         private void cmbModelo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -148,14 +192,15 @@ namespace UberFrba.Abm_Automovil
 
         private void btnCrearAutomovil_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtTurnoDescripcion.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text))
+            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text) && turnos.Count!=0)
             {
                 try
                 {
                     AutomovilDTO nuevoAutomovil = this.cargarAutomovil();
-                    AutomovilDAO.addNewAutomovil(nuevoAutomovil);
+                    AutomovilDAO.addNewAutomovil(nuevoAutomovil,turnos);
                     MessageBox.Show("Se agrego el automovil correctamente");
-                   // listener.onOperationFinish();
+                    listener.onOperationFinish();
+                    this.Close();
                 }
                 catch (ApplicationException ex)
                 {
@@ -170,13 +215,14 @@ namespace UberFrba.Abm_Automovil
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtTurnoDescripcion.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text))
+            if (!string.IsNullOrWhiteSpace(cmbMarca.Text) && !string.IsNullOrWhiteSpace(cmbModelo.Text) && !string.IsNullOrWhiteSpace(txtPatente.Text) && !string.IsNullOrWhiteSpace(txtLicencia.Text) && !string.IsNullOrWhiteSpace(txtChoferDni.Text))
             {
                 try
                 {
                     AutomovilDTO automovil = cargarAutomovil();
                     automovil.id = AutomovilAModificar.id;
-                    //AutomovilDAO.updateAutomovil(automovil);
+                    automovil.activo = chkAutoActivo.Checked;
+                    AutomovilDAO.updateAutomovil(automovil,turnos);
                     MessageBox.Show("Automovil modificado con exito");
                     this.Close(); //Cierro formulario
                     listener.onOperationFinish();
@@ -193,6 +239,48 @@ namespace UberFrba.Abm_Automovil
             }
 
         }
+
+        private void btnAgregarTurno_Click(object sender, EventArgs e)
+        {
+            if (cmbTurno.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione algun turno para agregar");
+                return;
+            }
+
+            TurnoDTO turno = (TurnoDTO)cmbTurno.SelectedItem;
+
+            if (turnos.Contains(turno))
+            {
+                MessageBox.Show("Ya ha agregado este turno");
+                return;
+            }
+
+
+            turnos.Add(turno);
+            dgvTurnos.Rows.Add(turno.descripcion, turno.horaInicial, turno.horaFinal);
+            cmbTurno.SelectedIndex = -1;
+        }
+
+        private void btnRemoverTurno_Click(object sender, EventArgs e)
+        
+        {
+            if (dgvTurnos.SelectedRows.Count == 1 && dgvTurnos.RowCount != 0)
+            {
+                int index = dgvTurnos.SelectedRows[0].Index;
+                turnos.RemoveAt(index);
+                dgvTurnos.Rows.RemoveAt(index);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar el turno a remover");
+            }
+            
+        }
+        
+
+
+
 
 
 

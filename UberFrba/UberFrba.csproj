@@ -83,10 +83,12 @@
     <Compile Include="Abm Rol\AltaRol.Designer.cs">
       <DependentUpon>AltaRol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dao\RendicionDAO.cs" />
     <Compile Include="Dao\ViajeDAO.cs" />
     <Compile Include="Dto\AutomovilDTO.cs" />
     <Compile Include="Dto\ViajeDTO.cs" />
     <Compile Include="Interface\ListadoSeleccionListener.cs" />
+    <Compile Include="Dao\ListadoEstadisticoDAO.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
     <Compile Include="Dao\ClienteDAO.cs" />
     <Compile Include="Dao\AutomovilDAO.cs" />
@@ -150,11 +152,11 @@
     <Compile Include="Facturacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="Listado Estadistico\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listado Estadistico\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="ListadoGenerico.cs">
       <SubType>Form</SubType>
@@ -177,11 +179,11 @@
     <Compile Include="Registro Viajes\RegistroViaje.Designer.cs">
       <DependentUpon>RegistroViaje.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.cs">
+    <Compile Include="Rendicion Viajes\Rendicion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Rendicion Viajes\Rendicion.Designer.cs">
+      <DependentUpon>Rendicion.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\Validaciones.cs" />
     <Compile Include="Util\Utility.cs" />
@@ -215,6 +217,9 @@
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListadoGenerico.resx">
       <DependentUpon>ListadoGenerico.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,6 +241,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Rendicion Viajes\Rendicion.resx">
+      <DependentUpon>Rendicion.cs</DependentUpon>
     <EmbeddedResource Include="Registro Viajes\RegistroViaje.resx">
       <DependentUpon>RegistroViaje.cs</DependentUpon>
     </EmbeddedResource>

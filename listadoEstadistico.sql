@@ -23,10 +23,10 @@ end
 
 go
 IF EXISTS (SELECT name FROM sysobjects WHERE name='choferes_mayor_recaudacion' AND type='p')
-DROP PROCEDURE choferes_mayor_recaudacion
+DROP PROCEDURE GARBAGE.choferes_mayor_recaudacion
 
 go
-CREATE PROCEDURE choferes_mayor_recaudacion(@trimestre int, @anio int)
+CREATE PROCEDURE GARBAGE.choferes_mayor_recaudacion(@trimestre int, @anio int)
 AS
 BEGIN
 	select top 5 chof_id, chof_nombre, chof_dni, sum(item_fac_costo) as total_recaudado
@@ -37,14 +37,14 @@ BEGIN
 END
 
 go
-EXECUTE dbo.choferes_mayor_recaudacion @trimestre = 1, @anio = 2015;
+EXECUTE GARBAGE.choferes_mayor_recaudacion @trimestre = 1, @anio = 2015;
 
 /* Choferes con viaje mas largo realizado */
 
 IF EXISTS (SELECT name FROM sysobjects WHERE name='choferes_viaje_mas_largo' AND type='p')
-DROP PROCEDURE choferes_viaje_mas_largo
+DROP PROCEDURE GARBAGE.hoferes_viaje_mas_largo
 go
-CREATE PROCEDURE choferes_viaje_mas_largo(@trimestre int, @anio int)
+CREATE PROCEDURE GARBAGE.choferes_viaje_mas_largo(@trimestre int, @anio int)
 AS
 BEGIN
 
@@ -59,15 +59,15 @@ BEGIN
 
 END
 
-execute choferes_viaje_mas_largo @trimestre = 2, @anio = 2015;
+execute GARBAGE.choferes_viaje_mas_largo @trimestre = 2, @anio = 2015;
 
 /* Clientes con mayor consumo */ 
 
 go
 IF EXISTS (SELECT name FROM sysobjects WHERE name='clientes_mayor_consumo' AND type='p')
-DROP PROCEDURE clientes_mayor_consumo
+DROP PROCEDURE GARBAGE.clientes_mayor_consumo
 go
-CREATE PROCEDURE clientes_mayor_consumo(@trimestre int, @anio int)
+CREATE PROCEDURE GARBAGE.clientes_mayor_consumo(@trimestre int, @anio int)
 AS
 BEGIN
 
@@ -79,15 +79,15 @@ BEGIN
 	
 END
 
-execute clientes_mayor_consumo @trimestre = 3, @anio = 2015;
+execute GARBAGE.clientes_mayor_consumo @trimestre = 3, @anio = 2015;
 
 /* Cliente que utilizo mas veces el mismo automovil en los viajes que realizo */
 
 go
 IF EXISTS (SELECT name FROM sysobjects WHERE name='clientes_mismo_auto' AND type='p')
-DROP PROCEDURE clientes_mismo_auto
+DROP PROCEDURE GARBAGE.clientes_mismo_auto
 go
-CREATE PROCEDURE clientes_mismo_auto(@trimestre int, @anio int)
+CREATE PROCEDURE GARBAGE.clientes_mismo_auto(@trimestre int, @anio int)
 AS
 BEGIN
 

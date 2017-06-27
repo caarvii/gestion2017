@@ -12,6 +12,7 @@ namespace UberFrba
     {
         public string connectionDB { get; set; }
         public DateTime date { get; set; }
+        public float porcentajeRendicion { get; set; }
 
         private static Config instance;
 
@@ -32,6 +33,7 @@ namespace UberFrba
             {
                 connectionDB = ConfigurationManager.ConnectionStrings["data_base_info_connection"].ConnectionString;
                 date = DateTime.ParseExact(ConfigurationManager.AppSettings["system_date"], "yyyy-MM-dd", CultureInfo.InstalledUICulture);
+                porcentajeRendicion = 0.3f;
             }
             catch (Exception)
             {

@@ -170,6 +170,13 @@ AS BEGIN
 END
 go
 
+create procedure GARBAGE.getChoferesHabilitados
+as
+begin
+	(select * from GARBAGE.Chofer where chof_activo = 1)
+end
+go
+
 drop procedure GARBAGE.getChoferes;
 drop procedure GARBAGE.getChoferById;
 drop procedure GARBAGE.bajaLogicaChofer;

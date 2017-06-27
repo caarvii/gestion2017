@@ -18,18 +18,23 @@ namespace UberFrba.Abm_Chofer
         ListadoSeleccionListener listener;
         bool seleccionDeChofer = false;
         List<ChoferDTO> choferes;
-
         Dictionary<string, object> filtrosChoferList = new Dictionary<string, object>();
+        private bool soloActivos = new bool();
 
         public ListadoChofer()
         {
             InitializeComponent();
         }
 
-        public ListadoChofer(ListadoSeleccionListener _listener)
+        public ListadoChofer(ListadoSeleccionListener _listener) : this(_listener, false)
+        {
+        }
+
+        public ListadoChofer(ListadoSeleccionListener _listener, Boolean soloActivos)
         {
             InitializeComponent();
             listener = _listener;
+            this.soloActivos = soloActivos;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             cargarListadoChofer();
             botonAlta.Visible = false;
@@ -38,21 +43,18 @@ namespace UberFrba.Abm_Chofer
             seleccionDeChofer = true;
         }
 
+
         public void onOperationFinish()
         {
-
             cargarListadoChofer();
             tablaListado.Columns["estado"].Visible = false;
-
         }
 
         private void cargarListadoChofer()
         {
-
-            choferes = ChoferDAO.getAllChoferes();
+            choferes = soloActivos ? ChoferDAO.getChoferesHabilitados() : ChoferDAO.getAllChoferes();
             tablaListado.DataSource = choferes;
             tablaListado.Columns["estado"].Visible = false;
-
         }
 
         private void botonLimpiar_Click_1(object sender, EventArgs e)
@@ -61,7 +63,6 @@ namespace UberFrba.Abm_Chofer
             filtroNombre.Text = null;
             filtroApellido.Text = null;
             filtroDNI.Text = null;
-        
         }
 
         private void botonBuscar_Click(object sender, EventArgs e)
@@ -171,6 +172,7 @@ namespace UberFrba.Abm_Chofer
         {
 
         }
+
 
 
 
