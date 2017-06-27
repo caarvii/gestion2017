@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dao;
+using UberFrba.Dto;
 using UberFrba.Interface;
 
 
@@ -18,7 +19,12 @@ namespace UberFrba.Abm_Cliente
         
         Dictionary<string, object> filtrosClienteList = new Dictionary<string, object>();
 
-         public void onOperationFinish() {
+        ListadoSeleccionListener listener;
+        bool seleccionDeCliente = false;
+        List<ClienteDTO> clientes;
+
+
+        public void onOperationFinish() {
 
             cargarDGVClientes();
         
@@ -29,6 +35,22 @@ namespace UberFrba.Abm_Cliente
             InitializeComponent();
         }
 
+        public ListadoCliente(ListadoSeleccionListener _listener)
+        {
+            InitializeComponent();
+
+            listener = _listener;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+
+            cargarDGVClientes();
+            
+            botonAlta.Visible = false;
+            botonBaja.Visible = false;
+            botonModificacion.Text = "Seleccionar";
+            seleccionDeCliente = true;
+
+        }
+
         private void listadoCliente_Load(object sender, EventArgs e)
         {
             cargarDGVClientes();
@@ -36,7 +58,9 @@ namespace UberFrba.Abm_Cliente
 
         public void cargarDGVClientes()
         {
-            tablaListado.DataSource = ClienteDAO.getAllClientes();
+
+            clientes = ClienteDAO.getAllClientes();
+            tablaListado.DataSource = clientes;
             tablaListado.Columns["estado"].Visible = false;
 
             //VER
@@ -83,21 +107,40 @@ namespace UberFrba.Abm_Cliente
 
         private void botonModificacion_Click_1(object sender, EventArgs e)
         {
-            if (tablaListado.SelectedRows.Count == 1)
+            if (seleccionDeCliente == false)
             {
-                DataGridViewRow row = this.tablaListado.SelectedRows[0];
+                if (tablaListado.SelectedRows.Count == 1)
+                {
+                    DataGridViewRow row = this.tablaListado.SelectedRows[0];
 
-                int id  = Convert.ToInt32(row.Cells["id"].Value);
+                    int id = Convert.ToInt32(row.Cells["id"].Value);
 
-                ClienteDTO cliente = ClienteDAO.getClienteById(id);
+                    ClienteDTO cliente = ClienteDAO.getClienteById(id);
 
-                crearCliente crearClienteForm = new crearCliente(cliente, this);
-                crearClienteForm.ShowDialog();
+                    crearCliente crearClienteForm = new crearCliente(cliente, this);
+                    crearClienteForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar el cliente a modificar");
+                }
             }
             else
             {
-                MessageBox.Show("Debe seleccionar el cliente a modificar");
+
+                if (tablaListado.RowCount > 0)
+                {
+                    int index = tablaListado.SelectedRows[0].Index;
+                    listener.onOperationFinishCliente(clientes.ElementAt(index));
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila");
+                }
             }
+
+
         }
 
         protected void botonBuscar_Click(object sender, EventArgs e)

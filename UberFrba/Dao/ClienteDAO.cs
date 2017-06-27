@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using UberFrba.Repository;
 using UberFrba.Dto;
 
-namespace UberFrba.Dao
+namespace UberFrba.Dto
 {
     class ClienteDAO
     {

@@ -48,8 +48,20 @@ namespace UberFrba.Dao
             return readerToListAutomovil(reader);
         }
 
+		 public static AutomovilDTO getAutomovilDisponible(int chof_id)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getAutomovilDisponible",
+                SQLManager.getSingleParams("chof_id", chof_id));
 
-        private static Dictionary<string, object> addNewAutomovilParams(AutomovilDTO automovil, List<TurnoDTO> turnos)
+            if (!reader.HasRows)
+            {
+                throw new ApplicationException("Este chofer no tiene automoviles habilitados");
+            }
+
+            return readerToListAutomovil(reader).First();
+        }
+
+		private static Dictionary<string, object> addNewAutomovilParams(AutomovilDTO automovil, List<TurnoDTO> turnos)
         {
             DataTable table = new DataTable();
             table.Columns.Add("turnoext_id", typeof(int));
@@ -57,7 +69,7 @@ namespace UberFrba.Dao
             foreach (TurnoDTO turno in turnos)
             {
                 table.Rows.Add(turno.id);
-            }
+            }         
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("auto_marca_id", automovil.marca_id);

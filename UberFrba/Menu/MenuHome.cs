@@ -16,6 +16,7 @@ using UberFrba.Login;
 using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
 using UberFrba.Rendicion_Viajes;
+using UberFrba.Registro_Viajes;
 
 namespace UberFrba.Menu
 {
@@ -189,6 +190,14 @@ namespace UberFrba.Menu
                 showMenuForm(new Rendicion());
             }
         }
+        private void registrarViajeMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("RegistroViaje"))
+            {
+                showMenuForm(new RegistroViaje());
+            }
+        }
+
 
         private void listadoEstadisticoMenuItem_Click(object sender, EventArgs e)
         {

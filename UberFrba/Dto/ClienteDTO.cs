@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UberFrba.Dto;
 
-namespace UberFrba.Dao
+namespace UberFrba.Dto
 {
     public class ClienteDTO{
 
