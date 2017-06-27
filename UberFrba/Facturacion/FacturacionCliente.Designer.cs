@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dateInicio = new System.Windows.Forms.DateTimePicker();
-            this.txtDNI = new System.Windows.Forms.TextBox();
-            this.txtNombreApellido = new System.Windows.Forms.TextBox();
-            this.botonSeleccionarCliente = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.botonLimpiar = new System.Windows.Forms.Button();
-            this.botonBuscarViajes = new System.Windows.Forms.Button();
             this.botonFacturar = new System.Windows.Forms.Button();
-            this.viajesParaFacturar = new System.Windows.Forms.DataGridView();
+            this.botonBuscarViajes = new System.Windows.Forms.Button();
+            this.botonLimpiar = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.viajesParaFacturar = new System.Windows.Forms.DataGridView();
+            this.botonSeleccionarCliente = new System.Windows.Forms.Button();
+            this.txtNombreApellido = new System.Windows.Forms.TextBox();
+            this.txtDNI = new System.Windows.Forms.TextBox();
+            this.dateInicio = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.viajesParaFacturar)).BeginInit();
@@ -65,59 +65,34 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Atributos";
             // 
-            // label1
+            // botonFacturar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Fecha inicio ";
+            this.botonFacturar.Location = new System.Drawing.Point(402, 401);
+            this.botonFacturar.Name = "botonFacturar";
+            this.botonFacturar.Size = new System.Drawing.Size(94, 23);
+            this.botonFacturar.TabIndex = 13;
+            this.botonFacturar.Text = "Facturar Viajes";
+            this.botonFacturar.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // botonBuscarViajes
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 63);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Cliente";
+            this.botonBuscarViajes.Location = new System.Drawing.Point(21, 101);
+            this.botonBuscarViajes.Name = "botonBuscarViajes";
+            this.botonBuscarViajes.Size = new System.Drawing.Size(93, 22);
+            this.botonBuscarViajes.TabIndex = 12;
+            this.botonBuscarViajes.Text = "Buscar Viajes";
+            this.botonBuscarViajes.UseVisualStyleBackColor = true;
+            this.botonBuscarViajes.Click += new System.EventHandler(this.botonBuscarViajes_Click);
             // 
-            // dateInicio
+            // botonLimpiar
             // 
-            this.dateInicio.CustomFormat = "MM/yyyy";
-            this.dateInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateInicio.Location = new System.Drawing.Point(92, 31);
-            this.dateInicio.Name = "dateInicio";
-            this.dateInicio.Size = new System.Drawing.Size(92, 20);
-            this.dateInicio.TabIndex = 5;
-            // 
-            // txtDNI
-            // 
-            this.txtDNI.Enabled = false;
-            this.txtDNI.Location = new System.Drawing.Point(92, 60);
-            this.txtDNI.Name = "txtDNI";
-            this.txtDNI.ReadOnly = true;
-            this.txtDNI.Size = new System.Drawing.Size(91, 20);
-            this.txtDNI.TabIndex = 7;
-            // 
-            // txtNombreApellido
-            // 
-            this.txtNombreApellido.Enabled = false;
-            this.txtNombreApellido.Location = new System.Drawing.Point(189, 60);
-            this.txtNombreApellido.Name = "txtNombreApellido";
-            this.txtNombreApellido.ReadOnly = true;
-            this.txtNombreApellido.Size = new System.Drawing.Size(175, 20);
-            this.txtNombreApellido.TabIndex = 8;
-            // 
-            // botonSeleccionarCliente
-            // 
-            this.botonSeleccionarCliente.Location = new System.Drawing.Point(402, 60);
-            this.botonSeleccionarCliente.Name = "botonSeleccionarCliente";
-            this.botonSeleccionarCliente.Size = new System.Drawing.Size(95, 19);
-            this.botonSeleccionarCliente.TabIndex = 9;
-            this.botonSeleccionarCliente.Text = "Seleccionar";
-            this.botonSeleccionarCliente.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Location = new System.Drawing.Point(131, 101);
+            this.botonLimpiar.Name = "botonLimpiar";
+            this.botonLimpiar.Size = new System.Drawing.Size(94, 22);
+            this.botonLimpiar.TabIndex = 11;
+            this.botonLimpiar.Text = "Limpiar";
+            this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // groupBox2
             // 
@@ -130,41 +105,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Viajes para Facturar";
             // 
-            // botonLimpiar
-            // 
-            this.botonLimpiar.Location = new System.Drawing.Point(131, 101);
-            this.botonLimpiar.Name = "botonLimpiar";
-            this.botonLimpiar.Size = new System.Drawing.Size(94, 22);
-            this.botonLimpiar.TabIndex = 11;
-            this.botonLimpiar.Text = "Limpiar";
-            this.botonLimpiar.UseVisualStyleBackColor = true;
-            // 
-            // botonBuscarViajes
-            // 
-            this.botonBuscarViajes.Location = new System.Drawing.Point(21, 101);
-            this.botonBuscarViajes.Name = "botonBuscarViajes";
-            this.botonBuscarViajes.Size = new System.Drawing.Size(93, 22);
-            this.botonBuscarViajes.TabIndex = 12;
-            this.botonBuscarViajes.Text = "Buscar Viajes";
-            this.botonBuscarViajes.UseVisualStyleBackColor = true;
-            // 
-            // botonFacturar
-            // 
-            this.botonFacturar.Location = new System.Drawing.Point(402, 401);
-            this.botonFacturar.Name = "botonFacturar";
-            this.botonFacturar.Size = new System.Drawing.Size(94, 23);
-            this.botonFacturar.TabIndex = 13;
-            this.botonFacturar.Text = "Facturar Viajes";
-            this.botonFacturar.UseVisualStyleBackColor = true;
-            // 
-            // viajesParaFacturar
-            // 
-            this.viajesParaFacturar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viajesParaFacturar.Location = new System.Drawing.Point(19, 33);
-            this.viajesParaFacturar.Name = "viajesParaFacturar";
-            this.viajesParaFacturar.Size = new System.Drawing.Size(442, 172);
-            this.viajesParaFacturar.TabIndex = 0;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -173,6 +113,74 @@
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Total Factura: ";
+            // 
+            // viajesParaFacturar
+            // 
+            this.viajesParaFacturar.AllowUserToAddRows = false;
+            this.viajesParaFacturar.AllowUserToDeleteRows = false;
+            this.viajesParaFacturar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.viajesParaFacturar.Location = new System.Drawing.Point(19, 33);
+            this.viajesParaFacturar.MultiSelect = false;
+            this.viajesParaFacturar.Name = "viajesParaFacturar";
+            this.viajesParaFacturar.ReadOnly = true;
+            this.viajesParaFacturar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.viajesParaFacturar.Size = new System.Drawing.Size(442, 172);
+            this.viajesParaFacturar.TabIndex = 1;
+            // 
+            // botonSeleccionarCliente
+            // 
+            this.botonSeleccionarCliente.Location = new System.Drawing.Point(402, 60);
+            this.botonSeleccionarCliente.Name = "botonSeleccionarCliente";
+            this.botonSeleccionarCliente.Size = new System.Drawing.Size(95, 19);
+            this.botonSeleccionarCliente.TabIndex = 9;
+            this.botonSeleccionarCliente.Text = "Seleccionar";
+            this.botonSeleccionarCliente.UseVisualStyleBackColor = true;
+            this.botonSeleccionarCliente.Click += new System.EventHandler(this.botonSeleccionarCliente_Click);
+            // 
+            // txtNombreApellido
+            // 
+            this.txtNombreApellido.Enabled = false;
+            this.txtNombreApellido.Location = new System.Drawing.Point(189, 60);
+            this.txtNombreApellido.Name = "txtNombreApellido";
+            this.txtNombreApellido.ReadOnly = true;
+            this.txtNombreApellido.Size = new System.Drawing.Size(175, 20);
+            this.txtNombreApellido.TabIndex = 8;
+            // 
+            // txtDNI
+            // 
+            this.txtDNI.Enabled = false;
+            this.txtDNI.Location = new System.Drawing.Point(92, 60);
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.ReadOnly = true;
+            this.txtDNI.Size = new System.Drawing.Size(91, 20);
+            this.txtDNI.TabIndex = 7;
+            // 
+            // dateInicio
+            // 
+            this.dateInicio.CustomFormat = "MM/yyyy";
+            this.dateInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateInicio.Location = new System.Drawing.Point(92, 31);
+            this.dateInicio.Name = "dateInicio";
+            this.dateInicio.Size = new System.Drawing.Size(92, 20);
+            this.dateInicio.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 63);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Cliente";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Fecha inicio ";
             // 
             // FacturacionCliente
             // 
