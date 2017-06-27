@@ -243,6 +243,7 @@
     </Compile>
     <EmbeddedResource Include="Rendicion Viajes\Rendicion.resx">
       <DependentUpon>Rendicion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registro Viajes\RegistroViaje.resx">
       <DependentUpon>RegistroViaje.cs</DependentUpon>
     </EmbeddedResource>

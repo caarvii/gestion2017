@@ -37,6 +37,11 @@ namespace UberFrba.Rendicion_Viajes
            //Do nothing
         }
 
+        public void onOperationFinishCliente(ClienteDTO turno)
+        {
+            //Do nothing
+        }
+
         public void onOperationFinishChofer(ChoferDTO chofer)
         {
             this.chofer = chofer;
