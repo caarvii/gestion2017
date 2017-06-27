@@ -49,6 +49,12 @@ namespace UberFrba.Dao
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getAutomovilDisponible",
                 SQLManager.getSingleParams("chof_id", chof_id));
+
+            if (!reader.HasRows)
+            {
+                throw new ApplicationException("Este chofer no tiene automoviles habilitados");
+            }
+
             return readerToListAutomovil(reader).First();
         }
 

@@ -46,10 +46,13 @@ namespace UberFrba.Registro_Viajes
         public void onOperationFinishChofer(ChoferDTO chofer)
         {
             choferGlobal = chofer;
+
             txtNombreChofer.Text = chofer.nombre + " " + chofer.apellido;
             txtDNIChofer.Text = chofer.dni.ToString();
-
+           
             cargarAutomovilDisponible();
+
+            
 
         }
 
@@ -62,12 +65,24 @@ namespace UberFrba.Registro_Viajes
 
         private void cargarAutomovilDisponible()
         {
-            AutomovilDTO auto = AutomovilDAO.getAutomovilDisponible(choferGlobal.id);
-            autoGlobal = auto;
 
-            txtAutomovil.Text = auto.patente;
+            try
+            {
+                AutomovilDTO auto = AutomovilDAO.getAutomovilDisponible(choferGlobal.id);
+                autoGlobal = auto;
 
-            cargarTurnosDeAuto(auto.id);
+                txtAutomovil.Text = auto.patente;
+
+                cargarTurnosDeAuto(auto.id);
+            }
+            catch(ApplicationException e)
+            {
+                txtNombreChofer.Text = "";
+                txtDNIChofer.Text = "";
+                Utility.ShowError("Registro de viaje",e);
+
+            }
+         
 
         }
 
@@ -134,7 +149,16 @@ namespace UberFrba.Registro_Viajes
 
         private bool validacionFecha()
         {
-            return (dataFechaInicio.Value < dataFechaFin.Value);
+            return (dataFechaInicio.Value < dataFechaFin.Value) && (dataFechaInicio.Value.Day == dataFechaFin.Value.Day);
+
+        }
+
+        private bool validacionTurno()
+        {
+
+            return (Convert.ToInt32(txtHoraInicio.Text)  <= dataFechaInicio.Value.Hour &&
+                    Convert.ToInt32(txtHoraFin.Text) >= dataFechaFin.Value.Hour                    
+                    );
 
         }
 
@@ -152,7 +176,30 @@ namespace UberFrba.Registro_Viajes
                                                 );
             // REGISTRO
 
-            ViajeDAO.addNewViaje(nuevoViaje);
+            try
+            {
+                ViajeDAO.addNewViaje(nuevoViaje);
+                MessageBox.Show("Se agrego el viaje correctamente");
+
+                // LIMPIAR
+
+                txtDNIChofer.Text = "";
+                txtNombreChofer.Text = "";
+                txtAutomovil.Text = "";
+                comboTurno.DataSource = null;
+                txtHoraInicio.Text = "";
+                txtHoraFin.Text = "";
+                txtCantKM.Text = "";
+                dataFechaInicio.ResetText();
+                dataFechaFin.ResetText();
+                txtDNICliente.Text = "";
+                txtNombreCliente.Text = "";
+            }
+            catch (ApplicationException ex)
+            {
+                Utility.ShowError("Error al agregar un viaje", ex);
+            }   
+            
 
         }
 
@@ -171,13 +218,19 @@ namespace UberFrba.Registro_Viajes
             {
                 if (validacionFecha())
                 {
-
-                    registrarViaje();
+                    if (validacionTurno())
+                    {
+                        registrarViaje();
+                    }
+                    else 
+                    {
+                        MessageBox.Show("La hora inicial y final debe estar contenida dentro del turno correspondiente.", "Error");
+                    }
 
                 }
                 else 
                 {
-                    MessageBox.Show("La fecha inicial no puede ser mayor o igual a la fecha final", "Error");
+                    MessageBox.Show("La fecha inicial y final debe ser del mismo dia y la final mayor.", "Error");
                 }
 
             }

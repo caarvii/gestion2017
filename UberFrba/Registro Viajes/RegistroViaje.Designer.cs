@@ -191,7 +191,8 @@
             // 
             // dataFechaFin
             // 
-            this.dataFechaFin.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.dataFechaFin.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            this.dataFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataFechaFin.Location = new System.Drawing.Point(101, 189);
             this.dataFechaFin.Name = "dataFechaFin";
             this.dataFechaFin.Size = new System.Drawing.Size(223, 20);
@@ -199,7 +200,7 @@
             // 
             // dataFechaInicio
             // 
-            this.dataFechaInicio.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.dataFechaInicio.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.dataFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataFechaInicio.Location = new System.Drawing.Point(101, 157);
             this.dataFechaInicio.Name = "dataFechaInicio";
@@ -304,7 +305,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(550, 470);
+            this.ClientSize = new System.Drawing.Size(467, 325);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonRegistrar);
             this.Controls.Add(this.groupBox1);
