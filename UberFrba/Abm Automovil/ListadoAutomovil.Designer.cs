@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtFiltroModelo = new System.Windows.Forms.TextBox();
             this.txtFiltroPatente = new System.Windows.Forms.TextBox();
             this.txtFiltroChofer = new System.Windows.Forms.TextBox();
             this.cmbFiltroMarca = new System.Windows.Forms.ComboBox();
@@ -59,13 +58,6 @@
             // botonModificacion
             // 
             this.botonModificacion.Click += new System.EventHandler(this.botonModificacion_Click_1);
-            // 
-            // txtFiltroModelo
-            // 
-            this.txtFiltroModelo.Location = new System.Drawing.Point(311, 73);
-            this.txtFiltroModelo.Name = "txtFiltroModelo";
-            this.txtFiltroModelo.Size = new System.Drawing.Size(121, 20);
-            this.txtFiltroModelo.TabIndex = 2;
             // 
             // txtFiltroPatente
             // 
@@ -146,7 +138,6 @@
             this.Controls.Add(this.cmbFiltroMarca);
             this.Controls.Add(this.txtFiltroChofer);
             this.Controls.Add(this.txtFiltroPatente);
-            this.Controls.Add(this.txtFiltroModelo);
             this.Name = "ListadoAutomovil";
             this.Load += new System.EventHandler(this.ListadoAutomovil_Load_1);
             this.Controls.SetChildIndex(this.botonLimpiar, 0);
@@ -154,7 +145,6 @@
             this.Controls.SetChildIndex(this.botonBaja, 0);
             this.Controls.SetChildIndex(this.botonAlta, 0);
             this.Controls.SetChildIndex(this.botonModificacion, 0);
-            this.Controls.SetChildIndex(this.txtFiltroModelo, 0);
             this.Controls.SetChildIndex(this.txtFiltroPatente, 0);
             this.Controls.SetChildIndex(this.txtFiltroChofer, 0);
             this.Controls.SetChildIndex(this.cmbFiltroMarca, 0);
@@ -175,7 +165,6 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtFiltroModelo;
         private System.Windows.Forms.TextBox txtFiltroPatente;
         private System.Windows.Forms.TextBox txtFiltroChofer;
         private System.Windows.Forms.ComboBox cmbFiltroMarca;
