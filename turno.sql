@@ -26,10 +26,14 @@ begin
 	 	turno_precio_base = @turno_precio_base AND
 	 	turno_descripcion = @turno_descripcion);
 
-	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
-					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
-							AND turno_habilitado > 0
-					);
+	set @solapado = (select COUNT (*) 
+					from GARBAGE.Turno
+					where ( ( (turno_hora_inicio <= @turno_hora_inicio AND  turno_hora_fin >= @turno_hora_fin) or 
+							  (turno_hora_inicio >= @turno_hora_inicio AND turno_hora_fin > @turno_hora_fin and @turno_hora_fin > turno_hora_inicio) or
+							  (turno_hora_inicio <= @turno_hora_inicio AND turno_hora_fin < @turno_hora_fin and @turno_hora_inicio < turno_hora_fin) or
+							  (turno_hora_inicio >= @turno_hora_inicio AND  turno_hora_fin <= @turno_hora_fin) 
+							) AND  turno_habilitado > 0
+					))
 
 	-- TURNOS SOLAPADOS
 
@@ -69,10 +73,14 @@ begin
 
 	-- Solo busca por aquellos habilitados.
 
-	set @solapado = (select COUNT (*) from GARBAGE.TURNO 
-					 where (turno_hora_fin = @turno_hora_fin OR turno_hora_inicio = @turno_hora_inicio ) 
-							AND turno_habilitado > 0
-					);
+	set @solapado = (select COUNT (*) 
+					from GARBAGE.Turno
+					where ( ( (turno_hora_inicio <= @turno_hora_inicio AND  turno_hora_fin >= @turno_hora_fin) or 
+							  (turno_hora_inicio >= @turno_hora_inicio AND turno_hora_fin > @turno_hora_fin and @turno_hora_fin > turno_hora_inicio) or
+							  (turno_hora_inicio <= @turno_hora_inicio AND turno_hora_fin < @turno_hora_fin and @turno_hora_inicio < turno_hora_fin) or
+							  (turno_hora_inicio >= @turno_hora_inicio AND  turno_hora_fin <= @turno_hora_fin) 
+							) AND  turno_habilitado > 0
+					))
 
 	-- TURNOS SOLAPADOS
 
