@@ -77,14 +77,10 @@ namespace UberFrba.Facturacion
             //dt.Load(RendicionDAO.getViajesNoRendidos(chofer, turno, fechaRendicionDateTimePicker.Value));
 
 
+        }
 
-
-
-
-
-
-
-
+        private void botonFacturar_Click(object sender, EventArgs e)
+        {
 
         }
 
