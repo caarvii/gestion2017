@@ -62,6 +62,7 @@ namespace UberFrba.Abm_Chofer
             this.dateFechaNac.Value = choferEdicion.fechaNacimiento;
             //this.checkHabilitado.Checked = Convert.ToBoolean(choferEdicion.estado);
             this.checkHabilitado.Checked = choferEdicion.estado;
+            this.txtMail.Text = choferEdicion.mail;
 
         }
 

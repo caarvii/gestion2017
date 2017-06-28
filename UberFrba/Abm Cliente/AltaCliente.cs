@@ -151,7 +151,6 @@ namespace UberFrba.Dao
                 && !string.IsNullOrWhiteSpace(txtDireccion.Text)
                 && !string.IsNullOrWhiteSpace(txtTelefono.Text)
                 && !string.IsNullOrWhiteSpace(txtCodigoPostal.Text)
-                && !string.IsNullOrWhiteSpace(txtMail.Text)
                 && !string.IsNullOrWhiteSpace(dtpFechaNacimiento.Value.ToString()))
             {
                 try

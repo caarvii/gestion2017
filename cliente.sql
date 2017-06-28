@@ -5,6 +5,14 @@ begin
 end
 go
 
+create procedure GARBAGE.getClientesHabilitados
+as
+begin
+	(select * from GARBAGE.Cliente where cli_activo = 1)
+end
+go
+
+
 create procedure GARBAGE.getClienteById(@cli_id int)
 as
 begin
@@ -157,3 +165,4 @@ drop procedure GARBAGE.getClienteById;
 drop procedure GARBAGE.bajaLogicaCliente;
 drop procedure GARBAGE.altaCliente;
 drop procedure GARBAGE.updateCliente;
+drop procedure GARBAGE.getClientesHabilitados;
