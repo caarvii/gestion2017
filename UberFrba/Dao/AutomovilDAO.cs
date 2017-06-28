@@ -45,7 +45,7 @@ namespace UberFrba.Dao
         {
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             SqlDataReader reader = SQLManager.executeProcedureList("getAutomoviles", parameters);
-            return readerToListAutomovil(reader);
+            return readerAutomovilFiltro(reader);
         }
 
 		 public static AutomovilDTO getAutomovilDisponible(int chof_id)
@@ -123,23 +123,59 @@ namespace UberFrba.Dao
 
           internal static List<AutomovilDTO> getAutomovilesFilter(Dictionary<string, object> filtrosAutomovilList)
         {
-            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Automovil where ");
+            StringBuilder stringBuilder = new StringBuilder("select auto_id,auto_marca_id,marca_nombre,auto_mod_id,mod_nombre,auto_patente,auto_licencia,auto_rodado,auto_activo , chof_nombre FROM GARBAGE.Automovil,GARBAGE.Marca,GARBAGE.Modelo , GARBAGE.Chofer,GARBAGE.ChoferxAutomovil WHERE auto_marca_id=marca_id and auto_mod_id = mod_id and auto_id =  chof_auto_auto_id and chof_auto_chof_id=chof_id and ");
+
+            int a = 0;
 
             foreach (KeyValuePair<string, object> filtro in filtrosAutomovilList)
             {
+                if (a > 0)
+                {
+                    stringBuilder.Append(" and ");
+                }
+
                 stringBuilder.Append(filtro.Key);
                 stringBuilder.Append(" = '");
                 stringBuilder.Append(filtro.Value);
                 stringBuilder.Append("'");
-
+                a = a + 1;
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
-            return readerToListAutomovil(dataReader);
+            return readerAutomovilFiltro(dataReader);
 
 
          }
 
+
+          public static List<AutomovilDTO> readerAutomovilFiltro(SqlDataReader dataReader)
+          {
+
+              List<AutomovilDTO> automoviles = new List<AutomovilDTO>();
+              if (dataReader.HasRows)
+              {
+                  while (dataReader.Read())
+                  {
+                      AutomovilDTO automovil = new AutomovilDTO();
+                      automovil.id = Convert.ToInt32(dataReader["auto_id"]);
+                      automovil.marca_id = Convert.ToInt32(dataReader["auto_marca_id"]);
+                      automovil.marca_nombre = Convert.ToString(dataReader["marca_nombre"]);
+                      automovil.modelo_id = Convert.ToInt32(dataReader["auto_mod_id"]);
+                      automovil.modelo_nombre = Convert.ToString(dataReader["mod_nombre"]);
+                      automovil.patente = Convert.ToString(dataReader["auto_patente"]);
+                      automovil.licencia = Convert.ToString(dataReader["auto_licencia"]);
+                      automovil.rodado = Convert.ToString(dataReader["auto_rodado"]);
+                      automovil.activo = Convert.ToBoolean(dataReader["auto_activo"]);
+
+                      automovil.chofer_nombre = Convert.ToString(dataReader["chof_nombre"]);
+
+                      automoviles.Add(automovil);
+                  }
+              }
+              dataReader.Close();
+              dataReader.Dispose();
+              return automoviles;
+          }
 
 
 

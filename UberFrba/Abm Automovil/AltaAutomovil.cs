@@ -84,7 +84,7 @@ namespace UberFrba.Abm_Automovil
             cmbModelo.SelectedItem = AutomovilAModificar.modelo_nombre; // esto no se porq no anda...
             txtPatente.Text = AutomovilAModificar.patente;
 
-            choferGlobal = ChoferDAO.getChoferByAutomovilId(AutomovilAModificar.chofer_id);
+            choferGlobal = ChoferDAO.getChoferByAutomovilId(AutomovilAModificar.id);
 
 
             txtChoferDni.Text = choferGlobal.dni.ToString();

@@ -60,8 +60,10 @@ namespace UberFrba.Abm_Automovil
         protected override void botonLimpiar_Click(object sender, EventArgs e)
         {
             tablaListado.DataSource = null;
-
-
+            cmbFiltroMarca.SelectedIndex = -1;
+            cmbFiltroModelo.SelectedIndex = -1;
+            txtFiltroPatente.Text = "";
+            txtFiltroChofer.Text = "";
         }
 
 
@@ -120,30 +122,27 @@ namespace UberFrba.Abm_Automovil
 
             filtrosAutomovilList = new Dictionary<string, object>();
 
-            if (cmbFiltroMarca.SelectedIndex != -1){
-                filtrosAutomovilList.Add("auto_marca_id", cmbFiltroMarca.SelectedItem);
+
+            if (cmbFiltroModelo.SelectedIndex != -1 && ((ModeloDTO)cmbFiltroModelo.SelectedItem) != null)
+            {
+                filtrosAutomovilList.Add("mod_nombre", ((ModeloDTO)cmbFiltroModelo.SelectedItem).nombre.ToString());
             }
 
-            if (cmbFiltroModelo.SelectedIndex != -1)
+            if (cmbFiltroMarca.SelectedIndex != -1 && ((MarcaDTO)cmbFiltroMarca.SelectedItem) != null)
             {
-                filtrosAutomovilList.Add("auto_mod_id", cmbFiltroMarca.SelectedItem);
+                filtrosAutomovilList.Add("marca_nombre", ((MarcaDTO)cmbFiltroMarca.SelectedItem).descripcion);
             }
-
-             /*
-            if (!string.IsNullOrWhiteSpace(txtFiltroModelo.Text))
-            {
-                filtrosAutomovilList.Add("auto_modelo_id", txtFiltroModelo.Text);
-            }
-            */
 
             if (!string.IsNullOrWhiteSpace(txtFiltroPatente.Text))
             {
                 filtrosAutomovilList.Add("auto_patente", txtFiltroPatente.Text);
             }
 
+            // Correspondera al nombre.
+
             if (!string.IsNullOrWhiteSpace(txtFiltroChofer.Text))
             {
-                filtrosAutomovilList.Add("auto_chofer", txtFiltroChofer.Text);
+                filtrosAutomovilList.Add("chof_nombre", txtFiltroChofer.Text);
             }
 
 

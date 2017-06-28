@@ -1332,10 +1332,10 @@ go
 
 create procedure GARBAGE.getAutomoviles
 as begin
-	(select auto_id,auto_marca_id,marca_nombre,auto_mod_id,mod_nombre,auto_patente,auto_licencia,auto_rodado,auto_activo
-	FROM GARBAGE.Automovil,GARBAGE.Marca,GARBAGE.Modelo
-	WHERE auto_marca_id=marca_id and auto_mod_id = mod_id)
-end
+	(select auto_id,auto_marca_id,marca_nombre,auto_mod_id,mod_nombre,auto_patente,auto_licencia,auto_rodado,auto_activo , chof_nombre
+	FROM GARBAGE.Automovil,GARBAGE.Marca,GARBAGE.Modelo , GARBAGE.Chofer,GARBAGE.ChoferxAutomovil
+	WHERE auto_marca_id=marca_id and auto_mod_id = mod_id and auto_id =  chof_auto_auto_id and chof_auto_chof_id=chof_id)
+END
 go
 
 create procedure GARBAGE.bajaLogicaAutomovil(@auto_id int)
@@ -1357,7 +1357,7 @@ go
 create procedure GARBAGE.getChoferByAutomovilId (@auto_id int)
 as begin
 select * FROM GARBAGE.Chofer,GARBAGE.ChoferxAutomovil,GARBAGE.Automovil 
-where auto_id = chof_auto_auto_id and chof_auto_chof_id=chof_id
+where @auto_id = chof_auto_auto_id and chof_auto_chof_id=chof_id
 end
 go
 

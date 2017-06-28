@@ -28,6 +28,8 @@ namespace UberFrba.Dto
         public bool activo { get; set; }
         public List<TurnoDTO> turnosList { get; set; }
 
+        public string chofer_nombre { get; set; }
+
 
         public AutomovilDTO(int _marca_id, int _modelo_id, string _patente, string _licencia, string _rodado,int _chofer_id)
         {
