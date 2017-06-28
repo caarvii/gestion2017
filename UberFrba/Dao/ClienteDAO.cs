@@ -145,6 +145,12 @@ namespace UberFrba.Dto
              return SQLManager.executePorcedure("bajaLogicaCliente", SQLManager.getSingleParams("cli_id", cli_id));
         }
 
+        public static List<ClienteDTO> getClientesHabilitados()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getClientesHabilitados");
+            return readerToListCliente(reader);
+        }
+
 
     }
 }
