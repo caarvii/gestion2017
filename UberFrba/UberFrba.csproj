@@ -87,6 +87,7 @@
     <Compile Include="Dao\ViajeDAO.cs" />
     <Compile Include="Dto\AutomovilDTO.cs" />
     <Compile Include="Dto\ViajeDTO.cs" />
+    <Compile Include="Facturacion\ItemFactura.cs" />
     <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Dao\ListadoEstadisticoDAO.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Dao\MarcaDAO.cs" />
     <Compile Include="Dao\ModeloDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
-	<Compile Include="Dao\FacturacionDAO.cs" />
+    <Compile Include="Dao\FacturacionDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\AltaCliente.cs">
       <SubType>Form</SubType>

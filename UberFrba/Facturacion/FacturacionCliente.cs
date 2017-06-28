@@ -19,13 +19,13 @@ namespace UberFrba.Facturacion
     {
         private ClienteDTO cliente;
         private double importeTotal;
-        private List<int> viajesParaFacturarList;
+        private List<ItemFactura> viajesParaFacturarList;
 
         public FacturacionCliente()
         {
             InitializeComponent();
             this.importeTotal = 0;
-            this.viajesParaFacturarList = new List<int>();
+            this.viajesParaFacturarList = new List<ItemFactura>();
         }
 
         public void onOperationFinishTurno(TurnoDTO turno)
@@ -73,9 +73,25 @@ namespace UberFrba.Facturacion
                 return;
             }
 
-            //DataTable dt = new DataTable();
-            //dt.Load(RendicionDAO.getViajesNoRendidos(chofer, turno, fechaRendicionDateTimePicker.Value));
+            DataTable dt = new DataTable();
+            dt.Load(FacturacionDAO.getViajesNoFacturados(dateInicio.Value, cliente));
 
+            if (dt.Rows.Count == 0)
+            {
+                Utility.ShowInfo("Facturacion", "No hay viajes sin facturar para los datos ingresados");
+                return;
+            }
+
+            viajesParaFacturar.DataSource = dt;
+
+            viajesParaFacturarList.AddRange(dt.AsEnumerable().Select(x =>
+               new ItemFactura(Convert.ToInt32(x[x.Table.Columns["viaje_id"].Ordinal]),
+                    Convert.ToString(x[x.Table.Columns["viaje_descripcion"].Ordinal]),
+                Convert.ToDouble(x[x.Table.Columns["valor_viaje"].Ordinal]))).ToList());
+
+            importeTotal = viajesParaFacturarList.AsEnumerable().Select(x => x.viajeCosto).Sum();
+
+            totalFacturaLabel.Text = "$ " + importeTotal;
 
         }
 

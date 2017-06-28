@@ -33,6 +33,7 @@
             this.botonBuscarViajes = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.totalFacturaLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.viajesParaFacturar = new System.Windows.Forms.DataGridView();
             this.botonSeleccionarCliente = new System.Windows.Forms.Button();
@@ -97,6 +98,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.totalFacturaLabel);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.viajesParaFacturar);
             this.groupBox2.Location = new System.Drawing.Point(21, 142);
@@ -105,6 +107,14 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Viajes para Facturar";
+            // 
+            // totalFacturaLabel
+            // 
+            this.totalFacturaLabel.Location = new System.Drawing.Point(391, 218);
+            this.totalFacturaLabel.Name = "totalFacturaLabel";
+            this.totalFacturaLabel.Size = new System.Drawing.Size(70, 13);
+            this.totalFacturaLabel.TabIndex = 2;
+            this.totalFacturaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
             // 
@@ -130,9 +140,9 @@
             // 
             // botonSeleccionarCliente
             // 
-            this.botonSeleccionarCliente.Location = new System.Drawing.Point(402, 60);
+            this.botonSeleccionarCliente.Location = new System.Drawing.Point(387, 60);
             this.botonSeleccionarCliente.Name = "botonSeleccionarCliente";
-            this.botonSeleccionarCliente.Size = new System.Drawing.Size(95, 19);
+            this.botonSeleccionarCliente.Size = new System.Drawing.Size(95, 20);
             this.botonSeleccionarCliente.TabIndex = 9;
             this.botonSeleccionarCliente.Text = "Seleccionar";
             this.botonSeleccionarCliente.UseVisualStyleBackColor = true;
@@ -144,7 +154,7 @@
             this.txtNombreApellido.Location = new System.Drawing.Point(189, 60);
             this.txtNombreApellido.Name = "txtNombreApellido";
             this.txtNombreApellido.ReadOnly = true;
-            this.txtNombreApellido.Size = new System.Drawing.Size(175, 20);
+            this.txtNombreApellido.Size = new System.Drawing.Size(192, 20);
             this.txtNombreApellido.TabIndex = 8;
             // 
             // txtDNI
@@ -192,7 +202,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FacturacionCliente";
-            this.Text = "Form1";
+            this.Text = "Facturacion";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -217,5 +227,6 @@
         private System.Windows.Forms.Button botonFacturar;
         private System.Windows.Forms.DataGridView viajesParaFacturar;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label totalFacturaLabel;
     }
 }
