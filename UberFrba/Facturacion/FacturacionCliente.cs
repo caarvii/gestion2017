@@ -48,12 +48,15 @@ namespace UberFrba.Facturacion
         private void botonSeleccionarCliente_Click(object sender, EventArgs e)
         {
             ListadoCliente listadoSeleccionClienteForm = new ListadoCliente(this, true);
-            // averiguar por que el constructor del listadoCliente era (this,true)
             listadoSeleccionClienteForm.ShowDialog();
-
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            cleanFields();
+        }
+
+        private void cleanFields()
         {
             this.dateInicio.Value = Config.newInstance.date;
             this.txtDNI.Text = "";
@@ -97,7 +100,29 @@ namespace UberFrba.Facturacion
 
         private void botonFacturar_Click(object sender, EventArgs e)
         {
+            if (cliente == null)
+            {
+                Utility.ShowInfo("Facturacion", "Debe seleccionar un cliente para facturar");
+                return;
+            }
 
+            if (viajesParaFacturarList.Count == 0)
+            {
+                Utility.ShowInfo("Facturacion", "Seleccione Buscar Viajes para encontrar los viajes del cliente");
+                return;
+            }
+
+
+            try
+            {
+                FacturacionDAO.facturar(dateInicio.Value, cliente, viajesParaFacturarList);
+                Utility.ShowInfo("Facturacion", "Facturacion creada con exito");
+                cleanFields();
+            }
+            catch (ApplicationException ex)
+            {
+                Utility.ShowError("Facturacion", ex.Message);
+            }
         }
 
         
