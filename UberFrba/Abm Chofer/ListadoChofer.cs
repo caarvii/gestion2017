@@ -24,6 +24,13 @@ namespace UberFrba.Abm_Chofer
         public ListadoChofer()
         {
             InitializeComponent();
+            loadChoferes();
+        }
+
+        private void loadChoferes()
+        {
+            tablaListado.DataSource = ChoferDAO.getAllChoferes();
+
         }
 
         public ListadoChofer(ListadoSeleccionListener _listener) : this(_listener, false)
