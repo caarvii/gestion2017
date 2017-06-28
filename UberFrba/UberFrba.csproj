@@ -146,11 +146,11 @@
     <Compile Include="Dto\FuncionalidadDTO.cs" />
     <Compile Include="Dto\RolDTO.cs" />
     <Compile Include="Dto\UsuarioDTO.cs" />
-    <Compile Include="Facturacion\Form1.cs">
+    <Compile Include="Facturacion\FacturacionCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Facturacion\FacturacionCliente.Designer.cs">
+      <DependentUpon>FacturacionCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Listado.cs">
       <SubType>Form</SubType>
