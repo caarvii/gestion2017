@@ -22,7 +22,7 @@ namespace UberFrba.Abm_Cliente
         ListadoSeleccionListener listener;
         bool seleccionDeCliente = false;
         List<ClienteDTO> clientes;
-
+        private bool soloActivos = new bool();
 
         public void onOperationFinish() {
 
@@ -35,11 +35,16 @@ namespace UberFrba.Abm_Cliente
             InitializeComponent();
         }
 
-        public ListadoCliente(ListadoSeleccionListener _listener)
+        public ListadoCliente(ListadoSeleccionListener _listener): this(_listener, false)
+        {
+        }
+
+        public ListadoCliente(ListadoSeleccionListener _listener, Boolean soloActivos)
         {
             InitializeComponent();
 
             listener = _listener;
+            this.soloActivos = soloActivos;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 
             cargarDGVClientes();
@@ -59,7 +64,7 @@ namespace UberFrba.Abm_Cliente
         public void cargarDGVClientes()
         {
 
-            clientes = ClienteDAO.getAllClientes();
+            clientes = soloActivos ?  ClienteDAO.getClientesHabilitados() : ClienteDAO.getAllClientes();
             tablaListado.DataSource = clientes;
             tablaListado.Columns["estado"].Visible = false;
 

@@ -47,7 +47,7 @@ namespace UberFrba.Facturacion
 
         private void botonSeleccionarCliente_Click(object sender, EventArgs e)
         {
-            ListadoCliente listadoSeleccionClienteForm = new ListadoCliente(this);
+            ListadoCliente listadoSeleccionClienteForm = new ListadoCliente(this, true);
             // averiguar por que el constructor del listadoCliente era (this,true)
             listadoSeleccionClienteForm.ShowDialog();
 
