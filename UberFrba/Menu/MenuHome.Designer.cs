@@ -205,6 +205,7 @@
             this.facturarClienteMenuItem.Size = new System.Drawing.Size(129, 19);
             this.facturarClienteMenuItem.Text = "Facturacion a Clientes";
             this.facturarClienteMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.facturarClienteMenuItem.Click += new System.EventHandler(this.facturarClienteMenuItem_Click);
             // 
             // reportesTitleLabel
             // 
