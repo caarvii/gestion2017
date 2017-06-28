@@ -96,6 +96,7 @@
     <Compile Include="Dao\MarcaDAO.cs" />
     <Compile Include="Dao\ModeloDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
+	<Compile Include="Dao\FacturacionDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\AltaCliente.cs">
       <SubType>Form</SubType>
@@ -216,6 +217,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\FacturacionCliente.resx">
+      <DependentUpon>FacturacionCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
