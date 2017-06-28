@@ -61,10 +61,21 @@ namespace UberFrba.Dto
 
             foreach (KeyValuePair<string, object> filtro in filtrosClienteList)
             {
-                stringBuilder.Append(filtro.Key);
-                stringBuilder.Append(" = '");
-                stringBuilder.Append(filtro.Value);
-                stringBuilder.Append("'");
+                if (filtro.Key.Equals("cli_dni"))
+                {
+                    stringBuilder.Append(filtro.Key);
+                    stringBuilder.Append(" = '");
+                    stringBuilder.Append(filtro.Value);
+                    stringBuilder.Append("'");
+                }
+
+                else {
+
+                    stringBuilder.Append(filtro.Key);
+                    stringBuilder.Append(" like '%");
+                    stringBuilder.Append(filtro.Value);
+                    stringBuilder.Append("%'");
+                }
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
@@ -143,6 +154,12 @@ namespace UberFrba.Dto
 
         public static int deleteCliente(int cli_id){
              return SQLManager.executePorcedure("bajaLogicaCliente", SQLManager.getSingleParams("cli_id", cli_id));
+        }
+
+        public static List<ClienteDTO> getClientesHabilitados()
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getClientesHabilitados");
+            return readerToListCliente(reader);
         }
 
 

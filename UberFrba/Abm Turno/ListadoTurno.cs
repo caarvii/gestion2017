@@ -26,6 +26,12 @@ namespace UberFrba.Abm_Turno
         public ListadoTurno()
         {
             InitializeComponent();
+            loadTurnos();
+        }
+
+        private void loadTurnos()
+        {
+            tablaListado.DataSource = TurnoDAO.getAllTurnos();
         }
 
         public void onOperationFinish()
@@ -91,6 +97,8 @@ namespace UberFrba.Abm_Turno
             tablaListado.DataSource = turnos;
             tablaListado.Columns["estado"].Visible = false;
         }
+
+
 
         protected  void botonBaja_Click_1(object sender, EventArgs e)
         {

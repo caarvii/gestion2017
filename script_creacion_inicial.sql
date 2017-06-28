@@ -1125,6 +1125,13 @@ begin
 end
 go
 
+create procedure GARBAGE.getClientesHabilitados
+as
+begin
+	(select * from GARBAGE.Cliente where cli_activo = 1)
+end
+go
+
 create procedure GARBAGE.getClienteById(@cli_id int)
 as
 begin
@@ -1165,7 +1172,7 @@ begin
 	set @cant = (SELECT COUNT (*) FROM GARBAGE.Cliente WHERE cli_telefono = @cli_telefono);
 	
 	if  @cant > 0 BEGIN
-		set @error_message = 'El cliente ya existe';
+		set @error_message = 'El telefono ya esta en uso, ingrese uno distinto';
 		throw 50000, @error_message , 1;
 		
 	END
@@ -1245,12 +1252,21 @@ begin
 
 	declare @error_message nvarchar(255);
 	declare @cant int;
+	declare @telefono int;
 
 	set @cant = (select COUNT(*) from GARBAGE.Cliente where cli_id = @cli_id );
 
 	if  @cant = 0 BEGIN
-		set @error_message = 'El chofer no existe';
+		set @error_message = 'El cliente no existe';
 		throw 50000, @error_message , 1;
+	END
+
+	set @telefono = (SELECT COUNT (*) FROM GARBAGE.Cliente WHERE cli_telefono = @cli_telefono and @cli_id != cli_id);
+	
+	if  @telefono > 0 BEGIN
+		set @error_message = 'El telefono ya esta en uso, ingrese uno distinto';
+		throw 50000, @error_message , 1;
+		
 	END
 
 	-- Nota: No se actualiza el usuario.

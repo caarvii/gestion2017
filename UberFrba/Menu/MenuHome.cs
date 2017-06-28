@@ -17,6 +17,7 @@ using UberFrba.Abm_Automovil;
 using UberFrba.Abm_Chofer;
 using UberFrba.Rendicion_Viajes;
 using UberFrba.Registro_Viajes;
+using UberFrba.Facturacion;
 
 namespace UberFrba.Menu
 {
@@ -206,6 +207,14 @@ namespace UberFrba.Menu
                 showMenuForm(new Listado());
             }
 
+        }
+
+        private void facturarClienteMenuItem_Click(object sender, EventArgs e)
+        {
+            if (canShowForm("FacturacionCliente"))
+            {
+                showMenuForm(new FacturacionCliente());
+            }
         }
     }
 }

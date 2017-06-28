@@ -87,6 +87,7 @@
     <Compile Include="Dao\ViajeDAO.cs" />
     <Compile Include="Dto\AutomovilDTO.cs" />
     <Compile Include="Dto\ViajeDTO.cs" />
+    <Compile Include="Facturacion\ItemFactura.cs" />
     <Compile Include="Interface\ListadoSeleccionListener.cs" />
     <Compile Include="Dao\ListadoEstadisticoDAO.cs" />
     <Compile Include="Interface\OnCreateUpdateListener.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Dao\MarcaDAO.cs" />
     <Compile Include="Dao\ModeloDAO.cs" />
     <Compile Include="Dao\TurnoDAO.cs" />
+    <Compile Include="Dao\FacturacionDAO.cs" />
     <Compile Include="Dto\ClienteDTO.cs" />
     <Compile Include="Abm Cliente\AltaCliente.cs">
       <SubType>Form</SubType>
@@ -146,11 +148,11 @@
     <Compile Include="Dto\FuncionalidadDTO.cs" />
     <Compile Include="Dto\RolDTO.cs" />
     <Compile Include="Dto\UsuarioDTO.cs" />
-    <Compile Include="Facturacion\Form1.cs">
+    <Compile Include="Facturacion\FacturacionCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Facturacion\FacturacionCliente.Designer.cs">
+      <DependentUpon>FacturacionCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Listado.cs">
       <SubType>Form</SubType>
@@ -216,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\AltaCliente.resx">
       <DependentUpon>AltaCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\FacturacionCliente.resx">
+      <DependentUpon>FacturacionCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
