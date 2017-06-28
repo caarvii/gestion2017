@@ -1403,7 +1403,7 @@ begin
 	END
 	ELSE
 
-	update GARBAGE.Automovil set auto_marca_id=@auto_marca_id,auto_mod_id=auto_mod_id,auto_patente=@auto_patente,auto_licencia=auto_licencia,auto_rodado=@auto_rodado,auto_activo=@auto_activo
+	update GARBAGE.Automovil set auto_marca_id = @auto_marca_id, auto_mod_id = @auto_modelo_id, auto_patente = @auto_patente, auto_licencia = @auto_licencia, auto_rodado = @auto_rodado, auto_activo = @auto_activo
 	where auto_id=@auto_id
 
 	update GARBAGE.ChoferxAutomovil set chof_auto_habilitado=@auto_activo, chof_auto_chof_id=@auto_chofer_id
