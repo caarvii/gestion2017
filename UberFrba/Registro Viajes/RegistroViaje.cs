@@ -137,13 +137,13 @@ namespace UberFrba.Registro_Viajes
 
         private void botonSelecionChofer_Click(object sender, EventArgs e)
         {
-            ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this);
+            ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this, true);
             ListadoSeleccionDeChoferForm.ShowDialog();
         }
 
         private void botonSelecionCliente_Click(object sender, EventArgs e)
         {
-            ListadoCliente ListadoSeleccionCliente = new ListadoCliente(this);
+            ListadoCliente ListadoSeleccionCliente = new ListadoCliente(this, true);
             ListadoSeleccionCliente.ShowDialog();
         }
 
