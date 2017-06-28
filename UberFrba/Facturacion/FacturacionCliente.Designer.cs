@@ -73,6 +73,7 @@
             this.botonFacturar.TabIndex = 13;
             this.botonFacturar.Text = "Facturar Viajes";
             this.botonFacturar.UseVisualStyleBackColor = true;
+            this.botonFacturar.Click += new System.EventHandler(this.botonFacturar_Click);
             // 
             // botonBuscarViajes
             // 
