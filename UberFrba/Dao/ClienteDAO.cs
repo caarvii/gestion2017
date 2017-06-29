@@ -55,9 +55,9 @@ namespace UberFrba.Dto
             return readerToListCliente(reader).First();
         }
 
-        internal static List<ClienteDTO> getClientesFilter(Dictionary<string, object> filtrosClienteList)
+        internal static List<ClienteDTO> getClientesFilter(Dictionary<string, object> filtrosClienteList, Boolean onlyEnabled)
         {
-            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Cliente where ");
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Cliente where cli_activo = " + (onlyEnabled ? 1 : 0) + " and ");
 
             int a = 0;
 

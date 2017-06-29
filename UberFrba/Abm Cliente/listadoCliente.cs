@@ -173,7 +173,8 @@ namespace UberFrba.Abm_Cliente
                 if (filtrosClienteList.Count > 0)
                 {
                     //Tiene filtros
-                    tablaListado.DataSource = ClienteDAO.getClientesFilter(filtrosClienteList);
+                    clientes =  ClienteDAO.getClientesFilter(filtrosClienteList, soloActivos);
+                    tablaListado.DataSource = clientes;
                     tablaListado.Columns["estado"].Visible = false;
                 }
                 else
