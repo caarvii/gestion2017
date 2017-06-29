@@ -127,18 +127,28 @@ namespace UberFrba.Registro_Viajes
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-            txtDNIChofer.Text = "";
-            txtNombreChofer.Text = "";
-            txtAutomovil.Text = "";
-            comboTurno.DataSource = null;
-            txtHoraInicio.Text = "";
-            txtHoraFin.Text = "";
+            cleanRegistro();
+
+        }
+
+        private void cleanRegistro()
+        {
+            //Si es un cliente
+            if (!Sesion.RolActual.nombre.Equals("Chofer"))
+            {
+                txtDNIChofer.Text = "";
+                txtNombreChofer.Text = "";
+                txtAutomovil.Text = "";
+                comboTurno.DataSource = null;
+                txtHoraInicio.Text = "";
+                txtHoraFin.Text = "";
+            }
+
             txtCantKM.Text = "";
             dataFechaInicio.Value = Config.newInstance.date;
             dataFechaFin.Value = Config.newInstance.date;
             txtDNICliente.Text = "";
             txtNombreCliente.Text = "";
-
         }
 
         private void botonSelecionChofer_Click(object sender, EventArgs e)
@@ -188,18 +198,7 @@ namespace UberFrba.Registro_Viajes
                 MessageBox.Show("Se agrego el viaje correctamente");
 
                 // LIMPIAR
-
-                txtDNIChofer.Text = "";
-                txtNombreChofer.Text = "";
-                txtAutomovil.Text = "";
-                comboTurno.DataSource = null;
-                txtHoraInicio.Text = "";
-                txtHoraFin.Text = "";
-                txtCantKM.Text = "";
-                dataFechaInicio.ResetText();
-                dataFechaFin.ResetText();
-                txtDNICliente.Text = "";
-                txtNombreCliente.Text = "";
+                cleanRegistro();
             }
             catch (ApplicationException ex)
             {

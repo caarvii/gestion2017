@@ -67,10 +67,15 @@ namespace UberFrba.Facturacion
 
         private void cleanFields()
         {
+            //Si es un cliente
+            if (!Sesion.RolActual.nombre.Equals("Cliente"))
+            {
+                this.txtDNI.Text = "";
+                this.txtNombreApellido.Text = "";
+                this.cliente = null;
+            }
+
             this.dateInicio.Value = Config.newInstance.date;
-            this.txtDNI.Text = "";
-            this.txtNombreApellido.Text = "";
-            this.cliente = null;
             this.viajesParaFacturar.DataSource = null;
             this.viajesParaFacturarList.Clear();
             this.importeTotal = 0;
