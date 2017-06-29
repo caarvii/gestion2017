@@ -1891,7 +1891,7 @@ begin
 	from GARBAGE.Viaje
 	join GARBAGE.Turno on turno_id = viaje_turno_id
 	where viaje_cli_id = @cli_id and MONTH(@fecha) = MONTH(fecha_hora_fin) and YEAR(@fecha) = YEAR(fecha_hora_fin)
-	--and viaje_id not in (select item_fac_viaje_id from GARBAGE.ItemxFactura)
+	and viaje_id not in (select item_fac_viaje_id from GARBAGE.ItemxFactura)
 	order by fecha_hora_fin
 end
 go
@@ -1923,12 +1923,8 @@ begin
 
 	declare @fact_id int = scope_identity()
 
-	set identity_insert GARBAGE.ItemxFactura on
-
 	insert into GARBAGE.ItemxFactura (item_fac_fac_id, item_fac_viaje_id, item_fac_descripcion, item_fac_costo)
 	select @fact_id, viaje_id, viaje_desc, viaje_costo from @viajes
-
-	set identity_insert GARBAGE.ItemxFactura off
 
 	declare @cantidad_viajes int
 	declare @total decimal(12,2)
@@ -1939,4 +1935,3 @@ begin
 	update GARBAGE.Factura set fact_cant_viajes = @cantidad_viajes, fact_total = @total
 	where fact_id = @fact_id
 end
-
