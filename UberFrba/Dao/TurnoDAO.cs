@@ -144,9 +144,9 @@ namespace UberFrba.Dao
             foreach (KeyValuePair<string, object> filtro in filtrosTurnoList)
             {
                 stringBuilder.Append(filtro.Key);
-                stringBuilder.Append(" like '");
+                stringBuilder.Append(" like '%");
                 stringBuilder.Append(filtro.Value);
-                stringBuilder.Append("'");
+                stringBuilder.Append("%'");
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
