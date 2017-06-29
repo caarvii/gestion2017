@@ -480,14 +480,6 @@ insert into GARBAGE.RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
 	join GARBAGE.Rol R on R.rol_nombre = @ROL_ADMIN
 );
 
-insert into GARBAGE.RolxUsuario(rol_usu_rol_id , rol_usu_usu_id)
-(
-	select R.rol_id, S.usu_id
-	from GARBAGE.Usuario S 
-	join GARBAGE.Rol R on R.rol_nombre = @ROL_CLIENTE
-	where S.usu_username <> 'admin'
-);
-
 print('Insertando Usuarios admin.');
 
 insert into GARBAGE.Cliente (cli_nombre, cli_apellido, cli_dni, cli_telefono, 
@@ -1143,6 +1135,13 @@ create procedure GARBAGE.getClienteById(@cli_id int)
 as
 begin
 	(select * from GARBAGE.Cliente where cli_id = @cli_id)
+end
+go
+
+create procedure GARBAGE.getClienteByUsuarioId(@usuario_id int)
+as
+begin
+	(select * from GARBAGE.Cliente where cli_usu_id = @usuario_id)
 end
 go
 

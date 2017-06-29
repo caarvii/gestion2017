@@ -55,6 +55,13 @@ namespace UberFrba.Dto
             return readerToListCliente(reader).First();
         }
 
+        public static ClienteDTO getClienteByUserId(int usuarioId)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getClienteByUsuarioId",
+            SQLManager.getSingleParams("usuario_id", usuarioId));
+            return readerToListCliente(reader).First();
+        }
+
         internal static List<ClienteDTO> getClientesFilter(Dictionary<string, object> filtrosClienteList, Boolean onlyEnabled)
         {
             StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Cliente where cli_activo = " + (onlyEnabled ? 1 : 0) + " and ");
@@ -171,7 +178,6 @@ namespace UberFrba.Dto
             SqlDataReader reader = SQLManager.executeProcedureList("getClientesHabilitados");
             return readerToListCliente(reader);
         }
-
 
     }
 }
