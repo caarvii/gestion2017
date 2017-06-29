@@ -185,7 +185,7 @@ namespace UberFrba.Abm_Automovil
         private void cmdSeleccionarChofer_Click(object sender, EventArgs e)
         {
             
-            ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this);
+            ListadoChofer ListadoSeleccionDeChoferForm = new ListadoChofer(this, true);
             ListadoSeleccionDeChoferForm.ShowDialog();
               
         }
