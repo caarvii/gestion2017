@@ -284,6 +284,7 @@
             // cmbTurno
             // 
             this.cmbTurno.FormattingEnabled = true;
+            this.cmbTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTurno.Location = new System.Drawing.Point(9, 37);
             this.cmbTurno.Name = "cmbTurno";
             this.cmbTurno.Size = new System.Drawing.Size(121, 21);

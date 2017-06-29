@@ -76,6 +76,7 @@
             // cmbFiltroMarca
             // 
             this.cmbFiltroMarca.FormattingEnabled = true;
+            this.cmbFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFiltroMarca.Location = new System.Drawing.Point(112, 43);
             this.cmbFiltroMarca.Name = "cmbFiltroMarca";
             this.cmbFiltroMarca.Size = new System.Drawing.Size(121, 21);
@@ -120,6 +121,7 @@
             // cmbFiltroModelo
             // 
             this.cmbFiltroModelo.FormattingEnabled = true;
+            this.cmbFiltroModelo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFiltroModelo.Location = new System.Drawing.Point(112, 71);
             this.cmbFiltroModelo.Name = "cmbFiltroModelo";
             this.cmbFiltroModelo.Size = new System.Drawing.Size(121, 21);
