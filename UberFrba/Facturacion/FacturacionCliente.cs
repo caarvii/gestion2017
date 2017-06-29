@@ -12,6 +12,7 @@ using UberFrba.Dto;
 using UberFrba.Helpers;
 using UberFrba.Interface;
 using UberFrba.Abm_Cliente;
+using UberFrba.Login;
 
 namespace UberFrba.Facturacion
 {
@@ -27,6 +28,13 @@ namespace UberFrba.Facturacion
             this.dateInicio.Value = Config.newInstance.date;
             this.importeTotal = 0;
             this.viajesParaFacturarList = new List<ItemFactura>();
+
+            //Si es un cliente
+            if (Sesion.RolActual.nombre.Equals("Cliente"))
+            {
+                botonSeleccionarCliente.Enabled = false;
+                onOperationFinishCliente(ClienteDAO.getClienteByUserId(Sesion.UsuarioActual.id));
+            }
         }
 
         public void onOperationFinishTurno(TurnoDTO turno)
