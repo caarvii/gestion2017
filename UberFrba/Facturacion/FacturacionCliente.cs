@@ -24,6 +24,7 @@ namespace UberFrba.Facturacion
         public FacturacionCliente()
         {
             InitializeComponent();
+            this.dateInicio.Value = Config.newInstance.date;
             this.importeTotal = 0;
             this.viajesParaFacturarList = new List<ItemFactura>();
         }

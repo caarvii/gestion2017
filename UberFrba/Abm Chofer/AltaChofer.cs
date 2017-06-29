@@ -27,6 +27,7 @@ namespace UberFrba.Abm_Chofer
         public AltaChofer(OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
+            this.dateFechaNac.Value = Config.newInstance.date;
             this.Text = "Alta de Choferes";
             this.botonAgregar.Text = "Agregar";
             this.edicion = false;
@@ -191,7 +192,7 @@ namespace UberFrba.Abm_Chofer
             this.txtDireccion.Text = "";
             this.txtTelefono.Text = "";
             this.txtMail.Text = "";
-            this.dateFechaNac.ResetText();
+            this.dateFechaNac.Value = Config.newInstance.date;
             this.checkHabilitado.Checked = false;
         }
 

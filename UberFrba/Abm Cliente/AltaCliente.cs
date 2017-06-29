@@ -24,14 +24,11 @@ namespace UberFrba.Dao
         public crearCliente(OnCreateUpdateListener listenerExterno)
         {
             InitializeComponent();
+            this.dtpFechaNacimiento.Value = Config.newInstance.date; 
             this.Text = "Alta de Clientes";
-
-            btnCrearCliente.Visible = true
-                ;
+            btnCrearCliente.Visible = true ;
             btnModificar.Visible = false;
-
             this.checkHabilitado.Checked = true;
-            
             listener = listenerExterno;
 
         }
@@ -222,7 +219,7 @@ namespace UberFrba.Dao
             this.txtTelefono.Text = "";
             this.txtMail.Text = "";
             this.txtCodigoPostal.Text = "";
-            this.dtpFechaNacimiento.ResetText();
+            this.dtpFechaNacimiento.Value = Config.newInstance.date;
             this.checkHabilitado.Checked = false;
         }
 

@@ -29,11 +29,9 @@ namespace UberFrba.Registro_Viajes
         public RegistroViaje()
         {
             InitializeComponent();
+            this.dataFechaInicio.Value = Config.newInstance.date;
+            this.dataFechaFin.Value = Config.newInstance.date;
             this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-
-            //this.dataFechaInicio.Format = DateTimePickerFormat.Time;
-            //this.dataFechaInicio.ShowUpDown = true;
-
         }
 
         public void onOperationFinishCliente(ClienteDTO cliente)
@@ -128,8 +126,8 @@ namespace UberFrba.Registro_Viajes
             txtHoraInicio.Text = "";
             txtHoraFin.Text = "";
             txtCantKM.Text = "";
-            dataFechaInicio.ResetText();
-            dataFechaFin.ResetText();
+            dataFechaInicio.Value = Config.newInstance.date;
+            dataFechaFin.Value = Config.newInstance.date;
             txtDNICliente.Text = "";
             txtNombreCliente.Text = "";
 
