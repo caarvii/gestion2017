@@ -137,15 +137,22 @@ namespace UberFrba.Dao
         {
             StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Chofer where ");
 
+            int a = 0;
             foreach (KeyValuePair<string, object> filtro in filtrosChoferList)
             {
+
+                if (a > 0)
+                {
+                    stringBuilder.Append(" and ");
+                }
+
                 if (filtro.Key.Equals("chof_dni"))
                 {
 
                     stringBuilder.Append(filtro.Key);
                     stringBuilder.Append(" = '");
                     stringBuilder.Append(filtro.Value);
-                    stringBuilder.Append("'");
+                    stringBuilder.Append("' ");
                 }
 
                 else {
@@ -153,8 +160,10 @@ namespace UberFrba.Dao
                     stringBuilder.Append(filtro.Key);
                     stringBuilder.Append(" like '%");
                     stringBuilder.Append(filtro.Value);
-                    stringBuilder.Append("%'");
+                    stringBuilder.Append("%' ");
                 }
+
+                a++;
 
                 
             }

@@ -59,14 +59,21 @@ namespace UberFrba.Dto
         {
             StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Cliente where ");
 
+            int a = 0;
+
             foreach (KeyValuePair<string, object> filtro in filtrosClienteList)
             {
+                if (a > 0)
+                {
+                    stringBuilder.Append(" and ");
+                }
+
                 if (filtro.Key.Equals("cli_dni"))
                 {
                     stringBuilder.Append(filtro.Key);
                     stringBuilder.Append(" = '");
                     stringBuilder.Append(filtro.Value);
-                    stringBuilder.Append("'");
+                    stringBuilder.Append("' ");
                 }
 
                 else {
@@ -74,8 +81,11 @@ namespace UberFrba.Dto
                     stringBuilder.Append(filtro.Key);
                     stringBuilder.Append(" like '%");
                     stringBuilder.Append(filtro.Value);
-                    stringBuilder.Append("%'");
+                    stringBuilder.Append("%' ");
                 }
+
+                a++;
+               
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
