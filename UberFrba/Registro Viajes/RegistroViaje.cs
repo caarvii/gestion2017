@@ -186,7 +186,7 @@ namespace UberFrba.Registro_Viajes
                                                autoGlobal.id,
                                                ((TurnoDTO)comboTurno.SelectedItem).id,
                                                choferGlobal.id,
-                                               Convert.ToInt32(txtCantKM.Text),
+                                               Convert.ToDouble(txtCantKM.Text),
                                                dataFechaInicio.Value,
                                                dataFechaFin.Value,
                                                clienteGlobal.id

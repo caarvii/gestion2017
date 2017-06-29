@@ -24,7 +24,7 @@ namespace UberFrba.Dao
                     viaje.auto_id = Convert.ToInt32(dataReader["viaje_auto_id"]);
                     viaje.turno_id = Convert.ToInt32(dataReader["viaje_turno_id"]);
                     viaje.chof_id = Convert.ToInt32(dataReader["viaje_chof_id"]);
-                    viaje.cant_km = Convert.ToInt32(dataReader["viaje_cant_km"]);
+                    viaje.cant_km = Convert.ToDouble(dataReader["viaje_cant_km"]);
                     viaje.fechaInicio = Convert.ToDateTime(dataReader["fecha_hora_ini"]);
                     viaje.fechaFinal = Convert.ToDateTime(dataReader["fecha_hora_fin"]);
                     viaje.cli_id = Convert.ToInt32(dataReader["viaje_cli_id"]);

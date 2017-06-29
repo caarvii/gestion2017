@@ -12,7 +12,7 @@ namespace UberFrba.Dto
         public int auto_id { get; set; }
         public int turno_id { get; set; }
         public int chof_id { get; set; }
-        public int cant_km { get; set; }
+        public double cant_km { get; set; }
         public DateTime fechaInicio { get; set; }
         public DateTime fechaFinal { get; set; }
         public int cli_id { get; set; }
@@ -24,7 +24,7 @@ namespace UberFrba.Dto
                          int auto_id,
                          int turno_id,
                          int chof_id,
-                         int cant_km,
+                         double cant_km,
                          DateTime fechaInicio,
                          DateTime fechaFinal,
                          int cli_id
