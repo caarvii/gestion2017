@@ -968,6 +968,13 @@ begin
 end
 go
 
+create procedure GARBAGE.getChoferByUsuarioId(@usuario_id int)
+as
+begin
+	(select * from GARBAGE.Chofer where chof_usu_id = @usuario_id)
+end
+go
+
 create procedure GARBAGE.bajaLogicaChofer(@chof_id int)
 as
 begin

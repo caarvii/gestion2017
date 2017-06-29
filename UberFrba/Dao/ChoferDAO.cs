@@ -52,6 +52,13 @@ namespace UberFrba.Dao
             return ReaderToListChofer(reader).First();
         }
 
+        public static ChoferDTO getChoferByUserId(int usuario_id)
+        {
+            SqlDataReader reader = SQLManager.executeProcedureList("getChoferByUsuarioId",
+            SQLManager.getSingleParams("usuario_id", usuario_id));
+            return ReaderToListChofer(reader).First();
+        }
+
         public static ChoferDTO getChoferByAutomovilId(int auto_id)
         {
             SqlDataReader reader = SQLManager.executeProcedureList("getChoferByAutomovilId",
@@ -61,9 +68,7 @@ namespace UberFrba.Dao
 
         public static int deleteChofer(int chofer_id)
         {
-
             return SQLManager.executePorcedure("bajaLogicaChofer", SQLManager.getSingleParams("chof_id", chofer_id));
-
         }
 
 
@@ -164,8 +169,6 @@ namespace UberFrba.Dao
                 }
 
                 a++;
-
-                
             }
 
             SqlDataReader dataReader = SQLManager.executeQuery(stringBuilder.ToString());
@@ -178,9 +181,6 @@ namespace UberFrba.Dao
             SqlDataReader reader = SQLManager.executeProcedureList("getChoferesHabilitados");
             return ReaderToListChofer(reader);
         }
-
-
-
 
     }
 }

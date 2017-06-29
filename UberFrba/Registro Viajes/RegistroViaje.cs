@@ -14,6 +14,7 @@ using UberFrba.Interface;
 using UberFrba.Helpers;
 using UberFrba.Dao;
 using UberFrba.Dto;
+using UberFrba.Login;
 
 namespace UberFrba.Registro_Viajes
 {
@@ -32,6 +33,13 @@ namespace UberFrba.Registro_Viajes
             this.dataFechaInicio.Value = Config.newInstance.date;
             this.dataFechaFin.Value = Config.newInstance.date;
             this.comboTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+
+            //Si es un chofer
+            if (Sesion.RolActual.nombre.Equals("Chofer"))
+            {
+                botonSelecionChofer.Enabled = false;
+                onOperationFinishChofer(ChoferDAO.getChoferByUserId(Sesion.UsuarioActual.id));
+            }
         }
 
         public void onOperationFinishCliente(ClienteDTO cliente)
