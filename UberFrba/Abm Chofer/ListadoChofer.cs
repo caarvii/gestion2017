@@ -97,7 +97,8 @@ namespace UberFrba.Abm_Chofer
             if (filtrosChoferList.Count > 0)
             {
                 //Tiene filtros
-                tablaListado.DataSource = ChoferDAO.getChoferFilter(filtrosChoferList);
+                choferes = ChoferDAO.getChoferFilter(filtrosChoferList, soloActivos);
+                tablaListado.DataSource = choferes;
                 tablaListado.Columns["estado"].Visible = false;
 
             }
@@ -136,7 +137,7 @@ namespace UberFrba.Abm_Chofer
         private void botonModificacion_Click_1(object sender, EventArgs e)
         {
 
-            if (seleccionDeChofer == false)
+            if (!seleccionDeChofer)
             {
 
 

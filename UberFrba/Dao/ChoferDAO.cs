@@ -133,9 +133,9 @@ namespace UberFrba.Dao
         }
 
 
-        internal static List<ChoferDTO> getChoferFilter(Dictionary<string, object> filtrosChoferList)
+        internal static List<ChoferDTO> getChoferFilter(Dictionary<string, object> filtrosChoferList, Boolean onlyEnabled)
         {
-            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Chofer where ");
+            StringBuilder stringBuilder = new StringBuilder("select * from GARBAGE.Chofer where chof_activo = " + (onlyEnabled ? 1:0) + " and ");
 
             int a = 0;
             foreach (KeyValuePair<string, object> filtro in filtrosChoferList)
