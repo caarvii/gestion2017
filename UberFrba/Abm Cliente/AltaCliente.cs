@@ -80,11 +80,11 @@ namespace UberFrba.Dao
             ClienteDTO unCliente = new ClienteDTO(
                                                     txtNombre.Text
                                                     ,txtApellido.Text
-                                                    , Convert.ToInt32(txtDni.Text)
+                                                    , Convert.ToInt64(txtDni.Text)
                                                     ,txtMail.Text
-                                                    , Convert.ToInt32(txtTelefono.Text)
+                                                    , Convert.ToInt64(txtTelefono.Text)
                                                     ,txtDireccion.Text
-                                                    , Convert.ToInt32(txtCodigoPostal.Text)
+                                                    , Convert.ToInt64(txtCodigoPostal.Text)
                                                     ,Convert.ToDateTime(dtpFechaNacimiento.Value)
                                                     ,checkHabilitado.Checked);
 
@@ -105,7 +105,7 @@ namespace UberFrba.Dao
         {
             this.allowAlphaOnlyYEspacio(e);
             if (e.KeyChar != 8)
-                this.allowMaxLenght(txtNombre, 255, e);
+                this.allowMaxLenght(txtApellido, 255, e);
         }
 
         private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
@@ -128,7 +128,7 @@ namespace UberFrba.Dao
         private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowAlphanumericYEspacio(e);
-            if (e.KeyChar != 8) this.allowMaxLenght(txtTelefono, 18, e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtDireccion, 18, e);
         }
 
         private void txtCodigoPostal_KeyPress(object sender, KeyPressEventArgs e)

@@ -81,7 +81,7 @@ namespace UberFrba.Abm_Chofer
         {
             this.allowAlphaOnlyYEspacio(e);
             if (e.KeyChar != 8)
-                this.allowMaxLenght(txtNombre, 255, e);
+                this.allowMaxLenght(txtApellido, 255, e);
         }
 
          private void txtDNI_KeyPress(object sender, KeyPressEventArgs e)
@@ -104,7 +104,7 @@ namespace UberFrba.Abm_Chofer
         private void txtDireccion_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowAlphanumericYEspacio(e);
-            if (e.KeyChar != 8) this.allowMaxLenght(txtTelefono, 18, e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtDireccion, 18, e);
         }
 
         // BOTONES
@@ -134,9 +134,9 @@ namespace UberFrba.Abm_Chofer
         {
             chofer = new ChoferDTO(txtNombre.Text
                                     ,txtApellido.Text 
-                                    , Convert.ToInt32(txtDNI.Text)
+                                    , Convert.ToInt64(txtDNI.Text)
                                     , txtDireccion.Text
-                                    , Convert.ToInt32(txtTelefono.Text)
+                                    , Convert.ToInt64(txtTelefono.Text)
                                     , txtMail.Text
                                     , Convert.ToDateTime(dateFechaNac.Value)
                                     , checkHabilitado.Checked);

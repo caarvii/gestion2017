@@ -85,16 +85,21 @@ namespace UberFrba.Abm_Turno
         private void txtDescripcion_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowAlphanumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtDescripcion, 254, e);
+
         }
 
         private void valorKM_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowNumericOnlyForDouble(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(valorKM, 18, e);
+
         }
 
         private void precioBase_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowNumericOnlyForDouble(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(precioBase, 18, e);
         }
 
         // Botones

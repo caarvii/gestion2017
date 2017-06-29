@@ -82,6 +82,7 @@ namespace UberFrba.Abm_Rol
         private void Nombre_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowAlphanumericOnly(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(nombreTextBox, 30, e);
         }
 
         private void addFuncionalidadButton_Click(object sender, EventArgs e)

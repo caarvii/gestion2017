@@ -21,12 +21,12 @@ namespace UberFrba.Dao
                 {
                     ChoferDTO chofer = new ChoferDTO();
                     chofer.id = Convert.ToInt32(dataReader["chof_id"]);
-                    chofer.dni = Convert.ToInt32(dataReader["chof_dni"]);
+                    chofer.dni = Convert.ToInt64(dataReader["chof_dni"]);
                     chofer.nombre = Convert.ToString(dataReader["chof_nombre"]);
                     chofer.apellido = Convert.ToString(dataReader["chof_apellido"]);
                     chofer.mail = Convert.ToString(dataReader["chof_mail"]);
                     chofer.direccion = Convert.ToString(dataReader["chof_direccion"]);
-                    chofer.telefono = Convert.ToInt32(dataReader["chof_telefono"]);
+                    chofer.telefono = Convert.ToInt64(dataReader["chof_telefono"]);
                     chofer.fechaNacimiento = Convert.ToDateTime(dataReader["chof_fecha_nacimiento"]);
                     chofer.estado = Convert.ToBoolean(dataReader["chof_activo"]);
 

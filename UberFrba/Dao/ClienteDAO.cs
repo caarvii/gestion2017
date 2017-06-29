@@ -24,11 +24,11 @@ namespace UberFrba.Dto
                     cliente.id = Convert.ToInt32(dataReader["cli_id"]);
                     cliente.nombre = Convert.ToString(dataReader["cli_nombre"]);
                     cliente.apellido = Convert.ToString(dataReader["cli_apellido"]);
-                    cliente.dni = Convert.ToInt32(dataReader["cli_dni"]);
+                    cliente.dni = Convert.ToInt64(dataReader["cli_dni"]);
                     cliente.mail = Convert.ToString(dataReader["cli_mail"]);
-                    cliente.telefono = Convert.ToInt32(dataReader["cli_telefono"]);
+                    cliente.telefono = Convert.ToInt64(dataReader["cli_telefono"]);
                     cliente.direccion = Convert.ToString(dataReader["cli_direccion"]);
-                    cliente.codigoPostal = Convert.ToInt32(dataReader["cli_cp"]);
+                    cliente.codigoPostal = Convert.ToInt64(dataReader["cli_cp"]);
                     cliente.fechaNacimiento = Convert.ToDateTime(dataReader["cli_fecha_nacimiento"]);
                     cliente.estado = Convert.ToBoolean(dataReader["cli_activo"]);
 

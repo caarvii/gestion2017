@@ -12,15 +12,15 @@ namespace UberFrba.Dto
         public int id { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
-        public int dni { get; set; }
+        public Int64 dni { get; set; }
         public String mail { get; set; }
-        public int telefono { get; set; }
+        public Int64 telefono { get; set; }
         public String direccion { get; set; }
-        public int codigoPostal { get; set; }
+        public Int64 codigoPostal { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public bool estado { get; set; }
 
-        public ClienteDTO(String _nombre, String _apellido, int _dni, String _mail, int _telefono, String _direccion, int _codigoPostal, DateTime _fechaNacimiento , bool _estado)
+        public ClienteDTO(String _nombre, String _apellido, Int64 _dni, String _mail, Int64 _telefono, String _direccion, Int64 _codigoPostal, DateTime _fechaNacimiento, bool _estado)
         {
             nombre=_nombre;
             apellido = _apellido;

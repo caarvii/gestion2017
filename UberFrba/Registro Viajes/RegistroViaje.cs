@@ -120,6 +120,7 @@ namespace UberFrba.Registro_Viajes
         private void txtCantKM_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.allowNumericOnlyForDouble(e);
+            if (e.KeyChar != 8) this.allowMaxLenght(txtCantKM, 18, e);
 
         }
 

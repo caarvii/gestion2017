@@ -11,16 +11,16 @@ namespace UberFrba
         public int id { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
-        public Int32 dni { get; set; }
+        public Int64 dni { get; set; }
         public string direccion { get; set; }
-        public Int32 telefono { get; set; }
+        public Int64 telefono { get; set; }
         public string mail { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public bool estado { get; set; }
 
         // Podria faltar la herencia de Usuario
 
-        public ChoferDTO(string nombre_var , string apellido_var , Int32 dni_var , string direccion_var , Int32 telefono_var , string mail_var , DateTime fechaNac_var , bool estado)
+        public ChoferDTO(string nombre_var, string apellido_var, Int64 dni_var, string direccion_var, Int64 telefono_var, string mail_var, DateTime fechaNac_var, bool estado)
         {
             this.nombre = nombre_var;
             this.apellido = apellido_var;
